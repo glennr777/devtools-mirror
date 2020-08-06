@@ -1,0 +1,15 @@
+{
+  "locales": "fr",
+  "translations": {
+    "Advanced Options": "Options avancées",
+    "Axe": "Axe",
+    "Be sure to close and restart the developer tools for changes to take effect.": "Assurez-vous de fermer et de redémarrer les outils de développement pour que les modifications prennent effet.",
+    "Loading...": "Chargement...",
+    "Localization Settings": "Paramètres de localisation",
+    "Options saved.": "Options sauvegardées.",
+    "Preferred Language": "Langue préférée",
+    "Save": "Sauvegarder",
+    "There was an unexpected error. Please try again.": "Une erreur inattendue est survenue. Veuillez réessayer.",
+    "axe extension": "extension pour axe"
+  }
+}

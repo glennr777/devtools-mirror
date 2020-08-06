@@ -1,0 +1,26 @@
+{
+  "locales": "ja",
+  "translations": {
+    "Advanced Options": "高度なオプション",
+    "Be sure to close and restart the developer tools for changes to take effect.": "変更を適用するには、開発者ツールを閉じて再起動してください。",
+    "Chrome Menu": "Chromeメニュー",
+    "Close": "閉じる",
+    "Developer Tools": "開発者ツール",
+    "Loading...": "読み込み中...",
+    "Localization Settings": "言語設定",
+    "More Tools": "他のツール",
+    "Navigation instructions:": "ナビゲーション方法",
+    "Options saved.": "オプションを保存しました。",
+    "Preferred Language": "設定言語",
+    "Provide feedback:": "フィードバックをする",
+    "Save": "保存",
+    "Test the leading edge with aXe Coconut!": "axe Coconutで最新の技術を試しましょう！",
+    "Thanks for using the aXe extension!": "axeエクステンションをお使いいただきありがとうございます！",
+    "There was an unexpected error. Please try again.": "予期せぬエラーが発生しました。もう一度お試しください。",
+    "To learn more, visit": "詳細はこちら",
+    "To start testing for accessibility, open the\n          browser’s Developer Tools, navigate to the aXe\n          tab, and run an analysis on a webpage.": "アクセシビリティの検証を始めるには\n          ブラウザーの開発者ツールを開き、axeタブに移動し\n          webページを分析してください。",
+    "To start testing with the latest 3x version of\n          aXe-core, open the Chrome Developer Tools,\n          navigate to the aXe-Coconut tab, and run an\n          analysis on a webpage.": "最新の 3x バージョンのaxe-coreで検証するには\n          Chromeの開発者ツールを開き、\n          axe-Coconutタブに移動し、\n          webページを分析してください。",
+    "You can test webpages with open Shadow DOM,\n          experimental rules, and more.": "Webページをopen Shadow DOMや\n          実験的なルールなどで検証できます。",
+    "axe extension": "axeエクステンション"
+  }
+}

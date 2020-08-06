@@ -1,0 +1,17 @@
+{
+  "locales": [
+    {
+      "id": "en",
+      "value": "English"
+    },
+    {
+      "id": "ja",
+      "value": "日本語"
+    },
+    {
+      "id": "fr",
+      "value": "Français"
+    }
+  ],
+  "inheritFrom": ["axe-ui"]
+}

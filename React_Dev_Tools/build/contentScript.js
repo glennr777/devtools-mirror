@@ -81,20 +81,20 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 90);
+/******/ 	return __webpack_require__(__webpack_require__.s = 94);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 90:
+/***/ 94:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* global chrome */
 
 
-var backendDisconnected = false;
-var backendInitialized = false;
+let backendDisconnected = false;
+let backendInitialized = false;
 
 function sayHelloToBackend() {
   window.postMessage({
@@ -130,7 +130,7 @@ function handleDisconnect() {
 } // proxy from main page to devtools (via the background page)
 
 
-var port = chrome.runtime.connect({
+const port = chrome.runtime.connect({
   name: 'content-script'
 });
 port.onMessage.addListener(handleMessageFromDevtools);
@@ -141,7 +141,7 @@ sayHelloToBackend(); // The backend waits to install the global hook until notif
 // Because of this we need to poll the backend until it has been initialized.
 
 if (!backendInitialized) {
-  var intervalID = setInterval(function () {
+  const intervalID = setInterval(() => {
     if (backendInitialized || backendDisconnected) {
       clearInterval(intervalID);
     } else {
@@ -153,3 +153,4 @@ if (!backendInitialized) {
 /***/ })
 
 /******/ });
+//# sourceMappingURL=contentScript.js.map

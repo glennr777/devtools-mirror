@@ -89,21 +89,32 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return ElementTypeClass; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return ElementTypeContext; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return ElementTypeFunction; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return ElementTypeForwardRef; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return ElementTypeHostComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return ElementTypeMemo; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return ElementTypeOtherOrUnknown; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return ElementTypeProfiler; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return ElementTypeRoot; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return ElementTypeSuspense; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return ElementTypeSuspenseList; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ComponentFilterElementType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ComponentFilterDisplayName; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ComponentFilterLocation; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ComponentFilterHOC; });
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "c", function() { return /* binding */ getAllEnumerableKeys; });
+__webpack_require__.d(__webpack_exports__, "f", function() { return /* binding */ getDisplayName; });
+__webpack_require__.d(__webpack_exports__, "i", function() { return /* binding */ getUID; });
+__webpack_require__.d(__webpack_exports__, "m", function() { return /* binding */ utfEncodeString; });
+__webpack_require__.d(__webpack_exports__, "j", function() { return /* binding */ printOperationsArray; });
+__webpack_require__.d(__webpack_exports__, "e", function() { return /* binding */ getDefaultComponentFilters; });
+__webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ getInObject; });
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ deletePathInObject; });
+__webpack_require__.d(__webpack_exports__, "k", function() { return /* binding */ renamePathInObject; });
+__webpack_require__.d(__webpack_exports__, "l", function() { return /* binding */ setInObject; });
+__webpack_require__.d(__webpack_exports__, "d", function() { return /* binding */ getDataType; });
+__webpack_require__.d(__webpack_exports__, "g", function() { return /* binding */ getDisplayNameForReactElement; });
+__webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ formatDataForPreview; });
+
+// UNUSED EXPORTS: alphaSortKeys, utfDecodeString, getSavedComponentFilters, saveComponentFilters, getAppendComponentStack, setAppendComponentStack, getBreakOnConsoleErrors, setBreakOnConsoleErrors, separateDisplayNameAndHOCs, shallowDiffers
+
+// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.alt2/node_modules/lru-cache/index.js
+var lru_cache = __webpack_require__(15);
+var lru_cache_default = /*#__PURE__*/__webpack_require__.n(lru_cache);
+
+// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.alt2/build/node_modules/react-is/index.js
+var react_is = __webpack_require__(6);
+
+// CONCATENATED MODULE: ../shared/ReactSymbols.js
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -112,181 +123,84 @@
  *
  * 
  */
-// WARNING
-// The values below are referenced by ComponentFilters (which are saved via localStorage).
-// Do not change them or it will break previously saved user customizations.
-// If new element types are added, use new numbers rather than re-ordering existing ones.
-//
-// Changing these types is also a backwards breaking change for the standalone shell,
-// since the frontend and backend must share the same values-
-// and the backend is embedded in certain environments (like React Native).
-var ElementTypeClass = 1;
-var ElementTypeContext = 2;
-var ElementTypeFunction = 5;
-var ElementTypeForwardRef = 6;
-var ElementTypeHostComponent = 7;
-var ElementTypeMemo = 8;
-var ElementTypeOtherOrUnknown = 9;
-var ElementTypeProfiler = 10;
-var ElementTypeRoot = 11;
-var ElementTypeSuspense = 12;
-var ElementTypeSuspenseList = 13; // Different types of elements displayed in the Elements tree.
-// These types may be used to visually distinguish types,
-// or to enable/disable certain functionality.
+// ATTENTION
+// When adding new symbols to this file,
+// Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
+// The Symbol used to tag the ReactElement-like types. If there is no native Symbol
+// nor polyfill, then a plain number is used for performance.
+let REACT_ELEMENT_TYPE = 0xeac7;
+let REACT_PORTAL_TYPE = 0xeaca;
+let REACT_FRAGMENT_TYPE = 0xeacb;
+let REACT_STRICT_MODE_TYPE = 0xeacc;
+let REACT_PROFILER_TYPE = 0xead2;
+let REACT_PROVIDER_TYPE = 0xeacd;
+let REACT_CONTEXT_TYPE = 0xeace;
+let REACT_FORWARD_REF_TYPE = 0xead0;
+let REACT_SUSPENSE_TYPE = 0xead1;
+let REACT_SUSPENSE_LIST_TYPE = 0xead8;
+let REACT_MEMO_TYPE = 0xead3;
+let REACT_LAZY_TYPE = 0xead4;
+let REACT_BLOCK_TYPE = 0xead9;
+let REACT_SERVER_BLOCK_TYPE = 0xeada;
+let REACT_FUNDAMENTAL_TYPE = 0xead5;
+let REACT_SCOPE_TYPE = 0xead7;
+let REACT_OPAQUE_ID_TYPE = 0xeae0;
+let REACT_DEBUG_TRACING_MODE_TYPE = 0xeae1;
+let REACT_OFFSCREEN_TYPE = 0xeae2;
+let REACT_LEGACY_HIDDEN_TYPE = 0xeae3;
 
-// WARNING
-// The values below are referenced by ComponentFilters (which are saved via localStorage).
-// Do not change them or it will break previously saved user customizations.
-// If new filter types are added, use new numbers rather than re-ordering existing ones.
-var ComponentFilterElementType = 1;
-var ComponentFilterDisplayName = 2;
-var ComponentFilterLocation = 3;
-var ComponentFilterHOC = 4;
+if (typeof Symbol === 'function' && Symbol.for) {
+  const symbolFor = Symbol.for;
+  REACT_ELEMENT_TYPE = symbolFor('react.element');
+  REACT_PORTAL_TYPE = symbolFor('react.portal');
+  REACT_FRAGMENT_TYPE = symbolFor('react.fragment');
+  REACT_STRICT_MODE_TYPE = symbolFor('react.strict_mode');
+  REACT_PROFILER_TYPE = symbolFor('react.profiler');
+  REACT_PROVIDER_TYPE = symbolFor('react.provider');
+  REACT_CONTEXT_TYPE = symbolFor('react.context');
+  REACT_FORWARD_REF_TYPE = symbolFor('react.forward_ref');
+  REACT_SUSPENSE_TYPE = symbolFor('react.suspense');
+  REACT_SUSPENSE_LIST_TYPE = symbolFor('react.suspense_list');
+  REACT_MEMO_TYPE = symbolFor('react.memo');
+  REACT_LAZY_TYPE = symbolFor('react.lazy');
+  REACT_BLOCK_TYPE = symbolFor('react.block');
+  REACT_SERVER_BLOCK_TYPE = symbolFor('react.server.block');
+  REACT_FUNDAMENTAL_TYPE = symbolFor('react.fundamental');
+  REACT_SCOPE_TYPE = symbolFor('react.scope');
+  REACT_OPAQUE_ID_TYPE = symbolFor('react.opaque.id');
+  REACT_DEBUG_TRACING_MODE_TYPE = symbolFor('react.debug_trace_mode');
+  REACT_OFFSCREEN_TYPE = symbolFor('react.offscreen');
+  REACT_LEGACY_HIDDEN_TYPE = symbolFor('react.legacy_hidden');
+}
 
-/***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+const MAYBE_ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+const FAUX_ITERATOR_SYMBOL = '@@iterator';
+function getIteratorFn(maybeIterable) {
+  if (maybeIterable === null || typeof maybeIterable !== 'object') {
+    return null;
+  }
 
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BLOCK_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return BLOCK_SYMBOL_STRING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CONCURRENT_MODE_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CONCURRENT_MODE_SYMBOL_STRING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return CONTEXT_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return CONTEXT_SYMBOL_STRING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return DEPRECATED_ASYNC_MODE_SYMBOL_STRING; });
-/* unused harmony export ELEMENT_NUMBER */
-/* unused harmony export ELEMENT_SYMBOL_STRING */
-/* unused harmony export DEBUG_TRACING_MODE_NUMBER */
-/* unused harmony export DEBUG_TRACING_MODE_SYMBOL_STRING */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return FORWARD_REF_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return FORWARD_REF_SYMBOL_STRING; });
-/* unused harmony export FRAGMENT_NUMBER */
-/* unused harmony export FRAGMENT_SYMBOL_STRING */
-/* unused harmony export FUNDAMENTAL_NUMBER */
-/* unused harmony export FUNDAMENTAL_SYMBOL_STRING */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return LAZY_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return LAZY_SYMBOL_STRING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return MEMO_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return MEMO_SYMBOL_STRING; });
-/* unused harmony export OPAQUE_ID_NUMBER */
-/* unused harmony export OPAQUE_ID_SYMBOL_STRING */
-/* unused harmony export PORTAL_NUMBER */
-/* unused harmony export PORTAL_SYMBOL_STRING */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return PROFILER_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return PROFILER_SYMBOL_STRING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return PROVIDER_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return PROVIDER_SYMBOL_STRING; });
-/* unused harmony export RESPONDER_NUMBER */
-/* unused harmony export RESPONDER_SYMBOL_STRING */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return SCOPE_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return SCOPE_SYMBOL_STRING; });
-/* unused harmony export SERVER_BLOCK_NUMBER */
-/* unused harmony export SERVER_BLOCK_SYMBOL_STRING */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return STRICT_MODE_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return STRICT_MODE_SYMBOL_STRING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return SUSPENSE_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return SUSPENSE_SYMBOL_STRING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return SUSPENSE_LIST_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return SUSPENSE_LIST_SYMBOL_STRING; });
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-// This list should be kept updated to reflect additions to 'shared/ReactSymbols'.
-// DevTools can't import symbols from 'shared/ReactSymbols' directly for two reasons:
-// 1. DevTools requires symbols which may have been deleted in more recent versions (e.g. concurrent mode)
-// 2. DevTools must support both Symbol and numeric forms of each symbol;
-//    Since e.g. standalone DevTools runs in a separate process, it can't rely on its own ES capabilities.
-var BLOCK_NUMBER = 0xead9;
-var BLOCK_SYMBOL_STRING = 'Symbol(react.block)';
-var CONCURRENT_MODE_NUMBER = 0xeacf;
-var CONCURRENT_MODE_SYMBOL_STRING = 'Symbol(react.concurrent_mode)';
-var CONTEXT_NUMBER = 0xeace;
-var CONTEXT_SYMBOL_STRING = 'Symbol(react.context)';
-var DEPRECATED_ASYNC_MODE_SYMBOL_STRING = 'Symbol(react.async_mode)';
-var ELEMENT_NUMBER = 0xeac7;
-var ELEMENT_SYMBOL_STRING = 'Symbol(react.element)';
-var DEBUG_TRACING_MODE_NUMBER = 0xeae1;
-var DEBUG_TRACING_MODE_SYMBOL_STRING = 'Symbol(react.debug_trace_mode)';
-var FORWARD_REF_NUMBER = 0xead0;
-var FORWARD_REF_SYMBOL_STRING = 'Symbol(react.forward_ref)';
-var FRAGMENT_NUMBER = 0xeacb;
-var FRAGMENT_SYMBOL_STRING = 'Symbol(react.fragment)';
-var FUNDAMENTAL_NUMBER = 0xead5;
-var FUNDAMENTAL_SYMBOL_STRING = 'Symbol(react.fundamental)';
-var LAZY_NUMBER = 0xead4;
-var LAZY_SYMBOL_STRING = 'Symbol(react.lazy)';
-var MEMO_NUMBER = 0xead3;
-var MEMO_SYMBOL_STRING = 'Symbol(react.memo)';
-var OPAQUE_ID_NUMBER = 0xeae0;
-var OPAQUE_ID_SYMBOL_STRING = 'Symbol(react.opaque.id)';
-var PORTAL_NUMBER = 0xeaca;
-var PORTAL_SYMBOL_STRING = 'Symbol(react.portal)';
-var PROFILER_NUMBER = 0xead2;
-var PROFILER_SYMBOL_STRING = 'Symbol(react.profiler)';
-var PROVIDER_NUMBER = 0xeacd;
-var PROVIDER_SYMBOL_STRING = 'Symbol(react.provider)';
-var RESPONDER_NUMBER = 0xead6;
-var RESPONDER_SYMBOL_STRING = 'Symbol(react.responder)';
-var SCOPE_NUMBER = 0xead7;
-var SCOPE_SYMBOL_STRING = 'Symbol(react.scope)';
-var SERVER_BLOCK_NUMBER = 0xeada;
-var SERVER_BLOCK_SYMBOL_STRING = 'Symbol(react.server.block)';
-var STRICT_MODE_NUMBER = 0xeacc;
-var STRICT_MODE_SYMBOL_STRING = 'Symbol(react.strict_mode)';
-var SUSPENSE_NUMBER = 0xead1;
-var SUSPENSE_SYMBOL_STRING = 'Symbol(react.suspense)';
-var SUSPENSE_LIST_NUMBER = 0xead8;
-var SUSPENSE_LIST_SYMBOL_STRING = 'Symbol(react.suspense_list)';
+  const maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
 
-/***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+  if (typeof maybeIterator === 'function') {
+    return maybeIterator;
+  }
 
-"use strict";
-/* unused harmony export alphaSortKeys */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getDisplayName; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getUID; });
-/* unused harmony export utfDecodeString */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return utfEncodeString; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return printOperationsArray; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getDefaultComponentFilters; });
-/* unused harmony export getSavedComponentFilters */
-/* unused harmony export saveComponentFilters */
-/* unused harmony export getAppendComponentStack */
-/* unused harmony export setAppendComponentStack */
-/* unused harmony export getBreakOnConsoleErrors */
-/* unused harmony export setBreakOnConsoleErrors */
-/* unused harmony export separateDisplayNameAndHOCs */
-/* unused harmony export shallowDiffers */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getInObject; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return setInObject; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getDataType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getDisplayNameForReactElement; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return formatDataForPreview; });
-/* harmony import */ var lru_cache__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(15);
-/* harmony import */ var lru_cache__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lru_cache__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
-/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_is__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
-/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
-/* harmony import */ var _hydration__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+  return null;
+}
+// EXTERNAL MODULE: ../react-devtools-shared/src/constants.js
+var constants = __webpack_require__(3);
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+// EXTERNAL MODULE: ../react-devtools-shared/src/types.js
+var types = __webpack_require__(1);
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+// EXTERNAL MODULE: ../react-devtools-shared/src/storage.js
+var storage = __webpack_require__(4);
 
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+// EXTERNAL MODULE: ../react-devtools-shared/src/hydration.js
+var hydration = __webpack_require__(8);
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
+// CONCATENATED MODULE: ../react-devtools-shared/src/utils.js
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -304,30 +218,48 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 
-var cachedDisplayNames = new WeakMap(); // On large trees, encoding takes significant time.
+
+const cachedDisplayNames = new WeakMap(); // On large trees, encoding takes significant time.
 // Try to reuse the already encoded strings.
 
-var encodedStringCache = new lru_cache__WEBPACK_IMPORTED_MODULE_0___default.a({
+const encodedStringCache = new lru_cache_default.a({
   max: 1000
 });
 function alphaSortKeys(a, b) {
-  if (a > b) {
+  if (a.toString() > b.toString()) {
     return 1;
-  } else if (b > a) {
+  } else if (b.toString() > a.toString()) {
     return -1;
   } else {
     return 0;
   }
 }
-function getDisplayName(type) {
-  var fallbackName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Anonymous';
-  var nameFromCache = cachedDisplayNames.get(type);
+function getAllEnumerableKeys(obj) {
+  const keys = [];
+  let current = obj;
+
+  while (current != null) {
+    const currentKeys = [...Object.keys(current), ...Object.getOwnPropertySymbols(current)];
+    const descriptors = Object.getOwnPropertyDescriptors(current);
+    currentKeys.forEach(key => {
+      // $FlowFixMe: key can be a Symbol https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor
+      if (descriptors[key].enumerable) {
+        keys.push(key);
+      }
+    });
+    current = Object.getPrototypeOf(current);
+  }
+
+  return keys;
+}
+function getDisplayName(type, fallbackName = 'Anonymous') {
+  const nameFromCache = cachedDisplayNames.get(type);
 
   if (nameFromCache != null) {
     return nameFromCache;
   }
 
-  var displayName = fallbackName; // The displayName property is not guaranteed to be a string.
+  let displayName = fallbackName; // The displayName property is not guaranteed to be a string.
   // It's only safe to use for our purposes if it's a string.
   // github.com/facebook/react-devtools/issues/803
 
@@ -340,23 +272,23 @@ function getDisplayName(type) {
   cachedDisplayNames.set(type, displayName);
   return displayName;
 }
-var uidCounter = 0;
+let uidCounter = 0;
 function getUID() {
   return ++uidCounter;
 }
 function utfDecodeString(array) {
-  return String.fromCodePoint.apply(String, _toConsumableArray(array));
+  return String.fromCodePoint(...array);
 }
 function utfEncodeString(string) {
-  var cached = encodedStringCache.get(string);
+  const cached = encodedStringCache.get(string);
 
   if (cached !== undefined) {
     return cached;
   }
 
-  var encoded = new Array(string.length);
+  const encoded = new Array(string.length);
 
-  for (var i = 0; i < string.length; i++) {
+  for (let i = 0; i < string.length; i++) {
     encoded[i] = string.codePointAt(i);
   }
 
@@ -365,80 +297,80 @@ function utfEncodeString(string) {
 }
 function printOperationsArray(operations) {
   // The first two values are always rendererID and rootID
-  var rendererID = operations[0];
-  var rootID = operations[1];
-  var logs = ["operations for renderer:".concat(rendererID, " and root:").concat(rootID)];
-  var i = 2; // Reassemble the string table.
+  const rendererID = operations[0];
+  const rootID = operations[1];
+  const logs = [`operations for renderer:${rendererID} and root:${rootID}`];
+  let i = 2; // Reassemble the string table.
 
-  var stringTable = [null // ID = 0 corresponds to the null string.
+  const stringTable = [null // ID = 0 corresponds to the null string.
   ];
-  var stringTableSize = operations[i++];
-  var stringTableEnd = i + stringTableSize;
+  const stringTableSize = operations[i++];
+  const stringTableEnd = i + stringTableSize;
 
   while (i < stringTableEnd) {
-    var nextLength = operations[i++];
-    var nextString = utfDecodeString(operations.slice(i, i + nextLength));
+    const nextLength = operations[i++];
+    const nextString = utfDecodeString(operations.slice(i, i + nextLength));
     stringTable.push(nextString);
     i += nextLength;
   }
 
   while (i < operations.length) {
-    var operation = operations[i];
+    const operation = operations[i];
 
     switch (operation) {
-      case _constants__WEBPACK_IMPORTED_MODULE_2__[/* TREE_OPERATION_ADD */ "g"]:
+      case constants["g" /* TREE_OPERATION_ADD */]:
         {
-          var id = operations[i + 1];
-          var type = operations[i + 2];
+          const id = operations[i + 1];
+          const type = operations[i + 2];
           i += 3;
 
-          if (type === react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ElementTypeRoot */ "m"]) {
-            logs.push("Add new root node ".concat(id));
+          if (type === types["m" /* ElementTypeRoot */]) {
+            logs.push(`Add new root node ${id}`);
             i++; // supportsProfiling
 
             i++; // hasOwnerMetadata
           } else {
-            var parentID = operations[i];
+            const parentID = operations[i];
             i++;
             i++; // ownerID
 
-            var displayNameStringID = operations[i];
-            var displayName = stringTable[displayNameStringID];
+            const displayNameStringID = operations[i];
+            const displayName = stringTable[displayNameStringID];
             i++;
             i++; // key
 
-            logs.push("Add node ".concat(id, " (").concat(displayName || 'null', ") as child of ").concat(parentID));
+            logs.push(`Add node ${id} (${displayName || 'null'}) as child of ${parentID}`);
           }
 
           break;
         }
 
-      case _constants__WEBPACK_IMPORTED_MODULE_2__[/* TREE_OPERATION_REMOVE */ "h"]:
+      case constants["h" /* TREE_OPERATION_REMOVE */]:
         {
-          var removeLength = operations[i + 1];
+          const removeLength = operations[i + 1];
           i += 2;
 
-          for (var removeIndex = 0; removeIndex < removeLength; removeIndex++) {
-            var _id = operations[i];
+          for (let removeIndex = 0; removeIndex < removeLength; removeIndex++) {
+            const id = operations[i];
             i += 1;
-            logs.push("Remove node ".concat(_id));
+            logs.push(`Remove node ${id}`);
           }
 
           break;
         }
 
-      case _constants__WEBPACK_IMPORTED_MODULE_2__[/* TREE_OPERATION_REORDER_CHILDREN */ "i"]:
+      case constants["i" /* TREE_OPERATION_REORDER_CHILDREN */]:
         {
-          var _id2 = operations[i + 1];
-          var numChildren = operations[i + 2];
+          const id = operations[i + 1];
+          const numChildren = operations[i + 2];
           i += 3;
-          var children = operations.slice(i, i + numChildren);
+          const children = operations.slice(i, i + numChildren);
           i += numChildren;
-          logs.push("Re-order node ".concat(_id2, " children ").concat(children.join(',')));
+          logs.push(`Re-order node ${id} children ${children.join(',')}`);
           break;
         }
 
-      case _constants__WEBPACK_IMPORTED_MODULE_2__[/* TREE_OPERATION_UPDATE_TREE_BASE_DURATION */ "j"]:
+      case constants["j" /* TREE_OPERATION_UPDATE_TREE_BASE_DURATION */]:
         // Base duration updates are only sent while profiling is in progress.
         // We can ignore them at this point.
         // The profiler UI uses them lazily in order to generate the tree.
@@ -446,7 +378,7 @@ function printOperationsArray(operations) {
         break;
 
       default:
-        throw Error("Unsupported Bridge operation ".concat(operation));
+        throw Error(`Unsupported Bridge operation ${operation}`);
     }
   }
 
@@ -454,14 +386,14 @@ function printOperationsArray(operations) {
 }
 function getDefaultComponentFilters() {
   return [{
-    type: react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ComponentFilterElementType */ "b"],
-    value: react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ElementTypeHostComponent */ "i"],
+    type: types["b" /* ComponentFilterElementType */],
+    value: types["i" /* ElementTypeHostComponent */],
     isEnabled: true
   }];
 }
 function getSavedComponentFilters() {
   try {
-    var raw = Object(_storage__WEBPACK_IMPORTED_MODULE_4__[/* localStorageGetItem */ "a"])(_constants__WEBPACK_IMPORTED_MODULE_2__[/* LOCAL_STORAGE_FILTER_PREFERENCES_KEY */ "a"]);
+    const raw = Object(storage["a" /* localStorageGetItem */])(constants["a" /* LOCAL_STORAGE_FILTER_PREFERENCES_KEY */]);
 
     if (raw != null) {
       return JSON.parse(raw);
@@ -471,11 +403,11 @@ function getSavedComponentFilters() {
   return getDefaultComponentFilters();
 }
 function saveComponentFilters(componentFilters) {
-  Object(_storage__WEBPACK_IMPORTED_MODULE_4__[/* localStorageSetItem */ "b"])(_constants__WEBPACK_IMPORTED_MODULE_2__[/* LOCAL_STORAGE_FILTER_PREFERENCES_KEY */ "a"], JSON.stringify(componentFilters));
+  Object(storage["b" /* localStorageSetItem */])(constants["a" /* LOCAL_STORAGE_FILTER_PREFERENCES_KEY */], JSON.stringify(componentFilters));
 }
 function getAppendComponentStack() {
   try {
-    var raw = Object(_storage__WEBPACK_IMPORTED_MODULE_4__[/* localStorageGetItem */ "a"])(_constants__WEBPACK_IMPORTED_MODULE_2__[/* LOCAL_STORAGE_SHOULD_PATCH_CONSOLE_KEY */ "c"]);
+    const raw = Object(storage["a" /* localStorageGetItem */])(constants["c" /* LOCAL_STORAGE_SHOULD_PATCH_CONSOLE_KEY */]);
 
     if (raw != null) {
       return JSON.parse(raw);
@@ -485,11 +417,11 @@ function getAppendComponentStack() {
   return true;
 }
 function setAppendComponentStack(value) {
-  Object(_storage__WEBPACK_IMPORTED_MODULE_4__[/* localStorageSetItem */ "b"])(_constants__WEBPACK_IMPORTED_MODULE_2__[/* LOCAL_STORAGE_SHOULD_PATCH_CONSOLE_KEY */ "c"], JSON.stringify(value));
+  Object(storage["b" /* localStorageSetItem */])(constants["c" /* LOCAL_STORAGE_SHOULD_PATCH_CONSOLE_KEY */], JSON.stringify(value));
 }
 function getBreakOnConsoleErrors() {
   try {
-    var raw = Object(_storage__WEBPACK_IMPORTED_MODULE_4__[/* localStorageGetItem */ "a"])(_constants__WEBPACK_IMPORTED_MODULE_2__[/* LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS */ "b"]);
+    const raw = Object(storage["a" /* localStorageGetItem */])(constants["b" /* LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS */]);
 
     if (raw != null) {
       return JSON.parse(raw);
@@ -499,22 +431,22 @@ function getBreakOnConsoleErrors() {
   return false;
 }
 function setBreakOnConsoleErrors(value) {
-  Object(_storage__WEBPACK_IMPORTED_MODULE_4__[/* localStorageSetItem */ "b"])(_constants__WEBPACK_IMPORTED_MODULE_2__[/* LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS */ "b"], JSON.stringify(value));
+  Object(storage["b" /* localStorageSetItem */])(constants["b" /* LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS */], JSON.stringify(value));
 }
 function separateDisplayNameAndHOCs(displayName, type) {
   if (displayName === null) {
     return [null, null];
   }
 
-  var hocDisplayNames = null;
+  let hocDisplayNames = null;
 
   switch (type) {
-    case react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ElementTypeClass */ "e"]:
-    case react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ElementTypeForwardRef */ "g"]:
-    case react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ElementTypeFunction */ "h"]:
-    case react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ElementTypeMemo */ "j"]:
+    case types["e" /* ElementTypeClass */]:
+    case types["g" /* ElementTypeForwardRef */]:
+    case types["h" /* ElementTypeFunction */]:
+    case types["j" /* ElementTypeMemo */]:
       if (displayName.indexOf('(') >= 0) {
-        var matches = displayName.match(/[^()]+/g);
+        const matches = displayName.match(/[^()]+/g);
 
         if (matches != null) {
           displayName = matches.pop();
@@ -528,13 +460,13 @@ function separateDisplayNameAndHOCs(displayName, type) {
       break;
   }
 
-  if (type === react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ElementTypeMemo */ "j"]) {
+  if (type === types["j" /* ElementTypeMemo */]) {
     if (hocDisplayNames === null) {
       hocDisplayNames = ['Memo'];
     } else {
       hocDisplayNames.unshift('Memo');
     }
-  } else if (type === react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ElementTypeForwardRef */ "g"]) {
+  } else if (type === types["g" /* ElementTypeForwardRef */]) {
     if (hocDisplayNames === null) {
       hocDisplayNames = ['ForwardRef'];
     } else {
@@ -547,14 +479,14 @@ function separateDisplayNameAndHOCs(displayName, type) {
 // https://github.com/developit/preact-compat/blob/7c5de00e7c85e2ffd011bf3af02899b63f699d3a/src/index.js#L349
 
 function shallowDiffers(prev, next) {
-  for (var attribute in prev) {
+  for (const attribute in prev) {
     if (!(attribute in next)) {
       return true;
     }
   }
 
-  for (var _attribute in next) {
-    if (prev[_attribute] !== next[_attribute]) {
+  for (const attribute in next) {
+    if (prev[attribute] !== next[attribute]) {
       return true;
     }
   }
@@ -562,7 +494,7 @@ function shallowDiffers(prev, next) {
   return false;
 }
 function getInObject(object, path) {
-  return path.reduce(function (reduced, attr) {
+  return path.reduce((reduced, attr) => {
     if (reduced) {
       if (hasOwnProperty.call(reduced, attr)) {
         return reduced[attr];
@@ -582,12 +514,47 @@ function getInObject(object, path) {
     return null;
   }, object);
 }
-function setInObject(object, path, value) {
-  var length = path.length;
-  var last = path[length - 1];
+function deletePathInObject(object, path) {
+  const length = path.length;
+  const last = path[length - 1];
 
   if (object != null) {
-    var parent = getInObject(object, path.slice(0, length - 1));
+    const parent = getInObject(object, path.slice(0, length - 1));
+
+    if (parent) {
+      if (Array.isArray(parent)) {
+        parent.splice(last, 1);
+      } else {
+        delete parent[last];
+      }
+    }
+  }
+}
+function renamePathInObject(object, oldPath, newPath) {
+  const length = oldPath.length;
+
+  if (object != null) {
+    const parent = getInObject(object, oldPath.slice(0, length - 1));
+
+    if (parent) {
+      const lastOld = oldPath[length - 1];
+      const lastNew = newPath[length - 1];
+      parent[lastNew] = parent[lastOld];
+
+      if (Array.isArray(parent)) {
+        parent.splice(lastOld, 1);
+      } else {
+        delete parent[lastOld];
+      }
+    }
+  }
+}
+function setInObject(object, path, value) {
+  const length = path.length;
+  const last = path[length - 1];
+
+  if (object != null) {
+    const parent = getInObject(object, path.slice(0, length - 1));
 
     if (parent) {
       parent[last] = value;
@@ -605,7 +572,7 @@ function getDataType(data) {
     return 'undefined';
   }
 
-  if (Object(react_is__WEBPACK_IMPORTED_MODULE_1__["isElement"])(data)) {
+  if (Object(react_is["isElement"])(data)) {
     return 'react_element';
   }
 
@@ -613,7 +580,7 @@ function getDataType(data) {
     return 'html_element';
   }
 
-  var type = _typeof(data);
+  const type = typeof data;
 
   switch (type) {
     case 'bigint':
@@ -646,11 +613,17 @@ function getDataType(data) {
         // but this seems kind of awkward and expensive.
         return 'array_buffer';
       } else if (typeof data[Symbol.iterator] === 'function') {
-        return 'iterator';
+        return data[Symbol.iterator]() === data ? 'opaque_iterator' : 'iterator';
       } else if (data.constructor && data.constructor.name === 'RegExp') {
         return 'regexp';
-      } else if (Object.prototype.toString.call(data) === '[object Date]') {
-        return 'date';
+      } else {
+        const toStringValue = Object.prototype.toString.call(data);
+
+        if (toStringValue === '[object Date]') {
+          return 'date';
+        } else if (toStringValue === '[object HTMLAllCollection]') {
+          return 'html_all_collection';
+        }
       }
 
       return 'object';
@@ -661,62 +634,72 @@ function getDataType(data) {
     case 'symbol':
       return 'symbol';
 
+    case 'undefined':
+      if (Object.prototype.toString.call(data) === '[object HTMLAllCollection]') {
+        return 'html_all_collection';
+      }
+
+      return 'undefined';
+
     default:
       return 'unknown';
   }
 }
 function getDisplayNameForReactElement(element) {
-  var elementType = Object(react_is__WEBPACK_IMPORTED_MODULE_1__["typeOf"])(element);
+  const elementType = Object(react_is["typeOf"])(element);
 
   switch (elementType) {
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["ContextConsumer"]:
+    case react_is["ContextConsumer"]:
       return 'ContextConsumer';
 
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["ContextProvider"]:
+    case react_is["ContextProvider"]:
       return 'ContextProvider';
 
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["ForwardRef"]:
+    case react_is["ForwardRef"]:
       return 'ForwardRef';
 
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["Fragment"]:
+    case react_is["Fragment"]:
       return 'Fragment';
 
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["Lazy"]:
+    case react_is["Lazy"]:
       return 'Lazy';
 
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["Memo"]:
+    case react_is["Memo"]:
       return 'Memo';
 
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["Portal"]:
+    case react_is["Portal"]:
       return 'Portal';
 
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["Profiler"]:
+    case react_is["Profiler"]:
       return 'Profiler';
 
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["StrictMode"]:
+    case react_is["StrictMode"]:
       return 'StrictMode';
 
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["Suspense"]:
+    case react_is["Suspense"]:
       return 'Suspense';
 
+    case REACT_SUSPENSE_LIST_TYPE:
+      return 'SuspenseList';
+
     default:
-      var type = element.type;
+      const type = element.type;
 
       if (typeof type === 'string') {
         return type;
-      } else if (type != null) {
+      } else if (typeof type === 'function') {
         return getDisplayName(type, 'Anonymous');
+      } else if (type != null) {
+        return 'NotImplementedInDevtools';
       } else {
         return 'Element';
       }
 
   }
 }
-var MAX_PREVIEW_STRING_LENGTH = 50;
+const MAX_PREVIEW_STRING_LENGTH = 50;
 
-function truncateForDisplay(string) {
-  var length = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : MAX_PREVIEW_STRING_LENGTH;
-
+function truncateForDisplay(string, length = MAX_PREVIEW_STRING_LENGTH) {
   if (string.length > length) {
     return string.substr(0, length) + '…';
   } else {
@@ -747,21 +730,21 @@ function truncateForDisplay(string) {
 
 
 function formatDataForPreview(data, showFormattedValue) {
-  if (data != null && hasOwnProperty.call(data, _hydration__WEBPACK_IMPORTED_MODULE_5__[/* meta */ "b"].type)) {
-    return showFormattedValue ? data[_hydration__WEBPACK_IMPORTED_MODULE_5__[/* meta */ "b"].preview_long] : data[_hydration__WEBPACK_IMPORTED_MODULE_5__[/* meta */ "b"].preview_short];
+  if (data != null && hasOwnProperty.call(data, hydration["b" /* meta */].type)) {
+    return showFormattedValue ? data[hydration["b" /* meta */].preview_long] : data[hydration["b" /* meta */].preview_short];
   }
 
-  var type = getDataType(data);
+  const type = getDataType(data);
 
   switch (type) {
     case 'html_element':
-      return "<".concat(truncateForDisplay(data.tagName.toLowerCase()), " />");
+      return `<${truncateForDisplay(data.tagName.toLowerCase())} />`;
 
     case 'function':
-      return truncateForDisplay("\u0192 ".concat(data.name, "() {}"));
+      return truncateForDisplay(`ƒ ${typeof data.name === 'function' ? '' : data.name}() {}`);
 
     case 'string':
-      return "\"".concat(data, "\"");
+      return `"${data}"`;
 
     case 'bigint':
       return truncateForDisplay(data.toString() + 'n');
@@ -773,19 +756,19 @@ function formatDataForPreview(data, showFormattedValue) {
       return truncateForDisplay(data.toString());
 
     case 'react_element':
-      return "<".concat(truncateForDisplay(getDisplayNameForReactElement(data) || 'Unknown'), " />");
+      return `<${truncateForDisplay(getDisplayNameForReactElement(data) || 'Unknown')} />`;
 
     case 'array_buffer':
-      return "ArrayBuffer(".concat(data.byteLength, ")");
+      return `ArrayBuffer(${data.byteLength})`;
 
     case 'data_view':
-      return "DataView(".concat(data.buffer.byteLength, ")");
+      return `DataView(${data.buffer.byteLength})`;
 
     case 'array':
       if (showFormattedValue) {
-        var formatted = '';
+        let formatted = '';
 
-        for (var i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
           if (i > 0) {
             formatted += ', ';
           }
@@ -798,52 +781,52 @@ function formatDataForPreview(data, showFormattedValue) {
           }
         }
 
-        return "[".concat(truncateForDisplay(formatted), "]");
+        return `[${truncateForDisplay(formatted)}]`;
       } else {
-        var length = hasOwnProperty.call(data, _hydration__WEBPACK_IMPORTED_MODULE_5__[/* meta */ "b"].size) ? data[_hydration__WEBPACK_IMPORTED_MODULE_5__[/* meta */ "b"].size] : data.length;
-        return "Array(".concat(length, ")");
+        const length = hasOwnProperty.call(data, hydration["b" /* meta */].size) ? data[hydration["b" /* meta */].size] : data.length;
+        return `Array(${length})`;
       }
 
     case 'typed_array':
-      var shortName = "".concat(data.constructor.name, "(").concat(data.length, ")");
+      const shortName = `${data.constructor.name}(${data.length})`;
 
       if (showFormattedValue) {
-        var _formatted = '';
+        let formatted = '';
 
-        for (var _i = 0; _i < data.length; _i++) {
-          if (_i > 0) {
-            _formatted += ', ';
+        for (let i = 0; i < data.length; i++) {
+          if (i > 0) {
+            formatted += ', ';
           }
 
-          _formatted += data[_i];
+          formatted += data[i];
 
-          if (_formatted.length > MAX_PREVIEW_STRING_LENGTH) {
+          if (formatted.length > MAX_PREVIEW_STRING_LENGTH) {
             // Prevent doing a lot of unnecessary iteration...
             break;
           }
         }
 
-        return "".concat(shortName, " [").concat(truncateForDisplay(_formatted), "]");
+        return `${shortName} [${truncateForDisplay(formatted)}]`;
       } else {
         return shortName;
       }
 
     case 'iterator':
-      var name = data.constructor.name;
+      const name = data.constructor.name;
 
       if (showFormattedValue) {
         // TRICKY
         // Don't use [...spread] syntax for this purpose.
         // This project uses @babel/plugin-transform-spread in "loose" mode which only works with Array values.
         // Other types (e.g. typed arrays, Sets) will not spread correctly.
-        var array = Array.from(data);
-        var _formatted2 = '';
+        const array = Array.from(data);
+        let formatted = '';
 
-        for (var _i2 = 0; _i2 < array.length; _i2++) {
-          var entryOrEntries = array[_i2];
+        for (let i = 0; i < array.length; i++) {
+          const entryOrEntries = array[i];
 
-          if (_i2 > 0) {
-            _formatted2 += ', ';
+          if (i > 0) {
+            formatted += ', ';
           } // TRICKY
           // Browsers display Maps and Sets differently.
           // To mimic their behavior, detect if we've been given an entries tuple.
@@ -852,22 +835,27 @@ function formatDataForPreview(data, showFormattedValue) {
 
 
           if (Array.isArray(entryOrEntries)) {
-            var key = formatDataForPreview(entryOrEntries[0], true);
-            var value = formatDataForPreview(entryOrEntries[1], false);
-            _formatted2 += "".concat(key, " => ").concat(value);
+            const key = formatDataForPreview(entryOrEntries[0], true);
+            const value = formatDataForPreview(entryOrEntries[1], false);
+            formatted += `${key} => ${value}`;
           } else {
-            _formatted2 += formatDataForPreview(entryOrEntries, false);
+            formatted += formatDataForPreview(entryOrEntries, false);
           }
 
-          if (_formatted2.length > MAX_PREVIEW_STRING_LENGTH) {
+          if (formatted.length > MAX_PREVIEW_STRING_LENGTH) {
             // Prevent doing a lot of unnecessary iteration...
             break;
           }
         }
 
-        return "".concat(name, "(").concat(data.size, ") {").concat(truncateForDisplay(_formatted2), "}");
+        return `${name}(${data.size}) {${truncateForDisplay(formatted)}}`;
       } else {
-        return "".concat(name, "(").concat(data.size, ")");
+        return `${name}(${data.size})`;
+      }
+
+    case 'opaque_iterator':
+      {
+        return data[Symbol.toStringTag];
       }
 
     case 'date':
@@ -875,25 +863,25 @@ function formatDataForPreview(data, showFormattedValue) {
 
     case 'object':
       if (showFormattedValue) {
-        var keys = Object.keys(data).sort(alphaSortKeys);
-        var _formatted3 = '';
+        const keys = getAllEnumerableKeys(data).sort(alphaSortKeys);
+        let formatted = '';
 
-        for (var _i3 = 0; _i3 < keys.length; _i3++) {
-          var _key = keys[_i3];
+        for (let i = 0; i < keys.length; i++) {
+          const key = keys[i];
 
-          if (_i3 > 0) {
-            _formatted3 += ', ';
+          if (i > 0) {
+            formatted += ', ';
           }
 
-          _formatted3 += "".concat(_key, ": ").concat(formatDataForPreview(data[_key], false));
+          formatted += `${key.toString()}: ${formatDataForPreview(data[key], false)}`;
 
-          if (_formatted3.length > MAX_PREVIEW_STRING_LENGTH) {
+          if (formatted.length > MAX_PREVIEW_STRING_LENGTH) {
             // Prevent doing a lot of unnecessary iteration...
             break;
           }
         }
 
-        return "{".concat(truncateForDisplay(_formatted3), "}");
+        return `{${truncateForDisplay(formatted)}}`;
       } else {
         return '{…}';
       }
@@ -915,6 +903,162 @@ function formatDataForPreview(data, showFormattedValue) {
 
   }
 }
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return ElementTypeClass; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return ElementTypeContext; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return ElementTypeFunction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return ElementTypeForwardRef; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return ElementTypeHostComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return ElementTypeMemo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return ElementTypeOtherOrUnknown; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return ElementTypeProfiler; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return ElementTypeRoot; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return ElementTypeSuspense; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return ElementTypeSuspenseList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ComponentFilterElementType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ComponentFilterDisplayName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ComponentFilterLocation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ComponentFilterHOC; });
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+// WARNING
+// The values below are referenced by ComponentFilters (which are saved via localStorage).
+// Do not change them or it will break previously saved user customizations.
+// If new element types are added, use new numbers rather than re-ordering existing ones.
+//
+// Changing these types is also a backwards breaking change for the standalone shell,
+// since the frontend and backend must share the same values-
+// and the backend is embedded in certain environments (like React Native).
+const ElementTypeClass = 1;
+const ElementTypeContext = 2;
+const ElementTypeFunction = 5;
+const ElementTypeForwardRef = 6;
+const ElementTypeHostComponent = 7;
+const ElementTypeMemo = 8;
+const ElementTypeOtherOrUnknown = 9;
+const ElementTypeProfiler = 10;
+const ElementTypeRoot = 11;
+const ElementTypeSuspense = 12;
+const ElementTypeSuspenseList = 13; // Different types of elements displayed in the Elements tree.
+// These types may be used to visually distinguish types,
+// or to enable/disable certain functionality.
+
+// WARNING
+// The values below are referenced by ComponentFilters (which are saved via localStorage).
+// Do not change them or it will break previously saved user customizations.
+// If new filter types are added, use new numbers rather than re-ordering existing ones.
+const ComponentFilterElementType = 1;
+const ComponentFilterDisplayName = 2;
+const ComponentFilterLocation = 3;
+const ComponentFilterHOC = 4;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BLOCK_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return BLOCK_SYMBOL_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CONCURRENT_MODE_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CONCURRENT_MODE_SYMBOL_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return CONTEXT_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return CONTEXT_SYMBOL_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return DEPRECATED_ASYNC_MODE_SYMBOL_STRING; });
+/* unused harmony export ELEMENT_NUMBER */
+/* unused harmony export ELEMENT_SYMBOL_STRING */
+/* unused harmony export DEBUG_TRACING_MODE_NUMBER */
+/* unused harmony export DEBUG_TRACING_MODE_SYMBOL_STRING */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return FORWARD_REF_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return FORWARD_REF_SYMBOL_STRING; });
+/* unused harmony export FRAGMENT_NUMBER */
+/* unused harmony export FRAGMENT_SYMBOL_STRING */
+/* unused harmony export FUNDAMENTAL_NUMBER */
+/* unused harmony export FUNDAMENTAL_SYMBOL_STRING */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return LAZY_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return LAZY_SYMBOL_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return MEMO_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return MEMO_SYMBOL_STRING; });
+/* unused harmony export OPAQUE_ID_NUMBER */
+/* unused harmony export OPAQUE_ID_SYMBOL_STRING */
+/* unused harmony export PORTAL_NUMBER */
+/* unused harmony export PORTAL_SYMBOL_STRING */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return PROFILER_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return PROFILER_SYMBOL_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return PROVIDER_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return PROVIDER_SYMBOL_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return SCOPE_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return SCOPE_SYMBOL_STRING; });
+/* unused harmony export SERVER_BLOCK_NUMBER */
+/* unused harmony export SERVER_BLOCK_SYMBOL_STRING */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return STRICT_MODE_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return STRICT_MODE_SYMBOL_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return SUSPENSE_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return SUSPENSE_SYMBOL_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return SUSPENSE_LIST_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return SUSPENSE_LIST_SYMBOL_STRING; });
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+// This list should be kept updated to reflect additions to 'shared/ReactSymbols'.
+// DevTools can't import symbols from 'shared/ReactSymbols' directly for two reasons:
+// 1. DevTools requires symbols which may have been deleted in more recent versions (e.g. concurrent mode)
+// 2. DevTools must support both Symbol and numeric forms of each symbol;
+//    Since e.g. standalone DevTools runs in a separate process, it can't rely on its own ES capabilities.
+const BLOCK_NUMBER = 0xead9;
+const BLOCK_SYMBOL_STRING = 'Symbol(react.block)';
+const CONCURRENT_MODE_NUMBER = 0xeacf;
+const CONCURRENT_MODE_SYMBOL_STRING = 'Symbol(react.concurrent_mode)';
+const CONTEXT_NUMBER = 0xeace;
+const CONTEXT_SYMBOL_STRING = 'Symbol(react.context)';
+const DEPRECATED_ASYNC_MODE_SYMBOL_STRING = 'Symbol(react.async_mode)';
+const ELEMENT_NUMBER = 0xeac7;
+const ELEMENT_SYMBOL_STRING = 'Symbol(react.element)';
+const DEBUG_TRACING_MODE_NUMBER = 0xeae1;
+const DEBUG_TRACING_MODE_SYMBOL_STRING = 'Symbol(react.debug_trace_mode)';
+const FORWARD_REF_NUMBER = 0xead0;
+const FORWARD_REF_SYMBOL_STRING = 'Symbol(react.forward_ref)';
+const FRAGMENT_NUMBER = 0xeacb;
+const FRAGMENT_SYMBOL_STRING = 'Symbol(react.fragment)';
+const FUNDAMENTAL_NUMBER = 0xead5;
+const FUNDAMENTAL_SYMBOL_STRING = 'Symbol(react.fundamental)';
+const LAZY_NUMBER = 0xead4;
+const LAZY_SYMBOL_STRING = 'Symbol(react.lazy)';
+const MEMO_NUMBER = 0xead3;
+const MEMO_SYMBOL_STRING = 'Symbol(react.memo)';
+const OPAQUE_ID_NUMBER = 0xeae0;
+const OPAQUE_ID_SYMBOL_STRING = 'Symbol(react.opaque.id)';
+const PORTAL_NUMBER = 0xeaca;
+const PORTAL_SYMBOL_STRING = 'Symbol(react.portal)';
+const PROFILER_NUMBER = 0xead2;
+const PROFILER_SYMBOL_STRING = 'Symbol(react.profiler)';
+const PROVIDER_NUMBER = 0xeacd;
+const PROVIDER_SYMBOL_STRING = 'Symbol(react.provider)';
+const SCOPE_NUMBER = 0xead7;
+const SCOPE_SYMBOL_STRING = 'Symbol(react.scope)';
+const SERVER_BLOCK_NUMBER = 0xeada;
+const SERVER_BLOCK_SYMBOL_STRING = 'Symbol(react.server.block)';
+const STRICT_MODE_NUMBER = 0xeacc;
+const STRICT_MODE_SYMBOL_STRING = 'Symbol(react.strict_mode)';
+const SUSPENSE_NUMBER = 0xead1;
+const SUSPENSE_SYMBOL_STRING = 'Symbol(react.suspense)';
+const SUSPENSE_LIST_NUMBER = 0xead8;
+const SUSPENSE_LIST_SYMBOL_STRING = 'Symbol(react.suspense_list)';
 
 /***/ }),
 /* 3 */
@@ -947,37 +1091,37 @@ function formatDataForPreview(data, showFormattedValue) {
  * 
  */
 // Flip this flag to true to enable verbose console debug logging.
-var __DEBUG__ = false;
-var TREE_OPERATION_ADD = 1;
-var TREE_OPERATION_REMOVE = 2;
-var TREE_OPERATION_REORDER_CHILDREN = 3;
-var TREE_OPERATION_UPDATE_TREE_BASE_DURATION = 4;
-var LOCAL_STORAGE_FILTER_PREFERENCES_KEY = 'React::DevTools::componentFilters';
-var SESSION_STORAGE_LAST_SELECTION_KEY = 'React::DevTools::lastSelection';
-var SESSION_STORAGE_RECORD_CHANGE_DESCRIPTIONS_KEY = 'React::DevTools::recordChangeDescriptions';
-var SESSION_STORAGE_RELOAD_AND_PROFILE_KEY = 'React::DevTools::reloadAndProfile';
-var LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS = 'React::DevTools::breakOnConsoleErrors';
-var LOCAL_STORAGE_SHOULD_PATCH_CONSOLE_KEY = 'React::DevTools::appendComponentStack';
-var LOCAL_STORAGE_TRACE_UPDATES_ENABLED_KEY = 'React::DevTools::traceUpdatesEnabled';
-var PROFILER_EXPORT_VERSION = 4;
-var CHANGE_LOG_URL = 'https://github.com/facebook/react/blob/master/packages/react-devtools/CHANGELOG.md';
-var UNSUPPORTED_VERSION_URL = 'https://reactjs.org/blog/2019/08/15/new-react-devtools.html#how-do-i-get-the-old-version-back'; // HACK
+const __DEBUG__ = false;
+const TREE_OPERATION_ADD = 1;
+const TREE_OPERATION_REMOVE = 2;
+const TREE_OPERATION_REORDER_CHILDREN = 3;
+const TREE_OPERATION_UPDATE_TREE_BASE_DURATION = 4;
+const LOCAL_STORAGE_FILTER_PREFERENCES_KEY = 'React::DevTools::componentFilters';
+const SESSION_STORAGE_LAST_SELECTION_KEY = 'React::DevTools::lastSelection';
+const SESSION_STORAGE_RECORD_CHANGE_DESCRIPTIONS_KEY = 'React::DevTools::recordChangeDescriptions';
+const SESSION_STORAGE_RELOAD_AND_PROFILE_KEY = 'React::DevTools::reloadAndProfile';
+const LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS = 'React::DevTools::breakOnConsoleErrors';
+const LOCAL_STORAGE_SHOULD_PATCH_CONSOLE_KEY = 'React::DevTools::appendComponentStack';
+const LOCAL_STORAGE_TRACE_UPDATES_ENABLED_KEY = 'React::DevTools::traceUpdatesEnabled';
+const PROFILER_EXPORT_VERSION = 4;
+const CHANGE_LOG_URL = 'https://github.com/facebook/react/blob/master/packages/react-devtools/CHANGELOG.md';
+const UNSUPPORTED_VERSION_URL = 'https://reactjs.org/blog/2019/08/15/new-react-devtools.html#how-do-i-get-the-old-version-back'; // HACK
 //
 // Extracting during build time avoids a temporarily invalid state for the inline target.
 // Sometimes the inline target is rendered before root styles are applied,
 // which would result in e.g. NaN itemSize being passed to react-window list.
 //
 
-var COMFORTABLE_LINE_HEIGHT;
-var COMPACT_LINE_HEIGHT;
+let COMFORTABLE_LINE_HEIGHT;
+let COMPACT_LINE_HEIGHT;
 
 try {
   // $FlowFixMe
-  var rawStyleString = __webpack_require__(20).default;
+  const rawStyleString = __webpack_require__(20).default;
 
-  var extractVar = function extractVar(varName) {
-    var regExp = new RegExp("".concat(varName, ": ([0-9]+)"));
-    var match = rawStyleString.match(regExp);
+  const extractVar = varName => {
+    const regExp = new RegExp(`${varName}: ([0-9]+)`);
+    const match = rawStyleString.match(regExp);
     return parseInt(match[1], 10);
   };
 
@@ -1053,13 +1197,13 @@ function sessionStorageSetItem(key, value) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return cleanForBridge; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return copyToClipboard; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return copyWithSet; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return copyWithDelete; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return copyWithRename; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return copyWithSet; });
 /* unused harmony export serializeToString */
 /* harmony import */ var clipboard_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(16);
 /* harmony import */ var clipboard_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(clipboard_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _hydration__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -1076,13 +1220,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  */
 
 
-function cleanForBridge(data, isPathAllowed) {
-  var path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-
+function cleanForBridge(data, isPathAllowed, path = []) {
   if (data !== null) {
-    var cleanedPaths = [];
-    var unserializablePaths = [];
-    var cleanedData = Object(_hydration__WEBPACK_IMPORTED_MODULE_1__[/* dehydrate */ "a"])(data, cleanedPaths, unserializablePaths, path, isPathAllowed);
+    const cleanedPaths = [];
+    const unserializablePaths = [];
+    const cleanedData = Object(_hydration__WEBPACK_IMPORTED_MODULE_1__[/* dehydrate */ "a"])(data, cleanedPaths, unserializablePaths, path, isPathAllowed);
     return {
       data: cleanedData,
       cleaned: cleanedPaths,
@@ -1093,38 +1235,76 @@ function cleanForBridge(data, isPathAllowed) {
   }
 }
 function copyToClipboard(value) {
-  var safeToCopy = serializeToString(value);
-  var text = safeToCopy === undefined ? 'undefined' : safeToCopy;
-  var clipboardCopyText = window.__REACT_DEVTOOLS_GLOBAL_HOOK__.clipboardCopyText; // On Firefox navigator.clipboard.writeText has to be called from
+  const safeToCopy = serializeToString(value);
+  const text = safeToCopy === undefined ? 'undefined' : safeToCopy;
+  const clipboardCopyText = window.__REACT_DEVTOOLS_GLOBAL_HOOK__.clipboardCopyText; // On Firefox navigator.clipboard.writeText has to be called from
   // the content script js code (because it requires the clipboardWrite
   // permission to be allowed out of a "user handling" callback),
   // clipboardCopyText is an helper injected into the page from.
   // injectGlobalHook.
 
   if (typeof clipboardCopyText === 'function') {
-    clipboardCopyText(text).catch(function (err) {});
+    clipboardCopyText(text).catch(err => {});
   } else {
     Object(clipboard_js__WEBPACK_IMPORTED_MODULE_0__["copy"])(text);
   }
 }
-function copyWithSet(obj, path, value) {
-  var index = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+function copyWithDelete(obj, path, index = 0) {
+  const key = path[index];
+  const updated = Array.isArray(obj) ? obj.slice() : _objectSpread({}, obj);
 
+  if (index + 1 === path.length) {
+    if (Array.isArray(updated)) {
+      updated.splice(key, 1);
+    } else {
+      delete updated[key];
+    }
+  } else {
+    // $FlowFixMe number or string is fine here
+    updated[key] = copyWithDelete(obj[key], path, index + 1);
+  }
+
+  return updated;
+} // This function expects paths to be the same except for the final value.
+// e.g. ['path', 'to', 'foo'] and ['path', 'to', 'bar']
+
+function copyWithRename(obj, oldPath, newPath, index = 0) {
+  const oldKey = oldPath[index];
+  const updated = Array.isArray(obj) ? obj.slice() : _objectSpread({}, obj);
+
+  if (index + 1 === oldPath.length) {
+    const newKey = newPath[index]; // $FlowFixMe number or string is fine here
+
+    updated[newKey] = updated[oldKey];
+
+    if (Array.isArray(updated)) {
+      updated.splice(oldKey, 1);
+    } else {
+      delete updated[oldKey];
+    }
+  } else {
+    // $FlowFixMe number or string is fine here
+    updated[oldKey] = copyWithRename(obj[oldKey], oldPath, newPath, index + 1);
+  }
+
+  return updated;
+}
+function copyWithSet(obj, path, value, index = 0) {
   if (index >= path.length) {
     return value;
   }
 
-  var key = path[index];
-  var updated = Array.isArray(obj) ? obj.slice() : _objectSpread({}, obj); // $FlowFixMe number or string is fine here
+  const key = path[index];
+  const updated = Array.isArray(obj) ? obj.slice() : _objectSpread({}, obj); // $FlowFixMe number or string is fine here
 
   updated[key] = copyWithSet(obj[key], path, value, index + 1);
   return updated;
 }
 function serializeToString(data) {
-  var cache = new Set(); // Use a custom replacer function to protect against circular references.
+  const cache = new Set(); // Use a custom replacer function to protect against circular references.
 
-  return JSON.stringify(data, function (key, value) {
-    if (_typeof(value) === 'object' && value !== null) {
+  return JSON.stringify(data, (key, value) => {
+    if (typeof value === 'object' && value !== null) {
       if (cache.has(value)) {
         return;
       }
@@ -1262,14 +1442,12 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return dehydrate; });
 /* unused harmony export fillInPath */
 /* unused harmony export hydrate */
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -1280,7 +1458,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
  * 
  */
 
-var meta = {
+const meta = {
   inspectable: Symbol('inspectable'),
   inspected: Symbol('inspected'),
   name: Symbol('name'),
@@ -1297,18 +1475,18 @@ var meta = {
 //
 // Reducing this threshold will improve the speed of initial component inspection,
 // but may decrease the responsiveness of expanding objects/arrays to inspect further.
-var LEVEL_THRESHOLD = 2;
+const LEVEL_THRESHOLD = 2;
 /**
  * Generate the dehydrated metadata for complex object instances
  */
 
 function createDehydrated(type, inspectable, data, cleaned, path) {
   cleaned.push(path);
-  var dehydrated = {
-    inspectable: inspectable,
-    type: type,
-    preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
-    preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
+  const dehydrated = {
+    inspectable,
+    type,
+    preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
+    preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
     name: !data.constructor || data.constructor.name === 'Object' ? '' : data.constructor.name
   };
 
@@ -1344,30 +1522,29 @@ function createDehydrated(type, inspectable, data, cleaned, path) {
  */
 
 
-function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
-  var level = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
-  var type = Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getDataType */ "b"])(data);
-  var isPathAllowedCheck;
+function dehydrate(data, cleaned, unserializable, path, isPathAllowed, level = 0) {
+  const type = Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getDataType */ "d"])(data);
+  let isPathAllowedCheck;
 
   switch (type) {
     case 'html_element':
       cleaned.push(path);
       return {
         inspectable: false,
-        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
         name: data.tagName,
-        type: type
+        type
       };
 
     case 'function':
       cleaned.push(path);
       return {
         inspectable: false,
-        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
-        name: data.name || 'function',
-        type: type
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
+        name: typeof data.name === 'function' || !data.name ? 'function' : data.name,
+        type
       };
 
     case 'string':
@@ -1377,20 +1554,20 @@ function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
       cleaned.push(path);
       return {
         inspectable: false,
-        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
         name: data.toString(),
-        type: type
+        type
       };
 
     case 'symbol':
       cleaned.push(path);
       return {
         inspectable: false,
-        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
         name: data.toString(),
-        type: type
+        type
       };
     // React Elements aren't very inspector-friendly,
     // and often contain private fields or circular references.
@@ -1399,10 +1576,10 @@ function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
       cleaned.push(path);
       return {
         inspectable: false,
-        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
-        name: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getDisplayNameForReactElement */ "e"])(data) || 'Unknown',
-        type: type
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
+        name: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getDisplayNameForReactElement */ "g"])(data) || 'Unknown',
+        type
       };
     // ArrayBuffers error if you try to inspect them.
 
@@ -1411,11 +1588,11 @@ function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
       cleaned.push(path);
       return {
         inspectable: false,
-        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
         name: type === 'data_view' ? 'DataView' : 'ArrayBuffer',
         size: data.byteLength,
-        type: type
+        type
       };
 
     case 'array':
@@ -1425,10 +1602,9 @@ function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
         return createDehydrated(type, true, data, cleaned, path);
       }
 
-      return data.map(function (item, i) {
-        return dehydrate(item, cleaned, unserializable, path.concat([i]), isPathAllowed, isPathAllowedCheck ? 1 : level + 1);
-      });
+      return data.map((item, i) => dehydrate(item, cleaned, unserializable, path.concat([i]), isPathAllowed, isPathAllowedCheck ? 1 : level + 1));
 
+    case 'html_all_collection':
     case 'typed_array':
     case 'iterator':
       isPathAllowedCheck = isPathAllowed(path);
@@ -1436,48 +1612,56 @@ function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
       if (level >= LEVEL_THRESHOLD && !isPathAllowedCheck) {
         return createDehydrated(type, true, data, cleaned, path);
       } else {
-        var unserializableValue = {
+        const unserializableValue = {
           unserializable: true,
           type: type,
           readonly: true,
           size: type === 'typed_array' ? data.length : undefined,
-          preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-          preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
+          preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+          preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
           name: !data.constructor || data.constructor.name === 'Object' ? '' : data.constructor.name
         };
 
-        if (_typeof(data[Symbol.iterator])) {
+        if (typeof data[Symbol.iterator]) {
           // TRICKY
           // Don't use [...spread] syntax for this purpose.
           // This project uses @babel/plugin-transform-spread in "loose" mode which only works with Array values.
           // Other types (e.g. typed arrays, Sets) will not spread correctly.
-          Array.from(data).forEach(function (item, i) {
-            return unserializableValue[i] = dehydrate(item, cleaned, unserializable, path.concat([i]), isPathAllowed, isPathAllowedCheck ? 1 : level + 1);
-          });
+          Array.from(data).forEach((item, i) => unserializableValue[i] = dehydrate(item, cleaned, unserializable, path.concat([i]), isPathAllowed, isPathAllowedCheck ? 1 : level + 1));
         }
 
         unserializable.push(path);
         return unserializableValue;
       }
 
+    case 'opaque_iterator':
+      cleaned.push(path);
+      return {
+        inspectable: false,
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
+        name: data[Symbol.toStringTag],
+        type
+      };
+
     case 'date':
       cleaned.push(path);
       return {
         inspectable: false,
-        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
         name: data.toString(),
-        type: type
+        type
       };
 
     case 'regexp':
       cleaned.push(path);
       return {
         inspectable: false,
-        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
         name: data.toString(),
-        type: type
+        type
       };
 
     case 'object':
@@ -1486,12 +1670,11 @@ function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
       if (level >= LEVEL_THRESHOLD && !isPathAllowedCheck) {
         return createDehydrated(type, true, data, cleaned, path);
       } else {
-        var object = {};
-
-        for (var name in data) {
-          object[name] = dehydrate(data[name], cleaned, unserializable, path.concat([name]), isPathAllowed, isPathAllowedCheck ? 1 : level + 1);
-        }
-
+        const object = {};
+        Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getAllEnumerableKeys */ "c"])(data).forEach(key => {
+          const name = key.toString();
+          object[name] = dehydrate(data[key], cleaned, unserializable, path.concat([name]), isPathAllowed, isPathAllowedCheck ? 1 : level + 1);
+        });
         return object;
       }
 
@@ -1502,7 +1685,7 @@ function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
       // We dehydrate+rehydrate them to preserve their type.
       cleaned.push(path);
       return {
-        type: type
+        type
       };
 
     default:
@@ -1510,7 +1693,7 @@ function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
   }
 }
 function fillInPath(object, data, path, value) {
-  var target = Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getInObject */ "f"])(object, path);
+  const target = Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getInObject */ "h"])(object, path);
 
   if (target != null) {
     if (!target[meta.unserializable]) {
@@ -1526,10 +1709,10 @@ function fillInPath(object, data, path, value) {
   }
 
   if (value !== null && data.unserializable.length > 0) {
-    var unserializablePath = data.unserializable[0];
-    var isMatch = unserializablePath.length === path.length;
+    const unserializablePath = data.unserializable[0];
+    let isMatch = unserializablePath.length === path.length;
 
-    for (var i = 0; i < path.length; i++) {
+    for (let i = 0; i < path.length; i++) {
       if (path[i] !== unserializablePath[i]) {
         isMatch = false;
         break;
@@ -1541,19 +1724,19 @@ function fillInPath(object, data, path, value) {
     }
   }
 
-  Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* setInObject */ "i"])(object, path, value);
+  Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* setInObject */ "l"])(object, path, value);
 }
 function hydrate(object, cleaned, unserializable) {
-  cleaned.forEach(function (path) {
-    var length = path.length;
-    var last = path[length - 1];
-    var parent = Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getInObject */ "f"])(object, path.slice(0, length - 1));
+  cleaned.forEach(path => {
+    const length = path.length;
+    const last = path[length - 1];
+    const parent = Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getInObject */ "h"])(object, path.slice(0, length - 1));
 
     if (!parent || !parent.hasOwnProperty(last)) {
       return;
     }
 
-    var value = parent[last];
+    const value = parent[last];
 
     if (value.type === 'infinity') {
       parent[last] = Infinity;
@@ -1563,7 +1746,7 @@ function hydrate(object, cleaned, unserializable) {
       parent[last] = undefined;
     } else {
       // Replace the string keys with Symbols so they're non-enumerable.
-      var replaced = {};
+      const replaced = {};
       replaced[meta.inspectable] = !!value.inspectable;
       replaced[meta.inspected] = false;
       replaced[meta.name] = value.name;
@@ -1575,18 +1758,18 @@ function hydrate(object, cleaned, unserializable) {
       parent[last] = replaced;
     }
   });
-  unserializable.forEach(function (path) {
-    var length = path.length;
-    var last = path[length - 1];
-    var parent = Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getInObject */ "f"])(object, path.slice(0, length - 1));
+  unserializable.forEach(path => {
+    const length = path.length;
+    const last = path[length - 1];
+    const parent = Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getInObject */ "h"])(object, path.slice(0, length - 1));
 
     if (!parent || !parent.hasOwnProperty(last)) {
       return;
     }
 
-    var node = parent[last];
+    const node = parent[last];
 
-    var replacement = _objectSpread({}, node);
+    const replacement = _objectSpread({}, node);
 
     upgradeUnserializable(replacement, node);
     parent[last] = replacement;
@@ -1595,41 +1778,48 @@ function hydrate(object, cleaned, unserializable) {
 }
 
 function upgradeUnserializable(destination, source) {
-  var _Object$definePropert;
-
-  Object.defineProperties(destination, (_Object$definePropert = {}, _defineProperty(_Object$definePropert, meta.inspected, {
-    configurable: true,
-    enumerable: false,
-    value: !!source.inspected
-  }), _defineProperty(_Object$definePropert, meta.name, {
-    configurable: true,
-    enumerable: false,
-    value: source.name
-  }), _defineProperty(_Object$definePropert, meta.preview_long, {
-    configurable: true,
-    enumerable: false,
-    value: source.preview_long
-  }), _defineProperty(_Object$definePropert, meta.preview_short, {
-    configurable: true,
-    enumerable: false,
-    value: source.preview_short
-  }), _defineProperty(_Object$definePropert, meta.size, {
-    configurable: true,
-    enumerable: false,
-    value: source.size
-  }), _defineProperty(_Object$definePropert, meta.readonly, {
-    configurable: true,
-    enumerable: false,
-    value: !!source.readonly
-  }), _defineProperty(_Object$definePropert, meta.type, {
-    configurable: true,
-    enumerable: false,
-    value: source.type
-  }), _defineProperty(_Object$definePropert, meta.unserializable, {
-    configurable: true,
-    enumerable: false,
-    value: !!source.unserializable
-  }), _Object$definePropert));
+  Object.defineProperties(destination, {
+    [meta.inspected]: {
+      configurable: true,
+      enumerable: false,
+      value: !!source.inspected
+    },
+    [meta.name]: {
+      configurable: true,
+      enumerable: false,
+      value: source.name
+    },
+    [meta.preview_long]: {
+      configurable: true,
+      enumerable: false,
+      value: source.preview_long
+    },
+    [meta.preview_short]: {
+      configurable: true,
+      enumerable: false,
+      value: source.preview_short
+    },
+    [meta.size]: {
+      configurable: true,
+      enumerable: false,
+      value: source.size
+    },
+    [meta.readonly]: {
+      configurable: true,
+      enumerable: false,
+      value: !!source.readonly
+    },
+    [meta.type]: {
+      configurable: true,
+      enumerable: false,
+      value: source.type
+    },
+    [meta.unserializable]: {
+      configurable: true,
+      enumerable: false,
+      value: !!source.unserializable
+    }
+  });
   delete destination.inspected;
   delete destination.name;
   delete destination.preview_long;
@@ -1657,7 +1847,7 @@ __webpack_require__.d(__webpack_exports__, "c", function() { return /* binding *
 var backend_renderer = __webpack_require__(12);
 
 // EXTERNAL MODULE: ../react-devtools-shared/src/backend/ReactSymbols.js
-var ReactSymbols = __webpack_require__(1);
+var ReactSymbols = __webpack_require__(2);
 
 // CONCATENATED MODULE: ../shared/ConsolePatchingDev.js
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -1678,14 +1868,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 // replaying on render function. This currently only patches the object
 // lazily which won't cover if the log function was extracted eagerly.
 // We could also eagerly patch the method.
-var disabledDepth = 0;
-var prevLog;
-var prevInfo;
-var prevWarn;
-var prevError;
-var prevGroup;
-var prevGroupCollapsed;
-var prevGroupEnd;
+let disabledDepth = 0;
+let prevLog;
+let prevInfo;
+let prevWarn;
+let prevError;
+let prevGroup;
+let prevGroupCollapsed;
+let prevGroupEnd;
 
 function disabledLog() {}
 
@@ -1702,7 +1892,7 @@ function disableLogs() {
       prevGroupCollapsed = console.groupCollapsed;
       prevGroupEnd = console.groupEnd; // https://github.com/facebook/react/issues/19099
 
-      var props = {
+      const props = {
         configurable: true,
         enumerable: true,
         value: disabledLog,
@@ -1730,32 +1920,32 @@ function reenableLogs() {
 
     if (disabledDepth === 0) {
       /* eslint-disable react-internal/no-production-logging */
-      var props = {
+      const props = {
         configurable: true,
         enumerable: true,
         writable: true
       }; // $FlowFixMe Flow thinks console is immutable.
 
       Object.defineProperties(console, {
-        log: _objectSpread({}, props, {
+        log: _objectSpread(_objectSpread({}, props), {}, {
           value: prevLog
         }),
-        info: _objectSpread({}, props, {
+        info: _objectSpread(_objectSpread({}, props), {}, {
           value: prevInfo
         }),
-        warn: _objectSpread({}, props, {
+        warn: _objectSpread(_objectSpread({}, props), {}, {
           value: prevWarn
         }),
-        error: _objectSpread({}, props, {
+        error: _objectSpread(_objectSpread({}, props), {}, {
           value: prevError
         }),
-        group: _objectSpread({}, props, {
+        group: _objectSpread(_objectSpread({}, props), {}, {
           value: prevGroup
         }),
-        groupCollapsed: _objectSpread({}, props, {
+        groupCollapsed: _objectSpread(_objectSpread({}, props), {}, {
           value: prevGroupCollapsed
         }),
-        groupEnd: _objectSpread({}, props, {
+        groupEnd: _objectSpread(_objectSpread({}, props), {}, {
           value: prevGroupEnd
         })
       });
@@ -1768,8 +1958,6 @@ function reenableLogs() {
   }
 }
 // CONCATENATED MODULE: ../react-devtools-shared/src/backend/DevToolsComponentStackFrame.js
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -1786,14 +1974,14 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 // there is no React-specific logic here.
 
 
-var prefix;
+let prefix;
 function describeBuiltInComponentFrame(name, source, ownerFn) {
   if (prefix === undefined) {
     // Extract the VM specific prefix used by each line.
     try {
       throw Error();
     } catch (x) {
-      var match = x.stack.trim().match(/\n( *(at )?)/);
+      const match = x.stack.trim().match(/\n( *(at )?)/);
       prefix = match && match[1] || '';
     }
   } // We use the prefix to ensure our stacks line up with native stack frames.
@@ -1801,11 +1989,11 @@ function describeBuiltInComponentFrame(name, source, ownerFn) {
 
   return '\n' + prefix + name;
 }
-var reentry = false;
-var componentFrameCache;
+let reentry = false;
+let componentFrameCache;
 
 if (true) {
-  var PossiblyWeakMap = typeof WeakMap === 'function' ? WeakMap : Map;
+  const PossiblyWeakMap = typeof WeakMap === 'function' ? WeakMap : Map;
   componentFrameCache = new PossiblyWeakMap();
 }
 
@@ -1816,33 +2004,32 @@ function describeNativeComponentFrame(fn, construct, currentDispatcherRef) {
   }
 
   if (true) {
-    var frame = componentFrameCache.get(fn);
+    const frame = componentFrameCache.get(fn);
 
     if (frame !== undefined) {
       return frame;
     }
   }
 
-  var control;
-  var previousPrepareStackTrace = Error.prepareStackTrace; // $FlowFixMe It does accept undefined.
+  let control;
+  const previousPrepareStackTrace = Error.prepareStackTrace; // $FlowFixMe It does accept undefined.
 
   Error.prepareStackTrace = undefined;
-  reentry = true;
-  var previousDispatcher;
+  reentry = true; // Override the dispatcher so effects scheduled by this shallow render are thrown away.
+  //
+  // Note that unlike the code this was forked from (in ReactComponentStackFrame)
+  // DevTools should override the dispatcher even when DevTools is compiled in production mode,
+  // because the app itself may be in development mode and log errors/warnings.
 
-  if (true) {
-    previousDispatcher = currentDispatcherRef.current; // Set the dispatcher in DEV because this might be call in the render function
-    // for warnings.
-
-    currentDispatcherRef.current = null;
-    disableLogs();
-  }
+  const previousDispatcher = currentDispatcherRef.current;
+  currentDispatcherRef.current = null;
+  disableLogs();
 
   try {
     // This should throw.
     if (construct) {
       // Something should be setting the props in the constructor.
-      var Fake = function Fake() {
+      const Fake = function Fake() {
         throw Error();
       }; // $FlowFixMe
 
@@ -1855,7 +2042,7 @@ function describeNativeComponentFrame(fn, construct, currentDispatcherRef) {
         }
       });
 
-      if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === 'object' && Reflect.construct) {
+      if (typeof Reflect === 'object' && Reflect.construct) {
         // We construct a different control for this case to include any extra
         // frames added by the construct call.
         try {
@@ -1888,10 +2075,10 @@ function describeNativeComponentFrame(fn, construct, currentDispatcherRef) {
     if (sample && control && typeof sample.stack === 'string') {
       // This extracts the first frame from the sample that isn't also in the control.
       // Skipping one frame that we assume is the frame that calls the two.
-      var sampleLines = sample.stack.split('\n');
-      var controlLines = control.stack.split('\n');
-      var s = sampleLines.length - 1;
-      var c = controlLines.length - 1;
+      const sampleLines = sample.stack.split('\n');
+      const controlLines = control.stack.split('\n');
+      let s = sampleLines.length - 1;
+      let c = controlLines.length - 1;
 
       while (s >= 1 && c >= 0 && sampleLines[s] !== controlLines[c]) {
         // We expect at least one stack frame to be shared.
@@ -1920,16 +2107,16 @@ function describeNativeComponentFrame(fn, construct, currentDispatcherRef) {
 
               if (c < 0 || sampleLines[s] !== controlLines[c]) {
                 // V8 adds a "new" prefix for native classes. Let's remove it to make it prettier.
-                var _frame = '\n' + sampleLines[s].replace(' at new ', ' at ');
+                const frame = '\n' + sampleLines[s].replace(' at new ', ' at ');
 
                 if (true) {
                   if (typeof fn === 'function') {
-                    componentFrameCache.set(fn, _frame);
+                    componentFrameCache.set(fn, frame);
                   }
                 } // Return the line we found.
 
 
-                return _frame;
+                return frame;
               }
             } while (s >= 1 && c >= 0);
           }
@@ -1941,16 +2128,13 @@ function describeNativeComponentFrame(fn, construct, currentDispatcherRef) {
   } finally {
     reentry = false;
     Error.prepareStackTrace = previousPrepareStackTrace;
-
-    if (true) {
-      currentDispatcherRef.current = previousDispatcher;
-      reenableLogs();
-    }
+    currentDispatcherRef.current = previousDispatcher;
+    reenableLogs();
   } // Fallback to just using the name if we couldn't make it throw.
 
 
-  var name = fn ? fn.displayName || fn.name : '';
-  var syntheticFrame = name ? describeBuiltInComponentFrame(name) : '';
+  const name = fn ? fn.displayName || fn.name : '';
+  const syntheticFrame = name ? describeBuiltInComponentFrame(name) : '';
 
   if (true) {
     if (typeof fn === 'function') {
@@ -1968,7 +2152,7 @@ function describeFunctionComponentFrame(fn, source, ownerFn, currentDispatcherRe
 }
 
 function shouldConstruct(Component) {
-  var prototype = Component.prototype;
+  const prototype = Component.prototype;
   return !!(prototype && prototype.isReactComponent);
 }
 
@@ -1997,7 +2181,7 @@ function describeUnknownElementTypeFrameInDEV(type, source, ownerFn, currentDisp
       return describeBuiltInComponentFrame('SuspenseList', source, ownerFn);
   }
 
-  if (_typeof(type) === 'object') {
+  if (typeof type === 'object') {
     switch (type.$$typeof) {
       case ReactSymbols["h" /* FORWARD_REF_NUMBER */]:
       case ReactSymbols["i" /* FORWARD_REF_SYMBOL_STRING */]:
@@ -2015,9 +2199,9 @@ function describeUnknownElementTypeFrameInDEV(type, source, ownerFn, currentDisp
       case ReactSymbols["j" /* LAZY_NUMBER */]:
       case ReactSymbols["k" /* LAZY_SYMBOL_STRING */]:
         {
-          var lazyComponent = type;
-          var payload = lazyComponent._payload;
-          var init = lazyComponent._init;
+          const lazyComponent = type;
+          const payload = lazyComponent._payload;
+          const init = lazyComponent._init;
 
           try {
             // Lazy may contain any component type so we recursively resolve it.
@@ -2045,18 +2229,18 @@ function describeUnknownElementTypeFrameInDEV(type, source, ownerFn, currentDisp
 
 
 function describeFiber(workTagMap, workInProgress, currentDispatcherRef) {
-  var HostComponent = workTagMap.HostComponent,
-      LazyComponent = workTagMap.LazyComponent,
-      SuspenseComponent = workTagMap.SuspenseComponent,
-      SuspenseListComponent = workTagMap.SuspenseListComponent,
-      FunctionComponent = workTagMap.FunctionComponent,
-      IndeterminateComponent = workTagMap.IndeterminateComponent,
-      SimpleMemoComponent = workTagMap.SimpleMemoComponent,
-      ForwardRef = workTagMap.ForwardRef,
-      Block = workTagMap.Block,
-      ClassComponent = workTagMap.ClassComponent;
-  var owner =  true ? workInProgress._debugOwner ? workInProgress._debugOwner.type : null : undefined;
-  var source =  true ? workInProgress._debugSource : undefined;
+  const HostComponent = workTagMap.HostComponent,
+        LazyComponent = workTagMap.LazyComponent,
+        SuspenseComponent = workTagMap.SuspenseComponent,
+        SuspenseListComponent = workTagMap.SuspenseListComponent,
+        FunctionComponent = workTagMap.FunctionComponent,
+        IndeterminateComponent = workTagMap.IndeterminateComponent,
+        SimpleMemoComponent = workTagMap.SimpleMemoComponent,
+        ForwardRef = workTagMap.ForwardRef,
+        Block = workTagMap.Block,
+        ClassComponent = workTagMap.ClassComponent;
+  const owner =  true ? workInProgress._debugOwner ? workInProgress._debugOwner.type : null : undefined;
+  const source =  true ? workInProgress._debugSource : undefined;
 
   switch (workInProgress.tag) {
     case HostComponent:
@@ -2092,8 +2276,8 @@ function describeFiber(workTagMap, workInProgress, currentDispatcherRef) {
 
 function getStackByFiberInDevAndProd(workTagMap, workInProgress, currentDispatcherRef) {
   try {
-    var info = '';
-    var node = workInProgress;
+    let info = '';
+    let node = workInProgress;
 
     do {
       info += describeFiber(workTagMap, node, currentDispatcherRef);
@@ -2106,6 +2290,12 @@ function getStackByFiberInDevAndProd(workTagMap, workInProgress, currentDispatch
   }
 }
 // CONCATENATED MODULE: ../react-devtools-shared/src/backend/console.js
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -2116,39 +2306,39 @@ function getStackByFiberInDevAndProd(workTagMap, workInProgress, currentDispatch
  */
 
 
-var APPEND_STACK_TO_METHODS = ['error', 'trace', 'warn']; // React's custom built component stack strings match "\s{4}in"
+const APPEND_STACK_TO_METHODS = ['error', 'trace', 'warn']; // React's custom built component stack strings match "\s{4}in"
 // Chrome's prefix matches "\s{4}at"
 
-var PREFIX_REGEX = /\s{4}(in|at)\s{1}/; // Firefox and Safari have no prefix ("")
+const PREFIX_REGEX = /\s{4}(in|at)\s{1}/; // Firefox and Safari have no prefix ("")
 // but we can fallback to looking for location info (e.g. "foo.js:12:345")
 
-var ROW_COLUMN_NUMBER_REGEX = /:\d+:\d+(\n|$)/;
-var injectedRenderers = new Map();
-var targetConsole = console;
-var targetConsoleMethods = {};
+const ROW_COLUMN_NUMBER_REGEX = /:\d+:\d+(\n|$)/;
+const injectedRenderers = new Map();
+let targetConsole = console;
+let targetConsoleMethods = {};
 
-for (var console_method in console) {
-  targetConsoleMethods[console_method] = console[console_method];
+for (const method in console) {
+  targetConsoleMethods[method] = console[method];
 }
 
-var unpatchFn = null; // Enables e.g. Jest tests to inject a mock console object.
+let unpatchFn = null; // Enables e.g. Jest tests to inject a mock console object.
 
 function dangerous_setTargetConsoleForTesting(targetConsoleForTesting) {
   targetConsole = targetConsoleForTesting;
   targetConsoleMethods = {};
 
-  for (var _method in targetConsole) {
-    targetConsoleMethods[_method] = console[_method];
+  for (const method in targetConsole) {
+    targetConsoleMethods[method] = console[method];
   }
 } // v16 renderers should use this method to inject internals necessary to generate a component stack.
 // These internals will be used if the console is patched.
 // Injecting them separately allows the console to easily be patched or un-patched later (at runtime).
 
 function registerRenderer(renderer) {
-  var currentDispatcherRef = renderer.currentDispatcherRef,
-      getCurrentFiber = renderer.getCurrentFiber,
-      findFiberByHostInstance = renderer.findFiberByHostInstance,
-      version = renderer.version; // Ignore React v15 and older because they don't expose a component stack anyway.
+  const currentDispatcherRef = renderer.currentDispatcherRef,
+        getCurrentFiber = renderer.getCurrentFiber,
+        findFiberByHostInstance = renderer.findFiberByHostInstance,
+        version = renderer.version; // Ignore React v15 and older because they don't expose a component stack anyway.
 
   if (typeof findFiberByHostInstance !== 'function') {
     return;
@@ -2157,25 +2347,26 @@ function registerRenderer(renderer) {
 
 
   if (currentDispatcherRef != null && typeof getCurrentFiber === 'function') {
-    var _getInternalReactCons = Object(backend_renderer["b" /* getInternalReactConstants */])(version),
-        ReactTypeOfWork = _getInternalReactCons.ReactTypeOfWork;
+    const _getInternalReactCons = Object(backend_renderer["b" /* getInternalReactConstants */])(version),
+          ReactTypeOfWork = _getInternalReactCons.ReactTypeOfWork;
 
     injectedRenderers.set(renderer, {
-      currentDispatcherRef: currentDispatcherRef,
-      getCurrentFiber: getCurrentFiber,
+      currentDispatcherRef,
+      getCurrentFiber,
       workTagMap: ReactTypeOfWork
     });
   }
 }
-var consoleSettingsRef = {
+const consoleSettingsRef = {
   appendComponentStack: false,
   breakOnConsoleErrors: false
 }; // Patches console methods to append component stack for the current fiber.
 // Call unpatch() to remove the injected behavior.
 
-function patch(_ref) {
-  var appendComponentStack = _ref.appendComponentStack,
-      breakOnConsoleErrors = _ref.breakOnConsoleErrors;
+function patch({
+  appendComponentStack,
+  breakOnConsoleErrors
+}) {
   // Settings may change after we've patched the console.
   // Using a shared ref allows the patch function to read the latest values.
   consoleSettingsRef.appendComponentStack = appendComponentStack;
@@ -2186,54 +2377,49 @@ function patch(_ref) {
     return;
   }
 
-  var originalConsoleMethods = {};
+  const originalConsoleMethods = {};
 
-  unpatchFn = function unpatchFn() {
-    for (var _method2 in originalConsoleMethods) {
+  unpatchFn = () => {
+    for (const method in originalConsoleMethods) {
       try {
         // $FlowFixMe property error|warn is not writable.
-        targetConsole[_method2] = originalConsoleMethods[_method2];
+        targetConsole[method] = originalConsoleMethods[method];
       } catch (error) {}
     }
   };
 
-  APPEND_STACK_TO_METHODS.forEach(function (method) {
+  APPEND_STACK_TO_METHODS.forEach(method => {
     try {
-      var originalMethod = originalConsoleMethods[method] = targetConsole[method];
+      const originalMethod = originalConsoleMethods[method] = targetConsole[method];
 
-      var overrideMethod = function overrideMethod() {
-        var latestAppendComponentStack = consoleSettingsRef.appendComponentStack;
-        var latestBreakOnConsoleErrors = consoleSettingsRef.breakOnConsoleErrors;
-
-        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
-        }
+      const overrideMethod = (...args) => {
+        const latestAppendComponentStack = consoleSettingsRef.appendComponentStack;
+        const latestBreakOnConsoleErrors = consoleSettingsRef.breakOnConsoleErrors;
 
         if (latestAppendComponentStack) {
           try {
             // If we are ever called with a string that already has a component stack, e.g. a React error/warning,
             // don't append a second stack.
-            var lastArg = args.length > 0 ? args[args.length - 1] : null;
-            var alreadyHasComponentStack = lastArg !== null && (PREFIX_REGEX.test(lastArg) || ROW_COLUMN_NUMBER_REGEX.test(lastArg));
+            const lastArg = args.length > 0 ? args[args.length - 1] : null;
+            const alreadyHasComponentStack = lastArg !== null && (PREFIX_REGEX.test(lastArg) || ROW_COLUMN_NUMBER_REGEX.test(lastArg));
 
             if (!alreadyHasComponentStack) {
               // If there's a component stack for at least one of the injected renderers, append it.
               // We don't handle the edge case of stacks for more than one (e.g. interleaved renderers?)
               // eslint-disable-next-line no-for-of-loops/no-for-of-loops
-              var _iteratorNormalCompletion = true;
-              var _didIteratorError = false;
-              var _iteratorError = undefined;
+              var _iterator = _createForOfIteratorHelper(injectedRenderers.values()),
+                  _step;
 
               try {
-                for (var _iterator = injectedRenderers.values()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                  var _step$value = _step.value,
-                      currentDispatcherRef = _step$value.currentDispatcherRef,
-                      getCurrentFiber = _step$value.getCurrentFiber,
-                      workTagMap = _step$value.workTagMap;
-                  var current = getCurrentFiber();
+                for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                  const _step$value = _step.value,
+                        currentDispatcherRef = _step$value.currentDispatcherRef,
+                        getCurrentFiber = _step$value.getCurrentFiber,
+                        workTagMap = _step$value.workTagMap;
+                  const current = getCurrentFiber();
 
                   if (current != null) {
-                    var componentStack = getStackByFiberInDevAndProd(workTagMap, current, currentDispatcherRef);
+                    const componentStack = getStackByFiberInDevAndProd(workTagMap, current, currentDispatcherRef);
 
                     if (componentStack !== '') {
                       args.push(componentStack);
@@ -2243,18 +2429,9 @@ function patch(_ref) {
                   }
                 }
               } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
+                _iterator.e(err);
               } finally {
-                try {
-                  if (!_iteratorNormalCompletion && _iterator.return != null) {
-                    _iterator.return();
-                  }
-                } finally {
-                  if (_didIteratorError) {
-                    throw _iteratorError;
-                  }
-                }
+                _iterator.f();
               }
             }
           } catch (error) {// Don't let a DevTools or React internal error interfere with logging.
@@ -2270,7 +2447,7 @@ function patch(_ref) {
           debugger;
         }
 
-        originalMethod.apply(void 0, args);
+        originalMethod(...args);
       };
 
       overrideMethod.__REACT_DEVTOOLS_ORIGINAL_METHOD__ = originalMethod; // $FlowFixMe property error|warn is not writable.
@@ -2293,12 +2470,6 @@ function unpatch() {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EventEmitter; });
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /**
@@ -2309,100 +2480,81 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  *
  * 
  */
-var EventEmitter =
-/*#__PURE__*/
-function () {
-  function EventEmitter() {
-    _classCallCheck(this, EventEmitter);
-
+class EventEmitter {
+  constructor() {
     _defineProperty(this, "listenersMap", new Map());
   }
 
-  _createClass(EventEmitter, [{
-    key: "addListener",
-    value: function addListener(event, listener) {
-      var listeners = this.listenersMap.get(event);
+  addListener(event, listener) {
+    const listeners = this.listenersMap.get(event);
 
-      if (listeners === undefined) {
-        this.listenersMap.set(event, [listener]);
-      } else {
-        var index = listeners.indexOf(listener);
+    if (listeners === undefined) {
+      this.listenersMap.set(event, [listener]);
+    } else {
+      const index = listeners.indexOf(listener);
 
-        if (index < 0) {
-          listeners.push(listener);
-        }
+      if (index < 0) {
+        listeners.push(listener);
       }
     }
-  }, {
-    key: "emit",
-    value: function emit(event) {
-      var listeners = this.listenersMap.get(event);
+  }
 
-      if (listeners !== undefined) {
-        for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-          args[_key - 1] = arguments[_key];
-        }
+  emit(event, ...args) {
+    const listeners = this.listenersMap.get(event);
 
-        if (listeners.length === 1) {
-          // No need to clone or try/catch
-          var listener = listeners[0];
-          listener.apply(null, args);
-        } else {
-          var didThrow = false;
-          var caughtError = null;
-          var clonedListeners = Array.from(listeners);
+    if (listeners !== undefined) {
+      if (listeners.length === 1) {
+        // No need to clone or try/catch
+        const listener = listeners[0];
+        listener.apply(null, args);
+      } else {
+        let didThrow = false;
+        let caughtError = null;
+        const clonedListeners = Array.from(listeners);
 
-          for (var i = 0; i < clonedListeners.length; i++) {
-            var _listener = clonedListeners[i];
+        for (let i = 0; i < clonedListeners.length; i++) {
+          const listener = clonedListeners[i];
 
-            try {
-              _listener.apply(null, args);
-            } catch (error) {
-              if (caughtError === null) {
-                didThrow = true;
-                caughtError = error;
-              }
+          try {
+            listener.apply(null, args);
+          } catch (error) {
+            if (caughtError === null) {
+              didThrow = true;
+              caughtError = error;
             }
           }
+        }
 
-          if (didThrow) {
-            throw caughtError;
-          }
+        if (didThrow) {
+          throw caughtError;
         }
       }
     }
-  }, {
-    key: "removeAllListeners",
-    value: function removeAllListeners() {
-      this.listenersMap.clear();
-    }
-  }, {
-    key: "removeListener",
-    value: function removeListener(event, listener) {
-      var listeners = this.listenersMap.get(event);
+  }
 
-      if (listeners !== undefined) {
-        var index = listeners.indexOf(listener);
+  removeAllListeners() {
+    this.listenersMap.clear();
+  }
 
-        if (index >= 0) {
-          listeners.splice(index, 1);
-        }
+  removeListener(event, listener) {
+    const listeners = this.listenersMap.get(event);
+
+    if (listeners !== undefined) {
+      const index = listeners.indexOf(listener);
+
+      if (index >= 0) {
+        listeners.splice(index, 1);
       }
     }
-  }]);
+  }
 
-  return EventEmitter;
-}();
-
-
+}
 
 /***/ }),
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-/**
+/* WEBPACK VAR INJECTION */(function(global) {/**
  * lodash (Custom Build) <https://lodash.com/>
  * Build: `lodash modularize exports="npm" -o ./`
  * Copyright jQuery Foundation and other contributors <https://jquery.org/>
@@ -2436,10 +2588,10 @@ var reIsOctal = /^0o[0-7]+$/i;
 var freeParseInt = parseInt;
 /** Detect free variable `global` from Node.js. */
 
-var freeGlobal = (typeof global === "undefined" ? "undefined" : _typeof(global)) == 'object' && global && global.Object === Object && global;
+var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
 /** Detect free variable `self`. */
 
-var freeSelf = (typeof self === "undefined" ? "undefined" : _typeof(self)) == 'object' && self && self.Object === Object && self;
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
 /** Used as a reference to the global object. */
 
 var root = freeGlobal || freeSelf || Function('return this')();
@@ -2751,8 +2903,7 @@ function throttle(func, wait, options) {
 
 
 function isObject(value) {
-  var type = _typeof(value);
-
+  var type = typeof value;
   return !!value && (type == 'object' || type == 'function');
 }
 /**
@@ -2782,7 +2933,7 @@ function isObject(value) {
 
 
 function isObjectLike(value) {
-  return !!value && _typeof(value) == 'object';
+  return !!value && typeof value == 'object';
 }
 /**
  * Checks if `value` is classified as a `Symbol` primitive or object.
@@ -2804,7 +2955,7 @@ function isObjectLike(value) {
 
 
 function isSymbol(value) {
-  return _typeof(value) == 'symbol' || isObjectLike(value) && objectToString.call(value) == symbolTag;
+  return typeof value == 'symbol' || isObjectLike(value) && objectToString.call(value) == symbolTag;
 }
 /**
  * Converts `value` to a number.
@@ -2866,38 +3017,34 @@ module.exports = throttle;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return attach; });
 /* harmony import */ var semver__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
 /* harmony import */ var semver__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(semver__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
-/* harmony import */ var react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
+/* harmony import */ var react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
 /* harmony import */ var react_devtools_shared_src_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(3);
 /* harmony import */ var react_debug_tools__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(17);
 /* harmony import */ var react_debug_tools__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_debug_tools__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _console__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(9);
-/* harmony import */ var _ReactSymbols__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(1);
+/* harmony import */ var _ReactSymbols__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(2);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -2916,17 +3063,19 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 
 
-// Some environments (e.g. React Native / Hermes) don't support the performance API yet.
-var getCurrentTime = (typeof performance === "undefined" ? "undefined" : _typeof(performance)) === 'object' && typeof performance.now === 'function' ? function () {
-  return performance.now();
-} : function () {
-  return Date.now();
-};
+
+function getFiberFlags(fiber) {
+  // The name of this field changed from "effectTag" to "flags"
+  return fiber.flags !== undefined ? fiber.flags : fiber.effectTag;
+} // Some environments (e.g. React Native / Hermes) don't support the performance API yet.
+
+
+const getCurrentTime = typeof performance === 'object' && typeof performance.now === 'function' ? () => performance.now() : () => Date.now();
 function getInternalReactConstants(version) {
-  var ReactTypeOfSideEffect = {
-    NoEffect: 0,
-    PerformedWork: 1,
-    Placement: 2
+  const ReactTypeOfSideEffect = {
+    NoFlags: 0b00,
+    PerformedWork: 0b01,
+    Placement: 0b10
   }; // **********************************************************
   // The section below is copied from files in React repo.
   // Keep it in sync, and add version guards if it changes.
@@ -2935,7 +3084,7 @@ function getInternalReactConstants(version) {
   // but 16.9 is the first version to report priority level to DevTools,
   // so we can avoid checking for earlier versions and support pre-16.9 canary releases in the process.
 
-  var ReactPriorityLevels = {
+  const ReactPriorityLevels = {
     ImmediatePriority: 99,
     UserBlockingPriority: 98,
     NormalPriority: 97,
@@ -2943,7 +3092,7 @@ function getInternalReactConstants(version) {
     IdlePriority: 95,
     NoPriority: 90
   };
-  var ReactTypeOfWork = null; // **********************************************************
+  let ReactTypeOfWork = null; // **********************************************************
   // The section below is copied from files in React repo.
   // Keep it in sync, and add version guards if it changes.
 
@@ -3097,29 +3246,29 @@ function getInternalReactConstants(version) {
 
 
   function getTypeSymbol(type) {
-    var symbolOrNumber = _typeof(type) === 'object' && type !== null ? type.$$typeof : type; // $FlowFixMe Flow doesn't know about typeof "symbol"
+    const symbolOrNumber = typeof type === 'object' && type !== null ? type.$$typeof : type; // $FlowFixMe Flow doesn't know about typeof "symbol"
 
-    return _typeof(symbolOrNumber) === 'symbol' ? symbolOrNumber.toString() : symbolOrNumber;
+    return typeof symbolOrNumber === 'symbol' ? symbolOrNumber.toString() : symbolOrNumber;
   }
 
-  var _ReactTypeOfWork = ReactTypeOfWork,
-      ClassComponent = _ReactTypeOfWork.ClassComponent,
-      IncompleteClassComponent = _ReactTypeOfWork.IncompleteClassComponent,
-      FunctionComponent = _ReactTypeOfWork.FunctionComponent,
-      IndeterminateComponent = _ReactTypeOfWork.IndeterminateComponent,
-      ForwardRef = _ReactTypeOfWork.ForwardRef,
-      HostRoot = _ReactTypeOfWork.HostRoot,
-      HostComponent = _ReactTypeOfWork.HostComponent,
-      HostPortal = _ReactTypeOfWork.HostPortal,
-      HostText = _ReactTypeOfWork.HostText,
-      Fragment = _ReactTypeOfWork.Fragment,
-      MemoComponent = _ReactTypeOfWork.MemoComponent,
-      SimpleMemoComponent = _ReactTypeOfWork.SimpleMemoComponent,
-      SuspenseComponent = _ReactTypeOfWork.SuspenseComponent,
-      SuspenseListComponent = _ReactTypeOfWork.SuspenseListComponent;
+  const _ReactTypeOfWork = ReactTypeOfWork,
+        ClassComponent = _ReactTypeOfWork.ClassComponent,
+        IncompleteClassComponent = _ReactTypeOfWork.IncompleteClassComponent,
+        FunctionComponent = _ReactTypeOfWork.FunctionComponent,
+        IndeterminateComponent = _ReactTypeOfWork.IndeterminateComponent,
+        ForwardRef = _ReactTypeOfWork.ForwardRef,
+        HostRoot = _ReactTypeOfWork.HostRoot,
+        HostComponent = _ReactTypeOfWork.HostComponent,
+        HostPortal = _ReactTypeOfWork.HostPortal,
+        HostText = _ReactTypeOfWork.HostText,
+        Fragment = _ReactTypeOfWork.Fragment,
+        MemoComponent = _ReactTypeOfWork.MemoComponent,
+        SimpleMemoComponent = _ReactTypeOfWork.SimpleMemoComponent,
+        SuspenseComponent = _ReactTypeOfWork.SuspenseComponent,
+        SuspenseListComponent = _ReactTypeOfWork.SuspenseListComponent;
 
   function resolveFiberType(type) {
-    var typeSymbol = getTypeSymbol(type);
+    const typeSymbol = getTypeSymbol(type);
 
     switch (typeSymbol) {
       case _ReactSymbols__WEBPACK_IMPORTED_MODULE_8__[/* MEMO_NUMBER */ "l"]:
@@ -3138,28 +3287,28 @@ function getInternalReactConstants(version) {
 
 
   function getDisplayNameForFiber(fiber) {
-    var type = fiber.type,
-        tag = fiber.tag;
-    var resolvedType = type;
+    const type = fiber.type,
+          tag = fiber.tag;
+    let resolvedType = type;
 
-    if (_typeof(type) === 'object' && type !== null) {
+    if (typeof type === 'object' && type !== null) {
       resolvedType = resolveFiberType(type);
     }
 
-    var resolvedContext = null;
+    let resolvedContext = null;
 
     switch (tag) {
       case ClassComponent:
       case IncompleteClassComponent:
-        return Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getDisplayName */ "d"])(resolvedType);
+        return Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getDisplayName */ "f"])(resolvedType);
 
       case FunctionComponent:
       case IndeterminateComponent:
-        return Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getDisplayName */ "d"])(resolvedType);
+        return Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getDisplayName */ "f"])(resolvedType);
 
       case ForwardRef:
         // Mirror https://github.com/facebook/react/blob/7c21bf72ace77094fd1910cc350a548287ef8350/packages/shared/getComponentName.js#L27-L37
-        return type && type.displayName || Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getDisplayName */ "d"])(resolvedType, 'Anonymous');
+        return type && type.displayName || Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getDisplayName */ "f"])(resolvedType, 'Anonymous');
 
       case HostRoot:
         return null;
@@ -3174,7 +3323,7 @@ function getInternalReactConstants(version) {
 
       case MemoComponent:
       case SimpleMemoComponent:
-        return Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getDisplayName */ "d"])(resolvedType, 'Anonymous');
+        return Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getDisplayName */ "f"])(resolvedType, 'Anonymous');
 
       case SuspenseComponent:
         return 'Suspense';
@@ -3183,7 +3332,7 @@ function getInternalReactConstants(version) {
         return 'SuspenseList';
 
       default:
-        var typeSymbol = getTypeSymbol(type);
+        const typeSymbol = getTypeSymbol(type);
 
         switch (typeSymbol) {
           case _ReactSymbols__WEBPACK_IMPORTED_MODULE_8__[/* CONCURRENT_MODE_NUMBER */ "c"]:
@@ -3197,7 +3346,7 @@ function getInternalReactConstants(version) {
             // PR #12501 changed it to "_context" for 16.3.1+
             // NOTE Keep in sync with inspectElementRaw()
             resolvedContext = fiber.type._context || fiber.type.context;
-            return "".concat(resolvedContext.displayName || 'Context', ".Provider");
+            return `${resolvedContext.displayName || 'Context'}.Provider`;
 
           case _ReactSymbols__WEBPACK_IMPORTED_MODULE_8__[/* CONTEXT_NUMBER */ "e"]:
           case _ReactSymbols__WEBPACK_IMPORTED_MODULE_8__[/* CONTEXT_SYMBOL_STRING */ "f"]:
@@ -3207,7 +3356,7 @@ function getInternalReactConstants(version) {
             resolvedContext = fiber.type._context || fiber.type; // NOTE: TraceUpdatesBackendManager depends on the name ending in '.Consumer'
             // If you change the name, figure out a more resilient way to detect it.
 
-            return "".concat(resolvedContext.displayName || 'Context', ".Consumer");
+            return `${resolvedContext.displayName || 'Context'}.Consumer`;
 
           case _ReactSymbols__WEBPACK_IMPORTED_MODULE_8__[/* STRICT_MODE_NUMBER */ "t"]:
           case _ReactSymbols__WEBPACK_IMPORTED_MODULE_8__[/* STRICT_MODE_SYMBOL_STRING */ "u"]:
@@ -3215,7 +3364,7 @@ function getInternalReactConstants(version) {
 
           case _ReactSymbols__WEBPACK_IMPORTED_MODULE_8__[/* PROFILER_NUMBER */ "n"]:
           case _ReactSymbols__WEBPACK_IMPORTED_MODULE_8__[/* PROFILER_SYMBOL_STRING */ "o"]:
-            return "Profiler(".concat(fiber.memoizedProps.id, ")");
+            return `Profiler(${fiber.memoizedProps.id})`;
 
           case _ReactSymbols__WEBPACK_IMPORTED_MODULE_8__[/* SCOPE_NUMBER */ "r"]:
           case _ReactSymbols__WEBPACK_IMPORTED_MODULE_8__[/* SCOPE_SYMBOL_STRING */ "s"]:
@@ -3231,52 +3380,56 @@ function getInternalReactConstants(version) {
   }
 
   return {
-    getDisplayNameForFiber: getDisplayNameForFiber,
-    getTypeSymbol: getTypeSymbol,
-    ReactPriorityLevels: ReactPriorityLevels,
-    ReactTypeOfWork: ReactTypeOfWork,
-    ReactTypeOfSideEffect: ReactTypeOfSideEffect
+    getDisplayNameForFiber,
+    getTypeSymbol,
+    ReactPriorityLevels,
+    ReactTypeOfWork,
+    ReactTypeOfSideEffect
   };
 }
 function attach(hook, rendererID, renderer, global) {
-  var _getInternalReactCons = getInternalReactConstants(renderer.version),
-      getDisplayNameForFiber = _getInternalReactCons.getDisplayNameForFiber,
-      getTypeSymbol = _getInternalReactCons.getTypeSymbol,
-      ReactPriorityLevels = _getInternalReactCons.ReactPriorityLevels,
-      ReactTypeOfWork = _getInternalReactCons.ReactTypeOfWork,
-      ReactTypeOfSideEffect = _getInternalReactCons.ReactTypeOfSideEffect;
+  const _getInternalReactCons = getInternalReactConstants(renderer.version),
+        getDisplayNameForFiber = _getInternalReactCons.getDisplayNameForFiber,
+        getTypeSymbol = _getInternalReactCons.getTypeSymbol,
+        ReactPriorityLevels = _getInternalReactCons.ReactPriorityLevels,
+        ReactTypeOfWork = _getInternalReactCons.ReactTypeOfWork,
+        ReactTypeOfSideEffect = _getInternalReactCons.ReactTypeOfSideEffect;
 
-  var NoEffect = ReactTypeOfSideEffect.NoEffect,
-      PerformedWork = ReactTypeOfSideEffect.PerformedWork,
-      Placement = ReactTypeOfSideEffect.Placement;
-  var FunctionComponent = ReactTypeOfWork.FunctionComponent,
-      ClassComponent = ReactTypeOfWork.ClassComponent,
-      ContextConsumer = ReactTypeOfWork.ContextConsumer,
-      DehydratedSuspenseComponent = ReactTypeOfWork.DehydratedSuspenseComponent,
-      Fragment = ReactTypeOfWork.Fragment,
-      ForwardRef = ReactTypeOfWork.ForwardRef,
-      HostRoot = ReactTypeOfWork.HostRoot,
-      HostPortal = ReactTypeOfWork.HostPortal,
-      HostComponent = ReactTypeOfWork.HostComponent,
-      HostText = ReactTypeOfWork.HostText,
-      IncompleteClassComponent = ReactTypeOfWork.IncompleteClassComponent,
-      IndeterminateComponent = ReactTypeOfWork.IndeterminateComponent,
-      MemoComponent = ReactTypeOfWork.MemoComponent,
-      OffscreenComponent = ReactTypeOfWork.OffscreenComponent,
-      SimpleMemoComponent = ReactTypeOfWork.SimpleMemoComponent,
-      SuspenseComponent = ReactTypeOfWork.SuspenseComponent,
-      SuspenseListComponent = ReactTypeOfWork.SuspenseListComponent;
-  var ImmediatePriority = ReactPriorityLevels.ImmediatePriority,
-      UserBlockingPriority = ReactPriorityLevels.UserBlockingPriority,
-      NormalPriority = ReactPriorityLevels.NormalPriority,
-      LowPriority = ReactPriorityLevels.LowPriority,
-      IdlePriority = ReactPriorityLevels.IdlePriority,
-      NoPriority = ReactPriorityLevels.NoPriority;
-  var overrideHookState = renderer.overrideHookState,
-      overrideProps = renderer.overrideProps,
-      setSuspenseHandler = renderer.setSuspenseHandler,
-      scheduleUpdate = renderer.scheduleUpdate;
-  var supportsTogglingSuspense = typeof setSuspenseHandler === 'function' && typeof scheduleUpdate === 'function'; // Patching the console enables DevTools to do a few useful things:
+  const NoFlags = ReactTypeOfSideEffect.NoFlags,
+        PerformedWork = ReactTypeOfSideEffect.PerformedWork,
+        Placement = ReactTypeOfSideEffect.Placement;
+  const FunctionComponent = ReactTypeOfWork.FunctionComponent,
+        ClassComponent = ReactTypeOfWork.ClassComponent,
+        ContextConsumer = ReactTypeOfWork.ContextConsumer,
+        DehydratedSuspenseComponent = ReactTypeOfWork.DehydratedSuspenseComponent,
+        Fragment = ReactTypeOfWork.Fragment,
+        ForwardRef = ReactTypeOfWork.ForwardRef,
+        HostRoot = ReactTypeOfWork.HostRoot,
+        HostPortal = ReactTypeOfWork.HostPortal,
+        HostComponent = ReactTypeOfWork.HostComponent,
+        HostText = ReactTypeOfWork.HostText,
+        IncompleteClassComponent = ReactTypeOfWork.IncompleteClassComponent,
+        IndeterminateComponent = ReactTypeOfWork.IndeterminateComponent,
+        MemoComponent = ReactTypeOfWork.MemoComponent,
+        OffscreenComponent = ReactTypeOfWork.OffscreenComponent,
+        SimpleMemoComponent = ReactTypeOfWork.SimpleMemoComponent,
+        SuspenseComponent = ReactTypeOfWork.SuspenseComponent,
+        SuspenseListComponent = ReactTypeOfWork.SuspenseListComponent;
+  const ImmediatePriority = ReactPriorityLevels.ImmediatePriority,
+        UserBlockingPriority = ReactPriorityLevels.UserBlockingPriority,
+        NormalPriority = ReactPriorityLevels.NormalPriority,
+        LowPriority = ReactPriorityLevels.LowPriority,
+        IdlePriority = ReactPriorityLevels.IdlePriority,
+        NoPriority = ReactPriorityLevels.NoPriority;
+  const overrideHookState = renderer.overrideHookState,
+        overrideHookStateDeletePath = renderer.overrideHookStateDeletePath,
+        overrideHookStateRenamePath = renderer.overrideHookStateRenamePath,
+        overrideProps = renderer.overrideProps,
+        overridePropsDeletePath = renderer.overridePropsDeletePath,
+        overridePropsRenamePath = renderer.overridePropsRenamePath,
+        setSuspenseHandler = renderer.setSuspenseHandler,
+        scheduleUpdate = renderer.scheduleUpdate;
+  const supportsTogglingSuspense = typeof setSuspenseHandler === 'function' && typeof scheduleUpdate === 'function'; // Patching the console enables DevTools to do a few useful things:
   // * Append component stacks to warnings and error messages
   // * Disable logging during re-renders to inspect hooks (see inspectHooksOfFiber)
   //
@@ -3287,43 +3440,43 @@ function attach(hook, rendererID, renderer, global) {
     // because it is stored in localStorage within the context of the extension.
     // It relies on the extension to pass the preference through via the global.
 
-    var appendComponentStack = window.__REACT_DEVTOOLS_APPEND_COMPONENT_STACK__ !== false;
-    var breakOnConsoleErrors = window.__REACT_DEVTOOLS_BREAK_ON_CONSOLE_ERRORS__ === true;
+    const appendComponentStack = window.__REACT_DEVTOOLS_APPEND_COMPONENT_STACK__ !== false;
+    const breakOnConsoleErrors = window.__REACT_DEVTOOLS_BREAK_ON_CONSOLE_ERRORS__ === true;
 
     if (appendComponentStack || breakOnConsoleErrors) {
       Object(_console__WEBPACK_IMPORTED_MODULE_7__[/* patch */ "a"])({
-        appendComponentStack: appendComponentStack,
-        breakOnConsoleErrors: breakOnConsoleErrors
+        appendComponentStack,
+        breakOnConsoleErrors
       });
     }
   }
 
-  var debug = function debug(name, fiber, parentFiber) {
+  const debug = (name, fiber, parentFiber) => {
     if (_constants__WEBPACK_IMPORTED_MODULE_5__[/* __DEBUG__ */ "k"]) {
-      var displayName = getDisplayNameForFiber(fiber) || 'null';
-      var id = getFiberID(fiber);
-      var parentDisplayName = parentFiber != null && getDisplayNameForFiber(parentFiber) || 'null';
-      var parentID = parentFiber ? getFiberID(parentFiber) : ''; // NOTE: calling getFiberID or getPrimaryFiber is unsafe here
+      const displayName = getDisplayNameForFiber(fiber) || 'null';
+      const id = getFiberID(fiber);
+      const parentDisplayName = parentFiber != null && getDisplayNameForFiber(parentFiber) || 'null';
+      const parentID = parentFiber ? getFiberID(parentFiber) : ''; // NOTE: calling getFiberID or getPrimaryFiber is unsafe here
       // because it will put them in the map. For now, we'll omit them.
       // TODO: better debugging story for this.
 
-      console.log("[renderer] %c".concat(name, " %c").concat(displayName, " (").concat(id, ") %c").concat(parentFiber ? "".concat(parentDisplayName, " (").concat(parentID, ")") : ''), 'color: red; font-weight: bold;', 'color: blue;', 'color: purple;');
+      console.log(`[renderer] %c${name} %c${displayName} (${id}) %c${parentFiber ? `${parentDisplayName} (${parentID})` : ''}`, 'color: red; font-weight: bold;', 'color: blue;', 'color: purple;');
     }
   }; // Configurable Components tree filters.
 
 
-  var hideElementsWithDisplayNames = new Set();
-  var hideElementsWithPaths = new Set();
-  var hideElementsWithTypes = new Set(); // Highlight updates
+  const hideElementsWithDisplayNames = new Set();
+  const hideElementsWithPaths = new Set();
+  const hideElementsWithTypes = new Set(); // Highlight updates
 
-  var traceUpdatesEnabled = false;
-  var traceUpdatesForNodes = new Set();
+  let traceUpdatesEnabled = false;
+  const traceUpdatesForNodes = new Set();
 
   function applyComponentFilters(componentFilters) {
     hideElementsWithTypes.clear();
     hideElementsWithDisplayNames.clear();
     hideElementsWithPaths.clear();
-    componentFilters.forEach(function (componentFilter) {
+    componentFilters.forEach(componentFilter => {
       if (!componentFilter.isEnabled) {
         return;
       }
@@ -3352,7 +3505,7 @@ function attach(hook, rendererID, renderer, global) {
           break;
 
         default:
-          console.warn("Invalid component filter type \"".concat(componentFilter.type, "\""));
+          console.warn(`Invalid component filter type "${componentFilter.type}"`);
           break;
       }
     });
@@ -3369,7 +3522,7 @@ function attach(hook, rendererID, renderer, global) {
     // so for now just skip this message...
     //console.warn('⚛️ DevTools: Could not locate saved component filters');
     // Fallback to assuming the default filters in this case.
-    applyComponentFilters(Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getDefaultComponentFilters */ "c"])());
+    applyComponentFilters(Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getDefaultComponentFilters */ "e"])());
   } // If necessary, we can revisit optimizing this operation.
   // For example, we could add a new recursive unmount tree operation.
   // The unmount operations are already significantly smaller than mount operations though.
@@ -3384,7 +3537,7 @@ function attach(hook, rendererID, renderer, global) {
     } // Recursively unmount all roots.
 
 
-    hook.getFiberRoots(rendererID).forEach(function (root) {
+    hook.getFiberRoots(rendererID).forEach(root => {
       currentRootID = getFiberID(getPrimaryFiber(root.current));
       unmountFiberChildrenRecursively(root.current);
       recordUnmount(root.current, false);
@@ -3394,7 +3547,7 @@ function attach(hook, rendererID, renderer, global) {
 
     rootDisplayNameCounter.clear(); // Recursively re-mount all roots with new filter criteria applied.
 
-    hook.getFiberRoots(rendererID).forEach(function (root) {
+    hook.getFiberRoots(rendererID).forEach(root => {
       currentRootID = getFiberID(getPrimaryFiber(root.current));
       setRootPseudoKey(currentRootID, root.current);
       mountFiberRecursively(root.current, null, false, false);
@@ -3405,9 +3558,9 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function shouldFilterFiber(fiber) {
-    var _debugSource = fiber._debugSource,
-        tag = fiber.tag,
-        type = fiber.type;
+    const _debugSource = fiber._debugSource,
+          tag = fiber.tag,
+          type = fiber.type;
 
     switch (tag) {
       case DehydratedSuspenseComponent:
@@ -3429,7 +3582,7 @@ function attach(hook, rendererID, renderer, global) {
         return false;
 
       default:
-        var typeSymbol = getTypeSymbol(type);
+        const typeSymbol = getTypeSymbol(type);
 
         switch (typeSymbol) {
           case _ReactSymbols__WEBPACK_IMPORTED_MODULE_8__[/* CONCURRENT_MODE_NUMBER */ "c"]:
@@ -3445,74 +3598,54 @@ function attach(hook, rendererID, renderer, global) {
 
     }
 
-    var elementType = getElementTypeForFiber(fiber);
+    const elementType = getElementTypeForFiber(fiber);
 
     if (hideElementsWithTypes.has(elementType)) {
       return true;
     }
 
     if (hideElementsWithDisplayNames.size > 0) {
-      var displayName = getDisplayNameForFiber(fiber);
+      const displayName = getDisplayNameForFiber(fiber);
 
       if (displayName != null) {
         // eslint-disable-next-line no-for-of-loops/no-for-of-loops
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
+        var _iterator = _createForOfIteratorHelper(hideElementsWithDisplayNames),
+            _step;
 
         try {
-          for (var _iterator = hideElementsWithDisplayNames[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var displayNameRegExp = _step.value;
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            const displayNameRegExp = _step.value;
 
             if (displayNameRegExp.test(displayName)) {
               return true;
             }
           }
         } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
+          _iterator.e(err);
         } finally {
-          try {
-            if (!_iteratorNormalCompletion && _iterator.return != null) {
-              _iterator.return();
-            }
-          } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
-            }
-          }
+          _iterator.f();
         }
       }
     }
 
     if (_debugSource != null && hideElementsWithPaths.size > 0) {
-      var fileName = _debugSource.fileName; // eslint-disable-next-line no-for-of-loops/no-for-of-loops
+      const fileName = _debugSource.fileName; // eslint-disable-next-line no-for-of-loops/no-for-of-loops
 
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
+      var _iterator2 = _createForOfIteratorHelper(hideElementsWithPaths),
+          _step2;
 
       try {
-        for (var _iterator2 = hideElementsWithPaths[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var pathRegExp = _step2.value;
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          const pathRegExp = _step2.value;
 
           if (pathRegExp.test(fileName)) {
             return true;
           }
         }
       } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
+        _iterator2.e(err);
       } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-            _iterator2.return();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
+        _iterator2.f();
       }
     }
 
@@ -3521,8 +3654,8 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function getElementTypeForFiber(fiber) {
-    var type = fiber.type,
-        tag = fiber.tag;
+    const type = fiber.type,
+          tag = fiber.tag;
 
     switch (tag) {
       case ClassComponent:
@@ -3558,7 +3691,7 @@ function attach(hook, rendererID, renderer, global) {
         return react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_1__[/* ElementTypeSuspenseList */ "o"];
 
       default:
-        var typeSymbol = getTypeSymbol(type);
+        const typeSymbol = getTypeSymbol(type);
 
         switch (typeSymbol) {
           case _ReactSymbols__WEBPACK_IMPORTED_MODULE_8__[/* CONCURRENT_MODE_NUMBER */ "c"]:
@@ -3598,7 +3731,7 @@ function attach(hook, rendererID, renderer, global) {
       return fiber;
     }
 
-    var alternate = fiber.alternate;
+    const alternate = fiber.alternate;
 
     if (alternate != null && primaryFibers.has(alternate)) {
       return alternate;
@@ -3608,23 +3741,23 @@ function attach(hook, rendererID, renderer, global) {
     return fiber;
   }
 
-  var fiberToIDMap = new Map();
-  var idToFiberMap = new Map();
-  var primaryFibers = new Set(); // When profiling is supported, we store the latest tree base durations for each Fiber.
+  const fiberToIDMap = new Map();
+  const idToFiberMap = new Map();
+  const primaryFibers = new Set(); // When profiling is supported, we store the latest tree base durations for each Fiber.
   // This is so that we can quickly capture a snapshot of those values if profiling starts.
   // If we didn't store these values, we'd have to crawl the tree when profiling started,
   // and use a slow path to find each of the current Fibers.
 
-  var idToTreeBaseDurationMap = new Map(); // When profiling is supported, we store the latest tree base durations for each Fiber.
+  const idToTreeBaseDurationMap = new Map(); // When profiling is supported, we store the latest tree base durations for each Fiber.
   // This map enables us to filter these times by root when sending them to the frontend.
 
-  var idToRootMap = new Map(); // When a mount or update is in progress, this value tracks the root that is being operated on.
+  const idToRootMap = new Map(); // When a mount or update is in progress, this value tracks the root that is being operated on.
 
-  var currentRootID = -1;
+  let currentRootID = -1;
 
   function getFiberID(primaryFiber) {
     if (!fiberToIDMap.has(primaryFiber)) {
-      var id = Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getUID */ "g"])();
+      const id = Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getUID */ "i"])();
       fiberToIDMap.set(primaryFiber, id);
       idToFiberMap.set(id, primaryFiber);
     }
@@ -3665,8 +3798,8 @@ function attach(hook, rendererID, renderer, global) {
     switch (getElementTypeForFiber(fiber)) {
       case react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_1__[/* ElementTypeClass */ "e"]:
         if (idToContextsMap !== null) {
-          var id = getFiberID(getPrimaryFiber(fiber));
-          var contexts = getContextsForFiber(fiber);
+          const id = getFiberID(getPrimaryFiber(fiber));
+          const contexts = getContextsForFiber(fiber);
 
           if (contexts !== null) {
             idToContextsMap.set(id, contexts);
@@ -3681,14 +3814,14 @@ function attach(hook, rendererID, renderer, global) {
   } // Differentiates between a null context value and no context.
 
 
-  var NO_CONTEXT = {};
+  const NO_CONTEXT = {};
 
   function getContextsForFiber(fiber) {
     switch (getElementTypeForFiber(fiber)) {
       case react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_1__[/* ElementTypeClass */ "e"]:
-        var instance = fiber.stateNode;
-        var legacyContext = NO_CONTEXT;
-        var modernContext = NO_CONTEXT;
+        const instance = fiber.stateNode;
+        let legacyContext = NO_CONTEXT;
+        let modernContext = NO_CONTEXT;
 
         if (instance != null) {
           if (instance.constructor && instance.constructor.contextType != null) {
@@ -3714,7 +3847,7 @@ function attach(hook, rendererID, renderer, global) {
 
   function crawlToInitializeContextsMap(fiber) {
     updateContextsForFiber(fiber);
-    var current = fiber.child;
+    let current = fiber.child;
 
     while (current !== null) {
       crawlToInitializeContextsMap(current);
@@ -3726,21 +3859,21 @@ function attach(hook, rendererID, renderer, global) {
     switch (getElementTypeForFiber(fiber)) {
       case react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_1__[/* ElementTypeClass */ "e"]:
         if (idToContextsMap !== null) {
-          var id = getFiberID(getPrimaryFiber(fiber));
-          var prevContexts = idToContextsMap.has(id) ? idToContextsMap.get(id) : null;
-          var nextContexts = getContextsForFiber(fiber);
+          const id = getFiberID(getPrimaryFiber(fiber));
+          const prevContexts = idToContextsMap.has(id) ? idToContextsMap.get(id) : null;
+          const nextContexts = getContextsForFiber(fiber);
 
           if (prevContexts == null || nextContexts == null) {
             return null;
           }
 
-          var _prevContexts = _slicedToArray(prevContexts, 2),
-              prevLegacyContext = _prevContexts[0],
-              prevModernContext = _prevContexts[1];
+          const _prevContexts = _slicedToArray(prevContexts, 2),
+                prevLegacyContext = _prevContexts[0],
+                prevModernContext = _prevContexts[1];
 
-          var _nextContexts = _slicedToArray(nextContexts, 2),
-              nextLegacyContext = _nextContexts[0],
-              nextModernContext = _nextContexts[1];
+          const _nextContexts = _slicedToArray(nextContexts, 2),
+                nextLegacyContext = _nextContexts[0],
+                nextModernContext = _nextContexts[1];
 
           if (nextLegacyContext !== NO_CONTEXT) {
             return getChangedKeys(prevLegacyContext, nextLegacyContext);
@@ -3788,34 +3921,24 @@ function attach(hook, rendererID, renderer, global) {
       return null;
     }
 
-    var keys = new Set([].concat(_toConsumableArray(Object.keys(prev)), _toConsumableArray(Object.keys(next))));
-    var changedKeys = []; // eslint-disable-next-line no-for-of-loops/no-for-of-loops
+    const keys = new Set([...Object.keys(prev), ...Object.keys(next)]);
+    const changedKeys = []; // eslint-disable-next-line no-for-of-loops/no-for-of-loops
 
-    var _iteratorNormalCompletion3 = true;
-    var _didIteratorError3 = false;
-    var _iteratorError3 = undefined;
+    var _iterator3 = _createForOfIteratorHelper(keys),
+        _step3;
 
     try {
-      for (var _iterator3 = keys[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-        var key = _step3.value;
+      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+        const key = _step3.value;
 
         if (prev[key] !== next[key]) {
           changedKeys.push(key);
         }
       }
     } catch (err) {
-      _didIteratorError3 = true;
-      _iteratorError3 = err;
+      _iterator3.e(err);
     } finally {
-      try {
-        if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
-          _iterator3.return();
-        }
-      } finally {
-        if (_didIteratorError3) {
-          throw _iteratorError3;
-        }
-      }
+      _iterator3.f();
     }
 
     return changedKeys;
@@ -3832,7 +3955,7 @@ function attach(hook, rendererID, renderer, global) {
         // For types that execute user code, we check PerformedWork effect.
         // We don't reflect bailouts (either referential or sCU) in DevTools.
         // eslint-disable-next-line no-bitwise
-        return (nextFiber.effectTag & PerformedWork) === PerformedWork;
+        return (getFiberFlags(nextFiber) & PerformedWork) === PerformedWork;
       // Note: ContextConsumer only gets PerformedWork effect in 16.3.3+
       // so it won't get highlighted with React 16.3.0 to 16.3.2.
 
@@ -3843,13 +3966,13 @@ function attach(hook, rendererID, renderer, global) {
     }
   }
 
-  var pendingOperations = [];
-  var pendingRealUnmountedIDs = [];
-  var pendingSimulatedUnmountedIDs = [];
-  var pendingOperationsQueue = [];
-  var pendingStringTable = new Map();
-  var pendingStringTableLength = 0;
-  var pendingUnmountedRootID = null;
+  const pendingOperations = [];
+  const pendingRealUnmountedIDs = [];
+  const pendingSimulatedUnmountedIDs = [];
+  let pendingOperationsQueue = [];
+  const pendingStringTable = new Map();
+  let pendingStringTableLength = 0;
+  let pendingUnmountedRootID = null;
 
   function pushOperation(op) {
     if (true) {
@@ -3876,8 +3999,8 @@ function attach(hook, rendererID, renderer, global) {
       }
     }
 
-    var numUnmountIDs = pendingRealUnmountedIDs.length + pendingSimulatedUnmountedIDs.length + (pendingUnmountedRootID === null ? 0 : 1);
-    var operations = new Array( // Identify which renderer this update is coming from.
+    const numUnmountIDs = pendingRealUnmountedIDs.length + pendingSimulatedUnmountedIDs.length + (pendingUnmountedRootID === null ? 0 : 1);
+    const operations = new Array( // Identify which renderer this update is coming from.
     2 + // [rendererID, rootFiberID]
     // How big is the string table?
     1 + // [stringTableLength]
@@ -3889,18 +4012,18 @@ function attach(hook, rendererID, renderer, global) {
     // This enables roots to be mapped to renderers,
     // Which in turn enables fiber props, states, and hooks to be inspected.
 
-    var i = 0;
+    let i = 0;
     operations[i++] = rendererID;
     operations[i++] = currentRootID; // Use this ID in case the root was unmounted!
     // Now fill in the string table.
     // [stringTableLength, str1Length, ...str1, str2Length, ...str2, ...]
 
     operations[i++] = pendingStringTableLength;
-    pendingStringTable.forEach(function (value, key) {
+    pendingStringTable.forEach((value, key) => {
       operations[i++] = key.length;
-      var encodedKey = Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* utfEncodeString */ "j"])(key);
+      const encodedKey = Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* utfEncodeString */ "m"])(key);
 
-      for (var j = 0; j < encodedKey.length; j++) {
+      for (let j = 0; j < encodedKey.length; j++) {
         operations[i + j] = encodedKey[j];
       }
 
@@ -3915,7 +4038,7 @@ function attach(hook, rendererID, renderer, global) {
       // They were inserted parents-first by React, but we want children-first.
       // So we traverse our array backwards.
 
-      for (var j = pendingRealUnmountedIDs.length - 1; j >= 0; j--) {
+      for (let j = pendingRealUnmountedIDs.length - 1; j >= 0; j--) {
         operations[i++] = pendingRealUnmountedIDs[j];
       } // Fill in the simulated unmounts (hidden Suspense subtrees) in their order.
       // (We want children to go before parents.)
@@ -3924,8 +4047,8 @@ function attach(hook, rendererID, renderer, global) {
       // to discover them during the traversal, as they would have been deleted.
 
 
-      for (var _j = 0; _j < pendingSimulatedUnmountedIDs.length; _j++) {
-        operations[i + _j] = pendingSimulatedUnmountedIDs[_j];
+      for (let j = 0; j < pendingSimulatedUnmountedIDs.length; j++) {
+        operations[i + j] = pendingSimulatedUnmountedIDs[j];
       }
 
       i += pendingSimulatedUnmountedIDs.length; // The root ID should always be unmounted last.
@@ -3937,8 +4060,8 @@ function attach(hook, rendererID, renderer, global) {
     } // Fill in the rest of the operations.
 
 
-    for (var _j2 = 0; _j2 < pendingOperations.length; _j2++) {
-      operations[i + _j2] = pendingOperations[_j2];
+    for (let j = 0; j < pendingOperations.length; j++) {
+      operations[i + j] = pendingOperations[j];
     }
 
     i += pendingOperations.length; // Let the frontend know about tree operations.
@@ -3968,13 +4091,13 @@ function attach(hook, rendererID, renderer, global) {
       return 0;
     }
 
-    var existingID = pendingStringTable.get(str);
+    const existingID = pendingStringTable.get(str);
 
     if (existingID !== undefined) {
       return existingID;
     }
 
-    var stringID = pendingStringTable.size + 1;
+    const stringID = pendingStringTable.size + 1;
     pendingStringTable.set(str, stringID); // The string table total length needs to account
     // both for the string length, and for the array item
     // that contains the length itself. Hence + 1.
@@ -3988,10 +4111,10 @@ function attach(hook, rendererID, renderer, global) {
       debug('recordMount()', fiber, parentFiber);
     }
 
-    var isRoot = fiber.tag === HostRoot;
-    var id = getFiberID(getPrimaryFiber(fiber));
-    var hasOwnerMetadata = fiber.hasOwnProperty('_debugOwner');
-    var isProfilingSupported = fiber.hasOwnProperty('treeBaseDuration');
+    const isRoot = fiber.tag === HostRoot;
+    const id = getFiberID(getPrimaryFiber(fiber));
+    const hasOwnerMetadata = fiber.hasOwnProperty('_debugOwner');
+    const isProfilingSupported = fiber.hasOwnProperty('treeBaseDuration');
 
     if (isRoot) {
       pushOperation(_constants__WEBPACK_IMPORTED_MODULE_5__[/* TREE_OPERATION_ADD */ "g"]);
@@ -4006,17 +4129,17 @@ function attach(hook, rendererID, renderer, global) {
         }
       }
     } else {
-      var key = fiber.key;
-      var displayName = getDisplayNameForFiber(fiber);
-      var elementType = getElementTypeForFiber(fiber);
-      var _debugOwner = fiber._debugOwner;
-      var ownerID = _debugOwner != null ? getFiberID(getPrimaryFiber(_debugOwner)) : 0;
-      var parentID = parentFiber ? getFiberID(getPrimaryFiber(parentFiber)) : 0;
-      var displayNameStringID = getStringID(displayName); // This check is a guard to handle a React element that has been modified
+      const key = fiber.key;
+      const displayName = getDisplayNameForFiber(fiber);
+      const elementType = getElementTypeForFiber(fiber);
+      const _debugOwner = fiber._debugOwner;
+      const ownerID = _debugOwner != null ? getFiberID(getPrimaryFiber(_debugOwner)) : 0;
+      const parentID = parentFiber ? getFiberID(getPrimaryFiber(parentFiber)) : 0;
+      const displayNameStringID = getStringID(displayName); // This check is a guard to handle a React element that has been modified
       // in such a way as to bypass the default stringification of the "key" property.
 
-      var keyString = key === null ? null : '' + key;
-      var keyStringID = getStringID(keyString);
+      const keyString = key === null ? null : '' + key;
+      const keyStringID = getStringID(keyString);
       pushOperation(_constants__WEBPACK_IMPORTED_MODULE_5__[/* TREE_OPERATION_ADD */ "g"]);
       pushOperation(id);
       pushOperation(elementType);
@@ -4046,8 +4169,8 @@ function attach(hook, rendererID, renderer, global) {
       }
     }
 
-    var isRoot = fiber.tag === HostRoot;
-    var primaryFiber = getPrimaryFiber(fiber);
+    const isRoot = fiber.tag === HostRoot;
+    const primaryFiber = getPrimaryFiber(fiber);
 
     if (!fiberToIDMap.has(primaryFiber)) {
       // If we've never seen this Fiber, it might be because
@@ -4060,7 +4183,7 @@ function attach(hook, rendererID, renderer, global) {
       return;
     }
 
-    var id = getFiberID(primaryFiber);
+    const id = getFiberID(primaryFiber);
 
     if (isRoot) {
       // Roots must be removed only after all children (pending and simulated) have been removed.
@@ -4080,7 +4203,7 @@ function attach(hook, rendererID, renderer, global) {
     fiberToIDMap.delete(primaryFiber);
     idToFiberMap.delete(id);
     primaryFibers.delete(primaryFiber);
-    var isProfilingSupported = fiber.hasOwnProperty('treeBaseDuration');
+    const isProfilingSupported = fiber.hasOwnProperty('treeBaseDuration');
 
     if (isProfilingSupported) {
       idToRootMap.delete(id);
@@ -4095,8 +4218,8 @@ function attach(hook, rendererID, renderer, global) {
     // Also remember whether to do the same for siblings.
 
 
-    var mightSiblingsBeOnTrackedPath = updateTrackedPathStateBeforeMount(fiber);
-    var shouldIncludeInTree = !shouldFilterFiber(fiber);
+    const mightSiblingsBeOnTrackedPath = updateTrackedPathStateBeforeMount(fiber);
+    const shouldIncludeInTree = !shouldFilterFiber(fiber);
 
     if (shouldIncludeInTree) {
       recordMount(fiber, parentFiber);
@@ -4104,7 +4227,7 @@ function attach(hook, rendererID, renderer, global) {
 
     if (traceUpdatesEnabled) {
       if (traceNearestHostComponentUpdate) {
-        var elementType = getElementTypeForFiber(fiber); // If an ancestor updated, we should mark the nearest host nodes for highlighting.
+        const elementType = getElementTypeForFiber(fiber); // If an ancestor updated, we should mark the nearest host nodes for highlighting.
 
         if (elementType === react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_1__[/* ElementTypeHostComponent */ "i"]) {
           traceUpdatesForNodes.add(fiber.stateNode);
@@ -4115,25 +4238,25 @@ function attach(hook, rendererID, renderer, global) {
 
     }
 
-    var isSuspense = fiber.tag === ReactTypeOfWork.SuspenseComponent;
+    const isSuspense = fiber.tag === ReactTypeOfWork.SuspenseComponent;
 
     if (isSuspense) {
-      var isTimedOut = fiber.memoizedState !== null;
+      const isTimedOut = fiber.memoizedState !== null;
 
       if (isTimedOut) {
         // Special case: if Suspense mounts in a timed-out state,
         // get the fallback child from the inner fragment and mount
         // it as if it was our own child. Updates handle this too.
-        var primaryChildFragment = fiber.child;
-        var fallbackChildFragment = primaryChildFragment ? primaryChildFragment.sibling : null;
-        var fallbackChild = fallbackChildFragment ? fallbackChildFragment.child : null;
+        const primaryChildFragment = fiber.child;
+        const fallbackChildFragment = primaryChildFragment ? primaryChildFragment.sibling : null;
+        const fallbackChild = fallbackChildFragment ? fallbackChildFragment.child : null;
 
         if (fallbackChild !== null) {
           mountFiberRecursively(fallbackChild, shouldIncludeInTree ? fiber : parentFiber, true, traceNearestHostComponentUpdate);
         }
       } else {
-        var primaryChild = null;
-        var areSuspenseChildrenConditionallyWrapped = OffscreenComponent === -1;
+        let primaryChild = null;
+        const areSuspenseChildrenConditionallyWrapped = OffscreenComponent === -1;
 
         if (areSuspenseChildrenConditionallyWrapped) {
           primaryChild = fiber.child;
@@ -4168,13 +4291,13 @@ function attach(hook, rendererID, renderer, global) {
     } // We might meet a nested Suspense on our way.
 
 
-    var isTimedOutSuspense = fiber.tag === ReactTypeOfWork.SuspenseComponent && fiber.memoizedState !== null;
-    var child = fiber.child;
+    const isTimedOutSuspense = fiber.tag === ReactTypeOfWork.SuspenseComponent && fiber.memoizedState !== null;
+    let child = fiber.child;
 
     if (isTimedOutSuspense) {
       // If it's showing fallback tree, let's traverse it instead.
-      var primaryChildFragment = fiber.child;
-      var fallbackChildFragment = primaryChildFragment ? primaryChildFragment.sibling : null; // Skip over to the real Fiber child.
+      const primaryChildFragment = fiber.child;
+      const fallbackChildFragment = primaryChildFragment ? primaryChildFragment.sibling : null; // Skip over to the real Fiber child.
 
       child = fallbackChildFragment ? fallbackChildFragment.child : null;
     }
@@ -4192,19 +4315,19 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function recordProfilingDurations(fiber) {
-    var id = getFiberID(getPrimaryFiber(fiber));
-    var actualDuration = fiber.actualDuration,
-        treeBaseDuration = fiber.treeBaseDuration;
+    const id = getFiberID(getPrimaryFiber(fiber));
+    const actualDuration = fiber.actualDuration,
+          treeBaseDuration = fiber.treeBaseDuration;
     idToTreeBaseDurationMap.set(id, treeBaseDuration || 0);
 
     if (isProfiling) {
-      var alternate = fiber.alternate; // It's important to update treeBaseDuration even if the current Fiber did not render,
+      const alternate = fiber.alternate; // It's important to update treeBaseDuration even if the current Fiber did not render,
       // because it's possible that one of its descendants did.
 
       if (alternate == null || treeBaseDuration !== alternate.treeBaseDuration) {
         // Tree base duration updates are included in the operations typed array.
         // So we have to convert them from milliseconds to microseconds so we can send them as ints.
-        var convertedTreeBaseDuration = Math.floor((treeBaseDuration || 0) * 1000);
+        const convertedTreeBaseDuration = Math.floor((treeBaseDuration || 0) * 1000);
         pushOperation(_constants__WEBPACK_IMPORTED_MODULE_5__[/* TREE_OPERATION_UPDATE_TREE_BASE_DURATION */ "j"]);
         pushOperation(id);
         pushOperation(convertedTreeBaseDuration);
@@ -4218,8 +4341,8 @@ function attach(hook, rendererID, renderer, global) {
           // So we need to do this on the backend.
           // Note that this calculated self duration is not the same thing as the base duration.
           // The two are calculated differently (tree duration does not accumulate).
-          var selfDuration = actualDuration;
-          var child = fiber.child;
+          let selfDuration = actualDuration;
+          let child = fiber.child;
 
           while (child !== null) {
             selfDuration -= child.actualDuration || 0;
@@ -4230,12 +4353,12 @@ function attach(hook, rendererID, renderer, global) {
           // In other cases (e.g. Memo) actualDuration might be greater than 0 even if we "bailed out".
 
 
-          var metadata = currentCommitProfilingMetadata;
+          const metadata = currentCommitProfilingMetadata;
           metadata.durations.push(id, actualDuration, selfDuration);
           metadata.maxActualDuration = Math.max(metadata.maxActualDuration, actualDuration);
 
           if (recordChangeDescriptions) {
-            var changeDescription = getChangeDescription(alternate, fiber);
+            const changeDescription = getChangeDescription(alternate, fiber);
 
             if (changeDescription !== null) {
               if (metadata.changeDescriptions !== null) {
@@ -4251,20 +4374,24 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function recordResetChildren(fiber, childSet) {
-    // The frontend only really cares about the displayName, key, and children.
+    if (_constants__WEBPACK_IMPORTED_MODULE_5__[/* __DEBUG__ */ "k"]) {
+      debug('recordResetChildren()', childSet, fiber);
+    } // The frontend only really cares about the displayName, key, and children.
     // The first two don't really change, so we are only concerned with the order of children here.
     // This is trickier than a simple comparison though, since certain types of fibers are filtered.
-    var nextChildren = []; // This is a naive implementation that shallowly recourses children.
+
+
+    const nextChildren = []; // This is a naive implementation that shallowly recourses children.
     // We might want to revisit this if it proves to be too inefficient.
 
-    var child = childSet;
+    let child = childSet;
 
     while (child !== null) {
       findReorderedChildrenRecursively(child, nextChildren);
       child = child.sibling;
     }
 
-    var numChildren = nextChildren.length;
+    const numChildren = nextChildren.length;
 
     if (numChildren < 2) {
       // No need to reorder.
@@ -4275,7 +4402,7 @@ function attach(hook, rendererID, renderer, global) {
     pushOperation(getFiberID(getPrimaryFiber(fiber)));
     pushOperation(numChildren);
 
-    for (var i = 0; i < nextChildren.length; i++) {
+    for (let i = 0; i < nextChildren.length; i++) {
       pushOperation(nextChildren[i]);
     }
   }
@@ -4284,7 +4411,21 @@ function attach(hook, rendererID, renderer, global) {
     if (!shouldFilterFiber(fiber)) {
       nextChildren.push(getFiberID(getPrimaryFiber(fiber)));
     } else {
-      var child = fiber.child;
+      let child = fiber.child;
+      const isTimedOutSuspense = fiber.tag === SuspenseComponent && fiber.memoizedState !== null;
+
+      if (isTimedOutSuspense) {
+        // Special case: if Suspense mounts in a timed-out state,
+        // get the fallback child from the inner fragment,
+        // and skip over the primary child.
+        const primaryChildFragment = fiber.child;
+        const fallbackChildFragment = primaryChildFragment ? primaryChildFragment.sibling : null;
+        const fallbackChild = fallbackChildFragment ? fallbackChildFragment.child : null;
+
+        if (fallbackChild !== null) {
+          child = fallbackChild;
+        }
+      }
 
       while (child !== null) {
         findReorderedChildrenRecursively(child, nextChildren);
@@ -4300,7 +4441,7 @@ function attach(hook, rendererID, renderer, global) {
     }
 
     if (traceUpdatesEnabled) {
-      var elementType = getElementTypeForFiber(nextFiber);
+      const elementType = getElementTypeForFiber(nextFiber);
 
       if (traceNearestHostComponentUpdate) {
         // If an ancestor updated, we should mark the nearest host nodes for highlighting.
@@ -4322,9 +4463,9 @@ function attach(hook, rendererID, renderer, global) {
       hasElementUpdatedSinceLastInspected = true;
     }
 
-    var shouldIncludeInTree = !shouldFilterFiber(nextFiber);
-    var isSuspense = nextFiber.tag === SuspenseComponent;
-    var shouldResetChildren = false; // The behavior of timed-out Suspense trees is unique.
+    const shouldIncludeInTree = !shouldFilterFiber(nextFiber);
+    const isSuspense = nextFiber.tag === SuspenseComponent;
+    let shouldResetChildren = false; // The behavior of timed-out Suspense trees is unique.
     // Rather than unmount the timed out content (and possibly lose important state),
     // React re-parents this content within a hidden Fragment while the fallback is showing.
     // This behavior doesn't need to be observable in the DevTools though.
@@ -4333,19 +4474,19 @@ function attach(hook, rendererID, renderer, global) {
     // so the Elements panel and Profiler don't need to special case them.
     // Suspense components only have a non-null memoizedState if they're timed-out.
 
-    var prevDidTimeout = isSuspense && prevFiber.memoizedState !== null;
-    var nextDidTimeOut = isSuspense && nextFiber.memoizedState !== null; // The logic below is inspired by the code paths in updateSuspenseComponent()
+    const prevDidTimeout = isSuspense && prevFiber.memoizedState !== null;
+    const nextDidTimeOut = isSuspense && nextFiber.memoizedState !== null; // The logic below is inspired by the code paths in updateSuspenseComponent()
     // inside ReactFiberBeginWork in the React source code.
 
     if (prevDidTimeout && nextDidTimeOut) {
       // Fallback -> Fallback:
       // 1. Reconcile fallback set.
-      var nextFiberChild = nextFiber.child;
-      var nextFallbackChildSet = nextFiberChild ? nextFiberChild.sibling : null; // Note: We can't use nextFiber.child.sibling.alternate
+      const nextFiberChild = nextFiber.child;
+      const nextFallbackChildSet = nextFiberChild ? nextFiberChild.sibling : null; // Note: We can't use nextFiber.child.sibling.alternate
       // because the set is special and alternate may not exist.
 
-      var prevFiberChild = prevFiber.child;
-      var prevFallbackChildSet = prevFiberChild ? prevFiberChild.sibling : null;
+      const prevFiberChild = prevFiber.child;
+      const prevFallbackChildSet = prevFiberChild ? prevFiberChild.sibling : null;
 
       if (nextFallbackChildSet != null && prevFallbackChildSet != null && updateFiberRecursively(nextFallbackChildSet, prevFallbackChildSet, nextFiber, traceNearestHostComponentUpdate)) {
         shouldResetChildren = true;
@@ -4355,10 +4496,10 @@ function attach(hook, rendererID, renderer, global) {
       // 1. Unmount fallback set
       // Note: don't emulate fallback unmount because React actually did it.
       // 2. Mount primary set
-      var nextPrimaryChildSet = nextFiber.child;
+      const nextPrimaryChildSet = nextFiber.child;
 
       if (nextPrimaryChildSet !== null) {
-        mountFiberRecursively(nextPrimaryChildSet, nextFiber, true, traceNearestHostComponentUpdate);
+        mountFiberRecursively(nextPrimaryChildSet, shouldIncludeInTree ? nextFiber : parentFiber, true, traceNearestHostComponentUpdate);
       }
 
       shouldResetChildren = true;
@@ -4369,12 +4510,11 @@ function attach(hook, rendererID, renderer, global) {
       // We need to manually walk the previous tree and record unmounts.
       unmountFiberChildrenRecursively(prevFiber); // 2. Mount fallback set
 
-      var _nextFiberChild = nextFiber.child;
+      const nextFiberChild = nextFiber.child;
+      const nextFallbackChildSet = nextFiberChild ? nextFiberChild.sibling : null;
 
-      var _nextFallbackChildSet = _nextFiberChild ? _nextFiberChild.sibling : null;
-
-      if (_nextFallbackChildSet != null) {
-        mountFiberRecursively(_nextFallbackChildSet, nextFiber, true, traceNearestHostComponentUpdate);
+      if (nextFallbackChildSet != null) {
+        mountFiberRecursively(nextFallbackChildSet, shouldIncludeInTree ? nextFiber : parentFiber, true, traceNearestHostComponentUpdate);
         shouldResetChildren = true;
       }
     } else {
@@ -4383,8 +4523,8 @@ function attach(hook, rendererID, renderer, global) {
       if (nextFiber.child !== prevFiber.child) {
         // If the first child is different, we need to traverse them.
         // Each next child will be either a new child (mount) or an alternate (update).
-        var nextChild = nextFiber.child;
-        var prevChildAtSameIndex = prevFiber.child;
+        let nextChild = nextFiber.child;
+        let prevChildAtSameIndex = prevFiber.child;
 
         while (nextChild) {
           // We already know children will be referentially different because
@@ -4392,7 +4532,7 @@ function attach(hook, rendererID, renderer, global) {
           // Schedule updates and mounts depending on whether alternates exist.
           // We don't track deletions here because they are reported separately.
           if (nextChild.alternate) {
-            var prevChild = nextChild.alternate;
+            const prevChild = nextChild.alternate;
 
             if (updateFiberRecursively(nextChild, prevChild, shouldIncludeInTree ? nextFiber : parentFiber, traceNearestHostComponentUpdate)) {
               // If a nested tree child order changed but it can't handle its own
@@ -4430,8 +4570,8 @@ function attach(hook, rendererID, renderer, global) {
           // If we're tracing updates and we've bailed out before reaching a host node,
           // we should fall back to recursively marking the nearest host descendants for highlight.
           if (traceNearestHostComponentUpdate) {
-            var hostFibers = findAllCurrentHostFibers(getFiberID(getPrimaryFiber(nextFiber)));
-            hostFibers.forEach(function (hostFiber) {
+            const hostFibers = findAllCurrentHostFibers(getFiberID(getPrimaryFiber(nextFiber)));
+            hostFibers.forEach(hostFiber => {
               traceUpdatesForNodes.add(hostFiber.stateNode);
             });
           }
@@ -4440,7 +4580,7 @@ function attach(hook, rendererID, renderer, global) {
     }
 
     if (shouldIncludeInTree) {
-      var isProfilingSupported = nextFiber.hasOwnProperty('treeBaseDuration');
+      const isProfilingSupported = nextFiber.hasOwnProperty('treeBaseDuration');
 
       if (isProfilingSupported) {
         recordProfilingDurations(nextFiber);
@@ -4452,12 +4592,12 @@ function attach(hook, rendererID, renderer, global) {
       // so that we can display them in a flat children set.
       if (shouldIncludeInTree) {
         // Normally, search for children from the rendered child.
-        var nextChildSet = nextFiber.child;
+        let nextChildSet = nextFiber.child;
 
         if (nextDidTimeOut) {
           // Special case: timed-out Suspense renders the fallback set.
-          var _nextFiberChild2 = nextFiber.child;
-          nextChildSet = _nextFiberChild2 ? _nextFiberChild2.sibling : null;
+          const nextFiberChild = nextFiber.child;
+          nextChildSet = nextFiberChild ? nextFiberChild.sibling : null;
         }
 
         if (nextChildSet != null) {
@@ -4480,13 +4620,13 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function flushInitialOperations() {
-    var localPendingOperationsQueue = pendingOperationsQueue;
+    const localPendingOperationsQueue = pendingOperationsQueue;
     pendingOperationsQueue = null;
 
     if (localPendingOperationsQueue !== null && localPendingOperationsQueue.length > 0) {
       // We may have already queued up some operations before the frontend connected
       // If so, let the frontend know about them.
-      localPendingOperationsQueue.forEach(function (operations) {
+      localPendingOperationsQueue.forEach(operations => {
         hook.emit('operations', operations);
       });
     } else {
@@ -4497,7 +4637,7 @@ function attach(hook, rendererID, renderer, global) {
       } // If we have not been profiling, then we can just walk the tree and build up its current state as-is.
 
 
-      hook.getFiberRoots(rendererID).forEach(function (root) {
+      hook.getFiberRoots(rendererID).forEach(root => {
         currentRootID = getFiberID(getPrimaryFiber(root.current));
         setRootPseudoKey(currentRootID, root.current); // Checking root.memoizedInteractions handles multi-renderer edge-case-
         // where some v16 renderers support profiling and others don't.
@@ -4509,11 +4649,9 @@ function attach(hook, rendererID, renderer, global) {
             changeDescriptions: recordChangeDescriptions ? new Map() : null,
             durations: [],
             commitTime: getCurrentTime() - profilingStartTime,
-            interactions: Array.from(root.memoizedInteractions).map(function (interaction) {
-              return _objectSpread({}, interaction, {
-                timestamp: interaction.timestamp - profilingStartTime
-              });
-            }),
+            interactions: Array.from(root.memoizedInteractions).map(interaction => _objectSpread(_objectSpread({}, interaction), {}, {
+              timestamp: interaction.timestamp - profilingStartTime
+            })),
             maxActualDuration: 0,
             priorityLevel: null
           };
@@ -4534,8 +4672,8 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function handleCommitFiberRoot(root, priorityLevel) {
-    var current = root.current;
-    var alternate = current.alternate;
+    const current = root.current;
+    const alternate = current.alternate;
     currentRootID = getFiberID(getPrimaryFiber(current)); // Before the traversals, remember to start tracking
     // our path in case we have selection to restore.
 
@@ -4549,7 +4687,7 @@ function attach(hook, rendererID, renderer, global) {
     // where some v16 renderers support profiling and others don't.
 
 
-    var isProfilingSupported = root.memoizedInteractions != null;
+    const isProfilingSupported = root.memoizedInteractions != null;
 
     if (isProfiling && isProfilingSupported) {
       // If profiling is active, store commit time and duration, and the current interactions.
@@ -4558,11 +4696,9 @@ function attach(hook, rendererID, renderer, global) {
         changeDescriptions: recordChangeDescriptions ? new Map() : null,
         durations: [],
         commitTime: getCurrentTime() - profilingStartTime,
-        interactions: Array.from(root.memoizedInteractions).map(function (interaction) {
-          return _objectSpread({}, interaction, {
-            timestamp: interaction.timestamp - profilingStartTime
-          });
-        }),
+        interactions: Array.from(root.memoizedInteractions).map(interaction => _objectSpread(_objectSpread({}, interaction), {}, {
+          timestamp: interaction.timestamp - profilingStartTime
+        })),
         maxActualDuration: 0,
         priorityLevel: priorityLevel == null ? null : formatPriorityLevel(priorityLevel)
       };
@@ -4570,8 +4706,8 @@ function attach(hook, rendererID, renderer, global) {
 
     if (alternate) {
       // TODO: relying on this seems a bit fishy.
-      var wasMounted = alternate.memoizedState != null && alternate.memoizedState.element != null;
-      var isMounted = current.memoizedState != null && current.memoizedState.element != null;
+      const wasMounted = alternate.memoizedState != null && alternate.memoizedState.element != null;
+      const isMounted = current.memoizedState != null && current.memoizedState.element != null;
 
       if (!wasMounted && isMounted) {
         // Mount a new root.
@@ -4592,7 +4728,7 @@ function attach(hook, rendererID, renderer, global) {
     }
 
     if (isProfiling && isProfilingSupported) {
-      var commitProfilingMetadata = rootToCommitProfilingMetadataMap.get(currentRootID);
+      const commitProfilingMetadata = rootToCommitProfilingMetadataMap.get(currentRootID);
 
       if (commitProfilingMetadata != null) {
         commitProfilingMetadata.push(currentCommitProfilingMetadata);
@@ -4612,15 +4748,15 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function findAllCurrentHostFibers(id) {
-    var fibers = [];
-    var fiber = findCurrentFiberUsingSlowPathById(id);
+    const fibers = [];
+    const fiber = findCurrentFiberUsingSlowPathById(id);
 
     if (!fiber) {
       return fibers;
     } // Next we'll drill down this component to find all HostComponent/Text.
 
 
-    var node = fiber;
+    let node = fiber;
 
     while (true) {
       if (node.tag === HostComponent || node.tag === HostText) {
@@ -4654,29 +4790,27 @@ function attach(hook, rendererID, renderer, global) {
 
   function findNativeNodesForFiberID(id) {
     try {
-      var _fiber = findCurrentFiberUsingSlowPathById(id);
+      let fiber = findCurrentFiberUsingSlowPathById(id);
 
-      if (_fiber === null) {
+      if (fiber === null) {
         return null;
       } // Special case for a timed-out Suspense.
 
 
-      var isTimedOutSuspense = _fiber.tag === SuspenseComponent && _fiber.memoizedState !== null;
+      const isTimedOutSuspense = fiber.tag === SuspenseComponent && fiber.memoizedState !== null;
 
       if (isTimedOutSuspense) {
         // A timed-out Suspense's findDOMNode is useless.
         // Try our best to find the fallback directly.
-        var maybeFallbackFiber = _fiber.child && _fiber.child.sibling;
+        const maybeFallbackFiber = fiber.child && fiber.child.sibling;
 
         if (maybeFallbackFiber != null) {
-          _fiber = maybeFallbackFiber;
+          fiber = maybeFallbackFiber;
         }
       }
 
-      var hostFibers = findAllCurrentHostFibers(id);
-      return hostFibers.map(function (hostFiber) {
-        return hostFiber.stateNode;
-      }).filter(Boolean);
+      const hostFibers = findAllCurrentHostFibers(id);
+      return hostFibers.map(hostFiber => hostFiber.stateNode).filter(Boolean);
     } catch (err) {
       // The fiber might have unmounted by now.
       return null;
@@ -4684,13 +4818,12 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function getDisplayNameForFiberID(id) {
-    var fiber = idToFiberMap.get(id);
+    const fiber = idToFiberMap.get(id);
     return fiber != null ? getDisplayNameForFiber(fiber) : null;
   }
 
-  function getFiberIDForNative(hostInstance) {
-    var findNearestUnfilteredAncestor = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-    var fiber = renderer.findFiberByHostInstance(hostInstance);
+  function getFiberIDForNative(hostInstance, findNearestUnfilteredAncestor = false) {
+    let fiber = renderer.findFiberByHostInstance(hostInstance);
 
     if (fiber != null) {
       if (findNearestUnfilteredAncestor) {
@@ -4705,25 +4838,25 @@ function attach(hook, rendererID, renderer, global) {
     return null;
   }
 
-  var MOUNTING = 1;
-  var MOUNTED = 2;
-  var UNMOUNTED = 3; // This function is copied from React and should be kept in sync:
+  const MOUNTING = 1;
+  const MOUNTED = 2;
+  const UNMOUNTED = 3; // This function is copied from React and should be kept in sync:
   // https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberTreeReflection.js
 
   function isFiberMountedImpl(fiber) {
-    var node = fiber;
+    let node = fiber;
 
     if (!fiber.alternate) {
       // If there is no alternate, this might be a new tree that isn't inserted
       // yet. If it is, then it will have a pending insertion effect on it.
-      if ((node.effectTag & Placement) !== NoEffect) {
+      if ((getFiberFlags(node) & Placement) !== NoFlags) {
         return MOUNTING;
       }
 
       while (node.return) {
         node = node.return;
 
-        if ((node.effectTag & Placement) !== NoEffect) {
+        if ((getFiberFlags(node) & Placement) !== NoFlags) {
           return MOUNTING;
         }
       }
@@ -4749,18 +4882,18 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function findCurrentFiberUsingSlowPathById(id) {
-    var fiber = idToFiberMap.get(id);
+    const fiber = idToFiberMap.get(id);
 
     if (fiber == null) {
-      console.warn("Could not find Fiber with id \"".concat(id, "\""));
+      console.warn(`Could not find Fiber with id "${id}"`);
       return null;
     }
 
-    var alternate = fiber.alternate;
+    const alternate = fiber.alternate;
 
     if (!alternate) {
       // If there is no alternate, then we only need to check if it is mounted.
-      var state = isFiberMountedImpl(fiber);
+      const state = isFiberMountedImpl(fiber);
 
       if (state === UNMOUNTED) {
         throw Error('Unable to find node on an unmounted component.');
@@ -4776,25 +4909,25 @@ function attach(hook, rendererID, renderer, global) {
     // special cases and we'll deal with them.
 
 
-    var a = fiber;
-    var b = alternate;
+    let a = fiber;
+    let b = alternate;
 
     while (true) {
-      var parentA = a.return;
+      const parentA = a.return;
 
       if (parentA === null) {
         // We're at the root.
         break;
       }
 
-      var parentB = parentA.alternate;
+      const parentB = parentA.alternate;
 
       if (parentB === null) {
         // There is no alternate. This is an unusual case. Currently, it only
         // happens when a Suspense component is hidden. An extra fragment fiber
         // is inserted in between the Suspense fiber and its children. Skip
         // over this extra fragment fiber and proceed to the next parent.
-        var nextParent = parentA.return;
+        const nextParent = parentA.return;
 
         if (nextParent !== null) {
           a = b = nextParent;
@@ -4809,7 +4942,7 @@ function attach(hook, rendererID, renderer, global) {
 
 
       if (parentA.child === parentB.child) {
-        var child = parentA.child;
+        let child = parentA.child;
 
         while (child) {
           if (child === a) {
@@ -4851,47 +4984,47 @@ function attach(hook, rendererID, renderer, global) {
         // which child belongs to which set.
         //
         // Search parent A's child set
-        var didFindChild = false;
-        var _child = parentA.child;
+        let didFindChild = false;
+        let child = parentA.child;
 
-        while (_child) {
-          if (_child === a) {
+        while (child) {
+          if (child === a) {
             didFindChild = true;
             a = parentA;
             b = parentB;
             break;
           }
 
-          if (_child === b) {
+          if (child === b) {
             didFindChild = true;
             b = parentA;
             a = parentB;
             break;
           }
 
-          _child = _child.sibling;
+          child = child.sibling;
         }
 
         if (!didFindChild) {
           // Search parent B's child set
-          _child = parentB.child;
+          child = parentB.child;
 
-          while (_child) {
-            if (_child === a) {
+          while (child) {
+            if (child === a) {
               didFindChild = true;
               a = parentB;
               b = parentA;
               break;
             }
 
-            if (_child === b) {
+            if (child === b) {
               didFindChild = true;
               b = parentB;
               a = parentA;
               break;
             }
 
-            _child = _child.sibling;
+            child = child.sibling;
           }
 
           if (!didFindChild) {
@@ -4922,24 +5055,24 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function prepareViewAttributeSource(id, path) {
-    var isCurrent = isMostRecentlyInspectedElementCurrent(id);
+    const isCurrent = isMostRecentlyInspectedElementCurrent(id);
 
     if (isCurrent) {
-      window.$attribute = Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getInObject */ "f"])(mostRecentlyInspectedElement, path);
+      window.$attribute = Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getInObject */ "h"])(mostRecentlyInspectedElement, path);
     }
   }
 
   function prepareViewElementSource(id) {
-    var fiber = idToFiberMap.get(id);
+    const fiber = idToFiberMap.get(id);
 
     if (fiber == null) {
-      console.warn("Could not find Fiber with id \"".concat(id, "\""));
+      console.warn(`Could not find Fiber with id "${id}"`);
       return;
     }
 
-    var elementType = fiber.elementType,
-        tag = fiber.tag,
-        type = fiber.type;
+    const elementType = fiber.elementType,
+          tag = fiber.tag,
+          type = fiber.type;
 
     switch (tag) {
       case ClassComponent:
@@ -4965,21 +5098,21 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function getOwnersList(id) {
-    var fiber = findCurrentFiberUsingSlowPathById(id);
+    const fiber = findCurrentFiberUsingSlowPathById(id);
 
     if (fiber == null) {
       return null;
     }
 
-    var _debugOwner = fiber._debugOwner;
-    var owners = [{
+    const _debugOwner = fiber._debugOwner;
+    const owners = [{
       displayName: getDisplayNameForFiber(fiber) || 'Anonymous',
-      id: id,
+      id,
       type: getElementTypeForFiber(fiber)
     }];
 
     if (_debugOwner) {
-      var owner = _debugOwner;
+      let owner = _debugOwner;
 
       while (owner !== null) {
         owners.unshift({
@@ -4998,9 +5131,9 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function getInstanceAndStyle(id) {
-    var instance = null;
-    var style = null;
-    var fiber = findCurrentFiberUsingSlowPathById(id);
+    let instance = null;
+    let style = null;
+    const fiber = findCurrentFiberUsingSlowPathById(id);
 
     if (fiber !== null) {
       instance = fiber.stateNode;
@@ -5011,39 +5144,39 @@ function attach(hook, rendererID, renderer, global) {
     }
 
     return {
-      instance: instance,
-      style: style
+      instance,
+      style
     };
   }
 
   function inspectElementRaw(id) {
-    var fiber = findCurrentFiberUsingSlowPathById(id);
+    const fiber = findCurrentFiberUsingSlowPathById(id);
 
     if (fiber == null) {
       return null;
     }
 
-    var _debugOwner = fiber._debugOwner,
-        _debugSource = fiber._debugSource,
-        stateNode = fiber.stateNode,
-        key = fiber.key,
-        memoizedProps = fiber.memoizedProps,
-        memoizedState = fiber.memoizedState,
-        dependencies = fiber.dependencies,
-        tag = fiber.tag,
-        type = fiber.type;
-    var elementType = getElementTypeForFiber(fiber);
-    var usesHooks = (tag === FunctionComponent || tag === SimpleMemoComponent || tag === ForwardRef) && (!!memoizedState || !!dependencies);
-    var typeSymbol = getTypeSymbol(type);
-    var canViewSource = false;
-    var context = null;
+    const _debugOwner = fiber._debugOwner,
+          _debugSource = fiber._debugSource,
+          stateNode = fiber.stateNode,
+          key = fiber.key,
+          memoizedProps = fiber.memoizedProps,
+          memoizedState = fiber.memoizedState,
+          dependencies = fiber.dependencies,
+          tag = fiber.tag,
+          type = fiber.type;
+    const elementType = getElementTypeForFiber(fiber);
+    const usesHooks = (tag === FunctionComponent || tag === SimpleMemoComponent || tag === ForwardRef) && (!!memoizedState || !!dependencies);
+    const typeSymbol = getTypeSymbol(type);
+    let canViewSource = false;
+    let context = null;
 
     if (tag === ClassComponent || tag === FunctionComponent || tag === IncompleteClassComponent || tag === IndeterminateComponent || tag === MemoComponent || tag === ForwardRef || tag === SimpleMemoComponent) {
       canViewSource = true;
 
       if (stateNode && stateNode.context != null) {
         // Don't show an empty context object for class components that don't use the context API.
-        var shouldHideContext = elementType === react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_1__[/* ElementTypeClass */ "e"] && !(type.contextTypes || type.contextType);
+        const shouldHideContext = elementType === react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_1__[/* ElementTypeClass */ "e"] && !(type.contextTypes || type.contextType);
 
         if (!shouldHideContext) {
           context = stateNode.context;
@@ -5053,33 +5186,33 @@ function attach(hook, rendererID, renderer, global) {
       // 16.3-16.5 read from "type" because the Consumer is the actual context object.
       // 16.6+ should read from "type._context" because Consumer can be different (in DEV).
       // NOTE Keep in sync with getDisplayNameForFiber()
-      var consumerResolvedContext = type._context || type; // Global context value.
+      const consumerResolvedContext = type._context || type; // Global context value.
 
       context = consumerResolvedContext._currentValue || null; // Look for overridden value.
 
-      var _current = fiber.return;
+      let current = fiber.return;
 
-      while (_current !== null) {
-        var currentType = _current.type;
-        var currentTypeSymbol = getTypeSymbol(currentType);
+      while (current !== null) {
+        const currentType = current.type;
+        const currentTypeSymbol = getTypeSymbol(currentType);
 
         if (currentTypeSymbol === _ReactSymbols__WEBPACK_IMPORTED_MODULE_8__[/* PROVIDER_NUMBER */ "p"] || currentTypeSymbol === _ReactSymbols__WEBPACK_IMPORTED_MODULE_8__[/* PROVIDER_SYMBOL_STRING */ "q"]) {
           // 16.3.0 exposed the context object as "context"
           // PR #12501 changed it to "_context" for 16.3.1+
           // NOTE Keep in sync with getDisplayNameForFiber()
-          var providerResolvedContext = currentType._context || currentType.context;
+          const providerResolvedContext = currentType._context || currentType.context;
 
           if (providerResolvedContext === consumerResolvedContext) {
-            context = _current.memoizedProps.value;
+            context = current.memoizedProps.value;
             break;
           }
         }
 
-        _current = _current.return;
+        current = current.return;
       }
     }
 
-    var hasLegacyContext = false;
+    let hasLegacyContext = false;
 
     if (context !== null) {
       hasLegacyContext = !!type.contextTypes; // To simplify hydration and display logic for context, wrap in a value object.
@@ -5090,11 +5223,11 @@ function attach(hook, rendererID, renderer, global) {
       };
     }
 
-    var owners = null;
+    let owners = null;
 
     if (_debugOwner) {
       owners = [];
-      var owner = _debugOwner;
+      let owner = _debugOwner;
 
       while (owner !== null) {
         owners.push({
@@ -5106,17 +5239,17 @@ function attach(hook, rendererID, renderer, global) {
       }
     }
 
-    var isTimedOutSuspense = tag === SuspenseComponent && memoizedState !== null;
-    var hooks = null;
+    const isTimedOutSuspense = tag === SuspenseComponent && memoizedState !== null;
+    let hooks = null;
 
     if (usesHooks) {
-      var originalConsoleMethods = {}; // Temporarily disable all console logging before re-running the hook.
+      const originalConsoleMethods = {}; // Temporarily disable all console logging before re-running the hook.
 
-      for (var method in console) {
+      for (const method in console) {
         try {
           originalConsoleMethods[method] = console[method]; // $FlowFixMe property error|warn is not writable.
 
-          console[method] = function () {};
+          console[method] = () => {};
         } catch (error) {}
       }
 
@@ -5124,64 +5257,68 @@ function attach(hook, rendererID, renderer, global) {
         hooks = Object(react_debug_tools__WEBPACK_IMPORTED_MODULE_6__["inspectHooksOfFiber"])(fiber, renderer.currentDispatcherRef);
       } finally {
         // Restore original console functionality.
-        for (var _method in originalConsoleMethods) {
+        for (const method in originalConsoleMethods) {
           try {
             // $FlowFixMe property error|warn is not writable.
-            console[_method] = originalConsoleMethods[_method];
+            console[method] = originalConsoleMethods[method];
           } catch (error) {}
         }
       }
     }
 
-    var rootType = null;
-    var current = fiber;
+    let rootType = null;
+    let current = fiber;
 
     while (current.return !== null) {
       current = current.return;
     }
 
-    var fiberRoot = current.stateNode;
+    const fiberRoot = current.stateNode;
 
     if (fiberRoot != null && fiberRoot._debugRootType !== null) {
       rootType = fiberRoot._debugRootType;
     }
 
     return {
-      id: id,
-      // Does the current renderer support editable hooks?
+      id,
+      // Does the current renderer support editable hooks and function props?
       canEditHooks: typeof overrideHookState === 'function',
-      // Does the current renderer support editable function props?
       canEditFunctionProps: typeof overrideProps === 'function',
+      // Does the current renderer support advanced editing interface?
+      canEditHooksAndDeletePaths: typeof overrideHookStateDeletePath === 'function',
+      canEditHooksAndRenamePaths: typeof overrideHookStateRenamePath === 'function',
+      canEditFunctionPropsDeletePaths: typeof overridePropsDeletePath === 'function',
+      canEditFunctionPropsRenamePaths: typeof overridePropsRenamePath === 'function',
       canToggleSuspense: supportsTogglingSuspense && ( // If it's showing the real content, we can always flip fallback.
       !isTimedOutSuspense || // If it's showing fallback because we previously forced it to,
       // allow toggling it back to remove the fallback override.
       forceFallbackForSuspenseIDs.has(id)),
       // Can view component source location.
-      canViewSource: canViewSource,
+      canViewSource,
       // Does the component have legacy context attached to it.
-      hasLegacyContext: hasLegacyContext,
+      hasLegacyContext,
       key: key != null ? key : null,
       displayName: getDisplayNameForFiber(fiber),
       type: elementType,
       // Inspectable properties.
       // TODO Review sanitization approach for the below inspectable values.
-      context: context,
-      hooks: hooks,
+      context,
+      hooks,
       props: memoizedProps,
       state: usesHooks ? null : memoizedState,
       // List of owners
-      owners: owners,
+      owners,
       // Location of component in source code.
       source: _debugSource || null,
-      rootType: rootType,
+      rootType,
       rendererPackageName: renderer.rendererPackageName,
       rendererVersion: renderer.version
     };
   }
 
-  var mostRecentlyInspectedElement = null;
-  var hasElementUpdatedSinceLastInspected = false;
-  var currentlyInspectedPaths = {};
+  let mostRecentlyInspectedElement = null;
+  let hasElementUpdatedSinceLastInspected = false;
+  let currentlyInspectedPaths = {};
 
   function isMostRecentlyInspectedElementCurrent(id) {
     return mostRecentlyInspectedElement !== null && mostRecentlyInspectedElement.id === id && !hasElementUpdatedSinceLastInspected;
@@ -5190,8 +5327,8 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function mergeInspectedPaths(path) {
-    var current = currentlyInspectedPaths;
-    path.forEach(function (key) {
+    let current = currentlyInspectedPaths;
+    path.forEach(key => {
       if (!current[key]) {
         current[key] = {};
       }
@@ -5224,13 +5361,13 @@ function attach(hook, rendererID, renderer, global) {
           break;
       }
 
-      var current = key === null ? currentlyInspectedPaths : currentlyInspectedPaths[key];
+      let current = key === null ? currentlyInspectedPaths : currentlyInspectedPaths[key];
 
       if (!current) {
         return false;
       }
 
-      for (var i = 0; i < path.length; i++) {
+      for (let i = 0; i < path.length; i++) {
         current = current[path[i]];
 
         if (!current) {
@@ -5243,20 +5380,20 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function updateSelectedElement(inspectedElement) {
-    var hooks = inspectedElement.hooks,
-        id = inspectedElement.id,
-        props = inspectedElement.props;
-    var fiber = idToFiberMap.get(id);
+    const hooks = inspectedElement.hooks,
+          id = inspectedElement.id,
+          props = inspectedElement.props;
+    const fiber = idToFiberMap.get(id);
 
     if (fiber == null) {
-      console.warn("Could not find Fiber with id \"".concat(id, "\""));
+      console.warn(`Could not find Fiber with id "${id}"`);
       return;
     }
 
-    var elementType = fiber.elementType,
-        stateNode = fiber.stateNode,
-        tag = fiber.tag,
-        type = fiber.type;
+    const elementType = fiber.elementType,
+          stateNode = fiber.stateNode,
+          tag = fiber.tag,
+          type = fiber.type;
 
     switch (tag) {
       case ClassComponent:
@@ -5267,15 +5404,15 @@ function attach(hook, rendererID, renderer, global) {
 
       case FunctionComponent:
         global.$r = {
-          hooks: hooks,
-          props: props,
-          type: type
+          hooks,
+          props,
+          type
         };
         break;
 
       case ForwardRef:
         global.$r = {
-          props: props,
+          props,
           type: type.render
         };
         break;
@@ -5283,7 +5420,7 @@ function attach(hook, rendererID, renderer, global) {
       case MemoComponent:
       case SimpleMemoComponent:
         global.$r = {
-          props: props,
+          props,
           type: elementType != null && elementType.type != null ? elementType.type : type
         };
         break;
@@ -5295,11 +5432,11 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function storeAsGlobal(id, path, count) {
-    var isCurrent = isMostRecentlyInspectedElementCurrent(id);
+    const isCurrent = isMostRecentlyInspectedElementCurrent(id);
 
     if (isCurrent) {
-      var value = Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getInObject */ "f"])(mostRecentlyInspectedElement, path);
-      var key = "$reactTemp".concat(count);
+      const value = Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getInObject */ "h"])(mostRecentlyInspectedElement, path);
+      const key = `$reactTemp${count}`;
       window[key] = value;
       console.log(key);
       console.log(value);
@@ -5307,20 +5444,20 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function copyElementPath(id, path) {
-    var isCurrent = isMostRecentlyInspectedElementCurrent(id);
+    const isCurrent = isMostRecentlyInspectedElementCurrent(id);
 
     if (isCurrent) {
-      Object(_utils__WEBPACK_IMPORTED_MODULE_4__[/* copyToClipboard */ "b"])(Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getInObject */ "f"])(mostRecentlyInspectedElement, path));
+      Object(_utils__WEBPACK_IMPORTED_MODULE_4__[/* copyToClipboard */ "b"])(Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getInObject */ "h"])(mostRecentlyInspectedElement, path));
     }
   }
 
   function inspectElement(id, path) {
-    var isCurrent = isMostRecentlyInspectedElementCurrent(id);
+    const isCurrent = isMostRecentlyInspectedElementCurrent(id);
 
     if (isCurrent) {
       if (path != null) {
         mergeInspectedPaths(path);
-        var secondaryCategory = null;
+        let secondaryCategory = null;
 
         if (path[0] === 'hooks') {
           secondaryCategory = 'hooks';
@@ -5329,16 +5466,16 @@ function attach(hook, rendererID, renderer, global) {
 
 
         return {
-          id: id,
+          id,
           type: 'hydrated-path',
-          path: path,
-          value: Object(_utils__WEBPACK_IMPORTED_MODULE_4__[/* cleanForBridge */ "a"])(Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getInObject */ "f"])(mostRecentlyInspectedElement, path), createIsPathAllowed(null, secondaryCategory), path)
+          path,
+          value: Object(_utils__WEBPACK_IMPORTED_MODULE_4__[/* cleanForBridge */ "a"])(Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* getInObject */ "h"])(mostRecentlyInspectedElement, path), createIsPathAllowed(null, secondaryCategory), path)
         };
       } else {
         // If this element has not been updated since it was last inspected, we don't need to re-run it.
         // Instead we can just return the ID to indicate that it has not changed.
         return {
-          id: id,
+          id,
           type: 'no-change'
         };
       }
@@ -5353,7 +5490,7 @@ function attach(hook, rendererID, renderer, global) {
 
       if (mostRecentlyInspectedElement === null) {
         return {
-          id: id,
+          id,
           type: 'not-found'
         };
       }
@@ -5369,14 +5506,14 @@ function attach(hook, rendererID, renderer, global) {
       // This will enable us to send patches without re-inspecting if hydrated paths are requested.
       // (Reducing how often we shallow-render is a better DX for function components that use hooks.)
 
-      var cleanedInspectedElement = _objectSpread({}, mostRecentlyInspectedElement);
+      const cleanedInspectedElement = _objectSpread({}, mostRecentlyInspectedElement);
 
       cleanedInspectedElement.context = Object(_utils__WEBPACK_IMPORTED_MODULE_4__[/* cleanForBridge */ "a"])(cleanedInspectedElement.context, createIsPathAllowed('context', null));
       cleanedInspectedElement.hooks = Object(_utils__WEBPACK_IMPORTED_MODULE_4__[/* cleanForBridge */ "a"])(cleanedInspectedElement.hooks, createIsPathAllowed('hooks', 'hooks'));
       cleanedInspectedElement.props = Object(_utils__WEBPACK_IMPORTED_MODULE_4__[/* cleanForBridge */ "a"])(cleanedInspectedElement.props, createIsPathAllowed('props', null));
       cleanedInspectedElement.state = Object(_utils__WEBPACK_IMPORTED_MODULE_4__[/* cleanForBridge */ "a"])(cleanedInspectedElement.state, createIsPathAllowed('state', null));
       return {
-        id: id,
+        id,
         type: 'full-data',
         value: cleanedInspectedElement
       };
@@ -5384,17 +5521,17 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function logElementToConsole(id) {
-    var result = isMostRecentlyInspectedElementCurrent(id) ? mostRecentlyInspectedElement : inspectElementRaw(id);
+    const result = isMostRecentlyInspectedElementCurrent(id) ? mostRecentlyInspectedElement : inspectElementRaw(id);
 
     if (result === null) {
-      console.warn("Could not find Fiber with id \"".concat(id, "\""));
+      console.warn(`Could not find Fiber with id "${id}"`);
       return;
     }
 
-    var supportsGroup = typeof console.groupCollapsed === 'function';
+    const supportsGroup = typeof console.groupCollapsed === 'function';
 
     if (supportsGroup) {
-      console.groupCollapsed("[Click to expand] %c<".concat(result.displayName || 'Component', " />"), // --dom-tag-name-color is the CSS variable Chrome styles HTML elements with in the console.
+      console.groupCollapsed(`[Click to expand] %c<${result.displayName || 'Component'} />`, // --dom-tag-name-color is the CSS variable Chrome styles HTML elements with in the console.
       'color: var(--dom-tag-name-color); font-weight: normal;');
     }
 
@@ -5410,7 +5547,7 @@ function attach(hook, rendererID, renderer, global) {
       console.log('Hooks:', result.hooks);
     }
 
-    var nativeNodes = findNativeNodesForFiberID(id);
+    const nativeNodes = findNativeNodesForFiberID(id);
 
     if (nativeNodes !== null) {
       console.log('Nodes:', nativeNodes);
@@ -5429,90 +5566,219 @@ function attach(hook, rendererID, renderer, global) {
     }
   }
 
-  function setInHook(id, index, path, value) {
-    var fiber = findCurrentFiberUsingSlowPathById(id);
+  function deletePath(type, id, hookID, path) {
+    const fiber = findCurrentFiberUsingSlowPathById(id);
 
     if (fiber !== null) {
-      if (typeof overrideHookState === 'function') {
-        overrideHookState(fiber, index, path, value);
+      const instance = fiber.stateNode;
+
+      switch (type) {
+        case 'context':
+          // To simplify hydration and display of primitive context values (e.g. number, string)
+          // the inspectElement() method wraps context in a {value: ...} object.
+          // We need to remove the first part of the path (the "value") before continuing.
+          path = path.slice(1);
+
+          switch (fiber.tag) {
+            case ClassComponent:
+              if (path.length === 0) {// Simple context value (noop)
+              } else {
+                Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* deletePathInObject */ "a"])(instance.context, path);
+              }
+
+              instance.forceUpdate();
+              break;
+
+            case FunctionComponent:
+              // Function components using legacy context are not editable
+              // because there's no instance on which to create a cloned, mutated context.
+              break;
+          }
+
+          break;
+
+        case 'hooks':
+          if (typeof overrideHookStateDeletePath === 'function') {
+            overrideHookStateDeletePath(fiber, hookID, path);
+          }
+
+          break;
+
+        case 'props':
+          if (instance === null) {
+            if (typeof overridePropsDeletePath === 'function') {
+              overridePropsDeletePath(fiber, path);
+            }
+          } else {
+            fiber.pendingProps = Object(_utils__WEBPACK_IMPORTED_MODULE_4__[/* copyWithDelete */ "c"])(instance.props, path);
+            instance.forceUpdate();
+          }
+
+          break;
+
+        case 'state':
+          Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* deletePathInObject */ "a"])(instance.state, path);
+          instance.forceUpdate();
+          break;
       }
     }
   }
 
-  function setInProps(id, path, value) {
-    var fiber = findCurrentFiberUsingSlowPathById(id);
+  function renamePath(type, id, hookID, oldPath, newPath) {
+    const fiber = findCurrentFiberUsingSlowPathById(id);
 
     if (fiber !== null) {
-      var instance = fiber.stateNode;
+      const instance = fiber.stateNode;
 
-      if (instance === null) {
-        if (typeof overrideProps === 'function') {
-          overrideProps(fiber, path, value);
-        }
-      } else {
-        fiber.pendingProps = Object(_utils__WEBPACK_IMPORTED_MODULE_4__[/* copyWithSet */ "c"])(instance.props, path, value);
-        instance.forceUpdate();
+      switch (type) {
+        case 'context':
+          // To simplify hydration and display of primitive context values (e.g. number, string)
+          // the inspectElement() method wraps context in a {value: ...} object.
+          // We need to remove the first part of the path (the "value") before continuing.
+          oldPath = oldPath.slice(1);
+          newPath = newPath.slice(1);
+
+          switch (fiber.tag) {
+            case ClassComponent:
+              if (oldPath.length === 0) {// Simple context value (noop)
+              } else {
+                Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* renamePathInObject */ "k"])(instance.context, oldPath, newPath);
+              }
+
+              instance.forceUpdate();
+              break;
+
+            case FunctionComponent:
+              // Function components using legacy context are not editable
+              // because there's no instance on which to create a cloned, mutated context.
+              break;
+          }
+
+          break;
+
+        case 'hooks':
+          if (typeof overrideHookStateRenamePath === 'function') {
+            overrideHookStateRenamePath(fiber, hookID, oldPath, newPath);
+          }
+
+          break;
+
+        case 'props':
+          if (instance === null) {
+            if (typeof overridePropsRenamePath === 'function') {
+              overridePropsRenamePath(fiber, oldPath, newPath);
+            }
+          } else {
+            fiber.pendingProps = Object(_utils__WEBPACK_IMPORTED_MODULE_4__[/* copyWithRename */ "d"])(instance.props, oldPath, newPath);
+            instance.forceUpdate();
+          }
+
+          break;
+
+        case 'state':
+          Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* renamePathInObject */ "k"])(instance.state, oldPath, newPath);
+          instance.forceUpdate();
+          break;
       }
     }
   }
 
-  function setInState(id, path, value) {
-    var fiber = findCurrentFiberUsingSlowPathById(id);
+  function overrideValueAtPath(type, id, hookID, path, value) {
+    const fiber = findCurrentFiberUsingSlowPathById(id);
 
     if (fiber !== null) {
-      var instance = fiber.stateNode;
-      Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* setInObject */ "i"])(instance.state, path, value);
-      instance.forceUpdate();
-    }
-  }
+      const instance = fiber.stateNode;
 
-  function setInContext(id, path, value) {
-    // To simplify hydration and display of primitive context values (e.g. number, string)
-    // the inspectElement() method wraps context in a {value: ...} object.
-    // We need to remove the first part of the path (the "value") before continuing.
-    path = path.slice(1);
-    var fiber = findCurrentFiberUsingSlowPathById(id);
+      switch (type) {
+        case 'context':
+          // To simplify hydration and display of primitive context values (e.g. number, string)
+          // the inspectElement() method wraps context in a {value: ...} object.
+          // We need to remove the first part of the path (the "value") before continuing.
+          path = path.slice(1);
 
-    if (fiber !== null) {
-      var instance = fiber.stateNode;
+          switch (fiber.tag) {
+            case ClassComponent:
+              if (path.length === 0) {
+                // Simple context value
+                instance.context = value;
+              } else {
+                Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* setInObject */ "l"])(instance.context, path, value);
+              }
 
-      if (path.length === 0) {
-        // Simple context value
-        instance.context = value;
-      } else {
-        Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* setInObject */ "i"])(instance.context, path, value);
+              instance.forceUpdate();
+              break;
+
+            case FunctionComponent:
+              // Function components using legacy context are not editable
+              // because there's no instance on which to create a cloned, mutated context.
+              break;
+          }
+
+          break;
+
+        case 'hooks':
+          if (typeof overrideHookState === 'function') {
+            overrideHookState(fiber, hookID, path, value);
+          }
+
+          break;
+
+        case 'props':
+          switch (fiber.tag) {
+            case ClassComponent:
+              fiber.pendingProps = Object(_utils__WEBPACK_IMPORTED_MODULE_4__[/* copyWithSet */ "e"])(instance.props, path, value);
+              instance.forceUpdate();
+              break;
+
+            default:
+              if (typeof overrideProps === 'function') {
+                overrideProps(fiber, path, value);
+              }
+
+              break;
+          }
+
+          break;
+
+        case 'state':
+          switch (fiber.tag) {
+            case ClassComponent:
+              Object(react_devtools_shared_src_utils__WEBPACK_IMPORTED_MODULE_2__[/* setInObject */ "l"])(instance.state, path, value);
+              instance.forceUpdate();
+              break;
+          }
+
+          break;
       }
-
-      instance.forceUpdate();
     }
   }
 
-  var currentCommitProfilingMetadata = null;
-  var displayNamesByRootID = null;
-  var idToContextsMap = null;
-  var initialTreeBaseDurationsMap = null;
-  var initialIDToRootMap = null;
-  var isProfiling = false;
-  var profilingStartTime = 0;
-  var recordChangeDescriptions = false;
-  var rootToCommitProfilingMetadataMap = null;
+  let currentCommitProfilingMetadata = null;
+  let displayNamesByRootID = null;
+  let idToContextsMap = null;
+  let initialTreeBaseDurationsMap = null;
+  let initialIDToRootMap = null;
+  let isProfiling = false;
+  let profilingStartTime = 0;
+  let recordChangeDescriptions = false;
+  let rootToCommitProfilingMetadataMap = null;
 
   function getProfilingData() {
-    var dataForRoots = [];
+    const dataForRoots = [];
 
     if (rootToCommitProfilingMetadataMap === null) {
       throw Error('getProfilingData() called before any profiling data was recorded');
     }
 
-    rootToCommitProfilingMetadataMap.forEach(function (commitProfilingMetadata, rootID) {
-      var commitData = [];
-      var initialTreeBaseDurations = [];
-      var allInteractions = new Map();
-      var interactionCommits = new Map();
-      var displayName = displayNamesByRootID !== null && displayNamesByRootID.get(rootID) || 'Unknown';
+    rootToCommitProfilingMetadataMap.forEach((commitProfilingMetadata, rootID) => {
+      const commitData = [];
+      const initialTreeBaseDurations = [];
+      const allInteractions = new Map();
+      const interactionCommits = new Map();
+      const displayName = displayNamesByRootID !== null && displayNamesByRootID.get(rootID) || 'Unknown';
 
       if (initialTreeBaseDurationsMap != null) {
-        initialTreeBaseDurationsMap.forEach(function (treeBaseDuration, id) {
+        initialTreeBaseDurationsMap.forEach((treeBaseDuration, id) => {
           if (initialIDToRootMap != null && initialIDToRootMap.get(id) === rootID) {
             // We don't need to convert milliseconds to microseconds in this case,
             // because the profiling summary is JSON serialized.
@@ -5521,21 +5787,21 @@ function attach(hook, rendererID, renderer, global) {
         });
       }
 
-      commitProfilingMetadata.forEach(function (commitProfilingData, commitIndex) {
-        var changeDescriptions = commitProfilingData.changeDescriptions,
-            durations = commitProfilingData.durations,
-            interactions = commitProfilingData.interactions,
-            maxActualDuration = commitProfilingData.maxActualDuration,
-            priorityLevel = commitProfilingData.priorityLevel,
-            commitTime = commitProfilingData.commitTime;
-        var interactionIDs = [];
-        interactions.forEach(function (interaction) {
+      commitProfilingMetadata.forEach((commitProfilingData, commitIndex) => {
+        const changeDescriptions = commitProfilingData.changeDescriptions,
+              durations = commitProfilingData.durations,
+              interactions = commitProfilingData.interactions,
+              maxActualDuration = commitProfilingData.maxActualDuration,
+              priorityLevel = commitProfilingData.priorityLevel,
+              commitTime = commitProfilingData.commitTime;
+        const interactionIDs = [];
+        interactions.forEach(interaction => {
           if (!allInteractions.has(interaction.id)) {
             allInteractions.set(interaction.id, interaction);
           }
 
           interactionIDs.push(interaction.id);
-          var commitIndices = interactionCommits.get(interaction.id);
+          const commitIndices = interactionCommits.get(interaction.id);
 
           if (commitIndices != null) {
             commitIndices.push(commitIndex);
@@ -5543,11 +5809,11 @@ function attach(hook, rendererID, renderer, global) {
             interactionCommits.set(interaction.id, [commitIndex]);
           }
         });
-        var fiberActualDurations = [];
-        var fiberSelfDurations = [];
+        const fiberActualDurations = [];
+        const fiberSelfDurations = [];
 
-        for (var i = 0; i < durations.length; i += 3) {
-          var fiberID = durations[i];
+        for (let i = 0; i < durations.length; i += 3) {
+          const fiberID = durations[i];
           fiberActualDurations.push([fiberID, durations[i + 1]]);
           fiberSelfDurations.push([fiberID, durations[i + 2]]);
         }
@@ -5555,25 +5821,25 @@ function attach(hook, rendererID, renderer, global) {
         commitData.push({
           changeDescriptions: changeDescriptions !== null ? Array.from(changeDescriptions.entries()) : null,
           duration: maxActualDuration,
-          fiberActualDurations: fiberActualDurations,
-          fiberSelfDurations: fiberSelfDurations,
-          interactionIDs: interactionIDs,
-          priorityLevel: priorityLevel,
+          fiberActualDurations,
+          fiberSelfDurations,
+          interactionIDs,
+          priorityLevel,
           timestamp: commitTime
         });
       });
       dataForRoots.push({
-        commitData: commitData,
-        displayName: displayName,
-        initialTreeBaseDurations: initialTreeBaseDurations,
+        commitData,
+        displayName,
+        initialTreeBaseDurations,
         interactionCommits: Array.from(interactionCommits.entries()),
         interactions: Array.from(allInteractions.entries()),
-        rootID: rootID
+        rootID
       });
     });
     return {
-      dataForRoots: dataForRoots,
-      rendererID: rendererID
+      dataForRoots,
+      rendererID
     };
   }
 
@@ -5591,8 +5857,8 @@ function attach(hook, rendererID, renderer, global) {
     initialTreeBaseDurationsMap = new Map(idToTreeBaseDurationMap);
     initialIDToRootMap = new Map(idToRootMap);
     idToContextsMap = new Map();
-    hook.getFiberRoots(rendererID).forEach(function (root) {
-      var rootID = getFiberID(getPrimaryFiber(root.current));
+    hook.getFiberRoots(rendererID).forEach(root => {
+      const rootID = getFiberID(getPrimaryFiber(root.current));
       displayNamesByRootID.set(rootID, getDisplayNameForRoot(root.current));
 
       if (shouldRecordChangeDescriptions) {
@@ -5623,10 +5889,10 @@ function attach(hook, rendererID, renderer, global) {
     return false;
   }
 
-  var forceFallbackForSuspenseIDs = new Set();
+  const forceFallbackForSuspenseIDs = new Set();
 
   function shouldSuspendFiberAccordingToSet(fiber) {
-    var id = getFiberID(getPrimaryFiber(fiber));
+    const id = getFiberID(getPrimaryFiber(fiber));
     return forceFallbackForSuspenseIDs.has(id);
   }
 
@@ -5651,7 +5917,7 @@ function attach(hook, rendererID, renderer, global) {
       }
     }
 
-    var fiber = idToFiberMap.get(id);
+    const fiber = idToFiberMap.get(id);
 
     if (fiber != null) {
       scheduleUpdate(fiber);
@@ -5660,10 +5926,10 @@ function attach(hook, rendererID, renderer, global) {
   // In that case, we'll do some extra checks for matching mounts.
 
 
-  var trackedPath = null;
-  var trackedPathMatchFiber = null;
-  var trackedPathMatchDepth = -1;
-  var mightBeOnTrackedPath = false;
+  let trackedPath = null;
+  let trackedPathMatchFiber = null;
+  let trackedPathMatchDepth = -1;
+  let mightBeOnTrackedPath = false;
 
   function setTrackedPath(path) {
     if (path === null) {
@@ -5684,15 +5950,15 @@ function attach(hook, rendererID, renderer, global) {
       return false;
     }
 
-    var returnFiber = fiber.return;
-    var returnAlternate = returnFiber !== null ? returnFiber.alternate : null; // By now we know there's some selection to restore, and this is a new Fiber.
+    const returnFiber = fiber.return;
+    const returnAlternate = returnFiber !== null ? returnFiber.alternate : null; // By now we know there's some selection to restore, and this is a new Fiber.
     // Is this newly mounted Fiber a direct child of the current best match?
     // (This will also be true for new roots if we haven't matched anything yet.)
 
     if (trackedPathMatchFiber === returnFiber || trackedPathMatchFiber === returnAlternate && returnAlternate !== null) {
       // Is this the next Fiber we should select? Let's compare the frames.
-      var actualFrame = getPathFrame(fiber);
-      var expectedFrame = trackedPath[trackedPathMatchDepth + 1];
+      const actualFrame = getPathFrame(fiber);
+      const expectedFrame = trackedPath[trackedPathMatchDepth + 1];
 
       if (expectedFrame === undefined) {
         throw new Error('Expected to see a frame at the next depth.');
@@ -5735,26 +6001,26 @@ function attach(hook, rendererID, renderer, global) {
   // We will use this to try to disambiguate roots when restoring selection between reloads.
 
 
-  var rootPseudoKeys = new Map();
-  var rootDisplayNameCounter = new Map();
+  const rootPseudoKeys = new Map();
+  const rootDisplayNameCounter = new Map();
 
   function setRootPseudoKey(id, fiber) {
-    var name = getDisplayNameForRoot(fiber);
-    var counter = rootDisplayNameCounter.get(name) || 0;
+    const name = getDisplayNameForRoot(fiber);
+    const counter = rootDisplayNameCounter.get(name) || 0;
     rootDisplayNameCounter.set(name, counter + 1);
-    var pseudoKey = "".concat(name, ":").concat(counter);
+    const pseudoKey = `${name}:${counter}`;
     rootPseudoKeys.set(id, pseudoKey);
   }
 
   function removeRootPseudoKey(id) {
-    var pseudoKey = rootPseudoKeys.get(id);
+    const pseudoKey = rootPseudoKeys.get(id);
 
     if (pseudoKey === undefined) {
       throw new Error('Expected root pseudo key to be known.');
     }
 
-    var name = pseudoKey.substring(0, pseudoKey.lastIndexOf(':'));
-    var counter = rootDisplayNameCounter.get(name);
+    const name = pseudoKey.substring(0, pseudoKey.lastIndexOf(':'));
+    const counter = rootDisplayNameCounter.get(name);
 
     if (counter === undefined) {
       throw new Error('Expected counter to be known.');
@@ -5770,17 +6036,17 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function getDisplayNameForRoot(fiber) {
-    var preferredDisplayName = null;
-    var fallbackDisplayName = null;
-    var child = fiber.child; // Go at most three levels deep into direct children
+    let preferredDisplayName = null;
+    let fallbackDisplayName = null;
+    let child = fiber.child; // Go at most three levels deep into direct children
     // while searching for a child that has a displayName.
 
-    for (var i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
       if (child === null) {
         break;
       }
 
-      var displayName = getDisplayNameForFiber(child);
+      const displayName = getDisplayNameForFiber(child);
 
       if (displayName !== null) {
         // Prefer display names that we get from user-defined components.
@@ -5805,16 +6071,16 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function getPathFrame(fiber) {
-    var key = fiber.key;
-    var displayName = getDisplayNameForFiber(fiber);
-    var index = fiber.index;
+    const key = fiber.key;
+    let displayName = getDisplayNameForFiber(fiber);
+    const index = fiber.index;
 
     switch (fiber.tag) {
       case HostRoot:
         // Roots don't have a real displayName, index, or key.
         // Instead, we'll use the pseudo key (childDisplayName:indexWithThatName).
-        var id = getFiberID(getPrimaryFiber(fiber));
-        var pseudoKey = rootPseudoKeys.get(id);
+        const id = getFiberID(getPrimaryFiber(fiber));
+        const pseudoKey = rootPseudoKeys.get(id);
 
         if (pseudoKey === undefined) {
           throw new Error('Expected mounted root to have known pseudo key.');
@@ -5832,9 +6098,9 @@ function attach(hook, rendererID, renderer, global) {
     }
 
     return {
-      displayName: displayName,
-      key: key,
-      index: index
+      displayName,
+      key,
+      index
     };
   } // Produces a serializable representation that does a best effort
   // of identifying a particular Fiber between page reloads.
@@ -5843,13 +6109,13 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function getPathForElement(id) {
-    var fiber = idToFiberMap.get(id);
+    let fiber = idToFiberMap.get(id);
 
     if (fiber == null) {
       return null;
     }
 
-    var keyPath = [];
+    const keyPath = [];
 
     while (fiber !== null) {
       keyPath.push(getPathFrame(fiber));
@@ -5872,7 +6138,7 @@ function attach(hook, rendererID, renderer, global) {
     } // Find the closest Fiber store is aware of.
 
 
-    var fiber = trackedPathMatchFiber;
+    let fiber = trackedPathMatchFiber;
 
     while (fiber !== null && shouldFilterFiber(fiber)) {
       fiber = fiber.return;
@@ -5888,7 +6154,7 @@ function attach(hook, rendererID, renderer, global) {
     };
   }
 
-  var formatPriorityLevel = function formatPriorityLevel(priorityLevel) {
+  const formatPriorityLevel = priorityLevel => {
     if (priorityLevel == null) {
       return 'Unknown';
     }
@@ -5920,35 +6186,34 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   return {
-    cleanup: cleanup,
-    copyElementPath: copyElementPath,
-    findNativeNodesForFiberID: findNativeNodesForFiberID,
-    flushInitialOperations: flushInitialOperations,
-    getBestMatchForTrackedPath: getBestMatchForTrackedPath,
-    getDisplayNameForFiberID: getDisplayNameForFiberID,
-    getFiberIDForNative: getFiberIDForNative,
-    getInstanceAndStyle: getInstanceAndStyle,
-    getOwnersList: getOwnersList,
-    getPathForElement: getPathForElement,
-    getProfilingData: getProfilingData,
-    handleCommitFiberRoot: handleCommitFiberRoot,
-    handleCommitFiberUnmount: handleCommitFiberUnmount,
-    inspectElement: inspectElement,
-    logElementToConsole: logElementToConsole,
-    prepareViewAttributeSource: prepareViewAttributeSource,
-    prepareViewElementSource: prepareViewElementSource,
-    overrideSuspense: overrideSuspense,
-    renderer: renderer,
-    setInContext: setInContext,
-    setInHook: setInHook,
-    setInProps: setInProps,
-    setInState: setInState,
-    setTraceUpdatesEnabled: setTraceUpdatesEnabled,
-    setTrackedPath: setTrackedPath,
-    startProfiling: startProfiling,
-    stopProfiling: stopProfiling,
-    storeAsGlobal: storeAsGlobal,
-    updateComponentFilters: updateComponentFilters
+    cleanup,
+    copyElementPath,
+    deletePath,
+    findNativeNodesForFiberID,
+    flushInitialOperations,
+    getBestMatchForTrackedPath,
+    getDisplayNameForFiberID,
+    getFiberIDForNative,
+    getInstanceAndStyle,
+    getOwnersList,
+    getPathForElement,
+    getProfilingData,
+    handleCommitFiberRoot,
+    handleCommitFiberUnmount,
+    inspectElement,
+    logElementToConsole,
+    prepareViewAttributeSource,
+    prepareViewElementSource,
+    overrideSuspense,
+    overrideValueAtPath,
+    renamePath,
+    renderer,
+    setTraceUpdatesEnabled,
+    setTrackedPath,
+    startProfiling,
+    stopProfiling,
+    storeAsGlobal,
+    updateComponentFilters
   };
 }
 
@@ -5956,13 +6221,11 @@ function attach(hook, rendererID, renderer, global) {
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(process) {function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-exports = module.exports = SemVer;
+/* WEBPACK VAR INJECTION */(function(process) {exports = module.exports = SemVer;
 var debug;
 /* istanbul ignore next */
 
-if ((typeof process === "undefined" ? "undefined" : _typeof(process)) === 'object' && process.env && process.env.NODE_DEBUG && /\bsemver\b/i.test(process.env.NODE_DEBUG)) {
+if (typeof process === 'object' && process.env && process.env.NODE_DEBUG && /\bsemver\b/i.test(process.env.NODE_DEBUG)) {
   debug = function debug() {
     var args = Array.prototype.slice.call(arguments, 0);
     args.unshift('SEMVER');
@@ -6133,7 +6396,7 @@ for (var i = 0; i < R; i++) {
 exports.parse = parse;
 
 function parse(version, options) {
-  if (!options || _typeof(options) !== 'object') {
+  if (!options || typeof options !== 'object') {
     options = {
       loose: !!options,
       includePrerelease: false
@@ -6182,7 +6445,7 @@ function clean(version, options) {
 exports.SemVer = SemVer;
 
 function SemVer(version, options) {
-  if (!options || _typeof(options) !== 'object') {
+  if (!options || typeof options !== 'object') {
     options = {
       loose: !!options,
       includePrerelease: false
@@ -6633,13 +6896,13 @@ exports.cmp = cmp;
 function cmp(a, op, b, loose) {
   switch (op) {
     case '===':
-      if (_typeof(a) === 'object') a = a.version;
-      if (_typeof(b) === 'object') b = b.version;
+      if (typeof a === 'object') a = a.version;
+      if (typeof b === 'object') b = b.version;
       return a === b;
 
     case '!==':
-      if (_typeof(a) === 'object') a = a.version;
-      if (_typeof(b) === 'object') b = b.version;
+      if (typeof a === 'object') a = a.version;
+      if (typeof b === 'object') b = b.version;
       return a !== b;
 
     case '':
@@ -6670,7 +6933,7 @@ function cmp(a, op, b, loose) {
 exports.Comparator = Comparator;
 
 function Comparator(comp, options) {
-  if (!options || _typeof(options) !== 'object') {
+  if (!options || typeof options !== 'object') {
     options = {
       loose: !!options,
       includePrerelease: false
@@ -6754,7 +7017,7 @@ Comparator.prototype.intersects = function (comp, options) {
     throw new TypeError('a Comparator is required');
   }
 
-  if (!options || _typeof(options) !== 'object') {
+  if (!options || typeof options !== 'object') {
     options = {
       loose: !!options,
       includePrerelease: false
@@ -6791,7 +7054,7 @@ Comparator.prototype.intersects = function (comp, options) {
 exports.Range = Range;
 
 function Range(range, options) {
-  if (!options || _typeof(options) !== 'object') {
+  if (!options || typeof options !== 'object') {
     options = {
       loose: !!options,
       includePrerelease: false
@@ -7523,7 +7786,7 @@ __webpack_require__.d(__webpack_exports__, "default", function() { return /* bin
 // EXTERNAL MODULE: ../react-devtools-shared/src/events.js
 var events = __webpack_require__(10);
 
-// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react/node_modules/lodash.throttle/index.js
+// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.alt2/node_modules/lodash.throttle/index.js
 var lodash_throttle = __webpack_require__(11);
 var lodash_throttle_default = /*#__PURE__*/__webpack_require__.n(lodash_throttle);
 
@@ -7533,7 +7796,7 @@ var constants = __webpack_require__(3);
 // EXTERNAL MODULE: ../react-devtools-shared/src/storage.js
 var storage = __webpack_require__(4);
 
-// CONCATENATED MODULE: /Users/bvaughn/Documents/git/react/node_modules/memoize-one/esm/index.js
+// CONCATENATED MODULE: /Users/bvaughn/Documents/git/react.alt2/node_modules/memoize-one/esm/index.js
 var simpleIsEqual = function simpleIsEqual(a, b) {
   return a === b;
 };
@@ -7567,7 +7830,7 @@ var simpleIsEqual = function simpleIsEqual(a, b) {
 
   return result;
 });
-// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react/node_modules/object-assign/index.js
+// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.alt2/node_modules/object-assign/index.js
 var object_assign = __webpack_require__(7);
 var object_assign_default = /*#__PURE__*/__webpack_require__.n(object_assign);
 
@@ -7593,7 +7856,7 @@ function getOwnerWindow(node) {
 // be found (node not within iframe, etc).
 
 function getOwnerIframe(node) {
-  var nodeWindow = getOwnerWindow(node);
+  const nodeWindow = getOwnerWindow(node);
 
   if (nodeWindow) {
     return nodeWindow.frameElement;
@@ -7604,7 +7867,7 @@ function getOwnerIframe(node) {
 // offset added to compensate for its border.
 
 function getBoundingClientRectWithBorderOffset(node) {
-  var dimensions = getElementDimensions(node);
+  const dimensions = getElementDimensions(node);
   return mergeRectOffsets([node.getBoundingClientRect(), {
     top: dimensions.borderTop,
     left: dimensions.borderLeft,
@@ -7620,7 +7883,7 @@ function getBoundingClientRectWithBorderOffset(node) {
 // each ClientRect, but keep the width and height of the first one.
 
 function mergeRectOffsets(rects) {
-  return rects.reduce(function (previousRect, rect) {
+  return rects.reduce((previousRect, rect) => {
     if (previousRect == null) {
       return rect;
     }
@@ -7638,15 +7901,15 @@ function mergeRectOffsets(rects) {
 // taking into account any offsets caused by intermediate iframes.
 
 function getNestedBoundingClientRect(node, boundaryWindow) {
-  var ownerIframe = getOwnerIframe(node);
+  const ownerIframe = getOwnerIframe(node);
 
   if (ownerIframe && ownerIframe !== boundaryWindow) {
-    var rects = [node.getBoundingClientRect()];
-    var currentIframe = ownerIframe;
-    var onlyOneMore = false;
+    const rects = [node.getBoundingClientRect()];
+    let currentIframe = ownerIframe;
+    let onlyOneMore = false;
 
     while (currentIframe) {
-      var rect = getBoundingClientRectWithBorderOffset(currentIframe);
+      const rect = getBoundingClientRectWithBorderOffset(currentIframe);
       rects.push(rect);
       currentIframe = getOwnerIframe(currentIframe);
 
@@ -7668,7 +7931,7 @@ function getNestedBoundingClientRect(node, boundaryWindow) {
   }
 }
 function getElementDimensions(domElement) {
-  var calculatedStyle = window.getComputedStyle(domElement);
+  const calculatedStyle = window.getComputedStyle(domElement);
   return {
     borderLeft: parseInt(calculatedStyle.borderLeftWidth, 10),
     borderRight: parseInt(calculatedStyle.borderRightWidth, 10),
@@ -7685,11 +7948,11 @@ function getElementDimensions(domElement) {
   };
 }
 // CONCATENATED MODULE: ../react-devtools-shared/src/backend/views/Highlighter/Overlay.js
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -7705,12 +7968,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 // Note that the Overlay components are not affected by the active Theme,
 // because they highlight elements in the main Chrome window (outside of devtools).
 // The colors below were chosen to roughly match those used by Chrome devtools.
-var Overlay_OverlayRect =
-/*#__PURE__*/
-function () {
-  function OverlayRect(doc, container) {
-    _classCallCheck(this, OverlayRect);
-
+class Overlay_OverlayRect {
+  constructor(doc, container) {
     this.node = doc.createElement('div');
     this.border = doc.createElement('div');
     this.padding = doc.createElement('div');
@@ -7730,39 +7989,30 @@ function () {
     container.appendChild(this.node);
   }
 
-  _createClass(OverlayRect, [{
-    key: "remove",
-    value: function remove() {
-      if (this.node.parentNode) {
-        this.node.parentNode.removeChild(this.node);
-      }
+  remove() {
+    if (this.node.parentNode) {
+      this.node.parentNode.removeChild(this.node);
     }
-  }, {
-    key: "update",
-    value: function update(box, dims) {
-      boxWrap(dims, 'margin', this.node);
-      boxWrap(dims, 'border', this.border);
-      boxWrap(dims, 'padding', this.padding);
-      object_assign_default()(this.content.style, {
-        height: box.height - dims.borderTop - dims.borderBottom - dims.paddingTop - dims.paddingBottom + 'px',
-        width: box.width - dims.borderLeft - dims.borderRight - dims.paddingLeft - dims.paddingRight + 'px'
-      });
-      object_assign_default()(this.node.style, {
-        top: box.top - dims.marginTop + 'px',
-        left: box.left - dims.marginLeft + 'px'
-      });
-    }
-  }]);
+  }
 
-  return OverlayRect;
-}();
+  update(box, dims) {
+    boxWrap(dims, 'margin', this.node);
+    boxWrap(dims, 'border', this.border);
+    boxWrap(dims, 'padding', this.padding);
+    object_assign_default()(this.content.style, {
+      height: box.height - dims.borderTop - dims.borderBottom - dims.paddingTop - dims.paddingBottom + 'px',
+      width: box.width - dims.borderLeft - dims.borderRight - dims.paddingLeft - dims.paddingRight + 'px'
+    });
+    object_assign_default()(this.node.style, {
+      top: box.top - dims.marginTop + 'px',
+      left: box.left - dims.marginLeft + 'px'
+    });
+  }
 
-var Overlay_OverlayTip =
-/*#__PURE__*/
-function () {
-  function OverlayTip(doc, container) {
-    _classCallCheck(this, OverlayTip);
+}
 
+class Overlay_OverlayTip {
+  constructor(doc, container) {
     this.tip = doc.createElement('div');
     object_assign_default()(this.tip.style, {
       display: 'flex',
@@ -7794,47 +8044,37 @@ function () {
     container.appendChild(this.tip);
   }
 
-  _createClass(OverlayTip, [{
-    key: "remove",
-    value: function remove() {
-      if (this.tip.parentNode) {
-        this.tip.parentNode.removeChild(this.tip);
-      }
+  remove() {
+    if (this.tip.parentNode) {
+      this.tip.parentNode.removeChild(this.tip);
     }
-  }, {
-    key: "updateText",
-    value: function updateText(name, width, height) {
-      this.nameSpan.textContent = name;
-      this.dimSpan.textContent = Math.round(width) + 'px × ' + Math.round(height) + 'px';
-    }
-  }, {
-    key: "updatePosition",
-    value: function updatePosition(dims, bounds) {
-      var tipRect = this.tip.getBoundingClientRect();
-      var tipPos = findTipPos(dims, bounds, {
-        width: tipRect.width,
-        height: tipRect.height
-      });
-      object_assign_default()(this.tip.style, tipPos.style);
-    }
-  }]);
+  }
 
-  return OverlayTip;
-}();
+  updateText(name, width, height) {
+    this.nameSpan.textContent = name;
+    this.dimSpan.textContent = Math.round(width) + 'px × ' + Math.round(height) + 'px';
+  }
 
-var Overlay_Overlay =
-/*#__PURE__*/
-function () {
-  function Overlay() {
-    _classCallCheck(this, Overlay);
+  updatePosition(dims, bounds) {
+    const tipRect = this.tip.getBoundingClientRect();
+    const tipPos = findTipPos(dims, bounds, {
+      width: tipRect.width,
+      height: tipRect.height
+    });
+    object_assign_default()(this.tip.style, tipPos.style);
+  }
 
+}
+
+class Overlay_Overlay {
+  constructor() {
     // Find the root window, because overlays are positioned relative to it.
-    var currentWindow = window.__REACT_DEVTOOLS_TARGET_WINDOW__ || window;
+    const currentWindow = window.__REACT_DEVTOOLS_TARGET_WINDOW__ || window;
     this.window = currentWindow; // When opened in shells/dev, the tooltip should be bound by the app iframe, not by the topmost window.
 
-    var tipBoundsWindow = window.__REACT_DEVTOOLS_TARGET_WINDOW__ || window;
+    const tipBoundsWindow = window.__REACT_DEVTOOLS_TARGET_WINDOW__ || window;
     this.tipBoundsWindow = tipBoundsWindow;
-    var doc = currentWindow.document;
+    const doc = currentWindow.document;
     this.container = doc.createElement('div');
     this.container.style.zIndex = '10000000';
     this.tip = new Overlay_OverlayTip(doc, this.container);
@@ -7842,129 +8082,108 @@ function () {
     doc.body.appendChild(this.container);
   }
 
-  _createClass(Overlay, [{
-    key: "remove",
-    value: function remove() {
-      this.tip.remove();
-      this.rects.forEach(function (rect) {
-        rect.remove();
-      });
-      this.rects.length = 0;
+  remove() {
+    this.tip.remove();
+    this.rects.forEach(rect => {
+      rect.remove();
+    });
+    this.rects.length = 0;
 
-      if (this.container.parentNode) {
-        this.container.parentNode.removeChild(this.container);
-      }
+    if (this.container.parentNode) {
+      this.container.parentNode.removeChild(this.container);
     }
-  }, {
-    key: "inspect",
-    value: function inspect(nodes, name) {
-      var _this = this;
+  }
 
-      // We can't get the size of text nodes or comment nodes. React as of v15
-      // heavily uses comment nodes to delimit text.
-      var elements = nodes.filter(function (node) {
-        return node.nodeType === Node.ELEMENT_NODE;
-      });
+  inspect(nodes, name) {
+    // We can't get the size of text nodes or comment nodes. React as of v15
+    // heavily uses comment nodes to delimit text.
+    const elements = nodes.filter(node => node.nodeType === Node.ELEMENT_NODE);
 
-      while (this.rects.length > elements.length) {
-        var rect = this.rects.pop();
-        rect.remove();
-      }
+    while (this.rects.length > elements.length) {
+      const rect = this.rects.pop();
+      rect.remove();
+    }
 
-      if (elements.length === 0) {
-        return;
-      }
+    if (elements.length === 0) {
+      return;
+    }
 
-      while (this.rects.length < elements.length) {
-        this.rects.push(new Overlay_OverlayRect(this.window.document, this.container));
-      }
+    while (this.rects.length < elements.length) {
+      this.rects.push(new Overlay_OverlayRect(this.window.document, this.container));
+    }
 
-      var outerBox = {
-        top: Number.POSITIVE_INFINITY,
-        right: Number.NEGATIVE_INFINITY,
-        bottom: Number.NEGATIVE_INFINITY,
-        left: Number.POSITIVE_INFINITY
-      };
-      elements.forEach(function (element, index) {
-        var box = getNestedBoundingClientRect(element, _this.window);
-        var dims = getElementDimensions(element);
-        outerBox.top = Math.min(outerBox.top, box.top - dims.marginTop);
-        outerBox.right = Math.max(outerBox.right, box.left + box.width + dims.marginRight);
-        outerBox.bottom = Math.max(outerBox.bottom, box.top + box.height + dims.marginBottom);
-        outerBox.left = Math.min(outerBox.left, box.left - dims.marginLeft);
-        var rect = _this.rects[index];
-        rect.update(box, dims);
-      });
+    const outerBox = {
+      top: Number.POSITIVE_INFINITY,
+      right: Number.NEGATIVE_INFINITY,
+      bottom: Number.NEGATIVE_INFINITY,
+      left: Number.POSITIVE_INFINITY
+    };
+    elements.forEach((element, index) => {
+      const box = getNestedBoundingClientRect(element, this.window);
+      const dims = getElementDimensions(element);
+      outerBox.top = Math.min(outerBox.top, box.top - dims.marginTop);
+      outerBox.right = Math.max(outerBox.right, box.left + box.width + dims.marginRight);
+      outerBox.bottom = Math.max(outerBox.bottom, box.top + box.height + dims.marginBottom);
+      outerBox.left = Math.min(outerBox.left, box.left - dims.marginLeft);
+      const rect = this.rects[index];
+      rect.update(box, dims);
+    });
 
-      if (!name) {
-        name = elements[0].nodeName.toLowerCase();
-        var node = elements[0];
-        var hook = node.ownerDocument.defaultView.__REACT_DEVTOOLS_GLOBAL_HOOK__;
+    if (!name) {
+      name = elements[0].nodeName.toLowerCase();
+      const node = elements[0];
+      const hook = node.ownerDocument.defaultView.__REACT_DEVTOOLS_GLOBAL_HOOK__;
 
-        if (hook != null && hook.rendererInterfaces != null) {
-          var ownerName = null; // eslint-disable-next-line no-for-of-loops/no-for-of-loops
+      if (hook != null && hook.rendererInterfaces != null) {
+        let ownerName = null; // eslint-disable-next-line no-for-of-loops/no-for-of-loops
 
-          var _iteratorNormalCompletion = true;
-          var _didIteratorError = false;
-          var _iteratorError = undefined;
+        var _iterator = _createForOfIteratorHelper(hook.rendererInterfaces.values()),
+            _step;
 
-          try {
-            for (var _iterator = hook.rendererInterfaces.values()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-              var rendererInterface = _step.value;
-              var id = rendererInterface.getFiberIDForNative(node, true);
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            const rendererInterface = _step.value;
+            const id = rendererInterface.getFiberIDForNative(node, true);
 
-              if (id !== null) {
-                ownerName = rendererInterface.getDisplayNameForFiberID(id, true);
-                break;
-              }
-            }
-          } catch (err) {
-            _didIteratorError = true;
-            _iteratorError = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion && _iterator.return != null) {
-                _iterator.return();
-              }
-            } finally {
-              if (_didIteratorError) {
-                throw _iteratorError;
-              }
+            if (id !== null) {
+              ownerName = rendererInterface.getDisplayNameForFiberID(id, true);
+              break;
             }
           }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
 
-          if (ownerName) {
-            name += ' (in ' + ownerName + ')';
-          }
+        if (ownerName) {
+          name += ' (in ' + ownerName + ')';
         }
       }
-
-      this.tip.updateText(name, outerBox.right - outerBox.left, outerBox.bottom - outerBox.top);
-      var tipBounds = getNestedBoundingClientRect(this.tipBoundsWindow.document.documentElement, this.window);
-      this.tip.updatePosition({
-        top: outerBox.top,
-        left: outerBox.left,
-        height: outerBox.bottom - outerBox.top,
-        width: outerBox.right - outerBox.left
-      }, {
-        top: tipBounds.top + this.tipBoundsWindow.scrollY,
-        left: tipBounds.left + this.tipBoundsWindow.scrollX,
-        height: this.tipBoundsWindow.innerHeight,
-        width: this.tipBoundsWindow.innerWidth
-      });
     }
-  }]);
 
-  return Overlay;
-}();
+    this.tip.updateText(name, outerBox.right - outerBox.left, outerBox.bottom - outerBox.top);
+    const tipBounds = getNestedBoundingClientRect(this.tipBoundsWindow.document.documentElement, this.window);
+    this.tip.updatePosition({
+      top: outerBox.top,
+      left: outerBox.left,
+      height: outerBox.bottom - outerBox.top,
+      width: outerBox.right - outerBox.left
+    }, {
+      top: tipBounds.top + this.tipBoundsWindow.scrollY,
+      left: tipBounds.left + this.tipBoundsWindow.scrollX,
+      height: this.tipBoundsWindow.innerHeight,
+      width: this.tipBoundsWindow.innerWidth
+    });
+  }
 
-
+}
 
 function findTipPos(dims, bounds, tipSize) {
-  var tipHeight = Math.max(tipSize.height, 20);
-  var tipWidth = Math.max(tipSize.width, 60);
-  var margin = 5;
-  var top;
+  const tipHeight = Math.max(tipSize.height, 20);
+  const tipWidth = Math.max(tipSize.width, 60);
+  const margin = 5;
+  let top;
 
   if (dims.top + dims.height + tipHeight <= bounds.top + bounds.height) {
     if (dims.top + dims.height < bounds.top + 0) {
@@ -7982,7 +8201,7 @@ function findTipPos(dims, bounds, tipSize) {
     top = bounds.top + bounds.height - tipHeight - margin;
   }
 
-  var left = dims.left + margin;
+  let left = dims.left + margin;
 
   if (dims.left < bounds.left) {
     left = bounds.left + margin;
@@ -7996,8 +8215,8 @@ function findTipPos(dims, bounds, tipSize) {
   left += 'px';
   return {
     style: {
-      top: top,
-      left: left
+      top,
+      left
     }
   };
 }
@@ -8012,7 +8231,7 @@ function boxWrap(dims, what, node) {
   });
 }
 
-var overlayStyles = {
+const overlayStyles = {
   background: 'rgba(120, 170, 210, 0.7)',
   padding: 'rgba(77, 200, 0, 0.3)',
   margin: 'rgba(255, 155, 0, 0.3)',
@@ -8028,9 +8247,9 @@ var overlayStyles = {
  * 
  */
 
-var SHOW_DURATION = 2000;
-var timeoutID = null;
-var overlay = null;
+const SHOW_DURATION = 2000;
+let timeoutID = null;
+let overlay = null;
 function hideOverlay() {
   timeoutID = null;
 
@@ -8080,7 +8299,7 @@ function showOverlay(elements, componentName, hideAfterTimeout) {
 // It is used by the browser extension nad the standalone DevTools shell (when connected to a browser).
 // It is not currently the mechanism used to highlight React Native views.
 // That is done by the React Native Inspector component.
-var iframesListeningTo = new Set();
+let iframesListeningTo = new Set();
 function setupHighlighter(bridge, agent) {
   bridge.addListener('clearNativeElementHighlight', clearNativeElementHighlight);
   bridge.addListener('highlightNativeElement', highlightNativeElement);
@@ -8134,27 +8353,28 @@ function setupHighlighter(bridge, agent) {
     hideOverlay();
   }
 
-  function highlightNativeElement(_ref) {
-    var displayName = _ref.displayName,
-        hideAfterTimeout = _ref.hideAfterTimeout,
-        id = _ref.id,
-        openNativeElementsPanel = _ref.openNativeElementsPanel,
-        rendererID = _ref.rendererID,
-        scrollIntoView = _ref.scrollIntoView;
-    var renderer = agent.rendererInterfaces[rendererID];
+  function highlightNativeElement({
+    displayName,
+    hideAfterTimeout,
+    id,
+    openNativeElementsPanel,
+    rendererID,
+    scrollIntoView
+  }) {
+    const renderer = agent.rendererInterfaces[rendererID];
 
     if (renderer == null) {
-      console.warn("Invalid renderer id \"".concat(rendererID, "\" for element \"").concat(id, "\""));
+      console.warn(`Invalid renderer id "${rendererID}" for element "${id}"`);
     }
 
-    var nodes = null;
+    let nodes = null;
 
-    if (renderer !== null) {
+    if (renderer != null) {
       nodes = renderer.findNativeNodesForFiberID(id);
     }
 
     if (nodes != null && nodes[0] != null) {
-      var node = nodes[0];
+      const node = nodes[0];
 
       if (scrollIntoView && typeof node.scrollIntoView === 'function') {
         // If the node isn't visible show it before highlighting it.
@@ -8198,15 +8418,15 @@ function setupHighlighter(bridge, agent) {
   function onPointerOver(event) {
     event.preventDefault();
     event.stopPropagation();
-    var target = event.target;
+    const target = event.target;
 
     if (target.tagName === 'IFRAME') {
-      var iframe = target;
+      const iframe = target;
 
       try {
         if (!iframesListeningTo.has(iframe)) {
-          var _window = iframe.contentWindow;
-          registerListenersOnWindow(_window);
+          const window = iframe.contentWindow;
+          registerListenersOnWindow(window);
           iframesListeningTo.add(iframe);
         }
       } catch (error) {// This can error when the iframe is on a cross-origin.
@@ -8224,8 +8444,8 @@ function setupHighlighter(bridge, agent) {
     event.stopPropagation();
   }
 
-  var selectFiberForNode = lodash_throttle_default()(esm(function (node) {
-    var id = agent.getIDForNode(node);
+  const selectFiberForNode = lodash_throttle_default()(esm(node => {
+    const id = agent.getIDForNode(node);
 
     if (id !== null) {
       bridge.send('selectFiber', id);
@@ -8245,37 +8465,37 @@ function setupHighlighter(bridge, agent) {
  *
  * 
  */
-var OUTLINE_COLOR = '#f0f0f0'; // Note these colors are in sync with DevTools Profiler chart colors.
+const OUTLINE_COLOR = '#f0f0f0'; // Note these colors are in sync with DevTools Profiler chart colors.
 
-var COLORS = ['#37afa9', '#63b19e', '#80b393', '#97b488', '#abb67d', '#beb771', '#cfb965', '#dfba57', '#efbb49', '#febc38'];
-var canvas = null;
+const COLORS = ['#37afa9', '#63b19e', '#80b393', '#97b488', '#abb67d', '#beb771', '#cfb965', '#dfba57', '#efbb49', '#febc38'];
+let canvas = null;
 function draw(nodeToData) {
   if (canvas === null) {
     initialize();
   }
 
-  var canvasFlow = canvas;
+  const canvasFlow = canvas;
   canvasFlow.width = window.innerWidth;
   canvasFlow.height = window.innerHeight;
-  var context = canvasFlow.getContext('2d');
+  const context = canvasFlow.getContext('2d');
   context.clearRect(0, 0, canvasFlow.width, canvasFlow.height);
-  nodeToData.forEach(function (_ref) {
-    var count = _ref.count,
-        rect = _ref.rect;
-
+  nodeToData.forEach(({
+    count,
+    rect
+  }) => {
     if (rect !== null) {
-      var colorIndex = Math.min(COLORS.length - 1, count - 1);
-      var color = COLORS[colorIndex];
+      const colorIndex = Math.min(COLORS.length - 1, count - 1);
+      const color = COLORS[colorIndex];
       drawBorder(context, rect, color);
     }
   });
 }
 
 function drawBorder(context, rect, color) {
-  var height = rect.height,
-      left = rect.left,
-      top = rect.top,
-      width = rect.width; // outline
+  const height = rect.height,
+        left = rect.left,
+        top = rect.top,
+        width = rect.width; // outline
 
   context.lineWidth = 1;
   context.strokeStyle = OUTLINE_COLOR;
@@ -8304,13 +8524,21 @@ function destroy() {
 
 function initialize() {
   canvas = window.document.createElement('canvas');
-  canvas.style.cssText = "\n    xx-background-color: red;\n    xx-opacity: 0.5;\n    bottom: 0;\n    left: 0;\n    pointer-events: none;\n    position: fixed;\n    right: 0;\n    top: 0;\n    z-index: 1000000000;\n  ";
-  var root = window.document.documentElement;
+  canvas.style.cssText = `
+    xx-background-color: red;
+    xx-opacity: 0.5;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1000000000;
+  `;
+  const root = window.document.documentElement;
   root.insertBefore(canvas, root.firstChild);
 }
 // CONCATENATED MODULE: ../react-devtools-shared/src/backend/views/TraceUpdates/index.js
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -8323,23 +8551,19 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 
 // How long the rect should be shown for?
-var DISPLAY_DURATION = 250; // What's the longest we are willing to show the overlay for?
+const DISPLAY_DURATION = 250; // What's the longest we are willing to show the overlay for?
 // This can be important if we're getting a flurry of events (e.g. scroll update).
 
-var MAX_DISPLAY_DURATION = 3000; // How long should a rect be considered valid for?
+const MAX_DISPLAY_DURATION = 3000; // How long should a rect be considered valid for?
 
-var REMEASUREMENT_AFTER_DURATION = 250; // Some environments (e.g. React Native / Hermes) don't support the performance API yet.
+const REMEASUREMENT_AFTER_DURATION = 250; // Some environments (e.g. React Native / Hermes) don't support the performance API yet.
 
-var getCurrentTime = (typeof performance === "undefined" ? "undefined" : _typeof(performance)) === 'object' && typeof performance.now === 'function' ? function () {
-  return performance.now();
-} : function () {
-  return Date.now();
-};
-var nodeToData = new Map();
-var TraceUpdates_agent = null;
-var drawAnimationFrameID = null;
-var isEnabled = false;
-var redrawTimeoutID = null;
+const getCurrentTime = typeof performance === 'object' && typeof performance.now === 'function' ? () => performance.now() : () => Date.now();
+const nodeToData = new Map();
+let TraceUpdates_agent = null;
+let drawAnimationFrameID = null;
+let isEnabled = false;
+let redrawTimeoutID = null;
 function TraceUpdates_initialize(injectedAgent) {
   TraceUpdates_agent = injectedAgent;
   TraceUpdates_agent.addListener('traceUpdates', traceUpdates);
@@ -8369,11 +8593,11 @@ function traceUpdates(nodes) {
     return;
   }
 
-  nodes.forEach(function (node) {
-    var data = nodeToData.get(node);
-    var now = getCurrentTime();
-    var lastMeasuredAt = data != null ? data.lastMeasuredAt : 0;
-    var rect = data != null ? data.rect : null;
+  nodes.forEach(node => {
+    const data = nodeToData.get(node);
+    const now = getCurrentTime();
+    let lastMeasuredAt = data != null ? data.lastMeasuredAt : 0;
+    let rect = data != null ? data.rect : null;
 
     if (rect === null || lastMeasuredAt + REMEASUREMENT_AFTER_DURATION < now) {
       lastMeasuredAt = now;
@@ -8383,8 +8607,8 @@ function traceUpdates(nodes) {
     nodeToData.set(node, {
       count: data != null ? data.count + 1 : 1,
       expirationTime: data != null ? Math.min(now + MAX_DISPLAY_DURATION, data.expirationTime + DISPLAY_DURATION) : now + DISPLAY_DURATION,
-      lastMeasuredAt: lastMeasuredAt,
-      rect: rect
+      lastMeasuredAt,
+      rect
     });
   });
 
@@ -8401,10 +8625,10 @@ function traceUpdates(nodes) {
 function prepareToDraw() {
   drawAnimationFrameID = null;
   redrawTimeoutID = null;
-  var now = getCurrentTime();
-  var earliestExpiration = Number.MAX_VALUE; // Remove any items that have already expired.
+  const now = getCurrentTime();
+  let earliestExpiration = Number.MAX_VALUE; // Remove any items that have already expired.
 
-  nodeToData.forEach(function (data, node) {
+  nodeToData.forEach((data, node) => {
     if (data.expirationTime < now) {
       nodeToData.delete(node);
     } else {
@@ -8423,31 +8647,13 @@ function measureNode(node) {
     return null;
   }
 
-  var currentWindow = window.__REACT_DEVTOOLS_TARGET_WINDOW__ || window;
+  const currentWindow = window.__REACT_DEVTOOLS_TARGET_WINDOW__ || window;
   return getNestedBoundingClientRect(node, currentWindow);
 }
 // EXTERNAL MODULE: ../react-devtools-shared/src/backend/console.js + 3 modules
 var backend_console = __webpack_require__(9);
 
 // CONCATENATED MODULE: ../react-devtools-shared/src/backend/agent.js
-function agent_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { agent_typeof = function _typeof(obj) { return typeof obj; }; } else { agent_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return agent_typeof(obj); }
-
-function agent_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function agent_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function agent_createClass(Constructor, protoProps, staticProps) { if (protoProps) agent_defineProperties(Constructor.prototype, protoProps); if (staticProps) agent_defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (agent_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /**
@@ -8466,106 +8672,112 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var agent_debug = function debug(methodName) {
+const debug = (methodName, ...args) => {
   if (constants["k" /* __DEBUG__ */]) {
-    var _console;
-
-    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
-    }
-
-    (_console = console).log.apply(_console, ["%cAgent %c".concat(methodName), 'color: purple; font-weight: bold;', 'font-weight: bold;'].concat(args));
+    console.log(`%cAgent %c${methodName}`, 'color: purple; font-weight: bold;', 'font-weight: bold;', ...args);
   }
 };
 
-var agent_Agent =
-/*#__PURE__*/
-function (_EventEmitter) {
-  _inherits(Agent, _EventEmitter);
+class agent_Agent extends events["a" /* default */] {
+  constructor(bridge) {
+    super();
 
-  function Agent(bridge) {
-    var _this;
+    _defineProperty(this, "_isProfiling", false);
 
-    agent_classCallCheck(this, Agent);
+    _defineProperty(this, "_recordChangeDescriptions", false);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Agent).call(this));
+    _defineProperty(this, "_rendererInterfaces", {});
 
-    _defineProperty(_assertThisInitialized(_this), "_isProfiling", false);
+    _defineProperty(this, "_persistedSelection", null);
 
-    _defineProperty(_assertThisInitialized(_this), "_recordChangeDescriptions", false);
+    _defineProperty(this, "_persistedSelectionMatch", null);
 
-    _defineProperty(_assertThisInitialized(_this), "_rendererInterfaces", {});
+    _defineProperty(this, "_traceUpdatesEnabled", false);
 
-    _defineProperty(_assertThisInitialized(_this), "_persistedSelection", null);
-
-    _defineProperty(_assertThisInitialized(_this), "_persistedSelectionMatch", null);
-
-    _defineProperty(_assertThisInitialized(_this), "_traceUpdatesEnabled", false);
-
-    _defineProperty(_assertThisInitialized(_this), "copyElementPath", function (_ref) {
-      var id = _ref.id,
-          path = _ref.path,
-          rendererID = _ref.rendererID;
-      var renderer = _this._rendererInterfaces[rendererID];
+    _defineProperty(this, "copyElementPath", ({
+      id,
+      path,
+      rendererID
+    }) => {
+      const renderer = this._rendererInterfaces[rendererID];
 
       if (renderer == null) {
-        console.warn("Invalid renderer id \"".concat(rendererID, "\" for element \"").concat(id, "\""));
+        console.warn(`Invalid renderer id "${rendererID}" for element "${id}"`);
       } else {
         renderer.copyElementPath(id, path);
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "getProfilingData", function (_ref2) {
-      var rendererID = _ref2.rendererID;
-      var renderer = _this._rendererInterfaces[rendererID];
+    _defineProperty(this, "deletePath", ({
+      hookID,
+      id,
+      path,
+      rendererID,
+      type
+    }) => {
+      const renderer = this._rendererInterfaces[rendererID];
 
       if (renderer == null) {
-        console.warn("Invalid renderer id \"".concat(rendererID, "\""));
+        console.warn(`Invalid renderer id "${rendererID}" for element "${id}"`);
+      } else {
+        renderer.deletePath(type, id, hookID, path);
+      }
+    });
+
+    _defineProperty(this, "getProfilingData", ({
+      rendererID
+    }) => {
+      const renderer = this._rendererInterfaces[rendererID];
+
+      if (renderer == null) {
+        console.warn(`Invalid renderer id "${rendererID}"`);
       }
 
-      _this._bridge.send('profilingData', renderer.getProfilingData());
+      this._bridge.send('profilingData', renderer.getProfilingData());
     });
 
-    _defineProperty(_assertThisInitialized(_this), "getProfilingStatus", function () {
-      _this._bridge.send('profilingStatus', _this._isProfiling);
+    _defineProperty(this, "getProfilingStatus", () => {
+      this._bridge.send('profilingStatus', this._isProfiling);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "getOwnersList", function (_ref3) {
-      var id = _ref3.id,
-          rendererID = _ref3.rendererID;
-      var renderer = _this._rendererInterfaces[rendererID];
+    _defineProperty(this, "getOwnersList", ({
+      id,
+      rendererID
+    }) => {
+      const renderer = this._rendererInterfaces[rendererID];
 
       if (renderer == null) {
-        console.warn("Invalid renderer id \"".concat(rendererID, "\" for element \"").concat(id, "\""));
+        console.warn(`Invalid renderer id "${rendererID}" for element "${id}"`);
       } else {
-        var owners = renderer.getOwnersList(id);
+        const owners = renderer.getOwnersList(id);
 
-        _this._bridge.send('ownersList', {
-          id: id,
-          owners: owners
+        this._bridge.send('ownersList', {
+          id,
+          owners
         });
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "inspectElement", function (_ref4) {
-      var id = _ref4.id,
-          path = _ref4.path,
-          rendererID = _ref4.rendererID;
-      var renderer = _this._rendererInterfaces[rendererID];
+    _defineProperty(this, "inspectElement", ({
+      id,
+      path,
+      rendererID
+    }) => {
+      const renderer = this._rendererInterfaces[rendererID];
 
       if (renderer == null) {
-        console.warn("Invalid renderer id \"".concat(rendererID, "\" for element \"").concat(id, "\""));
+        console.warn(`Invalid renderer id "${rendererID}" for element "${id}"`);
       } else {
-        _this._bridge.send('inspectedElement', renderer.inspectElement(id, path)); // When user selects an element, stop trying to restore the selection,
+        this._bridge.send('inspectedElement', renderer.inspectElement(id, path)); // When user selects an element, stop trying to restore the selection,
         // and instead remember the current selection for the next reload.
 
 
-        if (_this._persistedSelectionMatch === null || _this._persistedSelectionMatch.id !== id) {
-          _this._persistedSelection = null;
-          _this._persistedSelectionMatch = null;
+        if (this._persistedSelectionMatch === null || this._persistedSelectionMatch.id !== id) {
+          this._persistedSelection = null;
+          this._persistedSelectionMatch = null;
           renderer.setTrackedPath(null);
 
-          _this._throttledPersistSelection(rendererID, id);
+          this._throttledPersistSelection(rendererID, id);
         } // TODO: If there was a way to change the selected DOM element
         // in native Elements tab without forcing a switch to it, we'd do it here.
         // For now, it doesn't seem like there is a way to do that:
@@ -8575,217 +8787,280 @@ function (_EventEmitter) {
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "logElementToConsole", function (_ref5) {
-      var id = _ref5.id,
-          rendererID = _ref5.rendererID;
-      var renderer = _this._rendererInterfaces[rendererID];
+    _defineProperty(this, "logElementToConsole", ({
+      id,
+      rendererID
+    }) => {
+      const renderer = this._rendererInterfaces[rendererID];
 
       if (renderer == null) {
-        console.warn("Invalid renderer id \"".concat(rendererID, "\" for element \"").concat(id, "\""));
+        console.warn(`Invalid renderer id "${rendererID}" for element "${id}"`);
       } else {
         renderer.logElementToConsole(id);
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "reloadAndProfile", function (recordChangeDescriptions) {
-      Object(storage["e" /* sessionStorageSetItem */])(constants["f" /* SESSION_STORAGE_RELOAD_AND_PROFILE_KEY */], 'true');
-      Object(storage["e" /* sessionStorageSetItem */])(constants["e" /* SESSION_STORAGE_RECORD_CHANGE_DESCRIPTIONS_KEY */], recordChangeDescriptions ? 'true' : 'false'); // This code path should only be hit if the shell has explicitly told the Store that it supports profiling.
-      // In that case, the shell must also listen for this specific message to know when it needs to reload the app.
-      // The agent can't do this in a way that is renderer agnostic.
-
-      _this._bridge.send('reloadAppForProfiling');
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "overrideContext", function (_ref6) {
-      var id = _ref6.id,
-          path = _ref6.path,
-          rendererID = _ref6.rendererID,
-          value = _ref6.value;
-      var renderer = _this._rendererInterfaces[rendererID];
+    _defineProperty(this, "overrideSuspense", ({
+      id,
+      rendererID,
+      forceFallback
+    }) => {
+      const renderer = this._rendererInterfaces[rendererID];
 
       if (renderer == null) {
-        console.warn("Invalid renderer id \"".concat(rendererID, "\" for element \"").concat(id, "\""));
-      } else {
-        renderer.setInContext(id, path, value);
-      }
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "overrideHookState", function (_ref7) {
-      var id = _ref7.id,
-          hookID = _ref7.hookID,
-          path = _ref7.path,
-          rendererID = _ref7.rendererID,
-          value = _ref7.value;
-      var renderer = _this._rendererInterfaces[rendererID];
-
-      if (renderer == null) {
-        console.warn("Invalid renderer id \"".concat(rendererID, "\" for element \"").concat(id, "\""));
-      } else {
-        renderer.setInHook(id, hookID, path, value);
-      }
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "overrideProps", function (_ref8) {
-      var id = _ref8.id,
-          path = _ref8.path,
-          rendererID = _ref8.rendererID,
-          value = _ref8.value;
-      var renderer = _this._rendererInterfaces[rendererID];
-
-      if (renderer == null) {
-        console.warn("Invalid renderer id \"".concat(rendererID, "\" for element \"").concat(id, "\""));
-      } else {
-        renderer.setInProps(id, path, value);
-      }
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "overrideState", function (_ref9) {
-      var id = _ref9.id,
-          path = _ref9.path,
-          rendererID = _ref9.rendererID,
-          value = _ref9.value;
-      var renderer = _this._rendererInterfaces[rendererID];
-
-      if (renderer == null) {
-        console.warn("Invalid renderer id \"".concat(rendererID, "\" for element \"").concat(id, "\""));
-      } else {
-        renderer.setInState(id, path, value);
-      }
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "overrideSuspense", function (_ref10) {
-      var id = _ref10.id,
-          rendererID = _ref10.rendererID,
-          forceFallback = _ref10.forceFallback;
-      var renderer = _this._rendererInterfaces[rendererID];
-
-      if (renderer == null) {
-        console.warn("Invalid renderer id \"".concat(rendererID, "\" for element \"").concat(id, "\""));
+        console.warn(`Invalid renderer id "${rendererID}" for element "${id}"`);
       } else {
         renderer.overrideSuspense(id, forceFallback);
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "setTraceUpdatesEnabled", function (traceUpdatesEnabled) {
-      _this._traceUpdatesEnabled = traceUpdatesEnabled;
+    _defineProperty(this, "overrideValueAtPath", ({
+      hookID,
+      id,
+      path,
+      rendererID,
+      type,
+      value
+    }) => {
+      const renderer = this._rendererInterfaces[rendererID];
+
+      if (renderer == null) {
+        console.warn(`Invalid renderer id "${rendererID}" for element "${id}"`);
+      } else {
+        renderer.overrideValueAtPath(type, id, hookID, path, value);
+      }
+    });
+
+    _defineProperty(this, "overrideContext", ({
+      id,
+      path,
+      rendererID,
+      wasForwarded,
+      value
+    }) => {
+      // Don't forward a message that's already been forwarded by the front-end Bridge.
+      // We only need to process the override command once!
+      if (!wasForwarded) {
+        this.overrideValueAtPath({
+          id,
+          path,
+          rendererID,
+          type: 'context',
+          value
+        });
+      }
+    });
+
+    _defineProperty(this, "overrideHookState", ({
+      id,
+      hookID,
+      path,
+      rendererID,
+      wasForwarded,
+      value
+    }) => {
+      // Don't forward a message that's already been forwarded by the front-end Bridge.
+      // We only need to process the override command once!
+      if (!wasForwarded) {
+        this.overrideValueAtPath({
+          id,
+          path,
+          rendererID,
+          type: 'hooks',
+          value
+        });
+      }
+    });
+
+    _defineProperty(this, "overrideProps", ({
+      id,
+      path,
+      rendererID,
+      wasForwarded,
+      value
+    }) => {
+      // Don't forward a message that's already been forwarded by the front-end Bridge.
+      // We only need to process the override command once!
+      if (!wasForwarded) {
+        this.overrideValueAtPath({
+          id,
+          path,
+          rendererID,
+          type: 'props',
+          value
+        });
+      }
+    });
+
+    _defineProperty(this, "overrideState", ({
+      id,
+      path,
+      rendererID,
+      wasForwarded,
+      value
+    }) => {
+      // Don't forward a message that's already been forwarded by the front-end Bridge.
+      // We only need to process the override command once!
+      if (!wasForwarded) {
+        this.overrideValueAtPath({
+          id,
+          path,
+          rendererID,
+          type: 'state',
+          value
+        });
+      }
+    });
+
+    _defineProperty(this, "reloadAndProfile", recordChangeDescriptions => {
+      Object(storage["e" /* sessionStorageSetItem */])(constants["f" /* SESSION_STORAGE_RELOAD_AND_PROFILE_KEY */], 'true');
+      Object(storage["e" /* sessionStorageSetItem */])(constants["e" /* SESSION_STORAGE_RECORD_CHANGE_DESCRIPTIONS_KEY */], recordChangeDescriptions ? 'true' : 'false'); // This code path should only be hit if the shell has explicitly told the Store that it supports profiling.
+      // In that case, the shell must also listen for this specific message to know when it needs to reload the app.
+      // The agent can't do this in a way that is renderer agnostic.
+
+      this._bridge.send('reloadAppForProfiling');
+    });
+
+    _defineProperty(this, "renamePath", ({
+      hookID,
+      id,
+      newPath,
+      oldPath,
+      rendererID,
+      type
+    }) => {
+      const renderer = this._rendererInterfaces[rendererID];
+
+      if (renderer == null) {
+        console.warn(`Invalid renderer id "${rendererID}" for element "${id}"`);
+      } else {
+        renderer.renamePath(type, id, hookID, oldPath, newPath);
+      }
+    });
+
+    _defineProperty(this, "setTraceUpdatesEnabled", traceUpdatesEnabled => {
+      this._traceUpdatesEnabled = traceUpdatesEnabled;
       toggleEnabled(traceUpdatesEnabled);
 
-      for (var rendererID in _this._rendererInterfaces) {
-        var renderer = _this._rendererInterfaces[rendererID];
+      for (const rendererID in this._rendererInterfaces) {
+        const renderer = this._rendererInterfaces[rendererID];
         renderer.setTraceUpdatesEnabled(traceUpdatesEnabled);
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "syncSelectionFromNativeElementsPanel", function () {
-      var target = window.__REACT_DEVTOOLS_GLOBAL_HOOK__.$0;
+    _defineProperty(this, "syncSelectionFromNativeElementsPanel", () => {
+      const target = window.__REACT_DEVTOOLS_GLOBAL_HOOK__.$0;
 
       if (target == null) {
         return;
       }
 
-      _this.selectNode(target);
+      this.selectNode(target);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "shutdown", function () {
+    _defineProperty(this, "shutdown", () => {
       // Clean up the overlay if visible, and associated events.
-      _this.emit('shutdown');
+      this.emit('shutdown');
     });
 
-    _defineProperty(_assertThisInitialized(_this), "startProfiling", function (recordChangeDescriptions) {
-      _this._recordChangeDescriptions = recordChangeDescriptions;
-      _this._isProfiling = true;
+    _defineProperty(this, "startProfiling", recordChangeDescriptions => {
+      this._recordChangeDescriptions = recordChangeDescriptions;
+      this._isProfiling = true;
 
-      for (var rendererID in _this._rendererInterfaces) {
-        var renderer = _this._rendererInterfaces[rendererID];
+      for (const rendererID in this._rendererInterfaces) {
+        const renderer = this._rendererInterfaces[rendererID];
         renderer.startProfiling(recordChangeDescriptions);
       }
 
-      _this._bridge.send('profilingStatus', _this._isProfiling);
+      this._bridge.send('profilingStatus', this._isProfiling);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "stopProfiling", function () {
-      _this._isProfiling = false;
-      _this._recordChangeDescriptions = false;
+    _defineProperty(this, "stopProfiling", () => {
+      this._isProfiling = false;
+      this._recordChangeDescriptions = false;
 
-      for (var rendererID in _this._rendererInterfaces) {
-        var renderer = _this._rendererInterfaces[rendererID];
+      for (const rendererID in this._rendererInterfaces) {
+        const renderer = this._rendererInterfaces[rendererID];
         renderer.stopProfiling();
       }
 
-      _this._bridge.send('profilingStatus', _this._isProfiling);
+      this._bridge.send('profilingStatus', this._isProfiling);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "storeAsGlobal", function (_ref11) {
-      var count = _ref11.count,
-          id = _ref11.id,
-          path = _ref11.path,
-          rendererID = _ref11.rendererID;
-      var renderer = _this._rendererInterfaces[rendererID];
+    _defineProperty(this, "storeAsGlobal", ({
+      count,
+      id,
+      path,
+      rendererID
+    }) => {
+      const renderer = this._rendererInterfaces[rendererID];
 
       if (renderer == null) {
-        console.warn("Invalid renderer id \"".concat(rendererID, "\" for element \"").concat(id, "\""));
+        console.warn(`Invalid renderer id "${rendererID}" for element "${id}"`);
       } else {
         renderer.storeAsGlobal(id, path, count);
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "updateConsolePatchSettings", function (_ref12) {
-      var appendComponentStack = _ref12.appendComponentStack,
-          breakOnConsoleErrors = _ref12.breakOnConsoleErrors;
-
+    _defineProperty(this, "updateConsolePatchSettings", ({
+      appendComponentStack,
+      breakOnConsoleErrors
+    }) => {
       // If the frontend preference has change,
       // or in the case of React Native- if the backend is just finding out the preference-
       // then install or uninstall the console overrides.
       // It's safe to call these methods multiple times, so we don't need to worry about that.
       if (appendComponentStack || breakOnConsoleErrors) {
         Object(backend_console["a" /* patch */])({
-          appendComponentStack: appendComponentStack,
-          breakOnConsoleErrors: breakOnConsoleErrors
+          appendComponentStack,
+          breakOnConsoleErrors
         });
       } else {
         Object(backend_console["c" /* unpatch */])();
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "updateComponentFilters", function (componentFilters) {
-      for (var rendererID in _this._rendererInterfaces) {
-        var renderer = _this._rendererInterfaces[rendererID];
+    _defineProperty(this, "updateComponentFilters", componentFilters => {
+      for (const rendererID in this._rendererInterfaces) {
+        const renderer = this._rendererInterfaces[rendererID];
         renderer.updateComponentFilters(componentFilters);
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "viewAttributeSource", function (_ref13) {
-      var id = _ref13.id,
-          path = _ref13.path,
-          rendererID = _ref13.rendererID;
-      var renderer = _this._rendererInterfaces[rendererID];
+    _defineProperty(this, "viewAttributeSource", ({
+      id,
+      path,
+      rendererID
+    }) => {
+      const renderer = this._rendererInterfaces[rendererID];
 
       if (renderer == null) {
-        console.warn("Invalid renderer id \"".concat(rendererID, "\" for element \"").concat(id, "\""));
+        console.warn(`Invalid renderer id "${rendererID}" for element "${id}"`);
       } else {
         renderer.prepareViewAttributeSource(id, path);
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "viewElementSource", function (_ref14) {
-      var id = _ref14.id,
-          rendererID = _ref14.rendererID;
-      var renderer = _this._rendererInterfaces[rendererID];
+    _defineProperty(this, "viewElementSource", ({
+      id,
+      rendererID
+    }) => {
+      const renderer = this._rendererInterfaces[rendererID];
 
       if (renderer == null) {
-        console.warn("Invalid renderer id \"".concat(rendererID, "\" for element \"").concat(id, "\""));
+        console.warn(`Invalid renderer id "${rendererID}" for element "${id}"`);
       } else {
         renderer.prepareViewElementSource(id);
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "onTraceUpdates", function (nodes) {
-      _this.emit('traceUpdates', nodes);
+    _defineProperty(this, "onTraceUpdates", nodes => {
+      this.emit('traceUpdates', nodes);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "onHookOperations", function (operations) {
+    _defineProperty(this, "onHookOperations", operations => {
       if (constants["k" /* __DEBUG__ */]) {
-        agent_debug('onHookOperations', operations);
+        debug('onHookOperations', operations);
       } // TODO:
       // The chrome.runtime does not currently support transferables; it forces JSON serialization.
       // See bug https://bugs.chromium.org/p/chromium/issues/detail?id=927134
@@ -8808,36 +9083,36 @@ function (_EventEmitter) {
       // this._bridge.send('operations', operations, [operations.buffer]);
 
 
-      _this._bridge.send('operations', operations);
+      this._bridge.send('operations', operations);
 
-      if (_this._persistedSelection !== null) {
-        var rendererID = operations[0];
+      if (this._persistedSelection !== null) {
+        const rendererID = operations[0];
 
-        if (_this._persistedSelection.rendererID === rendererID) {
+        if (this._persistedSelection.rendererID === rendererID) {
           // Check if we can select a deeper match for the persisted selection.
-          var renderer = _this._rendererInterfaces[rendererID];
+          const renderer = this._rendererInterfaces[rendererID];
 
           if (renderer == null) {
-            console.warn("Invalid renderer id \"".concat(rendererID, "\""));
+            console.warn(`Invalid renderer id "${rendererID}"`);
           } else {
-            var prevMatch = _this._persistedSelectionMatch;
-            var nextMatch = renderer.getBestMatchForTrackedPath();
-            _this._persistedSelectionMatch = nextMatch;
-            var prevMatchID = prevMatch !== null ? prevMatch.id : null;
-            var nextMatchID = nextMatch !== null ? nextMatch.id : null;
+            const prevMatch = this._persistedSelectionMatch;
+            const nextMatch = renderer.getBestMatchForTrackedPath();
+            this._persistedSelectionMatch = nextMatch;
+            const prevMatchID = prevMatch !== null ? prevMatch.id : null;
+            const nextMatchID = nextMatch !== null ? nextMatch.id : null;
 
             if (prevMatchID !== nextMatchID) {
               if (nextMatchID !== null) {
                 // We moved forward, unlocking a deeper node.
-                _this._bridge.send('selectFiber', nextMatchID);
+                this._bridge.send('selectFiber', nextMatchID);
               }
             }
 
             if (nextMatch !== null && nextMatch.isFullMatch) {
               // We've just unlocked the innermost selected node.
               // There's no point tracking it further.
-              _this._persistedSelection = null;
-              _this._persistedSelectionMatch = null;
+              this._persistedSelection = null;
+              this._persistedSelectionMatch = null;
               renderer.setTrackedPath(null);
             }
           }
@@ -8845,17 +9120,17 @@ function (_EventEmitter) {
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "_throttledPersistSelection", lodash_throttle_default()(function (rendererID, id) {
+    _defineProperty(this, "_throttledPersistSelection", lodash_throttle_default()((rendererID, id) => {
       // This is throttled, so both renderer and selected ID
       // might not be available by the time we read them.
       // This is why we need the defensive checks here.
-      var renderer = _this._rendererInterfaces[rendererID];
-      var path = renderer != null ? renderer.getPathForElement(id) : null;
+      const renderer = this._rendererInterfaces[rendererID];
+      const path = renderer != null ? renderer.getPathForElement(id) : null;
 
       if (path !== null) {
         Object(storage["e" /* sessionStorageSetItem */])(constants["d" /* SESSION_STORAGE_LAST_SELECTION_KEY */], JSON.stringify({
-          rendererID: rendererID,
-          path: path
+          rendererID,
+          path
         }));
       } else {
         Object(storage["d" /* sessionStorageRemoveItem */])(constants["d" /* SESSION_STORAGE_LAST_SELECTION_KEY */]);
@@ -8863,49 +9138,55 @@ function (_EventEmitter) {
     }, 1000));
 
     if (Object(storage["c" /* sessionStorageGetItem */])(constants["f" /* SESSION_STORAGE_RELOAD_AND_PROFILE_KEY */]) === 'true') {
-      _this._recordChangeDescriptions = Object(storage["c" /* sessionStorageGetItem */])(constants["e" /* SESSION_STORAGE_RECORD_CHANGE_DESCRIPTIONS_KEY */]) === 'true';
-      _this._isProfiling = true;
+      this._recordChangeDescriptions = Object(storage["c" /* sessionStorageGetItem */])(constants["e" /* SESSION_STORAGE_RECORD_CHANGE_DESCRIPTIONS_KEY */]) === 'true';
+      this._isProfiling = true;
       Object(storage["d" /* sessionStorageRemoveItem */])(constants["e" /* SESSION_STORAGE_RECORD_CHANGE_DESCRIPTIONS_KEY */]);
       Object(storage["d" /* sessionStorageRemoveItem */])(constants["f" /* SESSION_STORAGE_RELOAD_AND_PROFILE_KEY */]);
     }
 
-    var persistedSelectionString = Object(storage["c" /* sessionStorageGetItem */])(constants["d" /* SESSION_STORAGE_LAST_SELECTION_KEY */]);
+    const persistedSelectionString = Object(storage["c" /* sessionStorageGetItem */])(constants["d" /* SESSION_STORAGE_LAST_SELECTION_KEY */]);
 
     if (persistedSelectionString != null) {
-      _this._persistedSelection = JSON.parse(persistedSelectionString);
+      this._persistedSelection = JSON.parse(persistedSelectionString);
     }
 
-    _this._bridge = bridge;
-    bridge.addListener('copyElementPath', _this.copyElementPath);
-    bridge.addListener('getProfilingData', _this.getProfilingData);
-    bridge.addListener('getProfilingStatus', _this.getProfilingStatus);
-    bridge.addListener('getOwnersList', _this.getOwnersList);
-    bridge.addListener('inspectElement', _this.inspectElement);
-    bridge.addListener('logElementToConsole', _this.logElementToConsole);
-    bridge.addListener('overrideContext', _this.overrideContext);
-    bridge.addListener('overrideHookState', _this.overrideHookState);
-    bridge.addListener('overrideProps', _this.overrideProps);
-    bridge.addListener('overrideState', _this.overrideState);
-    bridge.addListener('overrideSuspense', _this.overrideSuspense);
-    bridge.addListener('reloadAndProfile', _this.reloadAndProfile);
-    bridge.addListener('setTraceUpdatesEnabled', _this.setTraceUpdatesEnabled);
-    bridge.addListener('startProfiling', _this.startProfiling);
-    bridge.addListener('stopProfiling', _this.stopProfiling);
-    bridge.addListener('storeAsGlobal', _this.storeAsGlobal);
-    bridge.addListener('syncSelectionFromNativeElementsPanel', _this.syncSelectionFromNativeElementsPanel);
-    bridge.addListener('shutdown', _this.shutdown);
-    bridge.addListener('updateConsolePatchSettings', _this.updateConsolePatchSettings);
-    bridge.addListener('updateComponentFilters', _this.updateComponentFilters);
-    bridge.addListener('viewAttributeSource', _this.viewAttributeSource);
-    bridge.addListener('viewElementSource', _this.viewElementSource);
+    this._bridge = bridge;
+    bridge.addListener('copyElementPath', this.copyElementPath);
+    bridge.addListener('deletePath', this.deletePath);
+    bridge.addListener('getProfilingData', this.getProfilingData);
+    bridge.addListener('getProfilingStatus', this.getProfilingStatus);
+    bridge.addListener('getOwnersList', this.getOwnersList);
+    bridge.addListener('inspectElement', this.inspectElement);
+    bridge.addListener('logElementToConsole', this.logElementToConsole);
+    bridge.addListener('overrideSuspense', this.overrideSuspense);
+    bridge.addListener('overrideValueAtPath', this.overrideValueAtPath);
+    bridge.addListener('reloadAndProfile', this.reloadAndProfile);
+    bridge.addListener('renamePath', this.renamePath);
+    bridge.addListener('setTraceUpdatesEnabled', this.setTraceUpdatesEnabled);
+    bridge.addListener('startProfiling', this.startProfiling);
+    bridge.addListener('stopProfiling', this.stopProfiling);
+    bridge.addListener('storeAsGlobal', this.storeAsGlobal);
+    bridge.addListener('syncSelectionFromNativeElementsPanel', this.syncSelectionFromNativeElementsPanel);
+    bridge.addListener('shutdown', this.shutdown);
+    bridge.addListener('updateConsolePatchSettings', this.updateConsolePatchSettings);
+    bridge.addListener('updateComponentFilters', this.updateComponentFilters);
+    bridge.addListener('viewAttributeSource', this.viewAttributeSource);
+    bridge.addListener('viewElementSource', this.viewElementSource); // Temporarily support older standalone front-ends sending commands to newer embedded backends.
+    // We do this because React Native embeds the React DevTools backend,
+    // but cannot control which version of the frontend users use.
 
-    if (_this._isProfiling) {
+    bridge.addListener('overrideContext', this.overrideContext);
+    bridge.addListener('overrideHookState', this.overrideHookState);
+    bridge.addListener('overrideProps', this.overrideProps);
+    bridge.addListener('overrideState', this.overrideState);
+
+    if (this._isProfiling) {
       bridge.send('profilingStatus', true);
     } // Notify the frontend if the backend supports the Storage API (e.g. localStorage).
     // If not, features like reload-and-profile will not work correctly and must be disabled.
 
 
-    var isBackendStorageAPISupported = false;
+    let isBackendStorageAPISupported = false;
 
     try {
       localStorage.getItem('test');
@@ -8913,88 +9194,77 @@ function (_EventEmitter) {
     } catch (error) {}
 
     bridge.send('isBackendStorageAPISupported', isBackendStorageAPISupported);
-    setupHighlighter(bridge, _assertThisInitialized(_this));
-    TraceUpdates_initialize(_assertThisInitialized(_this));
-    return _this;
+    setupHighlighter(bridge, this);
+    TraceUpdates_initialize(this);
   }
 
-  agent_createClass(Agent, [{
-    key: "getInstanceAndStyle",
-    value: function getInstanceAndStyle(_ref15) {
-      var id = _ref15.id,
-          rendererID = _ref15.rendererID;
-      var renderer = this._rendererInterfaces[rendererID];
+  get rendererInterfaces() {
+    return this._rendererInterfaces;
+  }
 
-      if (renderer == null) {
-        console.warn("Invalid renderer id \"".concat(rendererID, "\""));
-        return null;
-      }
+  getInstanceAndStyle({
+    id,
+    rendererID
+  }) {
+    const renderer = this._rendererInterfaces[rendererID];
 
-      return renderer.getInstanceAndStyle(id);
-    }
-  }, {
-    key: "getIDForNode",
-    value: function getIDForNode(node) {
-      for (var rendererID in this._rendererInterfaces) {
-        var renderer = this._rendererInterfaces[rendererID];
-
-        try {
-          var id = renderer.getFiberIDForNative(node, true);
-
-          if (id !== null) {
-            return id;
-          }
-        } catch (error) {// Some old React versions might throw if they can't find a match.
-          // If so we should ignore it...
-        }
-      }
-
+    if (renderer == null) {
+      console.warn(`Invalid renderer id "${rendererID}"`);
       return null;
     }
-  }, {
-    key: "selectNode",
-    value: function selectNode(target) {
-      var id = this.getIDForNode(target);
 
-      if (id !== null) {
-        this._bridge.send('selectFiber', id);
+    return renderer.getInstanceAndStyle(id);
+  }
+
+  getIDForNode(node) {
+    for (const rendererID in this._rendererInterfaces) {
+      const renderer = this._rendererInterfaces[rendererID];
+
+      try {
+        const id = renderer.getFiberIDForNative(node, true);
+
+        if (id !== null) {
+          return id;
+        }
+      } catch (error) {// Some old React versions might throw if they can't find a match.
+        // If so we should ignore it...
       }
     }
-  }, {
-    key: "setRendererInterface",
-    value: function setRendererInterface(rendererID, rendererInterface) {
-      this._rendererInterfaces[rendererID] = rendererInterface;
 
-      if (this._isProfiling) {
-        rendererInterface.startProfiling(this._recordChangeDescriptions);
-      }
+    return null;
+  }
 
-      rendererInterface.setTraceUpdatesEnabled(this._traceUpdatesEnabled); // When the renderer is attached, we need to tell it whether
-      // we remember the previous selection that we'd like to restore.
-      // It'll start tracking mounts for matches to the last selection path.
+  selectNode(target) {
+    const id = this.getIDForNode(target);
 
-      var selection = this._persistedSelection;
-
-      if (selection !== null && selection.rendererID === rendererID) {
-        rendererInterface.setTrackedPath(selection.path);
-      }
+    if (id !== null) {
+      this._bridge.send('selectFiber', id);
     }
-  }, {
-    key: "onUnsupportedRenderer",
-    value: function onUnsupportedRenderer(rendererID) {
-      this._bridge.send('unsupportedRendererVersion', rendererID);
+  }
+
+  setRendererInterface(rendererID, rendererInterface) {
+    this._rendererInterfaces[rendererID] = rendererInterface;
+
+    if (this._isProfiling) {
+      rendererInterface.startProfiling(this._recordChangeDescriptions);
     }
-  }, {
-    key: "rendererInterfaces",
-    get: function get() {
-      return this._rendererInterfaces;
+
+    rendererInterface.setTraceUpdatesEnabled(this._traceUpdatesEnabled); // When the renderer is attached, we need to tell it whether
+    // we remember the previous selection that we'd like to restore.
+    // It'll start tracking mounts for matches to the last selection path.
+
+    const selection = this._persistedSelection;
+
+    if (selection !== null && selection.rendererID === rendererID) {
+      rendererInterface.setTrackedPath(selection.path);
     }
-  }]);
+  }
 
-  return Agent;
-}(events["a" /* default */]);
+  onUnsupportedRenderer(rendererID) {
+    this._bridge.send('unsupportedRendererVersion', rendererID);
+  }
 
-
+}
 
 /***/ }),
 /* 15 */
@@ -9003,28 +9273,20 @@ function (_EventEmitter) {
 "use strict";
  // A linked list to keep track of recently-used-ness
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+const Yallist = __webpack_require__(22);
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+const MAX = Symbol('max');
+const LENGTH = Symbol('length');
+const LENGTH_CALCULATOR = Symbol('lengthCalculator');
+const ALLOW_STALE = Symbol('allowStale');
+const MAX_AGE = Symbol('maxAge');
+const DISPOSE = Symbol('dispose');
+const NO_DISPOSE_ON_SET = Symbol('noDisposeOnSet');
+const LRU_LIST = Symbol('lruList');
+const CACHE = Symbol('cache');
+const UPDATE_AGE_ON_GET = Symbol('updateAgeOnGet');
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var Yallist = __webpack_require__(22);
-
-var MAX = Symbol('max');
-var LENGTH = Symbol('length');
-var LENGTH_CALCULATOR = Symbol('lengthCalculator');
-var ALLOW_STALE = Symbol('allowStale');
-var MAX_AGE = Symbol('maxAge');
-var DISPOSE = Symbol('dispose');
-var NO_DISPOSE_ON_SET = Symbol('noDisposeOnSet');
-var LRU_LIST = Symbol('lruList');
-var CACHE = Symbol('cache');
-var UPDATE_AGE_ON_GET = Symbol('updateAgeOnGet');
-
-var naiveLength = function naiveLength() {
-  return 1;
-}; // lruList is a yallist where the head is the youngest
+const naiveLength = () => 1; // lruList is a yallist where the head is the youngest
 // item, and the tail is the oldest.  the list contains the Hit
 // objects as the entries.
 // Each Hit object has a reference to its Yallist.Node.  This
@@ -9034,20 +9296,16 @@ var naiveLength = function naiveLength() {
 // the Yallist.Node object.
 
 
-var LRUCache =
-/*#__PURE__*/
-function () {
-  function LRUCache(options) {
-    _classCallCheck(this, LRUCache);
-
+class LRUCache {
+  constructor(options) {
     if (typeof options === 'number') options = {
       max: options
     };
     if (!options) options = {};
     if (options.max && (typeof options.max !== 'number' || options.max < 0)) throw new TypeError('max must be a non-negative number'); // Kind of weird to have a default max of Infinity, but oh well.
 
-    var max = this[MAX] = options.max || Infinity;
-    var lc = options.length || naiveLength;
+    const max = this[MAX] = options.max || Infinity;
+    const lc = options.length || naiveLength;
     this[LENGTH_CALCULATOR] = typeof lc !== 'function' ? naiveLength : lc;
     this[ALLOW_STALE] = options.stale || false;
     if (options.maxAge && typeof options.maxAge !== 'number') throw new TypeError('maxAge must be a number');
@@ -9059,260 +9317,216 @@ function () {
   } // resize the cache when the max changes.
 
 
-  _createClass(LRUCache, [{
-    key: "rforEach",
-    value: function rforEach(fn, thisp) {
-      thisp = thisp || this;
+  set max(mL) {
+    if (typeof mL !== 'number' || mL < 0) throw new TypeError('max must be a non-negative number');
+    this[MAX] = mL || Infinity;
+    trim(this);
+  }
 
-      for (var walker = this[LRU_LIST].tail; walker !== null;) {
-        var prev = walker.prev;
-        forEachStep(this, fn, walker, thisp);
-        walker = prev;
-      }
-    }
-  }, {
-    key: "forEach",
-    value: function forEach(fn, thisp) {
-      thisp = thisp || this;
+  get max() {
+    return this[MAX];
+  }
 
-      for (var walker = this[LRU_LIST].head; walker !== null;) {
-        var next = walker.next;
-        forEachStep(this, fn, walker, thisp);
-        walker = next;
-      }
-    }
-  }, {
-    key: "keys",
-    value: function keys() {
-      return this[LRU_LIST].toArray().map(function (k) {
-        return k.key;
+  set allowStale(allowStale) {
+    this[ALLOW_STALE] = !!allowStale;
+  }
+
+  get allowStale() {
+    return this[ALLOW_STALE];
+  }
+
+  set maxAge(mA) {
+    if (typeof mA !== 'number') throw new TypeError('maxAge must be a non-negative number');
+    this[MAX_AGE] = mA;
+    trim(this);
+  }
+
+  get maxAge() {
+    return this[MAX_AGE];
+  } // resize the cache when the lengthCalculator changes.
+
+
+  set lengthCalculator(lC) {
+    if (typeof lC !== 'function') lC = naiveLength;
+
+    if (lC !== this[LENGTH_CALCULATOR]) {
+      this[LENGTH_CALCULATOR] = lC;
+      this[LENGTH] = 0;
+      this[LRU_LIST].forEach(hit => {
+        hit.length = this[LENGTH_CALCULATOR](hit.value, hit.key);
+        this[LENGTH] += hit.length;
       });
     }
-  }, {
-    key: "values",
-    value: function values() {
-      return this[LRU_LIST].toArray().map(function (k) {
-        return k.value;
-      });
+
+    trim(this);
+  }
+
+  get lengthCalculator() {
+    return this[LENGTH_CALCULATOR];
+  }
+
+  get length() {
+    return this[LENGTH];
+  }
+
+  get itemCount() {
+    return this[LRU_LIST].length;
+  }
+
+  rforEach(fn, thisp) {
+    thisp = thisp || this;
+
+    for (let walker = this[LRU_LIST].tail; walker !== null;) {
+      const prev = walker.prev;
+      forEachStep(this, fn, walker, thisp);
+      walker = prev;
     }
-  }, {
-    key: "reset",
-    value: function reset() {
-      var _this = this;
+  }
 
-      if (this[DISPOSE] && this[LRU_LIST] && this[LRU_LIST].length) {
-        this[LRU_LIST].forEach(function (hit) {
-          return _this[DISPOSE](hit.key, hit.value);
-        });
-      }
+  forEach(fn, thisp) {
+    thisp = thisp || this;
 
-      this[CACHE] = new Map(); // hash of items by key
-
-      this[LRU_LIST] = new Yallist(); // list of items in order of use recency
-
-      this[LENGTH] = 0; // length of items in the list
+    for (let walker = this[LRU_LIST].head; walker !== null;) {
+      const next = walker.next;
+      forEachStep(this, fn, walker, thisp);
+      walker = next;
     }
-  }, {
-    key: "dump",
-    value: function dump() {
-      var _this2 = this;
+  }
 
-      return this[LRU_LIST].map(function (hit) {
-        return isStale(_this2, hit) ? false : {
-          k: hit.key,
-          v: hit.value,
-          e: hit.now + (hit.maxAge || 0)
-        };
-      }).toArray().filter(function (h) {
-        return h;
-      });
+  keys() {
+    return this[LRU_LIST].toArray().map(k => k.key);
+  }
+
+  values() {
+    return this[LRU_LIST].toArray().map(k => k.value);
+  }
+
+  reset() {
+    if (this[DISPOSE] && this[LRU_LIST] && this[LRU_LIST].length) {
+      this[LRU_LIST].forEach(hit => this[DISPOSE](hit.key, hit.value));
     }
-  }, {
-    key: "dumpLru",
-    value: function dumpLru() {
-      return this[LRU_LIST];
-    }
-  }, {
-    key: "set",
-    value: function set(key, value, maxAge) {
-      maxAge = maxAge || this[MAX_AGE];
-      if (maxAge && typeof maxAge !== 'number') throw new TypeError('maxAge must be a number');
-      var now = maxAge ? Date.now() : 0;
-      var len = this[LENGTH_CALCULATOR](value, key);
 
-      if (this[CACHE].has(key)) {
-        if (len > this[MAX]) {
-          _del(this, this[CACHE].get(key));
+    this[CACHE] = new Map(); // hash of items by key
 
-          return false;
-        }
+    this[LRU_LIST] = new Yallist(); // list of items in order of use recency
 
-        var node = this[CACHE].get(key);
-        var item = node.value; // dispose of the old one before overwriting
-        // split out into 2 ifs for better coverage tracking
+    this[LENGTH] = 0; // length of items in the list
+  }
 
-        if (this[DISPOSE]) {
-          if (!this[NO_DISPOSE_ON_SET]) this[DISPOSE](key, item.value);
-        }
+  dump() {
+    return this[LRU_LIST].map(hit => isStale(this, hit) ? false : {
+      k: hit.key,
+      v: hit.value,
+      e: hit.now + (hit.maxAge || 0)
+    }).toArray().filter(h => h);
+  }
 
-        item.now = now;
-        item.maxAge = maxAge;
-        item.value = value;
-        this[LENGTH] += len - item.length;
-        item.length = len;
-        this.get(key);
-        trim(this);
-        return true;
-      }
+  dumpLru() {
+    return this[LRU_LIST];
+  }
 
-      var hit = new Entry(key, value, len, now, maxAge); // oversized objects fall out of cache automatically.
+  set(key, value, maxAge) {
+    maxAge = maxAge || this[MAX_AGE];
+    if (maxAge && typeof maxAge !== 'number') throw new TypeError('maxAge must be a number');
+    const now = maxAge ? Date.now() : 0;
+    const len = this[LENGTH_CALCULATOR](value, key);
 
-      if (hit.length > this[MAX]) {
-        if (this[DISPOSE]) this[DISPOSE](key, value);
+    if (this[CACHE].has(key)) {
+      if (len > this[MAX]) {
+        del(this, this[CACHE].get(key));
         return false;
       }
 
-      this[LENGTH] += hit.length;
-      this[LRU_LIST].unshift(hit);
-      this[CACHE].set(key, this[LRU_LIST].head);
+      const node = this[CACHE].get(key);
+      const item = node.value; // dispose of the old one before overwriting
+      // split out into 2 ifs for better coverage tracking
+
+      if (this[DISPOSE]) {
+        if (!this[NO_DISPOSE_ON_SET]) this[DISPOSE](key, item.value);
+      }
+
+      item.now = now;
+      item.maxAge = maxAge;
+      item.value = value;
+      this[LENGTH] += len - item.length;
+      item.length = len;
+      this.get(key);
       trim(this);
       return true;
     }
-  }, {
-    key: "has",
-    value: function has(key) {
-      if (!this[CACHE].has(key)) return false;
-      var hit = this[CACHE].get(key).value;
-      return !isStale(this, hit);
-    }
-  }, {
-    key: "get",
-    value: function get(key) {
-      return _get(this, key, true);
-    }
-  }, {
-    key: "peek",
-    value: function peek(key) {
-      return _get(this, key, false);
-    }
-  }, {
-    key: "pop",
-    value: function pop() {
-      var node = this[LRU_LIST].tail;
-      if (!node) return null;
 
-      _del(this, node);
+    const hit = new Entry(key, value, len, now, maxAge); // oversized objects fall out of cache automatically.
 
-      return node.value;
+    if (hit.length > this[MAX]) {
+      if (this[DISPOSE]) this[DISPOSE](key, value);
+      return false;
     }
-  }, {
-    key: "del",
-    value: function del(key) {
-      _del(this, this[CACHE].get(key));
-    }
-  }, {
-    key: "load",
-    value: function load(arr) {
-      // reset the cache
-      this.reset();
-      var now = Date.now(); // A previous serialized cache has the most recent items first
 
-      for (var l = arr.length - 1; l >= 0; l--) {
-        var hit = arr[l];
-        var expiresAt = hit.e || 0;
-        if (expiresAt === 0) // the item was created without expiration in a non aged cache
-          this.set(hit.k, hit.v);else {
-          var maxAge = expiresAt - now; // dont add already expired items
+    this[LENGTH] += hit.length;
+    this[LRU_LIST].unshift(hit);
+    this[CACHE].set(key, this[LRU_LIST].head);
+    trim(this);
+    return true;
+  }
 
-          if (maxAge > 0) {
-            this.set(hit.k, hit.v, maxAge);
-          }
+  has(key) {
+    if (!this[CACHE].has(key)) return false;
+    const hit = this[CACHE].get(key).value;
+    return !isStale(this, hit);
+  }
+
+  get(key) {
+    return get(this, key, true);
+  }
+
+  peek(key) {
+    return get(this, key, false);
+  }
+
+  pop() {
+    const node = this[LRU_LIST].tail;
+    if (!node) return null;
+    del(this, node);
+    return node.value;
+  }
+
+  del(key) {
+    del(this, this[CACHE].get(key));
+  }
+
+  load(arr) {
+    // reset the cache
+    this.reset();
+    const now = Date.now(); // A previous serialized cache has the most recent items first
+
+    for (let l = arr.length - 1; l >= 0; l--) {
+      const hit = arr[l];
+      const expiresAt = hit.e || 0;
+      if (expiresAt === 0) // the item was created without expiration in a non aged cache
+        this.set(hit.k, hit.v);else {
+        const maxAge = expiresAt - now; // dont add already expired items
+
+        if (maxAge > 0) {
+          this.set(hit.k, hit.v, maxAge);
         }
       }
     }
-  }, {
-    key: "prune",
-    value: function prune() {
-      var _this3 = this;
+  }
 
-      this[CACHE].forEach(function (value, key) {
-        return _get(_this3, key, false);
-      });
-    }
-  }, {
-    key: "max",
-    set: function set(mL) {
-      if (typeof mL !== 'number' || mL < 0) throw new TypeError('max must be a non-negative number');
-      this[MAX] = mL || Infinity;
-      trim(this);
-    },
-    get: function get() {
-      return this[MAX];
-    }
-  }, {
-    key: "allowStale",
-    set: function set(allowStale) {
-      this[ALLOW_STALE] = !!allowStale;
-    },
-    get: function get() {
-      return this[ALLOW_STALE];
-    }
-  }, {
-    key: "maxAge",
-    set: function set(mA) {
-      if (typeof mA !== 'number') throw new TypeError('maxAge must be a non-negative number');
-      this[MAX_AGE] = mA;
-      trim(this);
-    },
-    get: function get() {
-      return this[MAX_AGE];
-    } // resize the cache when the lengthCalculator changes.
+  prune() {
+    this[CACHE].forEach((value, key) => get(this, key, false));
+  }
 
-  }, {
-    key: "lengthCalculator",
-    set: function set(lC) {
-      var _this4 = this;
+}
 
-      if (typeof lC !== 'function') lC = naiveLength;
-
-      if (lC !== this[LENGTH_CALCULATOR]) {
-        this[LENGTH_CALCULATOR] = lC;
-        this[LENGTH] = 0;
-        this[LRU_LIST].forEach(function (hit) {
-          hit.length = _this4[LENGTH_CALCULATOR](hit.value, hit.key);
-          _this4[LENGTH] += hit.length;
-        });
-      }
-
-      trim(this);
-    },
-    get: function get() {
-      return this[LENGTH_CALCULATOR];
-    }
-  }, {
-    key: "length",
-    get: function get() {
-      return this[LENGTH];
-    }
-  }, {
-    key: "itemCount",
-    get: function get() {
-      return this[LRU_LIST].length;
-    }
-  }]);
-
-  return LRUCache;
-}();
-
-var _get = function _get(self, key, doUse) {
-  var node = self[CACHE].get(key);
+const get = (self, key, doUse) => {
+  const node = self[CACHE].get(key);
 
   if (node) {
-    var hit = node.value;
+    const hit = node.value;
 
     if (isStale(self, hit)) {
-      _del(self, node);
-
+      del(self, node);
       if (!self[ALLOW_STALE]) return undefined;
     } else {
       if (doUse) {
@@ -9325,30 +9539,28 @@ var _get = function _get(self, key, doUse) {
   }
 };
 
-var isStale = function isStale(self, hit) {
+const isStale = (self, hit) => {
   if (!hit || !hit.maxAge && !self[MAX_AGE]) return false;
-  var diff = Date.now() - hit.now;
+  const diff = Date.now() - hit.now;
   return hit.maxAge ? diff > hit.maxAge : self[MAX_AGE] && diff > self[MAX_AGE];
 };
 
-var trim = function trim(self) {
+const trim = self => {
   if (self[LENGTH] > self[MAX]) {
-    for (var walker = self[LRU_LIST].tail; self[LENGTH] > self[MAX] && walker !== null;) {
+    for (let walker = self[LRU_LIST].tail; self[LENGTH] > self[MAX] && walker !== null;) {
       // We know that we're about to delete this one, and also
       // what the next least recently used key will be, so just
       // go ahead and set it now.
-      var prev = walker.prev;
-
-      _del(self, walker);
-
+      const prev = walker.prev;
+      del(self, walker);
       walker = prev;
     }
   }
 };
 
-var _del = function _del(self, node) {
+const del = (self, node) => {
   if (node) {
-    var hit = node.value;
+    const hit = node.value;
     if (self[DISPOSE]) self[DISPOSE](hit.key, hit.value);
     self[LENGTH] -= hit.length;
     self[CACHE].delete(hit.key);
@@ -9356,22 +9568,22 @@ var _del = function _del(self, node) {
   }
 };
 
-var Entry = function Entry(key, value, length, now, maxAge) {
-  _classCallCheck(this, Entry);
+class Entry {
+  constructor(key, value, length, now, maxAge) {
+    this.key = key;
+    this.value = value;
+    this.length = length;
+    this.now = now;
+    this.maxAge = maxAge || 0;
+  }
 
-  this.key = key;
-  this.value = value;
-  this.length = length;
-  this.now = now;
-  this.maxAge = maxAge || 0;
-};
+}
 
-var forEachStep = function forEachStep(self, fn, node, thisp) {
-  var hit = node.value;
+const forEachStep = (self, fn, node, thisp) => {
+  let hit = node.value;
 
   if (isStale(self, hit)) {
-    _del(self, node);
-
+    del(self, node);
     if (!self[ALLOW_STALE]) hit = undefined;
   }
 
@@ -9383,8 +9595,6 @@ module.exports = LRUCache;
 /***/ }),
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 //  Import support https://stackoverflow.com/questions/13673346/supporting-both-commonjs-and-amd
 (function (name, definition) {
@@ -9543,7 +9753,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }
 
       function c(a) {
-        if ("object" != _typeof(this)) throw new TypeError("Promises must be constructed via new");
+        if ("object" != typeof this) throw new TypeError("Promises must be constructed via new");
         if ("function" != typeof a) throw new TypeError("not a function");
         this._state = null, this._value = null, this._deferreds = [], i(a, b(e, this), b(f, this));
       }
@@ -9569,7 +9779,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         try {
           if (a === this) throw new TypeError("A promise cannot be resolved with itself.");
 
-          if (a && ("object" == _typeof(a) || "function" == typeof a)) {
+          if (a && ("object" == typeof a || "function" == typeof a)) {
             var c = a.then;
             if ("function" == typeof c) return void i(b(c, a), b(e, this), b(f, this));
           }
@@ -9585,9 +9795,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }
 
       function g() {
-        for (var a = 0, b = this._deferreds.length; b > a; a++) {
-          d.call(this, this._deferreds[a]);
-        }
+        for (var a = 0, b = this._deferreds.length; b > a; a++) d.call(this, this._deferreds[a]);
 
         this._deferreds = null;
       }
@@ -9630,7 +9838,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         return new c(function (b, c) {
           function d(f, g) {
             try {
-              if (g && ("object" == _typeof(g) || "function" == typeof g)) {
+              if (g && ("object" == typeof g || "function" == typeof g)) {
                 var h = g.then;
                 if ("function" == typeof h) return void h.call(g, function (a) {
                   d(f, a);
@@ -9645,12 +9853,10 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
           if (0 === a.length) return b([]);
 
-          for (var e = a.length, f = 0; f < a.length; f++) {
-            d(f, a[f]);
-          }
+          for (var e = a.length, f = 0; f < a.length; f++) d(f, a[f]);
         });
       }, c.resolve = function (a) {
-        return a && "object" == _typeof(a) && a.constructor === c ? a : new c(function (b) {
+        return a && "object" == typeof a && a.constructor === c ? a : new c(function (b) {
           b(a);
         });
       }, c.reject = function (a) {
@@ -9659,9 +9865,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         });
       }, c.race = function (a) {
         return new c(function (b, c) {
-          for (var d = 0, e = a.length; e > d; d++) {
-            a[d].then(b, c);
-          }
+          for (var d = 0, e = a.length; e > d; d++) a[d].then(b, c);
         });
       },  true && module.exports ? module.exports = c : a.Promise || (a.Promise = c);
     })(this);
@@ -9740,18 +9944,18 @@ function setup(hook) {
     return;
   }
 
-  var Agent = __webpack_require__(14).default;
+  const Agent = __webpack_require__(14).default;
 
-  var Bridge = __webpack_require__(30).default;
+  const Bridge = __webpack_require__(30).default;
 
-  var _require = __webpack_require__(31),
-      initBackend = _require.initBackend;
+  const _require = __webpack_require__(31),
+        initBackend = _require.initBackend;
 
-  var setupNativeStyleEditor = __webpack_require__(32).default;
+  const setupNativeStyleEditor = __webpack_require__(32).default;
 
-  var bridge = new Bridge({
-    listen: function listen(fn) {
-      var listener = function listener(event) {
+  const bridge = new Bridge({
+    listen(fn) {
+      const listener = event => {
         if (event.source !== window || !event.data || event.data.source !== 'react-devtools-content-script' || !event.data.payload) {
           return;
         }
@@ -9760,28 +9964,30 @@ function setup(hook) {
       };
 
       window.addEventListener('message', listener);
-      return function () {
+      return () => {
         window.removeEventListener('message', listener);
       };
     },
-    send: function send(event, payload, transferable) {
+
+    send(event, payload, transferable) {
       window.postMessage({
         source: 'react-devtools-bridge',
         payload: {
-          event: event,
-          payload: payload
+          event,
+          payload
         }
       }, '*', transferable);
     }
+
   });
-  var agent = new Agent(bridge);
-  agent.addListener('shutdown', function () {
+  const agent = new Agent(bridge);
+  agent.addListener('shutdown', () => {
     // If we received 'shutdown' from `agent`, we assume the `bridge` is already shutting down,
     // and that caused the 'shutdown' event on the `agent`, so we don't need to call `bridge.shutdown()` here.
     hook.emit('shutdown');
   });
   initBackend(hook, agent, window); // Let the frontend know that the backend has attached listeners and is ready for messages.
-  // This covers the case of of syncing saved values after reloading/navigating while DevTools remain open.
+  // This covers the case of syncing saved values after reloading/navigating while DevTools remain open.
 
   bridge.send('extensionBackendInitialized'); // Setup React Native style editor if a renderer like react-native-web has injected it.
 
@@ -9794,8 +10000,6 @@ function setup(hook) {
 /* 19 */
 /***/ (function(module, exports) {
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 var g; // This works in non-strict mode
 
 g = function () {
@@ -9807,7 +10011,7 @@ try {
   g = g || new Function("return this")();
 } catch (e) {
   // This works if the window reference is available
-  if ((typeof window === "undefined" ? "undefined" : _typeof(window)) === "object") g = window;
+  if (typeof window === "object") g = window;
 } // g can still be undefined, but nothing to do about it...
 // We return undefined, instead of nothing here, so it's
 // easier to handle this case. if(!global) { ...}
@@ -10533,34 +10737,30 @@ try {
 
 
 module.exports = function (Yallist) {
-  Yallist.prototype[Symbol.iterator] =
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee() {
+  Yallist.prototype[Symbol.iterator] = /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
     var walker;
     return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            walker = this.head;
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          walker = this.head;
 
-          case 1:
-            if (!walker) {
-              _context.next = 7;
-              break;
-            }
-
-            _context.next = 4;
-            return walker.value;
-
-          case 4:
-            walker = walker.next;
-            _context.next = 1;
+        case 1:
+          if (!walker) {
+            _context.next = 7;
             break;
+          }
 
-          case 7:
-          case "end":
-            return _context.stop();
-        }
+          _context.next = 4;
+          return walker.value;
+
+        case 4:
+          walker = walker.next;
+          _context.next = 1;
+          break;
+
+        case 7:
+        case "end":
+          return _context.stop();
       }
     }, _callee, this);
   });
@@ -10571,7 +10771,7 @@ module.exports = function (Yallist) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/** @license React v0.0.0-experimental-a9ba5283d
+/** @license React v0.0.0-experimental-51a3aa6af
  * react-is.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -10580,8 +10780,6 @@ module.exports = function (Yallist) {
  * LICENSE file in the root directory of this source tree.
  */
 
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var b = 60103,
     c = 60106,
@@ -10596,47 +10794,44 @@ var b = 60103,
     n = 60115,
     p = 60116,
     q = 60121,
-    t = 60122,
+    r = 60122,
     u = 60117,
-    v = 60118,
-    w = 60119,
-    x = 60129,
-    y = 60131;
+    v = 60129,
+    w = 60131;
 
 if ("function" === typeof Symbol && Symbol.for) {
-  var z = Symbol.for;
-  b = z("react.element");
-  c = z("react.portal");
-  d = z("react.fragment");
-  e = z("react.strict_mode");
-  f = z("react.profiler");
-  g = z("react.provider");
-  h = z("react.context");
-  k = z("react.forward_ref");
-  l = z("react.suspense");
-  m = z("react.suspense_list");
-  n = z("react.memo");
-  p = z("react.lazy");
-  q = z("react.block");
-  t = z("react.server.block");
-  u = z("react.fundamental");
-  v = z("react.responder");
-  w = z("react.scope");
-  x = z("react.debug_trace_mode");
-  y = z("react.legacy_hidden");
+  var x = Symbol.for;
+  b = x("react.element");
+  c = x("react.portal");
+  d = x("react.fragment");
+  e = x("react.strict_mode");
+  f = x("react.profiler");
+  g = x("react.provider");
+  h = x("react.context");
+  k = x("react.forward_ref");
+  l = x("react.suspense");
+  m = x("react.suspense_list");
+  n = x("react.memo");
+  p = x("react.lazy");
+  q = x("react.block");
+  r = x("react.server.block");
+  u = x("react.fundamental");
+  v = x("react.debug_trace_mode");
+  w = x("react.legacy_hidden");
 }
 
-function A(a) {
-  if ("object" === _typeof(a) && null !== a) {
-    var r = a.$$typeof;
+function y(a) {
+  if ("object" === typeof a && null !== a) {
+    var t = a.$$typeof;
 
-    switch (r) {
+    switch (t) {
       case b:
         switch (a = a.type, a) {
           case d:
           case f:
           case e:
           case l:
+          case m:
             return a;
 
           default:
@@ -10649,38 +10844,38 @@ function A(a) {
                 return a;
 
               default:
-                return r;
+                return t;
             }
 
         }
 
       case c:
-        return r;
+        return t;
     }
   }
 }
 
-var B = g,
-    C = b,
-    D = k,
-    E = d,
-    F = p,
-    G = n,
-    H = c,
-    I = f,
-    J = e,
-    K = l;
+var z = g,
+    A = b,
+    B = k,
+    C = d,
+    D = p,
+    E = n,
+    F = c,
+    G = f,
+    H = e,
+    I = l;
 exports.ContextConsumer = h;
-exports.ContextProvider = B;
-exports.Element = C;
-exports.ForwardRef = D;
-exports.Fragment = E;
-exports.Lazy = F;
-exports.Memo = G;
-exports.Portal = H;
-exports.Profiler = I;
-exports.StrictMode = J;
-exports.Suspense = K;
+exports.ContextProvider = z;
+exports.Element = A;
+exports.ForwardRef = B;
+exports.Fragment = C;
+exports.Lazy = D;
+exports.Memo = E;
+exports.Portal = F;
+exports.Profiler = G;
+exports.StrictMode = H;
+exports.Suspense = I;
 
 exports.isAsyncMode = function () {
   return !1;
@@ -10691,61 +10886,61 @@ exports.isConcurrentMode = function () {
 };
 
 exports.isContextConsumer = function (a) {
-  return A(a) === h;
+  return y(a) === h;
 };
 
 exports.isContextProvider = function (a) {
-  return A(a) === g;
+  return y(a) === g;
 };
 
 exports.isElement = function (a) {
-  return "object" === _typeof(a) && null !== a && a.$$typeof === b;
+  return "object" === typeof a && null !== a && a.$$typeof === b;
 };
 
 exports.isForwardRef = function (a) {
-  return A(a) === k;
+  return y(a) === k;
 };
 
 exports.isFragment = function (a) {
-  return A(a) === d;
+  return y(a) === d;
 };
 
 exports.isLazy = function (a) {
-  return A(a) === p;
+  return y(a) === p;
 };
 
 exports.isMemo = function (a) {
-  return A(a) === n;
+  return y(a) === n;
 };
 
 exports.isPortal = function (a) {
-  return A(a) === c;
+  return y(a) === c;
 };
 
 exports.isProfiler = function (a) {
-  return A(a) === f;
+  return y(a) === f;
 };
 
 exports.isStrictMode = function (a) {
-  return A(a) === e;
+  return y(a) === e;
 };
 
 exports.isSuspense = function (a) {
-  return A(a) === l;
+  return y(a) === l;
 };
 
 exports.isValidElementType = function (a) {
-  return "string" === typeof a || "function" === typeof a || a === d || a === f || a === x || a === e || a === l || a === m || a === y || "object" === _typeof(a) && null !== a && (a.$$typeof === p || a.$$typeof === n || a.$$typeof === g || a.$$typeof === h || a.$$typeof === k || a.$$typeof === u || a.$$typeof === v || a.$$typeof === w || a.$$typeof === q || a[0] === t) ? !0 : !1;
+  return "string" === typeof a || "function" === typeof a || a === d || a === f || a === v || a === e || a === l || a === m || a === w || "object" === typeof a && null !== a && (a.$$typeof === p || a.$$typeof === n || a.$$typeof === g || a.$$typeof === h || a.$$typeof === k || a.$$typeof === u || a.$$typeof === q || a[0] === r) ? !0 : !1;
 };
 
-exports.typeOf = A;
+exports.typeOf = y;
 
 /***/ }),
 /* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/** @license React v0.0.0-experimental-a9ba5283d
+/** @license React v0.0.0-experimental-51a3aa6af
  * react-debug-tools.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -10755,11 +10950,9 @@ exports.typeOf = A;
  */
 
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 var g = __webpack_require__(7),
     k = __webpack_require__(26),
-    n = __webpack_require__(28).__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
+    p = __webpack_require__(28).__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
     v = 60128;
 
 if ("function" === typeof Symbol && Symbol.for) {
@@ -10784,17 +10977,6 @@ function A() {
         return null;
       }), B.useDebugValue(null), B.useCallback(function () {}), B.useMemo(function () {
         return null;
-      }), B.useMutableSource({
-        _source: {},
-        _getVersion: function _getVersion() {
-          return 1;
-        },
-        _workInProgressVersionPrimary: null,
-        _workInProgressVersionSecondary: null
-      }, function () {
-        return null;
-      }, function () {
-        return function () {};
       });
     } finally {
       var b = x;
@@ -10852,7 +11034,7 @@ var B = {
   useImperativeHandle: function useImperativeHandle(a) {
     D();
     var b = void 0;
-    null !== a && "object" === _typeof(a) && (b = a.current);
+    null !== a && "object" === typeof a && (b = a.current);
     x.push({
       primitive: "ImperativeHandle",
       stackError: Error(),
@@ -10916,27 +11098,13 @@ var B = {
     });
     return [a, function () {}];
   },
-  useResponder: function useResponder(a, b) {
-    x.push({
-      primitive: "Responder",
-      stackError: Error(),
-      value: {
-        responder: a.displayName || "EventResponder",
-        props: b
-      }
-    });
-    return {
-      responder: a,
-      props: b
-    };
-  },
-  useTransition: function useTransition(a) {
+  useTransition: function useTransition() {
     D();
     D();
     x.push({
       primitive: "Transition",
       stackError: Error(),
-      value: a
+      value: void 0
     });
     return [function () {}, !1];
   },
@@ -10981,14 +11149,10 @@ function F(a, b, c) {
   var d = b[c].source,
       e = 0;
 
-  a: for (; e < a.length; e++) {
-    if (a[e].source === d) {
-      for (var p = c + 1, q = e + 1; p < b.length && q < a.length; p++, q++) {
-        if (a[q].source !== b[p].source) continue a;
-      }
+  a: for (; e < a.length; e++) if (a[e].source === d) {
+    for (var n = c + 1, q = e + 1; n < b.length && q < a.length; n++, q++) if (a[q].source !== b[n].source) continue a;
 
-      return e;
-    }
+    return e;
   }
 
   return -1;
@@ -11009,7 +11173,7 @@ function H(a) {
 }
 
 function I(a, b) {
-  for (var c = [], d = null, e = c, p = 0, q = [], u = 0; u < b.length; u++) {
+  for (var c = [], d = null, e = c, n = 0, q = [], u = 0; u < b.length; u++) {
     var t = b[u];
     var f = a;
     var h = k.parse(t.stackError);
@@ -11018,12 +11182,10 @@ function I(a, b) {
       var m = h,
           r = F(m, f, E);
       if (-1 !== r) f = r;else {
-        for (var l = 0; l < f.length && 5 > l; l++) {
-          if (r = F(m, f, l), -1 !== r) {
-            E = l;
-            f = r;
-            break b;
-          }
+        for (var l = 0; l < f.length && 5 > l; l++) if (r = F(m, f, l), -1 !== r) {
+          E = l;
+          f = r;
+          break b;
         }
 
         f = -1;
@@ -11033,13 +11195,11 @@ function I(a, b) {
     b: {
       m = h;
       r = A().get(t.primitive);
-      if (void 0 !== r) for (l = 0; l < r.length && l < m.length; l++) {
-        if (r[l].source !== m[l].source) {
-          l < m.length - 1 && G(m[l].functionName, t.primitive) && l++;
-          l < m.length - 1 && G(m[l].functionName, t.primitive) && l++;
-          m = l;
-          break b;
-        }
+      if (void 0 !== r) for (l = 0; l < r.length && l < m.length; l++) if (r[l].source !== m[l].source) {
+        l < m.length - 1 && G(m[l].functionName, t.primitive) && l++;
+        l < m.length - 1 && G(m[l].functionName, t.primitive) && l++;
+        m = l;
+        break b;
       }
       m = -1;
     }
@@ -11050,30 +11210,24 @@ function I(a, b) {
       f = 0;
 
       if (null !== d) {
-        for (; f < h.length && f < d.length && h[h.length - f - 1].source === d[d.length - f - 1].source;) {
-          f++;
-        }
+        for (; f < h.length && f < d.length && h[h.length - f - 1].source === d[d.length - f - 1].source;) f++;
 
-        for (d = d.length - 1; d > f; d--) {
-          e = q.pop();
-        }
+        for (d = d.length - 1; d > f; d--) e = q.pop();
       }
 
-      for (d = h.length - f - 1; 1 <= d; d--) {
-        f = [], e.push({
-          id: null,
-          isStateEditable: !1,
-          name: H(h[d - 1].functionName),
-          value: void 0,
-          subHooks: f
-        }), q.push(e), e = f;
-      }
+      for (d = h.length - f - 1; 1 <= d; d--) f = [], e.push({
+        id: null,
+        isStateEditable: !1,
+        name: H(h[d - 1].functionName),
+        value: void 0,
+        subHooks: f
+      }), q.push(e), e = f;
 
       d = h;
     }
 
     h = t.primitive;
-    f = "Context" === h || "DebugValue" === h ? null : p++;
+    f = "Context" === h || "DebugValue" === h ? null : n++;
     e.push({
       id: f,
       isStateEditable: "Reducer" === h || "State" === h,
@@ -11099,7 +11253,7 @@ function J(a, b) {
 }
 
 function K(a, b, c) {
-  null == c && (c = n.ReactCurrentDispatcher);
+  null == c && (c = p.ReactCurrentDispatcher);
   var d = c.current;
   c.current = B;
 
@@ -11123,7 +11277,7 @@ function L(a) {
 exports.inspectHooks = K;
 
 exports.inspectHooksOfFiber = function (a, b) {
-  null == b && (b = n.ReactCurrentDispatcher);
+  null == b && (b = p.ReactCurrentDispatcher);
   z = a;
   if (0 !== a.tag && 15 !== a.tag && 11 !== a.tag && 22 !== a.tag) throw Error("Unknown Fiber. Needs to be a function component to inspect hooks.");
   A();
@@ -11134,19 +11288,17 @@ exports.inspectHooksOfFiber = function (a, b) {
     d = g({}, d);
     var e = c.defaultProps;
 
-    for (p in e) {
-      void 0 === d[p] && (d[p] = e[p]);
-    }
+    for (n in e) void 0 === d[n] && (d[n] = e[n]);
   }
 
   C = a.memoizedState;
-  var p = new Map();
+  var n = new Map();
 
   try {
     for (e = a; e;) {
       if (10 === e.tag) {
         var q = e.type._context;
-        p.has(q) || (p.set(q, q._currentValue), q._currentValue = e.memoizedProps.value);
+        n.has(q) || (n.set(q, q._currentValue), q._currentValue = e.memoizedProps.value);
       }
 
       e = e.return;
@@ -11175,7 +11327,7 @@ exports.inspectHooksOfFiber = function (a, b) {
 
     return K(c, d, b);
   } finally {
-    C = null, L(p);
+    C = null, L(n);
   }
 };
 
@@ -11183,9 +11335,7 @@ exports.inspectHooksOfFiber = function (a, b) {
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-(function (root, factory) {
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
   'use strict'; // Universal Module Definition (UMD) to support AMD, CommonJS/Node.js, Rhino, and browsers.
 
   /* istanbul ignore next */
@@ -11373,9 +11523,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-(function (root, factory) {
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
   'use strict'; // Universal Module Definition (UMD) to support AMD, CommonJS/Node.js, Rhino, and browsers.
 
   /* istanbul ignore next */
@@ -11540,7 +11688,7 @@ if (true) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/** @license React v0.0.0-experimental-a9ba5283d
+/** @license React v0.0.0-experimental-51a3aa6af
  * react.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -11549,8 +11697,6 @@ if (true) {
  * LICENSE file in the root directory of this source tree.
  */
 
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var l = __webpack_require__(7),
     m = 60103,
@@ -11592,15 +11738,13 @@ if ("function" === typeof Symbol && Symbol.for) {
 var y = "function" === typeof Symbol && Symbol.iterator;
 
 function z(a) {
-  if (null === a || "object" !== _typeof(a)) return null;
+  if (null === a || "object" !== typeof a) return null;
   a = y && a[y] || a["@@iterator"];
   return "function" === typeof a ? a : null;
 }
 
 function A(a) {
-  for (var b = "https://reactjs.org/docs/error-decoder.html?invariant=" + a, c = 1; c < arguments.length; c++) {
-    b += "&args[]=" + encodeURIComponent(arguments[c]);
-  }
+  for (var b = "https://reactjs.org/docs/error-decoder.html?invariant=" + a, c = 1; c < arguments.length; c++) b += "&args[]=" + encodeURIComponent(arguments[c]);
 
   return "Minified React error #" + a + "; visit " + b + " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.";
 }
@@ -11625,7 +11769,7 @@ function D(a, b, c) {
 D.prototype.isReactComponent = {};
 
 D.prototype.setState = function (a, b) {
-  if ("object" !== _typeof(a) && "function" !== typeof a && null != a) throw Error(A(85));
+  if ("object" !== typeof a && "function" !== typeof a && null != a) throw Error(A(85));
   this.updater.enqueueSetState(this, a, b, "setState");
 };
 
@@ -11664,20 +11808,14 @@ function K(a, b, c) {
       d = {},
       k = null,
       h = null;
-  if (null != b) for (e in void 0 !== b.ref && (h = b.ref), void 0 !== b.key && (k = "" + b.key), b) {
-    I.call(b, e) && !J.hasOwnProperty(e) && (d[e] = b[e]);
-  }
+  if (null != b) for (e in void 0 !== b.ref && (h = b.ref), void 0 !== b.key && (k = "" + b.key), b) I.call(b, e) && !J.hasOwnProperty(e) && (d[e] = b[e]);
   var g = arguments.length - 2;
   if (1 === g) d.children = c;else if (1 < g) {
-    for (var f = Array(g), n = 0; n < g; n++) {
-      f[n] = arguments[n + 2];
-    }
+    for (var f = Array(g), n = 0; n < g; n++) f[n] = arguments[n + 2];
 
     d.children = f;
   }
-  if (a && a.defaultProps) for (e in g = a.defaultProps, g) {
-    void 0 === d[e] && (d[e] = g[e]);
-  }
+  if (a && a.defaultProps) for (e in g = a.defaultProps, g) void 0 === d[e] && (d[e] = g[e]);
   return {
     $$typeof: m,
     type: a,
@@ -11700,7 +11838,7 @@ function L(a, b) {
 }
 
 function M(a) {
-  return "object" === _typeof(a) && null !== a && a.$$typeof === m;
+  return "object" === typeof a && null !== a && a.$$typeof === m;
 }
 
 function escape(a) {
@@ -11716,12 +11854,11 @@ function escape(a) {
 var N = /\/+/g;
 
 function O(a, b) {
-  return "object" === _typeof(a) && null !== a && null != a.key ? escape("" + a.key) : b.toString(36);
+  return "object" === typeof a && null !== a && null != a.key ? escape("" + a.key) : b.toString(36);
 }
 
 function P(a, b, c, e, d) {
-  var k = _typeof(a);
-
+  var k = typeof a;
   if ("undefined" === k || "boolean" === k) a = null;
   var h = !1;
   if (null === a) h = !0;else switch (k) {
@@ -11747,9 +11884,7 @@ function P(a, b, c, e, d) {
     k = a[g];
     var f = e + O(k, g);
     h += P(k, b, c, f, d);
-  } else if (f = z(a), "function" === typeof f) for (a = f.call(a), g = 0; !(k = a.next()).done;) {
-    k = k.value, f = e + O(k, g++), h += P(k, b, c, f, d);
-  } else if ("object" === k) throw b = "" + a, Error(A(31, "[object Object]" === b ? "object with keys {" + Object.keys(a).join(", ") + "}" : b));
+  } else if (f = z(a), "function" === typeof f) for (a = f.call(a), g = 0; !(k = a.next()).done;) k = k.value, f = e + O(k, g++), h += P(k, b, c, f, d);else if ("object" === k) throw b = "" + a, Error(A(31, "[object Object]" === b ? "object with keys {" + Object.keys(a).join(", ") + "}" : b));
   return h;
 }
 
@@ -11799,7 +11934,7 @@ function U() {
 }
 
 var V = {
-  suspense: null
+  transition: 0
 },
     W = {
   ReactCurrentDispatcher: T,
@@ -11850,18 +11985,14 @@ exports.cloneElement = function (a, b, c) {
     void 0 !== b.key && (d = "" + b.key);
     if (a.type && a.type.defaultProps) var g = a.type.defaultProps;
 
-    for (f in b) {
-      I.call(b, f) && !J.hasOwnProperty(f) && (e[f] = void 0 === b[f] && void 0 !== g ? g[f] : b[f]);
-    }
+    for (f in b) I.call(b, f) && !J.hasOwnProperty(f) && (e[f] = void 0 === b[f] && void 0 !== g ? g[f] : b[f]);
   }
 
   var f = arguments.length - 2;
   if (1 === f) e.children = c;else if (1 < f) {
     g = Array(f);
 
-    for (var n = 0; n < f; n++) {
-      g[n] = arguments[n + 2];
-    }
+    for (var n = 0; n < f; n++) g[n] = arguments[n + 2];
 
     e.children = g;
   }
@@ -11899,15 +12030,6 @@ exports.createFactory = function (a) {
   var b = K.bind(null, a);
   b.type = a;
   return b;
-};
-
-exports.createMutableSource = function (a, b) {
-  return {
-    _getVersion: b,
-    _source: a,
-    _workInProgressVersionPrimary: null,
-    _workInProgressVersionSecondary: null
-  };
 };
 
 exports.createRef = function () {
@@ -11964,27 +12086,40 @@ exports.unstable_block = function (a, b) {
   };
 };
 
-exports.unstable_useDeferredValue = function (a, b) {
-  return U().useDeferredValue(a, b);
+exports.unstable_createMutableSource = function (a, b) {
+  return {
+    _getVersion: b,
+    _source: a,
+    _workInProgressVersionPrimary: null,
+    _workInProgressVersionSecondary: null
+  };
+};
+
+exports.unstable_startTransition = function (a) {
+  var b = V.transition;
+  V.transition = 1;
+
+  try {
+    a();
+  } finally {
+    V.transition = b;
+  }
+};
+
+exports.unstable_useDeferredValue = function (a) {
+  return U().useDeferredValue(a);
+};
+
+exports.unstable_useMutableSource = function (a, b, c) {
+  return U().useMutableSource(a, b, c);
 };
 
 exports.unstable_useOpaqueIdentifier = function () {
   return U().useOpaqueIdentifier();
 };
 
-exports.unstable_useTransition = function (a) {
-  return U().useTransition(a);
-};
-
-exports.unstable_withSuspenseConfig = function (a, b) {
-  var c = V.suspense;
-  V.suspense = void 0 === b ? null : b;
-
-  try {
-    a();
-  } finally {
-    V.suspense = c;
-  }
+exports.unstable_useTransition = function () {
+  return U().useTransition();
 };
 
 exports.useCallback = function (a, b) {
@@ -12013,10 +12148,6 @@ exports.useMemo = function (a, b) {
   return U().useMemo(a, b);
 };
 
-exports.useMutableSource = function (a, b, c) {
-  return U().useMutableSource(a, b, c);
-};
-
 exports.useReducer = function (a, b, c) {
   return U().useReducer(a, b, c);
 };
@@ -12029,7 +12160,7 @@ exports.useState = function (a) {
   return U().useState(a);
 };
 
-exports.version = "16.13.1-experimental-a9ba5283d";
+exports.version = "17.0.0-alpha.0-experimental-51a3aa6af";
 
 /***/ }),
 /* 30 */
@@ -12038,32 +12169,6 @@ exports.version = "16.13.1-experimental-a9ba5283d";
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /**
@@ -12075,137 +12180,170 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * 
  */
 
-var BATCH_DURATION = 100;
+const BATCH_DURATION = 100;
 
-var Bridge =
-/*#__PURE__*/
-function (_EventEmitter) {
-  _inherits(Bridge, _EventEmitter);
+class Bridge extends _events__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"] {
+  constructor(wall) {
+    super();
 
-  function Bridge(wall) {
-    var _this;
+    _defineProperty(this, "_isShutdown", false);
 
-    _classCallCheck(this, Bridge);
+    _defineProperty(this, "_messageQueue", []);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Bridge).call(this));
+    _defineProperty(this, "_timeoutID", null);
 
-    _defineProperty(_assertThisInitialized(_this), "_isShutdown", false);
+    _defineProperty(this, "_wallUnlisten", null);
 
-    _defineProperty(_assertThisInitialized(_this), "_messageQueue", []);
-
-    _defineProperty(_assertThisInitialized(_this), "_timeoutID", null);
-
-    _defineProperty(_assertThisInitialized(_this), "_wallUnlisten", null);
-
-    _defineProperty(_assertThisInitialized(_this), "_flush", function () {
+    _defineProperty(this, "_flush", () => {
       // This method is used after the bridge is marked as destroyed in shutdown sequence,
       // so we do not bail out if the bridge marked as destroyed.
       // It is a private method that the bridge ensures is only called at the right times.
-      if (_this._timeoutID !== null) {
-        clearTimeout(_this._timeoutID);
-        _this._timeoutID = null;
-      }
-
-      if (_this._messageQueue.length) {
-        for (var i = 0; i < _this._messageQueue.length; i += 2) {
-          var _this$_wall;
-
-          (_this$_wall = _this._wall).send.apply(_this$_wall, [_this._messageQueue[i]].concat(_toConsumableArray(_this._messageQueue[i + 1])));
-        }
-
-        _this._messageQueue.length = 0; // Check again for queued messages in BATCH_DURATION ms. This will keep
-        // flushing in a loop as long as messages continue to be added. Once no
-        // more are, the timer expires.
-
-        _this._timeoutID = setTimeout(_this._flush, BATCH_DURATION);
-      }
-    });
-
-    _this._wall = wall;
-    _this._wallUnlisten = wall.listen(function (message) {
-      _assertThisInitialized(_this).emit(message.event, message.payload);
-    }) || null;
-    return _this;
-  } // Listening directly to the wall isn't advised.
-  // It can be used to listen for legacy (v3) messages (since they use a different format).
-
-
-  _createClass(Bridge, [{
-    key: "send",
-    value: function send(event) {
-      if (this._isShutdown) {
-        console.warn("Cannot send message \"".concat(event, "\" through a Bridge that has been shutdown."));
-        return;
-      } // When we receive a message:
-      // - we add it to our queue of messages to be sent
-      // - if there hasn't been a message recently, we set a timer for 0 ms in
-      //   the future, allowing all messages created in the same tick to be sent
-      //   together
-      // - if there *has* been a message flushed in the last BATCH_DURATION ms
-      //   (or we're waiting for our setTimeout-0 to fire), then _timeoutID will
-      //   be set, and we'll simply add to the queue and wait for that
-
-
-      for (var _len = arguments.length, payload = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        payload[_key - 1] = arguments[_key];
-      }
-
-      this._messageQueue.push(event, payload);
-
-      if (!this._timeoutID) {
-        this._timeoutID = setTimeout(this._flush, 0);
-      }
-    }
-  }, {
-    key: "shutdown",
-    value: function shutdown() {
-      if (this._isShutdown) {
-        console.warn('Bridge was already shutdown.');
-        return;
-      } // Queue the shutdown outgoing message for subscribers.
-
-
-      this.send('shutdown'); // Mark this bridge as destroyed, i.e. disable its public API.
-
-      this._isShutdown = true; // Disable the API inherited from EventEmitter that can add more listeners and send more messages.
-      // $FlowFixMe This property is not writable.
-
-      this.addListener = function () {}; // $FlowFixMe This property is not writable.
-
-
-      this.emit = function () {}; // NOTE: There's also EventEmitter API like `on` and `prependListener` that we didn't add to our Flow type of EventEmitter.
-      // Unsubscribe this bridge incoming message listeners to be sure, and so they don't have to do that.
-
-
-      this.removeAllListeners(); // Stop accepting and emitting incoming messages from the wall.
-
-      var wallUnlisten = this._wallUnlisten;
-
-      if (wallUnlisten) {
-        wallUnlisten();
-      } // Synchronously flush all queued outgoing messages.
-      // At this step the subscribers' code may run in this call stack.
-
-
-      do {
-        this._flush();
-      } while (this._messageQueue.length); // Make sure once again that there is no dangling timer.
-
-
       if (this._timeoutID !== null) {
         clearTimeout(this._timeoutID);
         this._timeoutID = null;
       }
-    }
-  }, {
-    key: "wall",
-    get: function get() {
-      return this._wall;
-    }
-  }]);
 
-  return Bridge;
-}(_events__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"]);
+      if (this._messageQueue.length) {
+        for (let i = 0; i < this._messageQueue.length; i += 2) {
+          this._wall.send(this._messageQueue[i], ...this._messageQueue[i + 1]);
+        }
+
+        this._messageQueue.length = 0; // Check again for queued messages in BATCH_DURATION ms. This will keep
+        // flushing in a loop as long as messages continue to be added. Once no
+        // more are, the timer expires.
+
+        this._timeoutID = setTimeout(this._flush, BATCH_DURATION);
+      }
+    });
+
+    _defineProperty(this, "overrideValueAtPath", ({
+      id,
+      path,
+      rendererID,
+      type,
+      value
+    }) => {
+      switch (type) {
+        case 'context':
+          this.send('overrideContext', {
+            id,
+            path,
+            rendererID,
+            wasForwarded: true,
+            value
+          });
+          break;
+
+        case 'hooks':
+          this.send('overrideHookState', {
+            id,
+            path,
+            rendererID,
+            wasForwarded: true,
+            value
+          });
+          break;
+
+        case 'props':
+          this.send('overrideProps', {
+            id,
+            path,
+            rendererID,
+            wasForwarded: true,
+            value
+          });
+          break;
+
+        case 'state':
+          this.send('overrideState', {
+            id,
+            path,
+            rendererID,
+            wasForwarded: true,
+            value
+          });
+          break;
+      }
+    });
+
+    this._wall = wall;
+    this._wallUnlisten = wall.listen(message => {
+      this.emit(message.event, message.payload);
+    }) || null; // Temporarily support older standalone front-ends sending commands to newer embedded backends.
+    // We do this because React Native embeds the React DevTools backend,
+    // but cannot control which version of the frontend users use.
+
+    this.addListener('overrideValueAtPath', this.overrideValueAtPath);
+  } // Listening directly to the wall isn't advised.
+  // It can be used to listen for legacy (v3) messages (since they use a different format).
+
+
+  get wall() {
+    return this._wall;
+  }
+
+  send(event, ...payload) {
+    if (this._isShutdown) {
+      console.warn(`Cannot send message "${event}" through a Bridge that has been shutdown.`);
+      return;
+    } // When we receive a message:
+    // - we add it to our queue of messages to be sent
+    // - if there hasn't been a message recently, we set a timer for 0 ms in
+    //   the future, allowing all messages created in the same tick to be sent
+    //   together
+    // - if there *has* been a message flushed in the last BATCH_DURATION ms
+    //   (or we're waiting for our setTimeout-0 to fire), then _timeoutID will
+    //   be set, and we'll simply add to the queue and wait for that
+
+
+    this._messageQueue.push(event, payload);
+
+    if (!this._timeoutID) {
+      this._timeoutID = setTimeout(this._flush, 0);
+    }
+  }
+
+  shutdown() {
+    if (this._isShutdown) {
+      console.warn('Bridge was already shutdown.');
+      return;
+    } // Queue the shutdown outgoing message for subscribers.
+
+
+    this.send('shutdown'); // Mark this bridge as destroyed, i.e. disable its public API.
+
+    this._isShutdown = true; // Disable the API inherited from EventEmitter that can add more listeners and send more messages.
+    // $FlowFixMe This property is not writable.
+
+    this.addListener = function () {}; // $FlowFixMe This property is not writable.
+
+
+    this.emit = function () {}; // NOTE: There's also EventEmitter API like `on` and `prependListener` that we didn't add to our Flow type of EventEmitter.
+    // Unsubscribe this bridge incoming message listeners to be sure, and so they don't have to do that.
+
+
+    this.removeAllListeners(); // Stop accepting and emitting incoming messages from the wall.
+
+    const wallUnlisten = this._wallUnlisten;
+
+    if (wallUnlisten) {
+      wallUnlisten();
+    } // Synchronously flush all queued outgoing messages.
+    // At this step the subscribers' code may run in this call stack.
+
+
+    do {
+      this._flush();
+    } while (this._messageQueue.length); // Make sure once again that there is no dangling timer.
+
+
+    if (this._timeoutID !== null) {
+      clearTimeout(this._timeoutID);
+      this._timeoutID = null;
+    }
+  }
+
+}
 
 /* harmony default export */ __webpack_exports__["default"] = (Bridge);
 
@@ -12227,10 +12365,10 @@ var backend_agent = __webpack_require__(14);
 var backend_renderer = __webpack_require__(12);
 
 // EXTERNAL MODULE: ../react-devtools-shared/src/types.js
-var types = __webpack_require__(0);
+var types = __webpack_require__(1);
 
-// EXTERNAL MODULE: ../react-devtools-shared/src/utils.js
-var utils = __webpack_require__(2);
+// EXTERNAL MODULE: ../react-devtools-shared/src/utils.js + 1 modules
+var utils = __webpack_require__(0);
 
 // EXTERNAL MODULE: ../react-devtools-shared/src/backend/utils.js
 var backend_utils = __webpack_require__(5);
@@ -12248,7 +12386,7 @@ var constants = __webpack_require__(3);
  * 
  */
 function decorate(object, attr, fn) {
-  var old = object[attr];
+  const old = object[attr];
 
   object[attr] = function (instance) {
     return fn.call(this, old, arguments);
@@ -12257,16 +12395,16 @@ function decorate(object, attr, fn) {
   return old;
 }
 function decorateMany(source, fns) {
-  var olds = {};
+  const olds = {};
 
-  for (var name in fns) {
+  for (const name in fns) {
     olds[name] = decorate(source, name, fns[name]);
   }
 
   return olds;
 }
 function restoreMany(source, olds) {
-  for (var name in olds) {
+  for (const name in olds) {
     source[name] = olds[name];
   }
 }
@@ -12274,7 +12412,7 @@ function forceUpdate(instance) {
   if (typeof instance.forceUpdate === 'function') {
     instance.forceUpdate();
   } else if (instance.updater != null && typeof instance.updater.enqueueForceUpdate === 'function') {
-    instance.updater.enqueueForceUpdate(this, function () {}, 'forceUpdate');
+    instance.updater.enqueueForceUpdate(this, () => {}, 'forceUpdate');
   }
 }
 // CONCATENATED MODULE: ../react-devtools-shared/src/backend/legacy/renderer.js
@@ -12283,8 +12421,6 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -12302,36 +12438,36 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 
 function getData(internalInstance) {
-  var displayName = null;
-  var key = null; // != used deliberately here to catch undefined and null
+  let displayName = null;
+  let key = null; // != used deliberately here to catch undefined and null
 
   if (internalInstance._currentElement != null) {
     if (internalInstance._currentElement.key) {
       key = '' + internalInstance._currentElement.key;
     }
 
-    var elementType = internalInstance._currentElement.type;
+    const elementType = internalInstance._currentElement.type;
 
     if (typeof elementType === 'string') {
       displayName = elementType;
     } else if (typeof elementType === 'function') {
-      displayName = Object(utils["d" /* getDisplayName */])(elementType);
+      displayName = Object(utils["f" /* getDisplayName */])(elementType);
     }
   }
 
   return {
-    displayName: displayName,
-    key: key
+    displayName,
+    key
   };
 }
 
 function getElementType(internalInstance) {
   // != used deliberately here to catch undefined and null
   if (internalInstance._currentElement != null) {
-    var elementType = internalInstance._currentElement.type;
+    const elementType = internalInstance._currentElement.type;
 
     if (typeof elementType === 'function') {
-      var publicInstance = internalInstance.getPublicInstance();
+      const publicInstance = internalInstance.getPublicInstance();
 
       if (publicInstance !== null) {
         return types["e" /* ElementTypeClass */];
@@ -12347,26 +12483,26 @@ function getElementType(internalInstance) {
 }
 
 function getChildren(internalInstance) {
-  var children = []; // If the parent is a native node without rendered children, but with
+  const children = []; // If the parent is a native node without rendered children, but with
   // multiple string children, then the `element` that gets passed in here is
   // a plain value -- a string or number.
 
-  if (_typeof(internalInstance) !== 'object') {// No children
+  if (typeof internalInstance !== 'object') {// No children
   } else if (internalInstance._currentElement === null || internalInstance._currentElement === false) {// No children
   } else if (internalInstance._renderedComponent) {
-    var child = internalInstance._renderedComponent;
+    const child = internalInstance._renderedComponent;
 
     if (getElementType(child) !== types["k" /* ElementTypeOtherOrUnknown */]) {
       children.push(child);
     }
   } else if (internalInstance._renderedChildren) {
-    var renderedChildren = internalInstance._renderedChildren;
+    const renderedChildren = internalInstance._renderedChildren;
 
-    for (var name in renderedChildren) {
-      var _child = renderedChildren[name];
+    for (const name in renderedChildren) {
+      const child = renderedChildren[name];
 
-      if (getElementType(_child) !== types["k" /* ElementTypeOtherOrUnknown */]) {
-        children.push(_child);
+      if (getElementType(child) !== types["k" /* ElementTypeOtherOrUnknown */]) {
+        children.push(child);
       }
     }
   } // Note: we skip the case where children are just strings or numbers
@@ -12377,49 +12513,48 @@ function getChildren(internalInstance) {
 }
 
 function attach(hook, rendererID, renderer, global) {
-  var idToInternalInstanceMap = new Map();
-  var internalInstanceToIDMap = new WeakMap();
-  var internalInstanceToRootIDMap = new WeakMap();
-  var getInternalIDForNative = null;
-  var findNativeNodeForInternalID;
+  const idToInternalInstanceMap = new Map();
+  const internalInstanceToIDMap = new WeakMap();
+  const internalInstanceToRootIDMap = new WeakMap();
+  let getInternalIDForNative = null;
+  let findNativeNodeForInternalID;
 
   if (renderer.ComponentTree) {
-    getInternalIDForNative = function getInternalIDForNative(node, findNearestUnfilteredAncestor) {
-      var internalInstance = renderer.ComponentTree.getClosestInstanceFromNode(node);
+    getInternalIDForNative = (node, findNearestUnfilteredAncestor) => {
+      const internalInstance = renderer.ComponentTree.getClosestInstanceFromNode(node);
       return internalInstanceToIDMap.get(internalInstance) || null;
     };
 
-    findNativeNodeForInternalID = function findNativeNodeForInternalID(id) {
-      var internalInstance = idToInternalInstanceMap.get(id);
+    findNativeNodeForInternalID = id => {
+      const internalInstance = idToInternalInstanceMap.get(id);
       return renderer.ComponentTree.getNodeFromInstance(internalInstance);
     };
   } else if (renderer.Mount.getID && renderer.Mount.getNode) {
-    getInternalIDForNative = function getInternalIDForNative(node, findNearestUnfilteredAncestor) {
+    getInternalIDForNative = (node, findNearestUnfilteredAncestor) => {
       // Not implemented.
       return null;
     };
 
-    findNativeNodeForInternalID = function findNativeNodeForInternalID(id) {
+    findNativeNodeForInternalID = id => {
       // Not implemented.
       return null;
     };
   }
 
   function getDisplayNameForFiberID(id) {
-    var internalInstance = idToInternalInstanceMap.get(id);
+    const internalInstance = idToInternalInstanceMap.get(id);
     return internalInstance ? getData(internalInstance).displayName : null;
   }
 
   function getID(internalInstance) {
-    if (_typeof(internalInstance) !== 'object' || internalInstance === null) {
+    if (typeof internalInstance !== 'object' || internalInstance === null) {
       throw new Error('Invalid internal instance: ' + internalInstance);
     }
 
     if (!internalInstanceToIDMap.has(internalInstance)) {
-      var _id = Object(utils["g" /* getUID */])();
-
-      internalInstanceToIDMap.set(internalInstance, _id);
-      idToInternalInstanceMap.set(_id, internalInstance);
+      const id = Object(utils["i" /* getUID */])();
+      internalInstanceToIDMap.set(internalInstance, id);
+      idToInternalInstanceMap.set(id, internalInstance);
     }
 
     return internalInstanceToIDMap.get(internalInstance);
@@ -12430,7 +12565,7 @@ function attach(hook, rendererID, renderer, global) {
       return false;
     }
 
-    for (var i = 0; i < a.length; i++) {
+    for (let i = 0; i < a.length; i++) {
       if (a[i] !== b[i]) {
         return false;
       }
@@ -12440,15 +12575,15 @@ function attach(hook, rendererID, renderer, global) {
   } // This is shared mutable state that lets us keep track of where we are.
 
 
-  var parentIDStack = [];
-  var oldReconcilerMethods = null;
+  let parentIDStack = [];
+  let oldReconcilerMethods = null;
 
   if (renderer.Reconciler) {
     // React 15
     oldReconcilerMethods = decorateMany(renderer.Reconciler, {
-      mountComponent: function mountComponent(fn, args) {
-        var internalInstance = args[0];
-        var hostContainerInfo = args[3];
+      mountComponent(fn, args) {
+        const internalInstance = args[0];
+        const hostContainerInfo = args[3];
 
         if (getElementType(internalInstance) === types["k" /* ElementTypeOtherOrUnknown */]) {
           return fn.apply(this, args);
@@ -12459,16 +12594,16 @@ function attach(hook, rendererID, renderer, global) {
           return fn.apply(this, args);
         }
 
-        var id = getID(internalInstance); // Push the operation.
+        const id = getID(internalInstance); // Push the operation.
 
-        var parentID = parentIDStack.length > 0 ? parentIDStack[parentIDStack.length - 1] : 0;
+        const parentID = parentIDStack.length > 0 ? parentIDStack[parentIDStack.length - 1] : 0;
         recordMount(internalInstance, id, parentID);
         parentIDStack.push(id); // Remember the root.
 
         internalInstanceToRootIDMap.set(internalInstance, getID(hostContainerInfo._topLevelWrapper));
 
         try {
-          var result = fn.apply(this, args);
+          const result = fn.apply(this, args);
           parentIDStack.pop();
           return result;
         } catch (err) {
@@ -12476,7 +12611,7 @@ function attach(hook, rendererID, renderer, global) {
           throw err;
         } finally {
           if (parentIDStack.length === 0) {
-            var rootID = internalInstanceToRootIDMap.get(internalInstance);
+            const rootID = internalInstanceToRootIDMap.get(internalInstance);
 
             if (rootID === undefined) {
               throw new Error('Expected to find root ID.');
@@ -12486,20 +12621,21 @@ function attach(hook, rendererID, renderer, global) {
           }
         }
       },
-      performUpdateIfNecessary: function performUpdateIfNecessary(fn, args) {
-        var internalInstance = args[0];
+
+      performUpdateIfNecessary(fn, args) {
+        const internalInstance = args[0];
 
         if (getElementType(internalInstance) === types["k" /* ElementTypeOtherOrUnknown */]) {
           return fn.apply(this, args);
         }
 
-        var id = getID(internalInstance);
+        const id = getID(internalInstance);
         parentIDStack.push(id);
-        var prevChildren = getChildren(internalInstance);
+        const prevChildren = getChildren(internalInstance);
 
         try {
-          var result = fn.apply(this, args);
-          var nextChildren = getChildren(internalInstance);
+          const result = fn.apply(this, args);
+          const nextChildren = getChildren(internalInstance);
 
           if (!areEqualArrays(prevChildren, nextChildren)) {
             // Push the operation
@@ -12513,7 +12649,7 @@ function attach(hook, rendererID, renderer, global) {
           throw err;
         } finally {
           if (parentIDStack.length === 0) {
-            var rootID = internalInstanceToRootIDMap.get(internalInstance);
+            const rootID = internalInstanceToRootIDMap.get(internalInstance);
 
             if (rootID === undefined) {
               throw new Error('Expected to find root ID.');
@@ -12523,20 +12659,21 @@ function attach(hook, rendererID, renderer, global) {
           }
         }
       },
-      receiveComponent: function receiveComponent(fn, args) {
-        var internalInstance = args[0];
+
+      receiveComponent(fn, args) {
+        const internalInstance = args[0];
 
         if (getElementType(internalInstance) === types["k" /* ElementTypeOtherOrUnknown */]) {
           return fn.apply(this, args);
         }
 
-        var id = getID(internalInstance);
+        const id = getID(internalInstance);
         parentIDStack.push(id);
-        var prevChildren = getChildren(internalInstance);
+        const prevChildren = getChildren(internalInstance);
 
         try {
-          var result = fn.apply(this, args);
-          var nextChildren = getChildren(internalInstance);
+          const result = fn.apply(this, args);
+          const nextChildren = getChildren(internalInstance);
 
           if (!areEqualArrays(prevChildren, nextChildren)) {
             // Push the operation
@@ -12550,7 +12687,7 @@ function attach(hook, rendererID, renderer, global) {
           throw err;
         } finally {
           if (parentIDStack.length === 0) {
-            var rootID = internalInstanceToRootIDMap.get(internalInstance);
+            const rootID = internalInstanceToRootIDMap.get(internalInstance);
 
             if (rootID === undefined) {
               throw new Error('Expected to find root ID.');
@@ -12560,18 +12697,19 @@ function attach(hook, rendererID, renderer, global) {
           }
         }
       },
-      unmountComponent: function unmountComponent(fn, args) {
-        var internalInstance = args[0];
+
+      unmountComponent(fn, args) {
+        const internalInstance = args[0];
 
         if (getElementType(internalInstance) === types["k" /* ElementTypeOtherOrUnknown */]) {
           return fn.apply(this, args);
         }
 
-        var id = getID(internalInstance);
+        const id = getID(internalInstance);
         parentIDStack.push(id);
 
         try {
-          var result = fn.apply(this, args);
+          const result = fn.apply(this, args);
           parentIDStack.pop(); // Push the operation.
 
           recordUnmount(internalInstance, id);
@@ -12581,7 +12719,7 @@ function attach(hook, rendererID, renderer, global) {
           throw err;
         } finally {
           if (parentIDStack.length === 0) {
-            var rootID = internalInstanceToRootIDMap.get(internalInstance);
+            const rootID = internalInstanceToRootIDMap.get(internalInstance);
 
             if (rootID === undefined) {
               throw new Error('Expected to find root ID.');
@@ -12591,6 +12729,7 @@ function attach(hook, rendererID, renderer, global) {
           }
         }
       }
+
     });
   }
 
@@ -12607,7 +12746,7 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function recordMount(internalInstance, id, parentID) {
-    var isRoot = parentID === 0;
+    const isRoot = parentID === 0;
 
     if (constants["k" /* __DEBUG__ */]) {
       console.log('%crecordMount()', 'color: green; font-weight: bold;', id, getData(internalInstance).displayName);
@@ -12615,7 +12754,7 @@ function attach(hook, rendererID, renderer, global) {
 
     if (isRoot) {
       // TODO Is this right? For all versions?
-      var hasOwnerMetadata = internalInstance._currentElement != null && internalInstance._currentElement._owner != null;
+      const hasOwnerMetadata = internalInstance._currentElement != null && internalInstance._currentElement._owner != null;
       pushOperation(constants["g" /* TREE_OPERATION_ADD */]);
       pushOperation(id);
       pushOperation(types["m" /* ElementTypeRoot */]);
@@ -12623,15 +12762,15 @@ function attach(hook, rendererID, renderer, global) {
 
       pushOperation(hasOwnerMetadata ? 1 : 0);
     } else {
-      var type = getElementType(internalInstance);
+      const type = getElementType(internalInstance);
 
-      var _getData = getData(internalInstance),
-          displayName = _getData.displayName,
-          key = _getData.key;
+      const _getData = getData(internalInstance),
+            displayName = _getData.displayName,
+            key = _getData.key;
 
-      var ownerID = internalInstance._currentElement != null && internalInstance._currentElement._owner != null ? getID(internalInstance._currentElement._owner) : 0;
-      var displayNameStringID = getStringID(displayName);
-      var keyStringID = getStringID(key);
+      const ownerID = internalInstance._currentElement != null && internalInstance._currentElement._owner != null ? getID(internalInstance._currentElement._owner) : 0;
+      const displayNameStringID = getStringID(displayName);
+      const keyStringID = getStringID(key);
       pushOperation(constants["g" /* TREE_OPERATION_ADD */]);
       pushOperation(id);
       pushOperation(type);
@@ -12645,10 +12784,10 @@ function attach(hook, rendererID, renderer, global) {
   function recordReorder(internalInstance, id, nextChildren) {
     pushOperation(constants["i" /* TREE_OPERATION_REORDER_CHILDREN */]);
     pushOperation(id);
-    var nextChildIDs = nextChildren.map(getID);
+    const nextChildIDs = nextChildren.map(getID);
     pushOperation(nextChildIDs.length);
 
-    for (var i = 0; i < nextChildIDs.length; i++) {
+    for (let i = 0; i < nextChildIDs.length; i++) {
       pushOperation(nextChildIDs[i]);
     }
   }
@@ -12663,14 +12802,12 @@ function attach(hook, rendererID, renderer, global) {
       console.group('crawlAndRecordInitialMounts() id:', id);
     }
 
-    var internalInstance = idToInternalInstanceMap.get(id);
+    const internalInstance = idToInternalInstanceMap.get(id);
 
     if (internalInstance != null) {
       internalInstanceToRootIDMap.set(internalInstance, rootID);
       recordMount(internalInstance, id, parentID);
-      getChildren(internalInstance).forEach(function (child) {
-        return crawlAndRecordInitialMounts(getID(child), id, rootID);
-      });
+      getChildren(internalInstance).forEach(child => crawlAndRecordInitialMounts(getID(child), id, rootID));
     }
 
     if (constants["k" /* __DEBUG__ */]) {
@@ -12680,31 +12817,29 @@ function attach(hook, rendererID, renderer, global) {
 
   function flushInitialOperations() {
     // Crawl roots though and register any nodes that mounted before we were injected.
-    var roots = renderer.Mount._instancesByReactRootID || renderer.Mount._instancesByContainerID;
+    const roots = renderer.Mount._instancesByReactRootID || renderer.Mount._instancesByContainerID;
 
-    for (var key in roots) {
-      var internalInstance = roots[key];
-
-      var _id2 = getID(internalInstance);
-
-      crawlAndRecordInitialMounts(_id2, 0, _id2);
-      flushPendingEvents(_id2);
+    for (const key in roots) {
+      const internalInstance = roots[key];
+      const id = getID(internalInstance);
+      crawlAndRecordInitialMounts(id, 0, id);
+      flushPendingEvents(id);
     }
   }
 
-  var pendingOperations = [];
-  var pendingStringTable = new Map();
-  var pendingUnmountedIDs = [];
-  var pendingStringTableLength = 0;
-  var pendingUnmountedRootID = null;
+  const pendingOperations = [];
+  const pendingStringTable = new Map();
+  let pendingUnmountedIDs = [];
+  let pendingStringTableLength = 0;
+  let pendingUnmountedRootID = null;
 
   function flushPendingEvents(rootID) {
     if (pendingOperations.length === 0 && pendingUnmountedIDs.length === 0 && pendingUnmountedRootID === null) {
       return;
     }
 
-    var numUnmountIDs = pendingUnmountedIDs.length + (pendingUnmountedRootID === null ? 0 : 1);
-    var operations = new Array( // Identify which renderer this update is coming from.
+    const numUnmountIDs = pendingUnmountedIDs.length + (pendingUnmountedRootID === null ? 0 : 1);
+    const operations = new Array( // Identify which renderer this update is coming from.
     2 + // [rendererID, rootFiberID]
     // How big is the string table?
     1 + // [stringTableLength]
@@ -12716,17 +12851,17 @@ function attach(hook, rendererID, renderer, global) {
     // This enables roots to be mapped to renderers,
     // Which in turn enables fiber properations, states, and hooks to be inspected.
 
-    var i = 0;
+    let i = 0;
     operations[i++] = rendererID;
     operations[i++] = rootID; // Now fill in the string table.
     // [stringTableLength, str1Length, ...str1, str2Length, ...str2, ...]
 
     operations[i++] = pendingStringTableLength;
-    pendingStringTable.forEach(function (value, key) {
+    pendingStringTable.forEach((value, key) => {
       operations[i++] = key.length;
-      var encodedKey = Object(utils["j" /* utfEncodeString */])(key);
+      const encodedKey = Object(utils["m" /* utfEncodeString */])(key);
 
-      for (var j = 0; j < encodedKey.length; j++) {
+      for (let j = 0; j < encodedKey.length; j++) {
         operations[i + j] = encodedKey[j];
       }
 
@@ -12739,7 +12874,7 @@ function attach(hook, rendererID, renderer, global) {
 
       operations[i++] = numUnmountIDs; // Fill in the unmounts
 
-      for (var j = 0; j < pendingUnmountedIDs.length; j++) {
+      for (let j = 0; j < pendingUnmountedIDs.length; j++) {
         operations[i++] = pendingUnmountedIDs[j];
       } // The root ID should always be unmounted last.
 
@@ -12751,14 +12886,14 @@ function attach(hook, rendererID, renderer, global) {
     } // Fill in the rest of the operations.
 
 
-    for (var _j = 0; _j < pendingOperations.length; _j++) {
-      operations[i + _j] = pendingOperations[_j];
+    for (let j = 0; j < pendingOperations.length; j++) {
+      operations[i + j] = pendingOperations[j];
     }
 
     i += pendingOperations.length;
 
     if (constants["k" /* __DEBUG__ */]) {
-      Object(utils["h" /* printOperationsArray */])(operations);
+      Object(utils["j" /* printOperationsArray */])(operations);
     } // If we've already connected to the frontend, just pass the operations through.
 
 
@@ -12785,13 +12920,13 @@ function attach(hook, rendererID, renderer, global) {
       return 0;
     }
 
-    var existingID = pendingStringTable.get(str);
+    const existingID = pendingStringTable.get(str);
 
     if (existingID !== undefined) {
       return existingID;
     }
 
-    var stringID = pendingStringTable.size + 1;
+    const stringID = pendingStringTable.size + 1;
     pendingStringTable.set(str, stringID); // The string table total length needs to account
     // both for the string length, and for the array item
     // that contains the length itself. Hence + 1.
@@ -12800,13 +12935,13 @@ function attach(hook, rendererID, renderer, global) {
     return stringID;
   }
 
-  var currentlyInspectedElementID = null;
-  var currentlyInspectedPaths = {}; // Track the intersection of currently inspected paths,
+  let currentlyInspectedElementID = null;
+  let currentlyInspectedPaths = {}; // Track the intersection of currently inspected paths,
   // so that we can send their data along if the element is re-rendered.
 
   function mergeInspectedPaths(path) {
-    var current = currentlyInspectedPaths;
-    path.forEach(function (key) {
+    let current = currentlyInspectedPaths;
+    path.forEach(key => {
       if (!current[key]) {
         current[key] = {};
       }
@@ -12819,13 +12954,13 @@ function attach(hook, rendererID, renderer, global) {
     // This function helps prevent previously-inspected paths from being dehydrated in updates.
     // This is important to avoid a bad user experience where expanded toggles collapse on update.
     return function isPathAllowed(path) {
-      var current = currentlyInspectedPaths[key];
+      let current = currentlyInspectedPaths[key];
 
       if (!current) {
         return false;
       }
 
-      for (var i = 0; i < path.length; i++) {
+      for (let i = 0; i < path.length; i++) {
         current = current[path[i]];
 
         if (!current) {
@@ -12839,13 +12974,13 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function getInstanceAndStyle(id) {
-    var instance = null;
-    var style = null;
-    var internalInstance = idToInternalInstanceMap.get(id);
+    let instance = null;
+    let style = null;
+    const internalInstance = idToInternalInstanceMap.get(id);
 
     if (internalInstance != null) {
       instance = internalInstance._instance || null;
-      var element = internalInstance._currentElement;
+      const element = internalInstance._currentElement;
 
       if (element != null && element.props != null) {
         style = element.props.style || null;
@@ -12853,16 +12988,16 @@ function attach(hook, rendererID, renderer, global) {
     }
 
     return {
-      instance: instance,
-      style: style
+      instance,
+      style
     };
   }
 
   function updateSelectedElement(id) {
-    var internalInstance = idToInternalInstanceMap.get(id);
+    const internalInstance = idToInternalInstanceMap.get(id);
 
     if (internalInstance == null) {
-      console.warn("Could not find instance with id \"".concat(id, "\""));
+      console.warn(`Could not find instance with id "${id}"`);
       return;
     }
 
@@ -12872,10 +13007,10 @@ function attach(hook, rendererID, renderer, global) {
         break;
 
       case types["h" /* ElementTypeFunction */]:
-        var element = internalInstance._currentElement;
+        const element = internalInstance._currentElement;
 
         if (element == null) {
-          console.warn("Could not find element with id \"".concat(id, "\""));
+          console.warn(`Could not find element with id "${id}"`);
           return;
         }
 
@@ -12892,11 +13027,11 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function storeAsGlobal(id, path, count) {
-    var inspectedElement = inspectElementRaw(id);
+    const inspectedElement = inspectElementRaw(id);
 
     if (inspectedElement !== null) {
-      var value = Object(utils["f" /* getInObject */])(inspectedElement, path);
-      var key = "$reactTemp".concat(count);
+      const value = Object(utils["h" /* getInObject */])(inspectedElement, path);
+      const key = `$reactTemp${count}`;
       window[key] = value;
       console.log(key);
       console.log(value);
@@ -12904,10 +13039,10 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function copyElementPath(id, path) {
-    var inspectedElement = inspectElementRaw(id);
+    const inspectedElement = inspectElementRaw(id);
 
     if (inspectedElement !== null) {
-      Object(backend_utils["b" /* copyToClipboard */])(Object(utils["f" /* getInObject */])(inspectedElement, path));
+      Object(backend_utils["b" /* copyToClipboard */])(Object(utils["h" /* getInObject */])(inspectedElement, path));
     }
   }
 
@@ -12917,11 +13052,11 @@ function attach(hook, rendererID, renderer, global) {
       currentlyInspectedPaths = {};
     }
 
-    var inspectedElement = inspectElementRaw(id);
+    const inspectedElement = inspectElementRaw(id);
 
     if (inspectedElement === null) {
       return {
-        id: id,
+        id,
         type: 'not-found'
       };
     }
@@ -12938,35 +13073,35 @@ function attach(hook, rendererID, renderer, global) {
     inspectedElement.props = Object(backend_utils["a" /* cleanForBridge */])(inspectedElement.props, createIsPathAllowed('props'));
     inspectedElement.state = Object(backend_utils["a" /* cleanForBridge */])(inspectedElement.state, createIsPathAllowed('state'));
     return {
-      id: id,
+      id,
       type: 'full-data',
       value: inspectedElement
     };
   }
 
   function inspectElementRaw(id) {
-    var internalInstance = idToInternalInstanceMap.get(id);
+    const internalInstance = idToInternalInstanceMap.get(id);
 
     if (internalInstance == null) {
       return null;
     }
 
-    var _getData2 = getData(internalInstance),
-        displayName = _getData2.displayName,
-        key = _getData2.key;
+    const _getData2 = getData(internalInstance),
+          displayName = _getData2.displayName,
+          key = _getData2.key;
 
-    var type = getElementType(internalInstance);
-    var context = null;
-    var owners = null;
-    var props = null;
-    var state = null;
-    var source = null;
-    var element = internalInstance._currentElement;
+    const type = getElementType(internalInstance);
+    let context = null;
+    let owners = null;
+    let props = null;
+    let state = null;
+    let source = null;
+    const element = internalInstance._currentElement;
 
     if (element !== null) {
       props = element.props;
       source = element._source != null ? element._source : null;
-      var owner = element._owner;
+      let owner = element._owner;
 
       if (owner) {
         owners = [];
@@ -12985,7 +13120,7 @@ function attach(hook, rendererID, renderer, global) {
       }
     }
 
-    var publicInstance = internalInstance._instance;
+    const publicInstance = internalInstance._instance;
 
     if (publicInstance != null) {
       context = publicInstance.context || null;
@@ -12993,11 +13128,15 @@ function attach(hook, rendererID, renderer, global) {
     }
 
     return {
-      id: id,
-      // Hooks did not exist in legacy versions
+      id,
+      // Does the current renderer support editable hooks and function props?
       canEditHooks: false,
-      // Does the current renderer support editable function props?
-      canEditFunctionProps: true,
+      canEditFunctionProps: false,
+      // Does the current renderer support advanced editing interface?
+      canEditHooksAndDeletePaths: false,
+      canEditHooksAndRenamePaths: false,
+      canEditFunctionPropsDeletePaths: false,
+      canEditFunctionPropsRenamePaths: false,
       // Suspense did not exist in legacy versions
       canToggleSuspense: false,
       // Can view component source location.
@@ -13008,14 +13147,14 @@ function attach(hook, rendererID, renderer, global) {
       type: type,
       key: key != null ? key : null,
       // Inspectable properties.
-      context: context,
+      context,
       hooks: null,
-      props: props,
-      state: state,
+      props,
+      state,
       // List of owners
-      owners: owners,
+      owners,
       // Location of component in source code.
-      source: source,
+      source,
       rootType: null,
       rendererPackageName: null,
       rendererVersion: null
@@ -13023,17 +13162,17 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function logElementToConsole(id) {
-    var result = inspectElementRaw(id);
+    const result = inspectElementRaw(id);
 
     if (result === null) {
-      console.warn("Could not find element with id \"".concat(id, "\""));
+      console.warn(`Could not find element with id "${id}"`);
       return;
     }
 
-    var supportsGroup = typeof console.groupCollapsed === 'function';
+    const supportsGroup = typeof console.groupCollapsed === 'function';
 
     if (supportsGroup) {
-      console.groupCollapsed("[Click to expand] %c<".concat(result.displayName || 'Component', " />"), // --dom-tag-name-color is the CSS variable Chrome styles HTML elements with in the console.
+      console.groupCollapsed(`[Click to expand] %c<${result.displayName || 'Component'} />`, // --dom-tag-name-color is the CSS variable Chrome styles HTML elements with in the console.
       'color: var(--dom-tag-name-color); font-weight: normal;');
     }
 
@@ -13049,7 +13188,7 @@ function attach(hook, rendererID, renderer, global) {
       console.log('Context:', result.context);
     }
 
-    var nativeNode = findNativeNodeForInternalID(id);
+    const nativeNode = findNativeNodeForInternalID(id);
 
     if (nativeNode !== null) {
       console.log('Node:', nativeNode);
@@ -13065,107 +13204,151 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function prepareViewAttributeSource(id, path) {
-    var inspectedElement = inspectElementRaw(id);
+    const inspectedElement = inspectElementRaw(id);
 
     if (inspectedElement !== null) {
-      window.$attribute = Object(utils["f" /* getInObject */])(inspectedElement, path);
+      window.$attribute = Object(utils["h" /* getInObject */])(inspectedElement, path);
     }
   }
 
   function prepareViewElementSource(id) {
-    var internalInstance = idToInternalInstanceMap.get(id);
+    const internalInstance = idToInternalInstanceMap.get(id);
 
     if (internalInstance == null) {
-      console.warn("Could not find instance with id \"".concat(id, "\""));
+      console.warn(`Could not find instance with id "${id}"`);
       return;
     }
 
-    var element = internalInstance._currentElement;
+    const element = internalInstance._currentElement;
 
     if (element == null) {
-      console.warn("Could not find element with id \"".concat(id, "\""));
+      console.warn(`Could not find element with id "${id}"`);
       return;
     }
 
     global.$type = element.type;
   }
 
-  function setInProps(id, path, value) {
-    var internalInstance = idToInternalInstanceMap.get(id);
+  function deletePath(type, id, hookID, path) {
+    const internalInstance = idToInternalInstanceMap.get(id);
 
     if (internalInstance != null) {
-      var element = internalInstance._currentElement;
-      internalInstance._currentElement = _objectSpread({}, element, {
-        props: Object(backend_utils["c" /* copyWithSet */])(element.props, path, value)
-      });
-      forceUpdate(internalInstance._instance);
-    }
-  }
-
-  function setInState(id, path, value) {
-    var internalInstance = idToInternalInstanceMap.get(id);
-
-    if (internalInstance != null) {
-      var publicInstance = internalInstance._instance;
+      const publicInstance = internalInstance._instance;
 
       if (publicInstance != null) {
-        setIn(publicInstance.state, path, value);
-        forceUpdate(publicInstance);
+        switch (type) {
+          case 'context':
+            Object(utils["a" /* deletePathInObject */])(publicInstance.context, path);
+            forceUpdate(publicInstance);
+            break;
+
+          case 'hooks':
+            throw new Error('Hooks not supported by this renderer');
+
+          case 'props':
+            const element = internalInstance._currentElement;
+            internalInstance._currentElement = _objectSpread(_objectSpread({}, element), {}, {
+              props: Object(backend_utils["c" /* copyWithDelete */])(element.props, path)
+            });
+            forceUpdate(publicInstance);
+            break;
+
+          case 'state':
+            Object(utils["a" /* deletePathInObject */])(publicInstance.state, path);
+            forceUpdate(publicInstance);
+            break;
+        }
       }
     }
   }
 
-  function setInContext(id, path, value) {
-    var internalInstance = idToInternalInstanceMap.get(id);
+  function renamePath(type, id, hookID, oldPath, newPath) {
+    const internalInstance = idToInternalInstanceMap.get(id);
 
     if (internalInstance != null) {
-      var publicInstance = internalInstance._instance;
+      const publicInstance = internalInstance._instance;
 
       if (publicInstance != null) {
-        setIn(publicInstance.context, path, value);
-        forceUpdate(publicInstance);
+        switch (type) {
+          case 'context':
+            Object(utils["k" /* renamePathInObject */])(publicInstance.context, oldPath, newPath);
+            forceUpdate(publicInstance);
+            break;
+
+          case 'hooks':
+            throw new Error('Hooks not supported by this renderer');
+
+          case 'props':
+            const element = internalInstance._currentElement;
+            internalInstance._currentElement = _objectSpread(_objectSpread({}, element), {}, {
+              props: Object(backend_utils["d" /* copyWithRename */])(element.props, oldPath, newPath)
+            });
+            forceUpdate(publicInstance);
+            break;
+
+          case 'state':
+            Object(utils["k" /* renamePathInObject */])(publicInstance.state, oldPath, newPath);
+            forceUpdate(publicInstance);
+            break;
+        }
       }
     }
   }
 
-  function setIn(obj, path, value) {
-    var last = path.pop();
-    var parent = path.reduce( // $FlowFixMe
-    function (reduced, attr) {
-      return reduced ? reduced[attr] : null;
-    }, obj);
+  function overrideValueAtPath(type, id, hookID, path, value) {
+    const internalInstance = idToInternalInstanceMap.get(id);
 
-    if (parent) {
-      // $FlowFixMe
-      parent[last] = value;
+    if (internalInstance != null) {
+      const publicInstance = internalInstance._instance;
+
+      if (publicInstance != null) {
+        switch (type) {
+          case 'context':
+            Object(utils["l" /* setInObject */])(publicInstance.context, path, value);
+            forceUpdate(publicInstance);
+            break;
+
+          case 'hooks':
+            throw new Error('Hooks not supported by this renderer');
+
+          case 'props':
+            const element = internalInstance._currentElement;
+            internalInstance._currentElement = _objectSpread(_objectSpread({}, element), {}, {
+              props: Object(backend_utils["e" /* copyWithSet */])(element.props, path, value)
+            });
+            forceUpdate(publicInstance);
+            break;
+
+          case 'state':
+            Object(utils["l" /* setInObject */])(publicInstance.state, path, value);
+            forceUpdate(publicInstance);
+            break;
+        }
+      }
     }
   } // v16+ only features
 
 
-  var getProfilingData = function getProfilingData() {
+  const getProfilingData = () => {
     throw new Error('getProfilingData not supported by this renderer');
   };
 
-  var handleCommitFiberRoot = function handleCommitFiberRoot() {
+  const handleCommitFiberRoot = () => {
     throw new Error('handleCommitFiberRoot not supported by this renderer');
   };
 
-  var handleCommitFiberUnmount = function handleCommitFiberUnmount() {
+  const handleCommitFiberUnmount = () => {
     throw new Error('handleCommitFiberUnmount not supported by this renderer');
   };
 
-  var overrideSuspense = function overrideSuspense() {
+  const overrideSuspense = () => {
     throw new Error('overrideSuspense not supported by this renderer');
   };
 
-  var setInHook = function setInHook() {
-    throw new Error('setInHook not supported by this renderer');
+  const startProfiling = () => {// Do not throw, since this would break a multi-root scenario where v15 and v16 were both present.
   };
 
-  var startProfiling = function startProfiling() {// Do not throw, since this would break a multi-root scenario where v15 and v16 were both present.
-  };
-
-  var stopProfiling = function stopProfiling() {// Do not throw, since this would break a multi-root scenario where v15 and v16 were both present.
+  const stopProfiling = () => {// Do not throw, since this would break a multi-root scenario where v15 and v16 were both present.
   };
 
   function getBestMatchForTrackedPath() {
@@ -13193,38 +13376,37 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   return {
-    cleanup: cleanup,
-    copyElementPath: copyElementPath,
-    flushInitialOperations: flushInitialOperations,
-    getBestMatchForTrackedPath: getBestMatchForTrackedPath,
-    getDisplayNameForFiberID: getDisplayNameForFiberID,
+    cleanup,
+    copyElementPath,
+    deletePath,
+    flushInitialOperations,
+    getBestMatchForTrackedPath,
+    getDisplayNameForFiberID,
     getFiberIDForNative: getInternalIDForNative,
-    getInstanceAndStyle: getInstanceAndStyle,
-    findNativeNodesForFiberID: function findNativeNodesForFiberID(id) {
-      var nativeNode = findNativeNodeForInternalID(id);
+    getInstanceAndStyle,
+    findNativeNodesForFiberID: id => {
+      const nativeNode = findNativeNodeForInternalID(id);
       return nativeNode == null ? null : [nativeNode];
     },
-    getOwnersList: getOwnersList,
-    getPathForElement: getPathForElement,
-    getProfilingData: getProfilingData,
-    handleCommitFiberRoot: handleCommitFiberRoot,
-    handleCommitFiberUnmount: handleCommitFiberUnmount,
-    inspectElement: inspectElement,
-    logElementToConsole: logElementToConsole,
-    overrideSuspense: overrideSuspense,
-    prepareViewAttributeSource: prepareViewAttributeSource,
-    prepareViewElementSource: prepareViewElementSource,
-    renderer: renderer,
-    setInContext: setInContext,
-    setInHook: setInHook,
-    setInProps: setInProps,
-    setInState: setInState,
-    setTraceUpdatesEnabled: setTraceUpdatesEnabled,
-    setTrackedPath: setTrackedPath,
-    startProfiling: startProfiling,
-    stopProfiling: stopProfiling,
-    storeAsGlobal: storeAsGlobal,
-    updateComponentFilters: updateComponentFilters
+    getOwnersList,
+    getPathForElement,
+    getProfilingData,
+    handleCommitFiberRoot,
+    handleCommitFiberUnmount,
+    inspectElement,
+    logElementToConsole,
+    overrideSuspense,
+    overrideValueAtPath,
+    renamePath,
+    prepareViewAttributeSource,
+    prepareViewElementSource,
+    renderer,
+    setTraceUpdatesEnabled,
+    setTrackedPath,
+    startProfiling,
+    stopProfiling,
+    storeAsGlobal,
+    updateComponentFilters
   };
 }
 // CONCATENATED MODULE: ../react-devtools-shared/src/backend/index.js
@@ -13242,24 +13424,25 @@ function attach(hook, rendererID, renderer, global) {
 function initBackend(hook, agent, global) {
   if (hook == null) {
     // DevTools didn't get injected into this page (maybe b'c of the contentType).
-    return function () {};
+    return () => {};
   }
 
-  var subs = [hook.sub('renderer-attached', function (_ref) {
-    var id = _ref.id,
-        renderer = _ref.renderer,
-        rendererInterface = _ref.rendererInterface;
+  const subs = [hook.sub('renderer-attached', ({
+    id,
+    renderer,
+    rendererInterface
+  }) => {
     agent.setRendererInterface(id, rendererInterface); // Now that the Store and the renderer interface are connected,
     // it's time to flush the pending operation codes to the frontend.
 
     rendererInterface.flushInitialOperations();
-  }), hook.sub('unsupported-renderer-version', function (id) {
+  }), hook.sub('unsupported-renderer-version', id => {
     agent.onUnsupportedRenderer(id);
   }), hook.sub('operations', agent.onHookOperations), hook.sub('traceUpdates', agent.onTraceUpdates) // TODO Add additional subscriptions required for profiling mode
   ];
 
-  var attachRenderer = function attachRenderer(id, renderer) {
-    var rendererInterface = hook.rendererInterfaces.get(id); // Inject any not-yet-injected renderers (if we didn't reload-and-profile)
+  const attachRenderer = (id, renderer) => {
+    let rendererInterface = hook.rendererInterfaces.get(id); // Inject any not-yet-injected renderers (if we didn't reload-and-profile)
 
     if (rendererInterface == null) {
       if (typeof renderer.findFiberByHostInstance === 'function') {
@@ -13280,9 +13463,9 @@ function initBackend(hook, agent, global) {
 
     if (rendererInterface != null) {
       hook.emit('renderer-attached', {
-        id: id,
-        renderer: renderer,
-        rendererInterface: rendererInterface
+        id,
+        renderer,
+        rendererInterface
       });
     } else {
       hook.emit('unsupported-renderer-version', id);
@@ -13290,36 +13473,33 @@ function initBackend(hook, agent, global) {
   }; // Connect renderers that have already injected themselves.
 
 
-  hook.renderers.forEach(function (renderer, id) {
+  hook.renderers.forEach((renderer, id) => {
     attachRenderer(id, renderer);
   }); // Connect any new renderers that injected themselves.
 
-  subs.push(hook.sub('renderer', function (_ref2) {
-    var id = _ref2.id,
-        renderer = _ref2.renderer;
+  subs.push(hook.sub('renderer', ({
+    id,
+    renderer
+  }) => {
     attachRenderer(id, renderer);
   }));
   hook.emit('react-devtools', agent);
   hook.reactDevtoolsAgent = agent;
 
-  var onAgentShutdown = function onAgentShutdown() {
-    subs.forEach(function (fn) {
-      return fn();
-    });
-    hook.rendererInterfaces.forEach(function (rendererInterface) {
+  const onAgentShutdown = () => {
+    subs.forEach(fn => fn());
+    hook.rendererInterfaces.forEach(rendererInterface => {
       rendererInterface.cleanup();
     });
     hook.reactDevtoolsAgent = null;
   };
 
   agent.addListener('shutdown', onAgentShutdown);
-  subs.push(function () {
+  subs.push(() => {
     agent.removeListener('shutdown', onAgentShutdown);
   });
-  return function () {
-    subs.forEach(function (fn) {
-      return fn();
-    });
+  return () => {
+    subs.forEach(fn => fn());
   };
 }
 
@@ -13356,47 +13536,47 @@ var backend_agent = __webpack_require__(14);
  * -> {top: 5, left: 5, right: 5, bottom: 10}
  */
 function resolveBoxStyle(prefix, style) {
-  var hasParts = false;
-  var result = {
+  let hasParts = false;
+  const result = {
     bottom: 0,
     left: 0,
     right: 0,
     top: 0
   };
-  var styleForAll = style[prefix];
+  const styleForAll = style[prefix];
 
   if (styleForAll != null) {
     // eslint-disable-next-line no-for-of-loops/no-for-of-loops
     for (var _i = 0, _Object$keys = Object.keys(result); _i < _Object$keys.length; _i++) {
-      var key = _Object$keys[_i];
+      const key = _Object$keys[_i];
       result[key] = styleForAll;
     }
 
     hasParts = true;
   }
 
-  var styleForHorizontal = style[prefix + 'Horizontal'];
+  const styleForHorizontal = style[prefix + 'Horizontal'];
 
   if (styleForHorizontal != null) {
     result.left = styleForHorizontal;
     result.right = styleForHorizontal;
     hasParts = true;
   } else {
-    var styleForLeft = style[prefix + 'Left'];
+    const styleForLeft = style[prefix + 'Left'];
 
     if (styleForLeft != null) {
       result.left = styleForLeft;
       hasParts = true;
     }
 
-    var styleForRight = style[prefix + 'Right'];
+    const styleForRight = style[prefix + 'Right'];
 
     if (styleForRight != null) {
       result.right = styleForRight;
       hasParts = true;
     }
 
-    var styleForEnd = style[prefix + 'End'];
+    const styleForEnd = style[prefix + 'End'];
 
     if (styleForEnd != null) {
       // TODO RTL support
@@ -13404,7 +13584,7 @@ function resolveBoxStyle(prefix, style) {
       hasParts = true;
     }
 
-    var styleForStart = style[prefix + 'Start'];
+    const styleForStart = style[prefix + 'Start'];
 
     if (styleForStart != null) {
       // TODO RTL support
@@ -13413,21 +13593,21 @@ function resolveBoxStyle(prefix, style) {
     }
   }
 
-  var styleForVertical = style[prefix + 'Vertical'];
+  const styleForVertical = style[prefix + 'Vertical'];
 
   if (styleForVertical != null) {
     result.bottom = styleForVertical;
     result.top = styleForVertical;
     hasParts = true;
   } else {
-    var styleForBottom = style[prefix + 'Bottom'];
+    const styleForBottom = style[prefix + 'Bottom'];
 
     if (styleForBottom != null) {
       result.bottom = styleForBottom;
       hasParts = true;
     }
 
-    var styleForTop = style[prefix + 'Top'];
+    const styleForTop = style[prefix + 'Top'];
 
     if (styleForTop != null) {
       result.top = styleForTop;
@@ -13438,10 +13618,6 @@ function resolveBoxStyle(prefix, style) {
   return hasParts ? result : null;
 }
 // CONCATENATED MODULE: ../react-devtools-shared/src/backend/NativeStyleEditor/setupNativeStyleEditor.js
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -13453,65 +13629,64 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 function setupNativeStyleEditor(bridge, agent, resolveNativeStyle, validAttributes) {
-  bridge.addListener('NativeStyleEditor_measure', function (_ref) {
-    var id = _ref.id,
-        rendererID = _ref.rendererID;
+  bridge.addListener('NativeStyleEditor_measure', ({
+    id,
+    rendererID
+  }) => {
     measureStyle(agent, bridge, resolveNativeStyle, id, rendererID);
   });
-  bridge.addListener('NativeStyleEditor_renameAttribute', function (_ref2) {
-    var id = _ref2.id,
-        rendererID = _ref2.rendererID,
-        oldName = _ref2.oldName,
-        newName = _ref2.newName,
-        value = _ref2.value;
+  bridge.addListener('NativeStyleEditor_renameAttribute', ({
+    id,
+    rendererID,
+    oldName,
+    newName,
+    value
+  }) => {
     renameStyle(agent, id, rendererID, oldName, newName, value);
-    setTimeout(function () {
-      return measureStyle(agent, bridge, resolveNativeStyle, id, rendererID);
-    });
+    setTimeout(() => measureStyle(agent, bridge, resolveNativeStyle, id, rendererID));
   });
-  bridge.addListener('NativeStyleEditor_setValue', function (_ref3) {
-    var id = _ref3.id,
-        rendererID = _ref3.rendererID,
-        name = _ref3.name,
-        value = _ref3.value;
+  bridge.addListener('NativeStyleEditor_setValue', ({
+    id,
+    rendererID,
+    name,
+    value
+  }) => {
     setStyle(agent, id, rendererID, name, value);
-    setTimeout(function () {
-      return measureStyle(agent, bridge, resolveNativeStyle, id, rendererID);
-    });
+    setTimeout(() => measureStyle(agent, bridge, resolveNativeStyle, id, rendererID));
   });
   bridge.send('isNativeStyleEditorSupported', {
     isSupported: true,
-    validAttributes: validAttributes
+    validAttributes
   });
 }
-var EMPTY_BOX_STYLE = {
+const EMPTY_BOX_STYLE = {
   top: 0,
   left: 0,
   right: 0,
   bottom: 0
 };
-var componentIDToStyleOverrides = new Map();
+const componentIDToStyleOverrides = new Map();
 
 function measureStyle(agent, bridge, resolveNativeStyle, id, rendererID) {
-  var data = agent.getInstanceAndStyle({
-    id: id,
-    rendererID: rendererID
+  const data = agent.getInstanceAndStyle({
+    id,
+    rendererID
   });
 
   if (!data || !data.style) {
     bridge.send('NativeStyleEditor_styleAndLayout', {
-      id: id,
+      id,
       layout: null,
       style: null
     });
     return;
   }
 
-  var instance = data.instance,
-      style = data.style;
-  var resolvedStyle = resolveNativeStyle(style); // If it's a host component we edited before, amend styles.
+  const instance = data.instance,
+        style = data.style;
+  let resolvedStyle = resolveNativeStyle(style); // If it's a host component we edited before, amend styles.
 
-  var styleOverrides = componentIDToStyleOverrides.get(id);
+  const styleOverrides = componentIDToStyleOverrides.get(id);
 
   if (styleOverrides != null) {
     resolvedStyle = Object.assign({}, resolvedStyle, styleOverrides);
@@ -13519,7 +13694,7 @@ function measureStyle(agent, bridge, resolveNativeStyle, id, rendererID) {
 
   if (!instance || typeof instance.measure !== 'function') {
     bridge.send('NativeStyleEditor_styleAndLayout', {
-      id: id,
+      id,
       layout: null,
       style: resolvedStyle || null
     });
@@ -13527,31 +13702,31 @@ function measureStyle(agent, bridge, resolveNativeStyle, id, rendererID) {
   } // $FlowFixMe the parameter types of an unknown function are unknown
 
 
-  instance.measure(function (x, y, width, height, left, top) {
+  instance.measure((x, y, width, height, left, top) => {
     // RN Android sometimes returns undefined here. Don't send measurements in this case.
     // https://github.com/jhen0409/react-native-debugger/issues/84#issuecomment-304611817
     if (typeof x !== 'number') {
       bridge.send('NativeStyleEditor_styleAndLayout', {
-        id: id,
+        id,
         layout: null,
         style: resolvedStyle || null
       });
       return;
     }
 
-    var margin = resolvedStyle != null && resolveBoxStyle('margin', resolvedStyle) || EMPTY_BOX_STYLE;
-    var padding = resolvedStyle != null && resolveBoxStyle('padding', resolvedStyle) || EMPTY_BOX_STYLE;
+    const margin = resolvedStyle != null && resolveBoxStyle('margin', resolvedStyle) || EMPTY_BOX_STYLE;
+    const padding = resolvedStyle != null && resolveBoxStyle('padding', resolvedStyle) || EMPTY_BOX_STYLE;
     bridge.send('NativeStyleEditor_styleAndLayout', {
-      id: id,
+      id,
       layout: {
-        x: x,
-        y: y,
-        width: width,
-        height: height,
-        left: left,
-        top: top,
-        margin: margin,
-        padding: padding
+        x,
+        y,
+        width,
+        height,
+        left,
+        top,
+        margin,
+        padding
       },
       style: resolvedStyle || null
     });
@@ -13559,9 +13734,9 @@ function measureStyle(agent, bridge, resolveNativeStyle, id, rendererID) {
 }
 
 function shallowClone(object) {
-  var cloned = {};
+  const cloned = {};
 
-  for (var n in object) {
+  for (const n in object) {
     cloned[n] = object[n];
   }
 
@@ -13569,26 +13744,29 @@ function shallowClone(object) {
 }
 
 function renameStyle(agent, id, rendererID, oldName, newName, value) {
-  var _ref4;
-
-  var data = agent.getInstanceAndStyle({
-    id: id,
-    rendererID: rendererID
+  const data = agent.getInstanceAndStyle({
+    id,
+    rendererID
   });
 
   if (!data || !data.style) {
     return;
   }
 
-  var instance = data.instance,
-      style = data.style;
-  var newStyle = newName ? (_ref4 = {}, _defineProperty(_ref4, oldName, undefined), _defineProperty(_ref4, newName, value), _ref4) : _defineProperty({}, oldName, undefined);
-  var customStyle; // TODO It would be nice if the renderer interface abstracted this away somehow.
+  const instance = data.instance,
+        style = data.style;
+  const newStyle = newName ? {
+    [oldName]: undefined,
+    [newName]: value
+  } : {
+    [oldName]: undefined
+  };
+  let customStyle; // TODO It would be nice if the renderer interface abstracted this away somehow.
 
   if (instance !== null && typeof instance.setNativeProps === 'function') {
     // In the case of a host component, we need to use setNativeProps().
     // Remember to "correct" resolved styles when we read them next time.
-    var styleOverrides = componentIDToStyleOverrides.get(id);
+    const styleOverrides = componentIDToStyleOverrides.get(id);
 
     if (!styleOverrides) {
       componentIDToStyleOverrides.set(id, newStyle);
@@ -13601,9 +13779,9 @@ function renameStyle(agent, id, rendererID, oldName, newName, value) {
       style: newStyle
     });
   } else if (Array.isArray(style)) {
-    var lastIndex = style.length - 1;
+    const lastIndex = style.length - 1;
 
-    if (_typeof(style[lastIndex]) === 'object' && !Array.isArray(style[lastIndex])) {
+    if (typeof style[lastIndex] === 'object' && !Array.isArray(style[lastIndex])) {
       customStyle = shallowClone(style[lastIndex]);
       delete customStyle[oldName];
 
@@ -13613,21 +13791,23 @@ function renameStyle(agent, id, rendererID, oldName, newName, value) {
         customStyle[oldName] = undefined;
       }
 
-      agent.overrideProps({
-        id: id,
-        rendererID: rendererID,
+      agent.overrideValueAtPath({
+        type: 'props',
+        id,
+        rendererID,
         path: ['style', lastIndex],
         value: customStyle
       });
     } else {
-      agent.overrideProps({
-        id: id,
-        rendererID: rendererID,
+      agent.overrideValueAtPath({
+        type: 'props',
+        id,
+        rendererID,
         path: ['style'],
         value: style.concat([newStyle])
       });
     }
-  } else if (_typeof(style) === 'object') {
+  } else if (typeof style === 'object') {
     customStyle = shallowClone(style);
     delete customStyle[oldName];
 
@@ -13637,16 +13817,18 @@ function renameStyle(agent, id, rendererID, oldName, newName, value) {
       customStyle[oldName] = undefined;
     }
 
-    agent.overrideProps({
-      id: id,
-      rendererID: rendererID,
+    agent.overrideValueAtPath({
+      type: 'props',
+      id,
+      rendererID,
       path: ['style'],
       value: customStyle
     });
   } else {
-    agent.overrideProps({
-      id: id,
-      rendererID: rendererID,
+    agent.overrideValueAtPath({
+      type: 'props',
+      id,
+      rendererID,
       path: ['style'],
       value: [style, newStyle]
     });
@@ -13656,25 +13838,25 @@ function renameStyle(agent, id, rendererID, oldName, newName, value) {
 }
 
 function setStyle(agent, id, rendererID, name, value) {
-  var data = agent.getInstanceAndStyle({
-    id: id,
-    rendererID: rendererID
+  const data = agent.getInstanceAndStyle({
+    id,
+    rendererID
   });
 
   if (!data || !data.style) {
     return;
   }
 
-  var instance = data.instance,
-      style = data.style;
-
-  var newStyle = _defineProperty({}, name, value); // TODO It would be nice if the renderer interface abstracted this away somehow.
-
+  const instance = data.instance,
+        style = data.style;
+  const newStyle = {
+    [name]: value
+  }; // TODO It would be nice if the renderer interface abstracted this away somehow.
 
   if (instance !== null && typeof instance.setNativeProps === 'function') {
     // In the case of a host component, we need to use setNativeProps().
     // Remember to "correct" resolved styles when we read them next time.
-    var styleOverrides = componentIDToStyleOverrides.get(id);
+    const styleOverrides = componentIDToStyleOverrides.get(id);
 
     if (!styleOverrides) {
       componentIDToStyleOverrides.set(id, newStyle);
@@ -13687,27 +13869,30 @@ function setStyle(agent, id, rendererID, name, value) {
       style: newStyle
     });
   } else if (Array.isArray(style)) {
-    var lastLength = style.length - 1;
+    const lastLength = style.length - 1;
 
-    if (_typeof(style[lastLength]) === 'object' && !Array.isArray(style[lastLength])) {
-      agent.overrideProps({
-        id: id,
-        rendererID: rendererID,
+    if (typeof style[lastLength] === 'object' && !Array.isArray(style[lastLength])) {
+      agent.overrideValueAtPath({
+        type: 'props',
+        id,
+        rendererID,
         path: ['style', lastLength, name],
-        value: value
+        value
       });
     } else {
-      agent.overrideProps({
-        id: id,
-        rendererID: rendererID,
+      agent.overrideValueAtPath({
+        type: 'props',
+        id,
+        rendererID,
         path: ['style'],
         value: style.concat([newStyle])
       });
     }
   } else {
-    agent.overrideProps({
-      id: id,
-      rendererID: rendererID,
+    agent.overrideValueAtPath({
+      type: 'props',
+      id,
+      rendererID,
       path: ['style'],
       value: [style, newStyle]
     });
@@ -13718,3 +13903,4 @@ function setStyle(agent, id, rendererID, name, value) {
 
 /***/ })
 /******/ ]);
+//# sourceMappingURL=react_devtools_backend.js.map

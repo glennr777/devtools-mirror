@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 161);
+/******/ 	return __webpack_require__(__webpack_require__.s = 168);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -93,7 +93,7 @@
 
 
 if (true) {
-  module.exports = __webpack_require__(49);
+  module.exports = __webpack_require__(50);
 } else {}
 
 /***/ }),
@@ -133,17 +133,17 @@ if (true) {
 // Changing these types is also a backwards breaking change for the standalone shell,
 // since the frontend and backend must share the same values-
 // and the backend is embedded in certain environments (like React Native).
-var ElementTypeClass = 1;
-var ElementTypeContext = 2;
-var ElementTypeFunction = 5;
-var ElementTypeForwardRef = 6;
-var ElementTypeHostComponent = 7;
-var ElementTypeMemo = 8;
-var ElementTypeOtherOrUnknown = 9;
-var ElementTypeProfiler = 10;
-var ElementTypeRoot = 11;
-var ElementTypeSuspense = 12;
-var ElementTypeSuspenseList = 13; // Different types of elements displayed in the Elements tree.
+const ElementTypeClass = 1;
+const ElementTypeContext = 2;
+const ElementTypeFunction = 5;
+const ElementTypeForwardRef = 6;
+const ElementTypeHostComponent = 7;
+const ElementTypeMemo = 8;
+const ElementTypeOtherOrUnknown = 9;
+const ElementTypeProfiler = 10;
+const ElementTypeRoot = 11;
+const ElementTypeSuspense = 12;
+const ElementTypeSuspenseList = 13; // Different types of elements displayed in the Elements tree.
 // These types may be used to visually distinguish types,
 // or to enable/disable certain functionality.
 
@@ -151,10 +151,10 @@ var ElementTypeSuspenseList = 13; // Different types of elements displayed in th
 // The values below are referenced by ComponentFilters (which are saved via localStorage).
 // Do not change them or it will break previously saved user customizations.
 // If new filter types are added, use new numbers rather than re-ordering existing ones.
-var ComponentFilterElementType = 1;
-var ComponentFilterDisplayName = 2;
-var ComponentFilterLocation = 3;
-var ComponentFilterHOC = 4;
+const ComponentFilterElementType = 1;
+const ComponentFilterDisplayName = 2;
+const ComponentFilterLocation = 3;
+const ComponentFilterHOC = 4;
 
 /***/ }),
 
@@ -165,24 +165,24 @@ var ComponentFilterHOC = 4;
 
 
 if (true) {
-  module.exports = __webpack_require__(47);
+  module.exports = __webpack_require__(48);
 } else {}
 
 /***/ }),
 
-/***/ 161:
+/***/ 168:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react/node_modules/nullthrows/nullthrows.js
-var nullthrows = __webpack_require__(64);
+// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.alt2/node_modules/nullthrows/nullthrows.js
+var nullthrows = __webpack_require__(68);
 var nullthrows_default = /*#__PURE__*/__webpack_require__.n(nullthrows);
 
 // EXTERNAL MODULE: ../react-devtools-shared/src/backend/console.js + 3 modules
-var console = __webpack_require__(25);
+var console = __webpack_require__(35);
 
 // CONCATENATED MODULE: ../react-devtools-shared/src/hook.js
 /**
@@ -219,12 +219,11 @@ function installHook(target) {
         // it happens *outside* of the renderer injection. See `checkDCE` below.
       }
 
-      var _toString = Function.prototype.toString;
+      const toString = Function.prototype.toString;
 
       if (renderer.Mount && renderer.Mount._renderNewRootComponent) {
         // React DOM Stack
-        var renderRootCode = _toString.call(renderer.Mount._renderNewRootComponent); // Filter out bad results (if that is even possible):
-
+        const renderRootCode = toString.call(renderer.Mount._renderNewRootComponent); // Filter out bad results (if that is even possible):
 
         if (renderRootCode.indexOf('function') !== 0) {
           // Hope for the best if we're not sure.
@@ -306,12 +305,10 @@ function installHook(target) {
     // This runs for production versions of React.
     // Needs to be super safe.
     try {
-      var _toString2 = Function.prototype.toString;
-
-      var code = _toString2.call(fn); // This is a string embedded in the passed function under DEV-only
+      const toString = Function.prototype.toString;
+      const code = toString.call(fn); // This is a string embedded in the passed function under DEV-only
       // condition. However the function executes only in PROD. Therefore,
       // if we see it, dead code elimination did not work.
-
 
       if (code.indexOf('^_^') > -1) {
         // Remember to report during next injection.
@@ -319,18 +316,18 @@ function installHook(target) {
         // Not synchronously so that it doesn't break the calling code.
 
         setTimeout(function () {
-          throw new Error('React is running in production mode, but dead code ' + 'elimination has not been applied. Read how to correctly ' + 'configure React for production: ' + 'https://fb.me/react-perf-use-the-production-build');
+          throw new Error('React is running in production mode, but dead code ' + 'elimination has not been applied. Read how to correctly ' + 'configure React for production: ' + 'https://reactjs.org/link/perf-use-production-build');
         });
       }
     } catch (err) {}
   }
 
-  var uidCounter = 0;
+  let uidCounter = 0;
 
   function inject(renderer) {
-    var id = ++uidCounter;
+    const id = ++uidCounter;
     renderers.set(id, renderer);
-    var reactBuildType = hasDetectedBadDCE ? 'deadcode' : detectReactBuildType(renderer); // Patching the console enables DevTools to do a few useful things:
+    const reactBuildType = hasDetectedBadDCE ? 'deadcode' : detectReactBuildType(renderer); // Patching the console enables DevTools to do a few useful things:
     // * Append component stacks to warnings and error messages
     // * Disable logging during re-renders to inspect hooks (see inspectHooksOfFiber)
     //
@@ -340,52 +337,35 @@ function installHook(target) {
     // In that case, we'll patch later (when the frontend attaches).
     //
     // Don't patch in test environments because we don't want to interfere with Jest's own console overrides.
+    //
+    // Note that because this function is inlined, this conditional check must only use static booleans.
+    // Otherwise the extension will throw with an undefined error.
+    // (See comments in the try/catch below for more context on inlining.)
 
-    if (true) {
-      try {
-        var appendComponentStack = window.__REACT_DEVTOOLS_APPEND_COMPONENT_STACK__ !== false;
-        var breakOnConsoleErrors = window.__REACT_DEVTOOLS_BREAK_ON_CONSOLE_ERRORS__ === true; // The installHook() function is injected by being stringified in the browser,
-        // so imports outside of this function do not get included.
-        //
-        // Normally we could check "typeof patchConsole === 'function'",
-        // but Webpack wraps imports with an object (e.g. _backend_console__WEBPACK_IMPORTED_MODULE_0__)
-        // and the object itself will be undefined as well for the reasons mentioned above,
-        // so we use try/catch instead.
-
-        if (appendComponentStack || breakOnConsoleErrors) {
-          Object(console["b" /* registerRenderer */])(renderer);
-          Object(console["a" /* patch */])({
-            appendComponentStack: appendComponentStack,
-            breakOnConsoleErrors: breakOnConsoleErrors
-          });
-        }
-      } catch (error) {}
-    } // If we have just reloaded to profile, we need to inject the renderer interface before the app loads.
+    if (false) {} // If we have just reloaded to profile, we need to inject the renderer interface before the app loads.
     // Otherwise the renderer won't yet exist and we can skip this step.
 
 
-    var attach = target.__REACT_DEVTOOLS_ATTACH__;
+    const attach = target.__REACT_DEVTOOLS_ATTACH__;
 
     if (typeof attach === 'function') {
-      var rendererInterface = attach(hook, id, renderer, target);
+      const rendererInterface = attach(hook, id, renderer, target);
       hook.rendererInterfaces.set(id, rendererInterface);
     }
 
     hook.emit('renderer', {
-      id: id,
-      renderer: renderer,
-      reactBuildType: reactBuildType
+      id,
+      renderer,
+      reactBuildType
     });
     return id;
   }
 
-  var hasDetectedBadDCE = false;
+  let hasDetectedBadDCE = false;
 
   function sub(event, fn) {
     hook.on(event, fn);
-    return function () {
-      return hook.off(event, fn);
-    };
+    return () => hook.off(event, fn);
   }
 
   function on(event, fn) {
@@ -401,7 +381,7 @@ function installHook(target) {
       return;
     }
 
-    var index = listeners[event].indexOf(fn);
+    const index = listeners[event].indexOf(fn);
 
     if (index !== -1) {
       listeners[event].splice(index, 1);
@@ -414,14 +394,12 @@ function installHook(target) {
 
   function emit(event, data) {
     if (listeners[event]) {
-      listeners[event].map(function (fn) {
-        return fn(data);
-      });
+      listeners[event].map(fn => fn(data));
     }
   }
 
   function getFiberRoots(rendererID) {
-    var roots = fiberRoots;
+    const roots = fiberRoots;
 
     if (!roots[rendererID]) {
       roots[rendererID] = new Set();
@@ -431,7 +409,7 @@ function installHook(target) {
   }
 
   function onCommitFiberUnmount(rendererID, fiber) {
-    var rendererInterface = rendererInterfaces.get(rendererID);
+    const rendererInterface = rendererInterfaces.get(rendererID);
 
     if (rendererInterface != null) {
       rendererInterface.handleCommitFiberUnmount(fiber);
@@ -439,10 +417,10 @@ function installHook(target) {
   }
 
   function onCommitFiberRoot(rendererID, root, priorityLevel) {
-    var mountedRoots = hook.getFiberRoots(rendererID);
-    var current = root.current;
-    var isKnownRoot = mountedRoots.has(root);
-    var isUnmounting = current.memoizedState == null || current.memoizedState.element == null; // Keep track of mounted roots so we can hydrate when DevTools connect.
+    const mountedRoots = hook.getFiberRoots(rendererID);
+    const current = root.current;
+    const isKnownRoot = mountedRoots.has(root);
+    const isUnmounting = current.memoizedState == null || current.memoizedState.element == null; // Keep track of mounted roots so we can hydrate when DevTools connect.
 
     if (!isKnownRoot && !isUnmounting) {
       mountedRoots.add(root);
@@ -450,7 +428,7 @@ function installHook(target) {
       mountedRoots.delete(root);
     }
 
-    var rendererInterface = rendererInterfaces.get(rendererID);
+    const rendererInterface = rendererInterfaces.get(rendererID);
 
     if (rendererInterface != null) {
       rendererInterface.handleCommitFiberRoot(root, priorityLevel);
@@ -458,37 +436,39 @@ function installHook(target) {
   } // TODO: More meaningful names for "rendererInterfaces" and "renderers".
 
 
-  var fiberRoots = {};
-  var rendererInterfaces = new Map();
-  var listeners = {};
-  var renderers = new Map();
-  var hook = {
-    rendererInterfaces: rendererInterfaces,
-    listeners: listeners,
+  const fiberRoots = {};
+  const rendererInterfaces = new Map();
+  const listeners = {};
+  const renderers = new Map();
+  const hook = {
+    rendererInterfaces,
+    listeners,
     // Fast Refresh for web relies on this.
-    renderers: renderers,
-    emit: emit,
-    getFiberRoots: getFiberRoots,
-    inject: inject,
-    on: on,
-    off: off,
-    sub: sub,
+    renderers,
+    emit,
+    getFiberRoots,
+    inject,
+    on,
+    off,
+    sub,
     // This is a legacy flag.
     // React v16 checks the hook for this to ensure DevTools is new enough.
     supportsFiber: true,
     // React calls these methods.
-    checkDCE: checkDCE,
-    onCommitFiberUnmount: onCommitFiberUnmount,
-    onCommitFiberRoot: onCommitFiberRoot
+    checkDCE,
+    onCommitFiberUnmount,
+    onCommitFiberRoot
   };
   Object.defineProperty(target, '__REACT_DEVTOOLS_GLOBAL_HOOK__', {
     // This property needs to be configurable for the test environment,
     // else we won't be able to delete and recreate it beween tests.
     configurable: false,
     enumerable: false,
-    get: function get() {
+
+    get() {
       return hook;
     }
+
   });
   return hook;
 }
@@ -506,7 +486,7 @@ var storage = __webpack_require__(7);
 
 
 function injectCode(code) {
-  var script = document.createElement('script');
+  const script = document.createElement('script');
   script.textContent = code; // This script runs before the <head> element is created,
   // so we add the script to <html> instead.
 
@@ -514,7 +494,7 @@ function injectCode(code) {
   nullthrows_default()(script.parentNode).removeChild(script);
 }
 
-var lastDetectionResult; // We want to detect when a renderer attaches, and notify the "background page"
+let lastDetectionResult; // We want to detect when a renderer attaches, and notify the "background page"
 // (which is shared between tabs and can highlight the React icon).
 // Currently we are in "content script" context, so we can't listen to the hook directly
 // (it will be injected directly into the page).
@@ -533,7 +513,7 @@ window.addEventListener('message', function (evt) {
     };
     chrome.runtime.sendMessage(lastDetectionResult);
   } else if (evt.data.source === 'react-devtools-inject-backend') {
-    var script = document.createElement('script');
+    const script = document.createElement('script');
     script.src = chrome.runtime.getURL('build/react_devtools_backend.js');
     document.documentElement.appendChild(script);
     script.parentNode.removeChild(script);
@@ -550,18 +530,30 @@ window.addEventListener('pageshow', function (evt) {
 
   chrome.runtime.sendMessage(lastDetectionResult);
 });
-var detectReact = "\nwindow.__REACT_DEVTOOLS_GLOBAL_HOOK__.on('renderer', function(evt) {\n  window.postMessage({\n    source: 'react-devtools-detector',\n    reactBuildType: evt.reactBuildType,\n  }, '*');\n});\n";
-var saveNativeValues = "\nwindow.__REACT_DEVTOOLS_GLOBAL_HOOK__.nativeObjectCreate = Object.create;\nwindow.__REACT_DEVTOOLS_GLOBAL_HOOK__.nativeMap = Map;\nwindow.__REACT_DEVTOOLS_GLOBAL_HOOK__.nativeWeakMap = WeakMap;\nwindow.__REACT_DEVTOOLS_GLOBAL_HOOK__.nativeSet = Set;\n"; // If we have just reloaded to profile, we need to inject the renderer interface before the app loads.
+const detectReact = `
+window.__REACT_DEVTOOLS_GLOBAL_HOOK__.on('renderer', function(evt) {
+  window.postMessage({
+    source: 'react-devtools-detector',
+    reactBuildType: evt.reactBuildType,
+  }, '*');
+});
+`;
+const saveNativeValues = `
+window.__REACT_DEVTOOLS_GLOBAL_HOOK__.nativeObjectCreate = Object.create;
+window.__REACT_DEVTOOLS_GLOBAL_HOOK__.nativeMap = Map;
+window.__REACT_DEVTOOLS_GLOBAL_HOOK__.nativeWeakMap = WeakMap;
+window.__REACT_DEVTOOLS_GLOBAL_HOOK__.nativeSet = Set;
+`; // If we have just reloaded to profile, we need to inject the renderer interface before the app loads.
 
 if (Object(storage["d" /* sessionStorageGetItem */])(constants["j" /* SESSION_STORAGE_RELOAD_AND_PROFILE_KEY */]) === 'true') {
-  var rendererURL = chrome.runtime.getURL('build/renderer.js');
-  var rendererCode; // We need to inject in time to catch the initial mount.
+  const rendererURL = chrome.runtime.getURL('build/renderer.js');
+  let rendererCode; // We need to inject in time to catch the initial mount.
   // This means we need to synchronously read the renderer code itself,
   // and synchronously inject it into the page.
   // There are very few ways to actually do this.
   // This seems to be the best approach.
 
-  var request = new XMLHttpRequest();
+  const request = new XMLHttpRequest();
   request.addEventListener('load', function () {
     rendererCode = this.responseText;
   });
@@ -578,13 +570,11 @@ if ('text/html' === document.contentType) {
 
 if (typeof exportFunction === 'function') {
   // eslint-disable-next-line no-undef
-  exportFunction(function (text) {
+  exportFunction(text => {
     // Call clipboard.writeText from the extension content script
     // (as it has the clipboardWrite permission) and return a Promise
     // accessible to the webpage js code.
-    return new window.Promise(function (resolve, reject) {
-      return window.navigator.clipboard.writeText(text).then(resolve, reject);
-    });
+    return new window.Promise((resolve, reject) => window.navigator.clipboard.writeText(text).then(resolve, reject));
   }, window.wrappedJSObject.__REACT_DEVTOOLS_GLOBAL_HOOK__, {
     defineAs: 'clipboardCopyText'
   });
@@ -592,683 +582,8 @@ if (typeof exportFunction === 'function') {
 
 /***/ }),
 
-/***/ 2:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export alphaSortKeys */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getDisplayName; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return getUID; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return utfDecodeString; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return utfEncodeString; });
-/* unused harmony export printOperationsArray */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getDefaultComponentFilters; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return getSavedComponentFilters; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return saveComponentFilters; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getAppendComponentStack; });
-/* unused harmony export setAppendComponentStack */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getBreakOnConsoleErrors; });
-/* unused harmony export setBreakOnConsoleErrors */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return separateDisplayNameAndHOCs; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return shallowDiffers; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return getInObject; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return setInObject; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getDataType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getDisplayNameForReactElement; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return formatDataForPreview; });
-/* harmony import */ var lru_cache__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(33);
-/* harmony import */ var lru_cache__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lru_cache__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
-/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_is__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1);
-/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7);
-/* harmony import */ var _hydration__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-
-
-
-
-
-
-
-
-
-var cachedDisplayNames = new WeakMap(); // On large trees, encoding takes significant time.
-// Try to reuse the already encoded strings.
-
-var encodedStringCache = new lru_cache__WEBPACK_IMPORTED_MODULE_0___default.a({
-  max: 1000
-});
-function alphaSortKeys(a, b) {
-  if (a > b) {
-    return 1;
-  } else if (b > a) {
-    return -1;
-  } else {
-    return 0;
-  }
-}
-function getDisplayName(type) {
-  var fallbackName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Anonymous';
-  var nameFromCache = cachedDisplayNames.get(type);
-
-  if (nameFromCache != null) {
-    return nameFromCache;
-  }
-
-  var displayName = fallbackName; // The displayName property is not guaranteed to be a string.
-  // It's only safe to use for our purposes if it's a string.
-  // github.com/facebook/react-devtools/issues/803
-
-  if (typeof type.displayName === 'string') {
-    displayName = type.displayName;
-  } else if (typeof type.name === 'string' && type.name !== '') {
-    displayName = type.name;
-  }
-
-  cachedDisplayNames.set(type, displayName);
-  return displayName;
-}
-var uidCounter = 0;
-function getUID() {
-  return ++uidCounter;
-}
-function utfDecodeString(array) {
-  return String.fromCodePoint.apply(String, _toConsumableArray(array));
-}
-function utfEncodeString(string) {
-  var cached = encodedStringCache.get(string);
-
-  if (cached !== undefined) {
-    return cached;
-  }
-
-  var encoded = new Array(string.length);
-
-  for (var i = 0; i < string.length; i++) {
-    encoded[i] = string.codePointAt(i);
-  }
-
-  encodedStringCache.set(string, encoded);
-  return encoded;
-}
-function printOperationsArray(operations) {
-  // The first two values are always rendererID and rootID
-  var rendererID = operations[0];
-  var rootID = operations[1];
-  var logs = ["operations for renderer:".concat(rendererID, " and root:").concat(rootID)];
-  var i = 2; // Reassemble the string table.
-
-  var stringTable = [null // ID = 0 corresponds to the null string.
-  ];
-  var stringTableSize = operations[i++];
-  var stringTableEnd = i + stringTableSize;
-
-  while (i < stringTableEnd) {
-    var nextLength = operations[i++];
-    var nextString = utfDecodeString(operations.slice(i, i + nextLength));
-    stringTable.push(nextString);
-    i += nextLength;
-  }
-
-  while (i < operations.length) {
-    var operation = operations[i];
-
-    switch (operation) {
-      case _constants__WEBPACK_IMPORTED_MODULE_2__[/* TREE_OPERATION_ADD */ "k"]:
-        {
-          var id = operations[i + 1];
-          var type = operations[i + 2];
-          i += 3;
-
-          if (type === react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ElementTypeRoot */ "m"]) {
-            logs.push("Add new root node ".concat(id));
-            i++; // supportsProfiling
-
-            i++; // hasOwnerMetadata
-          } else {
-            var parentID = operations[i];
-            i++;
-            i++; // ownerID
-
-            var displayNameStringID = operations[i];
-            var displayName = stringTable[displayNameStringID];
-            i++;
-            i++; // key
-
-            logs.push("Add node ".concat(id, " (").concat(displayName || 'null', ") as child of ").concat(parentID));
-          }
-
-          break;
-        }
-
-      case _constants__WEBPACK_IMPORTED_MODULE_2__[/* TREE_OPERATION_REMOVE */ "l"]:
-        {
-          var removeLength = operations[i + 1];
-          i += 2;
-
-          for (var removeIndex = 0; removeIndex < removeLength; removeIndex++) {
-            var _id = operations[i];
-            i += 1;
-            logs.push("Remove node ".concat(_id));
-          }
-
-          break;
-        }
-
-      case _constants__WEBPACK_IMPORTED_MODULE_2__[/* TREE_OPERATION_REORDER_CHILDREN */ "m"]:
-        {
-          var _id2 = operations[i + 1];
-          var numChildren = operations[i + 2];
-          i += 3;
-          var children = operations.slice(i, i + numChildren);
-          i += numChildren;
-          logs.push("Re-order node ".concat(_id2, " children ").concat(children.join(',')));
-          break;
-        }
-
-      case _constants__WEBPACK_IMPORTED_MODULE_2__[/* TREE_OPERATION_UPDATE_TREE_BASE_DURATION */ "n"]:
-        // Base duration updates are only sent while profiling is in progress.
-        // We can ignore them at this point.
-        // The profiler UI uses them lazily in order to generate the tree.
-        i += 3;
-        break;
-
-      default:
-        throw Error("Unsupported Bridge operation ".concat(operation));
-    }
-  }
-
-  console.log(logs.join('\n  '));
-}
-function getDefaultComponentFilters() {
-  return [{
-    type: react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ComponentFilterElementType */ "b"],
-    value: react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ElementTypeHostComponent */ "i"],
-    isEnabled: true
-  }];
-}
-function getSavedComponentFilters() {
-  try {
-    var raw = Object(_storage__WEBPACK_IMPORTED_MODULE_4__[/* localStorageGetItem */ "a"])(_constants__WEBPACK_IMPORTED_MODULE_2__[/* LOCAL_STORAGE_FILTER_PREFERENCES_KEY */ "d"]);
-
-    if (raw != null) {
-      return JSON.parse(raw);
-    }
-  } catch (error) {}
-
-  return getDefaultComponentFilters();
-}
-function saveComponentFilters(componentFilters) {
-  Object(_storage__WEBPACK_IMPORTED_MODULE_4__[/* localStorageSetItem */ "c"])(_constants__WEBPACK_IMPORTED_MODULE_2__[/* LOCAL_STORAGE_FILTER_PREFERENCES_KEY */ "d"], JSON.stringify(componentFilters));
-}
-function getAppendComponentStack() {
-  try {
-    var raw = Object(_storage__WEBPACK_IMPORTED_MODULE_4__[/* localStorageGetItem */ "a"])(_constants__WEBPACK_IMPORTED_MODULE_2__[/* LOCAL_STORAGE_SHOULD_PATCH_CONSOLE_KEY */ "f"]);
-
-    if (raw != null) {
-      return JSON.parse(raw);
-    }
-  } catch (error) {}
-
-  return true;
-}
-function setAppendComponentStack(value) {
-  Object(_storage__WEBPACK_IMPORTED_MODULE_4__[/* localStorageSetItem */ "c"])(_constants__WEBPACK_IMPORTED_MODULE_2__[/* LOCAL_STORAGE_SHOULD_PATCH_CONSOLE_KEY */ "f"], JSON.stringify(value));
-}
-function getBreakOnConsoleErrors() {
-  try {
-    var raw = Object(_storage__WEBPACK_IMPORTED_MODULE_4__[/* localStorageGetItem */ "a"])(_constants__WEBPACK_IMPORTED_MODULE_2__[/* LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS */ "e"]);
-
-    if (raw != null) {
-      return JSON.parse(raw);
-    }
-  } catch (error) {}
-
-  return false;
-}
-function setBreakOnConsoleErrors(value) {
-  Object(_storage__WEBPACK_IMPORTED_MODULE_4__[/* localStorageSetItem */ "c"])(_constants__WEBPACK_IMPORTED_MODULE_2__[/* LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS */ "e"], JSON.stringify(value));
-}
-function separateDisplayNameAndHOCs(displayName, type) {
-  if (displayName === null) {
-    return [null, null];
-  }
-
-  var hocDisplayNames = null;
-
-  switch (type) {
-    case react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ElementTypeClass */ "e"]:
-    case react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ElementTypeForwardRef */ "g"]:
-    case react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ElementTypeFunction */ "h"]:
-    case react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ElementTypeMemo */ "j"]:
-      if (displayName.indexOf('(') >= 0) {
-        var matches = displayName.match(/[^()]+/g);
-
-        if (matches != null) {
-          displayName = matches.pop();
-          hocDisplayNames = matches;
-        }
-      }
-
-      break;
-
-    default:
-      break;
-  }
-
-  if (type === react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ElementTypeMemo */ "j"]) {
-    if (hocDisplayNames === null) {
-      hocDisplayNames = ['Memo'];
-    } else {
-      hocDisplayNames.unshift('Memo');
-    }
-  } else if (type === react_devtools_shared_src_types__WEBPACK_IMPORTED_MODULE_3__[/* ElementTypeForwardRef */ "g"]) {
-    if (hocDisplayNames === null) {
-      hocDisplayNames = ['ForwardRef'];
-    } else {
-      hocDisplayNames.unshift('ForwardRef');
-    }
-  }
-
-  return [displayName, hocDisplayNames];
-} // Pulled from react-compat
-// https://github.com/developit/preact-compat/blob/7c5de00e7c85e2ffd011bf3af02899b63f699d3a/src/index.js#L349
-
-function shallowDiffers(prev, next) {
-  for (var attribute in prev) {
-    if (!(attribute in next)) {
-      return true;
-    }
-  }
-
-  for (var _attribute in next) {
-    if (prev[_attribute] !== next[_attribute]) {
-      return true;
-    }
-  }
-
-  return false;
-}
-function getInObject(object, path) {
-  return path.reduce(function (reduced, attr) {
-    if (reduced) {
-      if (hasOwnProperty.call(reduced, attr)) {
-        return reduced[attr];
-      }
-
-      if (typeof reduced[Symbol.iterator] === 'function') {
-        // Convert iterable to array and return array[index]
-        //
-        // TRICKY
-        // Don't use [...spread] syntax for this purpose.
-        // This project uses @babel/plugin-transform-spread in "loose" mode which only works with Array values.
-        // Other types (e.g. typed arrays, Sets) will not spread correctly.
-        return Array.from(reduced)[attr];
-      }
-    }
-
-    return null;
-  }, object);
-}
-function setInObject(object, path, value) {
-  var length = path.length;
-  var last = path[length - 1];
-
-  if (object != null) {
-    var parent = getInObject(object, path.slice(0, length - 1));
-
-    if (parent) {
-      parent[last] = value;
-    }
-  }
-}
-
-/**
- * Get a enhanced/artificial type string based on the object instance
- */
-function getDataType(data) {
-  if (data === null) {
-    return 'null';
-  } else if (data === undefined) {
-    return 'undefined';
-  }
-
-  if (Object(react_is__WEBPACK_IMPORTED_MODULE_1__["isElement"])(data)) {
-    return 'react_element';
-  }
-
-  if (typeof HTMLElement !== 'undefined' && data instanceof HTMLElement) {
-    return 'html_element';
-  }
-
-  var type = _typeof(data);
-
-  switch (type) {
-    case 'bigint':
-      return 'bigint';
-
-    case 'boolean':
-      return 'boolean';
-
-    case 'function':
-      return 'function';
-
-    case 'number':
-      if (Number.isNaN(data)) {
-        return 'nan';
-      } else if (!Number.isFinite(data)) {
-        return 'infinity';
-      } else {
-        return 'number';
-      }
-
-    case 'object':
-      if (Array.isArray(data)) {
-        return 'array';
-      } else if (ArrayBuffer.isView(data)) {
-        return hasOwnProperty.call(data.constructor, 'BYTES_PER_ELEMENT') ? 'typed_array' : 'data_view';
-      } else if (data.constructor && data.constructor.name === 'ArrayBuffer') {
-        // HACK This ArrayBuffer check is gross; is there a better way?
-        // We could try to create a new DataView with the value.
-        // If it doesn't error, we know it's an ArrayBuffer,
-        // but this seems kind of awkward and expensive.
-        return 'array_buffer';
-      } else if (typeof data[Symbol.iterator] === 'function') {
-        return 'iterator';
-      } else if (data.constructor && data.constructor.name === 'RegExp') {
-        return 'regexp';
-      } else if (Object.prototype.toString.call(data) === '[object Date]') {
-        return 'date';
-      }
-
-      return 'object';
-
-    case 'string':
-      return 'string';
-
-    case 'symbol':
-      return 'symbol';
-
-    default:
-      return 'unknown';
-  }
-}
-function getDisplayNameForReactElement(element) {
-  var elementType = Object(react_is__WEBPACK_IMPORTED_MODULE_1__["typeOf"])(element);
-
-  switch (elementType) {
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["ContextConsumer"]:
-      return 'ContextConsumer';
-
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["ContextProvider"]:
-      return 'ContextProvider';
-
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["ForwardRef"]:
-      return 'ForwardRef';
-
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["Fragment"]:
-      return 'Fragment';
-
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["Lazy"]:
-      return 'Lazy';
-
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["Memo"]:
-      return 'Memo';
-
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["Portal"]:
-      return 'Portal';
-
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["Profiler"]:
-      return 'Profiler';
-
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["StrictMode"]:
-      return 'StrictMode';
-
-    case react_is__WEBPACK_IMPORTED_MODULE_1__["Suspense"]:
-      return 'Suspense';
-
-    default:
-      var type = element.type;
-
-      if (typeof type === 'string') {
-        return type;
-      } else if (type != null) {
-        return getDisplayName(type, 'Anonymous');
-      } else {
-        return 'Element';
-      }
-
-  }
-}
-var MAX_PREVIEW_STRING_LENGTH = 50;
-
-function truncateForDisplay(string) {
-  var length = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : MAX_PREVIEW_STRING_LENGTH;
-
-  if (string.length > length) {
-    return string.substr(0, length) + '…';
-  } else {
-    return string;
-  }
-} // Attempts to mimic Chrome's inline preview for values.
-// For example, the following value...
-//   {
-//      foo: 123,
-//      bar: "abc",
-//      baz: [true, false],
-//      qux: { ab: 1, cd: 2 }
-//   };
-//
-// Would show a preview of...
-//   {foo: 123, bar: "abc", baz: Array(2), qux: {…}}
-//
-// And the following value...
-//   [
-//     123,
-//     "abc",
-//     [true, false],
-//     { foo: 123, bar: "abc" }
-//   ];
-//
-// Would show a preview of...
-//   [123, "abc", Array(2), {…}]
-
-
-function formatDataForPreview(data, showFormattedValue) {
-  if (data != null && hasOwnProperty.call(data, _hydration__WEBPACK_IMPORTED_MODULE_5__[/* meta */ "d"].type)) {
-    return showFormattedValue ? data[_hydration__WEBPACK_IMPORTED_MODULE_5__[/* meta */ "d"].preview_long] : data[_hydration__WEBPACK_IMPORTED_MODULE_5__[/* meta */ "d"].preview_short];
-  }
-
-  var type = getDataType(data);
-
-  switch (type) {
-    case 'html_element':
-      return "<".concat(truncateForDisplay(data.tagName.toLowerCase()), " />");
-
-    case 'function':
-      return truncateForDisplay("\u0192 ".concat(data.name, "() {}"));
-
-    case 'string':
-      return "\"".concat(data, "\"");
-
-    case 'bigint':
-      return truncateForDisplay(data.toString() + 'n');
-
-    case 'regexp':
-      return truncateForDisplay(data.toString());
-
-    case 'symbol':
-      return truncateForDisplay(data.toString());
-
-    case 'react_element':
-      return "<".concat(truncateForDisplay(getDisplayNameForReactElement(data) || 'Unknown'), " />");
-
-    case 'array_buffer':
-      return "ArrayBuffer(".concat(data.byteLength, ")");
-
-    case 'data_view':
-      return "DataView(".concat(data.buffer.byteLength, ")");
-
-    case 'array':
-      if (showFormattedValue) {
-        var formatted = '';
-
-        for (var i = 0; i < data.length; i++) {
-          if (i > 0) {
-            formatted += ', ';
-          }
-
-          formatted += formatDataForPreview(data[i], false);
-
-          if (formatted.length > MAX_PREVIEW_STRING_LENGTH) {
-            // Prevent doing a lot of unnecessary iteration...
-            break;
-          }
-        }
-
-        return "[".concat(truncateForDisplay(formatted), "]");
-      } else {
-        var length = hasOwnProperty.call(data, _hydration__WEBPACK_IMPORTED_MODULE_5__[/* meta */ "d"].size) ? data[_hydration__WEBPACK_IMPORTED_MODULE_5__[/* meta */ "d"].size] : data.length;
-        return "Array(".concat(length, ")");
-      }
-
-    case 'typed_array':
-      var shortName = "".concat(data.constructor.name, "(").concat(data.length, ")");
-
-      if (showFormattedValue) {
-        var _formatted = '';
-
-        for (var _i = 0; _i < data.length; _i++) {
-          if (_i > 0) {
-            _formatted += ', ';
-          }
-
-          _formatted += data[_i];
-
-          if (_formatted.length > MAX_PREVIEW_STRING_LENGTH) {
-            // Prevent doing a lot of unnecessary iteration...
-            break;
-          }
-        }
-
-        return "".concat(shortName, " [").concat(truncateForDisplay(_formatted), "]");
-      } else {
-        return shortName;
-      }
-
-    case 'iterator':
-      var name = data.constructor.name;
-
-      if (showFormattedValue) {
-        // TRICKY
-        // Don't use [...spread] syntax for this purpose.
-        // This project uses @babel/plugin-transform-spread in "loose" mode which only works with Array values.
-        // Other types (e.g. typed arrays, Sets) will not spread correctly.
-        var array = Array.from(data);
-        var _formatted2 = '';
-
-        for (var _i2 = 0; _i2 < array.length; _i2++) {
-          var entryOrEntries = array[_i2];
-
-          if (_i2 > 0) {
-            _formatted2 += ', ';
-          } // TRICKY
-          // Browsers display Maps and Sets differently.
-          // To mimic their behavior, detect if we've been given an entries tuple.
-          //   Map(2) {"abc" => 123, "def" => 123}
-          //   Set(2) {"abc", 123}
-
-
-          if (Array.isArray(entryOrEntries)) {
-            var key = formatDataForPreview(entryOrEntries[0], true);
-            var value = formatDataForPreview(entryOrEntries[1], false);
-            _formatted2 += "".concat(key, " => ").concat(value);
-          } else {
-            _formatted2 += formatDataForPreview(entryOrEntries, false);
-          }
-
-          if (_formatted2.length > MAX_PREVIEW_STRING_LENGTH) {
-            // Prevent doing a lot of unnecessary iteration...
-            break;
-          }
-        }
-
-        return "".concat(name, "(").concat(data.size, ") {").concat(truncateForDisplay(_formatted2), "}");
-      } else {
-        return "".concat(name, "(").concat(data.size, ")");
-      }
-
-    case 'date':
-      return data.toString();
-
-    case 'object':
-      if (showFormattedValue) {
-        var keys = Object.keys(data).sort(alphaSortKeys);
-        var _formatted3 = '';
-
-        for (var _i3 = 0; _i3 < keys.length; _i3++) {
-          var _key = keys[_i3];
-
-          if (_i3 > 0) {
-            _formatted3 += ', ';
-          }
-
-          _formatted3 += "".concat(_key, ": ").concat(formatDataForPreview(data[_key], false));
-
-          if (_formatted3.length > MAX_PREVIEW_STRING_LENGTH) {
-            // Prevent doing a lot of unnecessary iteration...
-            break;
-          }
-        }
-
-        return "{".concat(truncateForDisplay(_formatted3), "}");
-      } else {
-        return '{…}';
-      }
-
-    case 'boolean':
-    case 'number':
-    case 'infinity':
-    case 'nan':
-    case 'null':
-    case 'undefined':
-      return data;
-
-    default:
-      try {
-        return truncateForDisplay('' + data);
-      } catch (error) {
-        return 'unserializable';
-      }
-
-  }
-}
-
-/***/ }),
-
-/***/ 20:
+/***/ 17:
 /***/ (function(module, exports, __webpack_require__) {
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 //  Import support https://stackoverflow.com/questions/13673346/supporting-both-commonjs-and-amd
 (function (name, definition) {
@@ -1427,7 +742,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }
 
       function c(a) {
-        if ("object" != _typeof(this)) throw new TypeError("Promises must be constructed via new");
+        if ("object" != typeof this) throw new TypeError("Promises must be constructed via new");
         if ("function" != typeof a) throw new TypeError("not a function");
         this._state = null, this._value = null, this._deferreds = [], i(a, b(e, this), b(f, this));
       }
@@ -1453,7 +768,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         try {
           if (a === this) throw new TypeError("A promise cannot be resolved with itself.");
 
-          if (a && ("object" == _typeof(a) || "function" == typeof a)) {
+          if (a && ("object" == typeof a || "function" == typeof a)) {
             var c = a.then;
             if ("function" == typeof c) return void i(b(c, a), b(e, this), b(f, this));
           }
@@ -1469,9 +784,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }
 
       function g() {
-        for (var a = 0, b = this._deferreds.length; b > a; a++) {
-          d.call(this, this._deferreds[a]);
-        }
+        for (var a = 0, b = this._deferreds.length; b > a; a++) d.call(this, this._deferreds[a]);
 
         this._deferreds = null;
       }
@@ -1514,7 +827,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         return new c(function (b, c) {
           function d(f, g) {
             try {
-              if (g && ("object" == _typeof(g) || "function" == typeof g)) {
+              if (g && ("object" == typeof g || "function" == typeof g)) {
                 var h = g.then;
                 if ("function" == typeof h) return void h.call(g, function (a) {
                   d(f, a);
@@ -1529,12 +842,10 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
           if (0 === a.length) return b([]);
 
-          for (var e = a.length, f = 0; f < a.length; f++) {
-            d(f, a[f]);
-          }
+          for (var e = a.length, f = 0; f < a.length; f++) d(f, a[f]);
         });
       }, c.resolve = function (a) {
-        return a && "object" == _typeof(a) && a.constructor === c ? a : new c(function (b) {
+        return a && "object" == typeof a && a.constructor === c ? a : new c(function (b) {
           b(a);
         });
       }, c.reject = function (a) {
@@ -1543,9 +854,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         });
       }, c.race = function (a) {
         return new c(function (b, c) {
-          for (var d = 0, e = a.length; e > d; d++) {
-            a[d].then(b, c);
-          }
+          for (var d = 0, e = a.length; e > d; d++) a[d].then(b, c);
         });
       },  true && module.exports ? module.exports = c : a.Promise || (a.Promise = c);
     })(this);
@@ -1588,30 +897,42 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 /***/ }),
 
-/***/ 25:
+/***/ 2:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 // EXPORTS
-__webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ registerRenderer; });
-__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ patch; });
+__webpack_require__.d(__webpack_exports__, "c", function() { return /* binding */ getAllEnumerableKeys; });
+__webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ getDisplayName; });
+__webpack_require__.d(__webpack_exports__, "l", function() { return /* binding */ getUID; });
+__webpack_require__.d(__webpack_exports__, "r", function() { return /* binding */ utfDecodeString; });
+__webpack_require__.d(__webpack_exports__, "s", function() { return /* binding */ utfEncodeString; });
+__webpack_require__.d(__webpack_exports__, "g", function() { return /* binding */ getDefaultComponentFilters; });
+__webpack_require__.d(__webpack_exports__, "k", function() { return /* binding */ getSavedComponentFilters; });
+__webpack_require__.d(__webpack_exports__, "n", function() { return /* binding */ saveComponentFilters; });
+__webpack_require__.d(__webpack_exports__, "d", function() { return /* binding */ getAppendComponentStack; });
+__webpack_require__.d(__webpack_exports__, "e", function() { return /* binding */ getBreakOnConsoleErrors; });
+__webpack_require__.d(__webpack_exports__, "o", function() { return /* binding */ separateDisplayNameAndHOCs; });
+__webpack_require__.d(__webpack_exports__, "q", function() { return /* binding */ shallowDiffers; });
+__webpack_require__.d(__webpack_exports__, "j", function() { return /* binding */ getInObject; });
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ deletePathInObject; });
+__webpack_require__.d(__webpack_exports__, "m", function() { return /* binding */ renamePathInObject; });
+__webpack_require__.d(__webpack_exports__, "p", function() { return /* binding */ setInObject; });
+__webpack_require__.d(__webpack_exports__, "f", function() { return /* binding */ getDataType; });
+__webpack_require__.d(__webpack_exports__, "i", function() { return /* binding */ getDisplayNameForReactElement; });
+__webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ formatDataForPreview; });
 
-// UNUSED EXPORTS: dangerous_setTargetConsoleForTesting, unpatch
+// UNUSED EXPORTS: alphaSortKeys, printOperationsArray, setAppendComponentStack, setBreakOnConsoleErrors
 
-// EXTERNAL MODULE: ../react-devtools-shared/src/backend/renderer.js + 1 modules
-var backend_renderer = __webpack_require__(35);
+// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.alt2/node_modules/lru-cache/index.js
+var lru_cache = __webpack_require__(34);
+var lru_cache_default = /*#__PURE__*/__webpack_require__.n(lru_cache);
 
-// EXTERNAL MODULE: ../react-devtools-shared/src/backend/ReactSymbols.js
-var ReactSymbols = __webpack_require__(4);
+// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.alt2/build/node_modules/react-is/index.js
+var react_is = __webpack_require__(10);
 
-// CONCATENATED MODULE: ../shared/ConsolePatchingDev.js
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+// CONCATENATED MODULE: ../shared/ReactSymbols.js
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -1620,536 +941,797 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  *
  * 
  */
-// Helpers to patch console.logs to avoid logging during side-effect free
-// replaying on render function. This currently only patches the object
-// lazily which won't cover if the log function was extracted eagerly.
-// We could also eagerly patch the method.
-var disabledDepth = 0;
-var prevLog;
-var prevInfo;
-var prevWarn;
-var prevError;
-var prevGroup;
-var prevGroupCollapsed;
-var prevGroupEnd;
+// ATTENTION
+// When adding new symbols to this file,
+// Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
+// The Symbol used to tag the ReactElement-like types. If there is no native Symbol
+// nor polyfill, then a plain number is used for performance.
+let REACT_ELEMENT_TYPE = 0xeac7;
+let REACT_PORTAL_TYPE = 0xeaca;
+let REACT_FRAGMENT_TYPE = 0xeacb;
+let REACT_STRICT_MODE_TYPE = 0xeacc;
+let REACT_PROFILER_TYPE = 0xead2;
+let REACT_PROVIDER_TYPE = 0xeacd;
+let REACT_CONTEXT_TYPE = 0xeace;
+let REACT_FORWARD_REF_TYPE = 0xead0;
+let REACT_SUSPENSE_TYPE = 0xead1;
+let REACT_SUSPENSE_LIST_TYPE = 0xead8;
+let REACT_MEMO_TYPE = 0xead3;
+let REACT_LAZY_TYPE = 0xead4;
+let REACT_BLOCK_TYPE = 0xead9;
+let REACT_SERVER_BLOCK_TYPE = 0xeada;
+let REACT_FUNDAMENTAL_TYPE = 0xead5;
+let REACT_SCOPE_TYPE = 0xead7;
+let REACT_OPAQUE_ID_TYPE = 0xeae0;
+let REACT_DEBUG_TRACING_MODE_TYPE = 0xeae1;
+let REACT_OFFSCREEN_TYPE = 0xeae2;
+let REACT_LEGACY_HIDDEN_TYPE = 0xeae3;
 
-function disabledLog() {}
-
-disabledLog.__reactDisabledLog = true;
-function disableLogs() {
-  if (false) { var props; }
+if (typeof Symbol === 'function' && Symbol.for) {
+  const symbolFor = Symbol.for;
+  REACT_ELEMENT_TYPE = symbolFor('react.element');
+  REACT_PORTAL_TYPE = symbolFor('react.portal');
+  REACT_FRAGMENT_TYPE = symbolFor('react.fragment');
+  REACT_STRICT_MODE_TYPE = symbolFor('react.strict_mode');
+  REACT_PROFILER_TYPE = symbolFor('react.profiler');
+  REACT_PROVIDER_TYPE = symbolFor('react.provider');
+  REACT_CONTEXT_TYPE = symbolFor('react.context');
+  REACT_FORWARD_REF_TYPE = symbolFor('react.forward_ref');
+  REACT_SUSPENSE_TYPE = symbolFor('react.suspense');
+  REACT_SUSPENSE_LIST_TYPE = symbolFor('react.suspense_list');
+  REACT_MEMO_TYPE = symbolFor('react.memo');
+  REACT_LAZY_TYPE = symbolFor('react.lazy');
+  REACT_BLOCK_TYPE = symbolFor('react.block');
+  REACT_SERVER_BLOCK_TYPE = symbolFor('react.server.block');
+  REACT_FUNDAMENTAL_TYPE = symbolFor('react.fundamental');
+  REACT_SCOPE_TYPE = symbolFor('react.scope');
+  REACT_OPAQUE_ID_TYPE = symbolFor('react.opaque.id');
+  REACT_DEBUG_TRACING_MODE_TYPE = symbolFor('react.debug_trace_mode');
+  REACT_OFFSCREEN_TYPE = symbolFor('react.offscreen');
+  REACT_LEGACY_HIDDEN_TYPE = symbolFor('react.legacy_hidden');
 }
-function reenableLogs() {
-  if (false) { var props; }
-}
-// CONCATENATED MODULE: ../react-devtools-shared/src/backend/DevToolsComponentStackFrame.js
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-// This is a DevTools fork of ReactComponentStackFrame.
-// This fork enables DevTools to use the same "native" component stack format,
-// while still maintaining support for multiple renderer versions
-// (which use different values for ReactTypeOfWork).
- // These methods are safe to import from shared;
-// there is no React-specific logic here.
-
-
-var prefix;
-function describeBuiltInComponentFrame(name, source, ownerFn) {
-  if (prefix === undefined) {
-    // Extract the VM specific prefix used by each line.
-    try {
-      throw Error();
-    } catch (x) {
-      var match = x.stack.trim().match(/\n( *(at )?)/);
-      prefix = match && match[1] || '';
-    }
-  } // We use the prefix to ensure our stacks line up with native stack frames.
-
-
-  return '\n' + prefix + name;
-}
-var reentry = false;
-var componentFrameCache;
-
-if (false) { var PossiblyWeakMap; }
-
-function describeNativeComponentFrame(fn, construct, currentDispatcherRef) {
-  // If something asked for a stack inside a fake render, it should get ignored.
-  if (!fn || reentry) {
-    return '';
+const MAYBE_ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+const FAUX_ITERATOR_SYMBOL = '@@iterator';
+function getIteratorFn(maybeIterable) {
+  if (maybeIterable === null || typeof maybeIterable !== 'object') {
+    return null;
   }
 
-  if (false) { var frame; }
+  const maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
 
-  var control;
-  var previousPrepareStackTrace = Error.prepareStackTrace; // $FlowFixMe It does accept undefined.
+  if (typeof maybeIterator === 'function') {
+    return maybeIterator;
+  }
 
-  Error.prepareStackTrace = undefined;
-  reentry = true;
-  var previousDispatcher;
+  return null;
+}
+// EXTERNAL MODULE: ../react-devtools-shared/src/constants.js
+var constants = __webpack_require__(3);
 
-  if (false) {}
+// EXTERNAL MODULE: ../react-devtools-shared/src/types.js
+var types = __webpack_require__(1);
 
-  try {
-    // This should throw.
-    if (construct) {
-      // Something should be setting the props in the constructor.
-      var Fake = function Fake() {
-        throw Error();
-      }; // $FlowFixMe
+// EXTERNAL MODULE: ../react-devtools-shared/src/storage.js
+var storage = __webpack_require__(7);
+
+// EXTERNAL MODULE: ../react-devtools-shared/src/hydration.js
+var hydration = __webpack_require__(8);
+
+// CONCATENATED MODULE: ../react-devtools-shared/src/utils.js
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
 
 
-      Object.defineProperty(Fake.prototype, 'props', {
-        set: function set() {
-          // We use a throwing setter instead of frozen or non-writable props
-          // because that won't throw in a non-strict mode function.
-          throw Error();
-        }
-      });
 
-      if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === 'object' && Reflect.construct) {
-        // We construct a different control for this case to include any extra
-        // frames added by the construct call.
-        try {
-          Reflect.construct(Fake, []);
-        } catch (x) {
-          control = x;
-        }
 
-        Reflect.construct(fn, [], Fake);
-      } else {
-        try {
-          Fake.call();
-        } catch (x) {
-          control = x;
-        }
 
-        fn.call(Fake.prototype);
+
+
+
+
+
+const cachedDisplayNames = new WeakMap(); // On large trees, encoding takes significant time.
+// Try to reuse the already encoded strings.
+
+const encodedStringCache = new lru_cache_default.a({
+  max: 1000
+});
+function alphaSortKeys(a, b) {
+  if (a.toString() > b.toString()) {
+    return 1;
+  } else if (b.toString() > a.toString()) {
+    return -1;
+  } else {
+    return 0;
+  }
+}
+function getAllEnumerableKeys(obj) {
+  const keys = [];
+  let current = obj;
+
+  while (current != null) {
+    const currentKeys = [...Object.keys(current), ...Object.getOwnPropertySymbols(current)];
+    const descriptors = Object.getOwnPropertyDescriptors(current);
+    currentKeys.forEach(key => {
+      // $FlowFixMe: key can be a Symbol https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor
+      if (descriptors[key].enumerable) {
+        keys.push(key);
       }
-    } else {
-      try {
-        throw Error();
-      } catch (x) {
-        control = x;
-      }
+    });
+    current = Object.getPrototypeOf(current);
+  }
 
-      fn();
-    }
-  } catch (sample) {
-    // This is inlined manually because closure doesn't do it for us.
-    if (sample && control && typeof sample.stack === 'string') {
-      // This extracts the first frame from the sample that isn't also in the control.
-      // Skipping one frame that we assume is the frame that calls the two.
-      var sampleLines = sample.stack.split('\n');
-      var controlLines = control.stack.split('\n');
-      var s = sampleLines.length - 1;
-      var c = controlLines.length - 1;
+  return keys;
+}
+function getDisplayName(type, fallbackName = 'Anonymous') {
+  const nameFromCache = cachedDisplayNames.get(type);
 
-      while (s >= 1 && c >= 0 && sampleLines[s] !== controlLines[c]) {
-        // We expect at least one stack frame to be shared.
-        // Typically this will be the root most one. However, stack frames may be
-        // cut off due to maximum stack limits. In this case, one maybe cut off
-        // earlier than the other. We assume that the sample is longer or the same
-        // and there for cut off earlier. So we should find the root most frame in
-        // the sample somewhere in the control.
-        c--;
-      }
+  if (nameFromCache != null) {
+    return nameFromCache;
+  }
 
-      for (; s >= 1 && c >= 0; s--, c--) {
-        // Next we find the first one that isn't the same which should be the
-        // frame that called our sample function and the control.
-        if (sampleLines[s] !== controlLines[c]) {
-          // In V8, the first line is describing the message but other VMs don't.
-          // If we're about to return the first line, and the control is also on the same
-          // line, that's a pretty good indicator that our sample threw at same line as
-          // the control. I.e. before we entered the sample frame. So we ignore this result.
-          // This can happen if you passed a class to function component, or non-function.
-          if (s !== 1 || c !== 1) {
-            do {
-              s--;
-              c--; // We may still have similar intermediate frames from the construct call.
-              // The next one that isn't the same should be our match though.
+  let displayName = fallbackName; // The displayName property is not guaranteed to be a string.
+  // It's only safe to use for our purposes if it's a string.
+  // github.com/facebook/react-devtools/issues/803
 
-              if (c < 0 || sampleLines[s] !== controlLines[c]) {
-                // V8 adds a "new" prefix for native classes. Let's remove it to make it prettier.
-                var _frame = '\n' + sampleLines[s].replace(' at new ', ' at ');
+  if (typeof type.displayName === 'string') {
+    displayName = type.displayName;
+  } else if (typeof type.name === 'string' && type.name !== '') {
+    displayName = type.name;
+  }
 
-                if (false) {} // Return the line we found.
+  cachedDisplayNames.set(type, displayName);
+  return displayName;
+}
+let uidCounter = 0;
+function getUID() {
+  return ++uidCounter;
+}
+function utfDecodeString(array) {
+  return String.fromCodePoint(...array);
+}
+function utfEncodeString(string) {
+  const cached = encodedStringCache.get(string);
 
+  if (cached !== undefined) {
+    return cached;
+  }
 
-                return _frame;
-              }
-            } while (s >= 1 && c >= 0);
+  const encoded = new Array(string.length);
+
+  for (let i = 0; i < string.length; i++) {
+    encoded[i] = string.codePointAt(i);
+  }
+
+  encodedStringCache.set(string, encoded);
+  return encoded;
+}
+function printOperationsArray(operations) {
+  // The first two values are always rendererID and rootID
+  const rendererID = operations[0];
+  const rootID = operations[1];
+  const logs = [`operations for renderer:${rendererID} and root:${rootID}`];
+  let i = 2; // Reassemble the string table.
+
+  const stringTable = [null // ID = 0 corresponds to the null string.
+  ];
+  const stringTableSize = operations[i++];
+  const stringTableEnd = i + stringTableSize;
+
+  while (i < stringTableEnd) {
+    const nextLength = operations[i++];
+    const nextString = utfDecodeString(operations.slice(i, i + nextLength));
+    stringTable.push(nextString);
+    i += nextLength;
+  }
+
+  while (i < operations.length) {
+    const operation = operations[i];
+
+    switch (operation) {
+      case constants["k" /* TREE_OPERATION_ADD */]:
+        {
+          const id = operations[i + 1];
+          const type = operations[i + 2];
+          i += 3;
+
+          if (type === types["m" /* ElementTypeRoot */]) {
+            logs.push(`Add new root node ${id}`);
+            i++; // supportsProfiling
+
+            i++; // hasOwnerMetadata
+          } else {
+            const parentID = operations[i];
+            i++;
+            i++; // ownerID
+
+            const displayNameStringID = operations[i];
+            const displayName = stringTable[displayNameStringID];
+            i++;
+            i++; // key
+
+            logs.push(`Add node ${id} (${displayName || 'null'}) as child of ${parentID}`);
           }
 
           break;
         }
-      }
+
+      case constants["l" /* TREE_OPERATION_REMOVE */]:
+        {
+          const removeLength = operations[i + 1];
+          i += 2;
+
+          for (let removeIndex = 0; removeIndex < removeLength; removeIndex++) {
+            const id = operations[i];
+            i += 1;
+            logs.push(`Remove node ${id}`);
+          }
+
+          break;
+        }
+
+      case constants["m" /* TREE_OPERATION_REORDER_CHILDREN */]:
+        {
+          const id = operations[i + 1];
+          const numChildren = operations[i + 2];
+          i += 3;
+          const children = operations.slice(i, i + numChildren);
+          i += numChildren;
+          logs.push(`Re-order node ${id} children ${children.join(',')}`);
+          break;
+        }
+
+      case constants["n" /* TREE_OPERATION_UPDATE_TREE_BASE_DURATION */]:
+        // Base duration updates are only sent while profiling is in progress.
+        // We can ignore them at this point.
+        // The profiler UI uses them lazily in order to generate the tree.
+        i += 3;
+        break;
+
+      default:
+        throw Error(`Unsupported Bridge operation ${operation}`);
     }
-  } finally {
-    reentry = false;
-    Error.prepareStackTrace = previousPrepareStackTrace;
-
-    if (false) {}
-  } // Fallback to just using the name if we couldn't make it throw.
-
-
-  var name = fn ? fn.displayName || fn.name : '';
-  var syntheticFrame = name ? describeBuiltInComponentFrame(name) : '';
-
-  if (false) {}
-
-  return syntheticFrame;
-}
-function describeClassComponentFrame(ctor, source, ownerFn, currentDispatcherRef) {
-  return describeNativeComponentFrame(ctor, true, currentDispatcherRef);
-}
-function describeFunctionComponentFrame(fn, source, ownerFn, currentDispatcherRef) {
-  return describeNativeComponentFrame(fn, false, currentDispatcherRef);
-}
-
-function shouldConstruct(Component) {
-  var prototype = Component.prototype;
-  return !!(prototype && prototype.isReactComponent);
-}
-
-function describeUnknownElementTypeFrameInDEV(type, source, ownerFn, currentDispatcherRef) {
-  if (true) {
-    return '';
   }
 
-  if (type == null) {
-    return '';
+  console.log(logs.join('\n  '));
+}
+function getDefaultComponentFilters() {
+  return [{
+    type: types["b" /* ComponentFilterElementType */],
+    value: types["i" /* ElementTypeHostComponent */],
+    isEnabled: true
+  }];
+}
+function getSavedComponentFilters() {
+  try {
+    const raw = Object(storage["a" /* localStorageGetItem */])(constants["d" /* LOCAL_STORAGE_FILTER_PREFERENCES_KEY */]);
+
+    if (raw != null) {
+      return JSON.parse(raw);
+    }
+  } catch (error) {}
+
+  return getDefaultComponentFilters();
+}
+function saveComponentFilters(componentFilters) {
+  Object(storage["c" /* localStorageSetItem */])(constants["d" /* LOCAL_STORAGE_FILTER_PREFERENCES_KEY */], JSON.stringify(componentFilters));
+}
+function getAppendComponentStack() {
+  try {
+    const raw = Object(storage["a" /* localStorageGetItem */])(constants["f" /* LOCAL_STORAGE_SHOULD_PATCH_CONSOLE_KEY */]);
+
+    if (raw != null) {
+      return JSON.parse(raw);
+    }
+  } catch (error) {}
+
+  return true;
+}
+function setAppendComponentStack(value) {
+  Object(storage["c" /* localStorageSetItem */])(constants["f" /* LOCAL_STORAGE_SHOULD_PATCH_CONSOLE_KEY */], JSON.stringify(value));
+}
+function getBreakOnConsoleErrors() {
+  try {
+    const raw = Object(storage["a" /* localStorageGetItem */])(constants["e" /* LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS */]);
+
+    if (raw != null) {
+      return JSON.parse(raw);
+    }
+  } catch (error) {}
+
+  return false;
+}
+function setBreakOnConsoleErrors(value) {
+  Object(storage["c" /* localStorageSetItem */])(constants["e" /* LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS */], JSON.stringify(value));
+}
+function separateDisplayNameAndHOCs(displayName, type) {
+  if (displayName === null) {
+    return [null, null];
   }
 
-  if (typeof type === 'function') {
-    return describeNativeComponentFrame(type, shouldConstruct(type), currentDispatcherRef);
-  }
-
-  if (typeof type === 'string') {
-    return describeBuiltInComponentFrame(type, source, ownerFn);
-  }
+  let hocDisplayNames = null;
 
   switch (type) {
-    case ReactSymbols["x" /* SUSPENSE_NUMBER */]:
-    case ReactSymbols["y" /* SUSPENSE_SYMBOL_STRING */]:
-      return describeBuiltInComponentFrame('Suspense', source, ownerFn);
+    case types["e" /* ElementTypeClass */]:
+    case types["g" /* ElementTypeForwardRef */]:
+    case types["h" /* ElementTypeFunction */]:
+    case types["j" /* ElementTypeMemo */]:
+      if (displayName.indexOf('(') >= 0) {
+        const matches = displayName.match(/[^()]+/g);
 
-    case ReactSymbols["v" /* SUSPENSE_LIST_NUMBER */]:
-    case ReactSymbols["w" /* SUSPENSE_LIST_SYMBOL_STRING */]:
-      return describeBuiltInComponentFrame('SuspenseList', source, ownerFn);
-  }
-
-  if (_typeof(type) === 'object') {
-    switch (type.$$typeof) {
-      case ReactSymbols["h" /* FORWARD_REF_NUMBER */]:
-      case ReactSymbols["i" /* FORWARD_REF_SYMBOL_STRING */]:
-        return describeFunctionComponentFrame(type.render, source, ownerFn, currentDispatcherRef);
-
-      case ReactSymbols["l" /* MEMO_NUMBER */]:
-      case ReactSymbols["m" /* MEMO_SYMBOL_STRING */]:
-        // Memo may contain any component type so we recursively resolve it.
-        return describeUnknownElementTypeFrameInDEV(type.type, source, ownerFn, currentDispatcherRef);
-
-      case ReactSymbols["a" /* BLOCK_NUMBER */]:
-      case ReactSymbols["b" /* BLOCK_SYMBOL_STRING */]:
-        return describeFunctionComponentFrame(type._render, source, ownerFn, currentDispatcherRef);
-
-      case ReactSymbols["j" /* LAZY_NUMBER */]:
-      case ReactSymbols["k" /* LAZY_SYMBOL_STRING */]:
-        {
-          var lazyComponent = type;
-          var payload = lazyComponent._payload;
-          var init = lazyComponent._init;
-
-          try {
-            // Lazy may contain any component type so we recursively resolve it.
-            return describeUnknownElementTypeFrameInDEV(init(payload), source, ownerFn, currentDispatcherRef);
-          } catch (x) {}
+        if (matches != null) {
+          displayName = matches.pop();
+          hocDisplayNames = matches;
         }
-    }
-  }
+      }
 
-  return '';
-}
-// CONCATENATED MODULE: ../react-devtools-shared/src/backend/DevToolsFiberComponentStack.js
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-// This is a DevTools fork of ReactFiberComponentStack.
-// This fork enables DevTools to use the same "native" component stack format,
-// while still maintaining support for multiple renderer versions
-// (which use different values for ReactTypeOfWork).
-
-
-function describeFiber(workTagMap, workInProgress, currentDispatcherRef) {
-  var HostComponent = workTagMap.HostComponent,
-      LazyComponent = workTagMap.LazyComponent,
-      SuspenseComponent = workTagMap.SuspenseComponent,
-      SuspenseListComponent = workTagMap.SuspenseListComponent,
-      FunctionComponent = workTagMap.FunctionComponent,
-      IndeterminateComponent = workTagMap.IndeterminateComponent,
-      SimpleMemoComponent = workTagMap.SimpleMemoComponent,
-      ForwardRef = workTagMap.ForwardRef,
-      Block = workTagMap.Block,
-      ClassComponent = workTagMap.ClassComponent;
-  var owner =  false ? undefined : null;
-  var source =  false ? undefined : null;
-
-  switch (workInProgress.tag) {
-    case HostComponent:
-      return describeBuiltInComponentFrame(workInProgress.type, source, owner);
-
-    case LazyComponent:
-      return describeBuiltInComponentFrame('Lazy', source, owner);
-
-    case SuspenseComponent:
-      return describeBuiltInComponentFrame('Suspense', source, owner);
-
-    case SuspenseListComponent:
-      return describeBuiltInComponentFrame('SuspenseList', source, owner);
-
-    case FunctionComponent:
-    case IndeterminateComponent:
-    case SimpleMemoComponent:
-      return describeFunctionComponentFrame(workInProgress.type, source, owner, currentDispatcherRef);
-
-    case ForwardRef:
-      return describeFunctionComponentFrame(workInProgress.type.render, source, owner, currentDispatcherRef);
-
-    case Block:
-      return describeFunctionComponentFrame(workInProgress.type._render, source, owner, currentDispatcherRef);
-
-    case ClassComponent:
-      return describeClassComponentFrame(workInProgress.type, source, owner, currentDispatcherRef);
+      break;
 
     default:
-      return '';
-  }
-}
-
-function getStackByFiberInDevAndProd(workTagMap, workInProgress, currentDispatcherRef) {
-  try {
-    var info = '';
-    var node = workInProgress;
-
-    do {
-      info += describeFiber(workTagMap, node, currentDispatcherRef);
-      node = node.return;
-    } while (node);
-
-    return info;
-  } catch (x) {
-    return '\nError generating stack: ' + x.message + '\n' + x.stack;
-  }
-}
-// CONCATENATED MODULE: ../react-devtools-shared/src/backend/console.js
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-
-
-var APPEND_STACK_TO_METHODS = ['error', 'trace', 'warn']; // React's custom built component stack strings match "\s{4}in"
-// Chrome's prefix matches "\s{4}at"
-
-var PREFIX_REGEX = /\s{4}(in|at)\s{1}/; // Firefox and Safari have no prefix ("")
-// but we can fallback to looking for location info (e.g. "foo.js:12:345")
-
-var ROW_COLUMN_NUMBER_REGEX = /:\d+:\d+(\n|$)/;
-var injectedRenderers = new Map();
-var targetConsole = console;
-var targetConsoleMethods = {};
-
-for (var console_method in console) {
-  targetConsoleMethods[console_method] = console[console_method];
-}
-
-var unpatchFn = null; // Enables e.g. Jest tests to inject a mock console object.
-
-function dangerous_setTargetConsoleForTesting(targetConsoleForTesting) {
-  targetConsole = targetConsoleForTesting;
-  targetConsoleMethods = {};
-
-  for (var _method in targetConsole) {
-    targetConsoleMethods[_method] = console[_method];
-  }
-} // v16 renderers should use this method to inject internals necessary to generate a component stack.
-// These internals will be used if the console is patched.
-// Injecting them separately allows the console to easily be patched or un-patched later (at runtime).
-
-function registerRenderer(renderer) {
-  var currentDispatcherRef = renderer.currentDispatcherRef,
-      getCurrentFiber = renderer.getCurrentFiber,
-      findFiberByHostInstance = renderer.findFiberByHostInstance,
-      version = renderer.version; // Ignore React v15 and older because they don't expose a component stack anyway.
-
-  if (typeof findFiberByHostInstance !== 'function') {
-    return;
-  } // currentDispatcherRef gets injected for v16.8+ to support hooks inspection.
-  // getCurrentFiber gets injected for v16.9+.
-
-
-  if (currentDispatcherRef != null && typeof getCurrentFiber === 'function') {
-    var _getInternalReactCons = Object(backend_renderer["b" /* getInternalReactConstants */])(version),
-        ReactTypeOfWork = _getInternalReactCons.ReactTypeOfWork;
-
-    injectedRenderers.set(renderer, {
-      currentDispatcherRef: currentDispatcherRef,
-      getCurrentFiber: getCurrentFiber,
-      workTagMap: ReactTypeOfWork
-    });
-  }
-}
-var consoleSettingsRef = {
-  appendComponentStack: false,
-  breakOnConsoleErrors: false
-}; // Patches console methods to append component stack for the current fiber.
-// Call unpatch() to remove the injected behavior.
-
-function patch(_ref) {
-  var appendComponentStack = _ref.appendComponentStack,
-      breakOnConsoleErrors = _ref.breakOnConsoleErrors;
-  // Settings may change after we've patched the console.
-  // Using a shared ref allows the patch function to read the latest values.
-  consoleSettingsRef.appendComponentStack = appendComponentStack;
-  consoleSettingsRef.breakOnConsoleErrors = breakOnConsoleErrors;
-
-  if (unpatchFn !== null) {
-    // Don't patch twice.
-    return;
+      break;
   }
 
-  var originalConsoleMethods = {};
-
-  unpatchFn = function unpatchFn() {
-    for (var _method2 in originalConsoleMethods) {
-      try {
-        // $FlowFixMe property error|warn is not writable.
-        targetConsole[_method2] = originalConsoleMethods[_method2];
-      } catch (error) {}
+  if (type === types["j" /* ElementTypeMemo */]) {
+    if (hocDisplayNames === null) {
+      hocDisplayNames = ['Memo'];
+    } else {
+      hocDisplayNames.unshift('Memo');
     }
-  };
+  } else if (type === types["g" /* ElementTypeForwardRef */]) {
+    if (hocDisplayNames === null) {
+      hocDisplayNames = ['ForwardRef'];
+    } else {
+      hocDisplayNames.unshift('ForwardRef');
+    }
+  }
 
-  APPEND_STACK_TO_METHODS.forEach(function (method) {
-    try {
-      var originalMethod = originalConsoleMethods[method] = targetConsole[method];
+  return [displayName, hocDisplayNames];
+} // Pulled from react-compat
+// https://github.com/developit/preact-compat/blob/7c5de00e7c85e2ffd011bf3af02899b63f699d3a/src/index.js#L349
 
-      var overrideMethod = function overrideMethod() {
-        var latestAppendComponentStack = consoleSettingsRef.appendComponentStack;
-        var latestBreakOnConsoleErrors = consoleSettingsRef.breakOnConsoleErrors;
+function shallowDiffers(prev, next) {
+  for (const attribute in prev) {
+    if (!(attribute in next)) {
+      return true;
+    }
+  }
 
-        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
+  for (const attribute in next) {
+    if (prev[attribute] !== next[attribute]) {
+      return true;
+    }
+  }
+
+  return false;
+}
+function getInObject(object, path) {
+  return path.reduce((reduced, attr) => {
+    if (reduced) {
+      if (hasOwnProperty.call(reduced, attr)) {
+        return reduced[attr];
+      }
+
+      if (typeof reduced[Symbol.iterator] === 'function') {
+        // Convert iterable to array and return array[index]
+        //
+        // TRICKY
+        // Don't use [...spread] syntax for this purpose.
+        // This project uses @babel/plugin-transform-spread in "loose" mode which only works with Array values.
+        // Other types (e.g. typed arrays, Sets) will not spread correctly.
+        return Array.from(reduced)[attr];
+      }
+    }
+
+    return null;
+  }, object);
+}
+function deletePathInObject(object, path) {
+  const length = path.length;
+  const last = path[length - 1];
+
+  if (object != null) {
+    const parent = getInObject(object, path.slice(0, length - 1));
+
+    if (parent) {
+      if (Array.isArray(parent)) {
+        parent.splice(last, 1);
+      } else {
+        delete parent[last];
+      }
+    }
+  }
+}
+function renamePathInObject(object, oldPath, newPath) {
+  const length = oldPath.length;
+
+  if (object != null) {
+    const parent = getInObject(object, oldPath.slice(0, length - 1));
+
+    if (parent) {
+      const lastOld = oldPath[length - 1];
+      const lastNew = newPath[length - 1];
+      parent[lastNew] = parent[lastOld];
+
+      if (Array.isArray(parent)) {
+        parent.splice(lastOld, 1);
+      } else {
+        delete parent[lastOld];
+      }
+    }
+  }
+}
+function setInObject(object, path, value) {
+  const length = path.length;
+  const last = path[length - 1];
+
+  if (object != null) {
+    const parent = getInObject(object, path.slice(0, length - 1));
+
+    if (parent) {
+      parent[last] = value;
+    }
+  }
+}
+
+/**
+ * Get a enhanced/artificial type string based on the object instance
+ */
+function getDataType(data) {
+  if (data === null) {
+    return 'null';
+  } else if (data === undefined) {
+    return 'undefined';
+  }
+
+  if (Object(react_is["isElement"])(data)) {
+    return 'react_element';
+  }
+
+  if (typeof HTMLElement !== 'undefined' && data instanceof HTMLElement) {
+    return 'html_element';
+  }
+
+  const type = typeof data;
+
+  switch (type) {
+    case 'bigint':
+      return 'bigint';
+
+    case 'boolean':
+      return 'boolean';
+
+    case 'function':
+      return 'function';
+
+    case 'number':
+      if (Number.isNaN(data)) {
+        return 'nan';
+      } else if (!Number.isFinite(data)) {
+        return 'infinity';
+      } else {
+        return 'number';
+      }
+
+    case 'object':
+      if (Array.isArray(data)) {
+        return 'array';
+      } else if (ArrayBuffer.isView(data)) {
+        return hasOwnProperty.call(data.constructor, 'BYTES_PER_ELEMENT') ? 'typed_array' : 'data_view';
+      } else if (data.constructor && data.constructor.name === 'ArrayBuffer') {
+        // HACK This ArrayBuffer check is gross; is there a better way?
+        // We could try to create a new DataView with the value.
+        // If it doesn't error, we know it's an ArrayBuffer,
+        // but this seems kind of awkward and expensive.
+        return 'array_buffer';
+      } else if (typeof data[Symbol.iterator] === 'function') {
+        return data[Symbol.iterator]() === data ? 'opaque_iterator' : 'iterator';
+      } else if (data.constructor && data.constructor.name === 'RegExp') {
+        return 'regexp';
+      } else {
+        const toStringValue = Object.prototype.toString.call(data);
+
+        if (toStringValue === '[object Date]') {
+          return 'date';
+        } else if (toStringValue === '[object HTMLAllCollection]') {
+          return 'html_all_collection';
         }
+      }
 
-        if (latestAppendComponentStack) {
-          try {
-            // If we are ever called with a string that already has a component stack, e.g. a React error/warning,
-            // don't append a second stack.
-            var lastArg = args.length > 0 ? args[args.length - 1] : null;
-            var alreadyHasComponentStack = lastArg !== null && (PREFIX_REGEX.test(lastArg) || ROW_COLUMN_NUMBER_REGEX.test(lastArg));
+      return 'object';
 
-            if (!alreadyHasComponentStack) {
-              // If there's a component stack for at least one of the injected renderers, append it.
-              // We don't handle the edge case of stacks for more than one (e.g. interleaved renderers?)
-              // eslint-disable-next-line no-for-of-loops/no-for-of-loops
-              var _iteratorNormalCompletion = true;
-              var _didIteratorError = false;
-              var _iteratorError = undefined;
+    case 'string':
+      return 'string';
 
-              try {
-                for (var _iterator = injectedRenderers.values()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                  var _step$value = _step.value,
-                      currentDispatcherRef = _step$value.currentDispatcherRef,
-                      getCurrentFiber = _step$value.getCurrentFiber,
-                      workTagMap = _step$value.workTagMap;
-                  var current = getCurrentFiber();
+    case 'symbol':
+      return 'symbol';
 
-                  if (current != null) {
-                    var componentStack = getStackByFiberInDevAndProd(workTagMap, current, currentDispatcherRef);
+    case 'undefined':
+      if (Object.prototype.toString.call(data) === '[object HTMLAllCollection]') {
+        return 'html_all_collection';
+      }
 
-                    if (componentStack !== '') {
-                      args.push(componentStack);
-                    }
+      return 'undefined';
 
-                    break;
-                  }
-                }
-              } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
-              } finally {
-                try {
-                  if (!_iteratorNormalCompletion && _iterator.return != null) {
-                    _iterator.return();
-                  }
-                } finally {
-                  if (_didIteratorError) {
-                    throw _iteratorError;
-                  }
-                }
-              }
-            }
-          } catch (error) {// Don't let a DevTools or React internal error interfere with logging.
+    default:
+      return 'unknown';
+  }
+}
+function getDisplayNameForReactElement(element) {
+  const elementType = Object(react_is["typeOf"])(element);
+
+  switch (elementType) {
+    case react_is["ContextConsumer"]:
+      return 'ContextConsumer';
+
+    case react_is["ContextProvider"]:
+      return 'ContextProvider';
+
+    case react_is["ForwardRef"]:
+      return 'ForwardRef';
+
+    case react_is["Fragment"]:
+      return 'Fragment';
+
+    case react_is["Lazy"]:
+      return 'Lazy';
+
+    case react_is["Memo"]:
+      return 'Memo';
+
+    case react_is["Portal"]:
+      return 'Portal';
+
+    case react_is["Profiler"]:
+      return 'Profiler';
+
+    case react_is["StrictMode"]:
+      return 'StrictMode';
+
+    case react_is["Suspense"]:
+      return 'Suspense';
+
+    case REACT_SUSPENSE_LIST_TYPE:
+      return 'SuspenseList';
+
+    default:
+      const type = element.type;
+
+      if (typeof type === 'string') {
+        return type;
+      } else if (typeof type === 'function') {
+        return getDisplayName(type, 'Anonymous');
+      } else if (type != null) {
+        return 'NotImplementedInDevtools';
+      } else {
+        return 'Element';
+      }
+
+  }
+}
+const MAX_PREVIEW_STRING_LENGTH = 50;
+
+function truncateForDisplay(string, length = MAX_PREVIEW_STRING_LENGTH) {
+  if (string.length > length) {
+    return string.substr(0, length) + '…';
+  } else {
+    return string;
+  }
+} // Attempts to mimic Chrome's inline preview for values.
+// For example, the following value...
+//   {
+//      foo: 123,
+//      bar: "abc",
+//      baz: [true, false],
+//      qux: { ab: 1, cd: 2 }
+//   };
+//
+// Would show a preview of...
+//   {foo: 123, bar: "abc", baz: Array(2), qux: {…}}
+//
+// And the following value...
+//   [
+//     123,
+//     "abc",
+//     [true, false],
+//     { foo: 123, bar: "abc" }
+//   ];
+//
+// Would show a preview of...
+//   [123, "abc", Array(2), {…}]
+
+
+function formatDataForPreview(data, showFormattedValue) {
+  if (data != null && hasOwnProperty.call(data, hydration["d" /* meta */].type)) {
+    return showFormattedValue ? data[hydration["d" /* meta */].preview_long] : data[hydration["d" /* meta */].preview_short];
+  }
+
+  const type = getDataType(data);
+
+  switch (type) {
+    case 'html_element':
+      return `<${truncateForDisplay(data.tagName.toLowerCase())} />`;
+
+    case 'function':
+      return truncateForDisplay(`ƒ ${typeof data.name === 'function' ? '' : data.name}() {}`);
+
+    case 'string':
+      return `"${data}"`;
+
+    case 'bigint':
+      return truncateForDisplay(data.toString() + 'n');
+
+    case 'regexp':
+      return truncateForDisplay(data.toString());
+
+    case 'symbol':
+      return truncateForDisplay(data.toString());
+
+    case 'react_element':
+      return `<${truncateForDisplay(getDisplayNameForReactElement(data) || 'Unknown')} />`;
+
+    case 'array_buffer':
+      return `ArrayBuffer(${data.byteLength})`;
+
+    case 'data_view':
+      return `DataView(${data.buffer.byteLength})`;
+
+    case 'array':
+      if (showFormattedValue) {
+        let formatted = '';
+
+        for (let i = 0; i < data.length; i++) {
+          if (i > 0) {
+            formatted += ', ';
+          }
+
+          formatted += formatDataForPreview(data[i], false);
+
+          if (formatted.length > MAX_PREVIEW_STRING_LENGTH) {
+            // Prevent doing a lot of unnecessary iteration...
+            break;
           }
         }
 
-        if (latestBreakOnConsoleErrors) {
-          // --- Welcome to debugging with React DevTools ---
-          // This debugger statement means that you've enabled the "break on warnings" feature.
-          // Use the browser's Call Stack panel to step out of this override function-
-          // to where the original warning or error was logged.
-          // eslint-disable-next-line no-debugger
-          debugger;
+        return `[${truncateForDisplay(formatted)}]`;
+      } else {
+        const length = hasOwnProperty.call(data, hydration["d" /* meta */].size) ? data[hydration["d" /* meta */].size] : data.length;
+        return `Array(${length})`;
+      }
+
+    case 'typed_array':
+      const shortName = `${data.constructor.name}(${data.length})`;
+
+      if (showFormattedValue) {
+        let formatted = '';
+
+        for (let i = 0; i < data.length; i++) {
+          if (i > 0) {
+            formatted += ', ';
+          }
+
+          formatted += data[i];
+
+          if (formatted.length > MAX_PREVIEW_STRING_LENGTH) {
+            // Prevent doing a lot of unnecessary iteration...
+            break;
+          }
         }
 
-        originalMethod.apply(void 0, args);
-      };
+        return `${shortName} [${truncateForDisplay(formatted)}]`;
+      } else {
+        return shortName;
+      }
 
-      overrideMethod.__REACT_DEVTOOLS_ORIGINAL_METHOD__ = originalMethod; // $FlowFixMe property error|warn is not writable.
+    case 'iterator':
+      const name = data.constructor.name;
 
-      targetConsole[method] = overrideMethod;
-    } catch (error) {}
-  });
-} // Removed component stack patch from console methods.
+      if (showFormattedValue) {
+        // TRICKY
+        // Don't use [...spread] syntax for this purpose.
+        // This project uses @babel/plugin-transform-spread in "loose" mode which only works with Array values.
+        // Other types (e.g. typed arrays, Sets) will not spread correctly.
+        const array = Array.from(data);
+        let formatted = '';
 
-function unpatch() {
-  if (unpatchFn !== null) {
-    unpatchFn();
-    unpatchFn = null;
+        for (let i = 0; i < array.length; i++) {
+          const entryOrEntries = array[i];
+
+          if (i > 0) {
+            formatted += ', ';
+          } // TRICKY
+          // Browsers display Maps and Sets differently.
+          // To mimic their behavior, detect if we've been given an entries tuple.
+          //   Map(2) {"abc" => 123, "def" => 123}
+          //   Set(2) {"abc", 123}
+
+
+          if (Array.isArray(entryOrEntries)) {
+            const key = formatDataForPreview(entryOrEntries[0], true);
+            const value = formatDataForPreview(entryOrEntries[1], false);
+            formatted += `${key} => ${value}`;
+          } else {
+            formatted += formatDataForPreview(entryOrEntries, false);
+          }
+
+          if (formatted.length > MAX_PREVIEW_STRING_LENGTH) {
+            // Prevent doing a lot of unnecessary iteration...
+            break;
+          }
+        }
+
+        return `${name}(${data.size}) {${truncateForDisplay(formatted)}}`;
+      } else {
+        return `${name}(${data.size})`;
+      }
+
+    case 'opaque_iterator':
+      {
+        return data[Symbol.toStringTag];
+      }
+
+    case 'date':
+      return data.toString();
+
+    case 'object':
+      if (showFormattedValue) {
+        const keys = getAllEnumerableKeys(data).sort(alphaSortKeys);
+        let formatted = '';
+
+        for (let i = 0; i < keys.length; i++) {
+          const key = keys[i];
+
+          if (i > 0) {
+            formatted += ', ';
+          }
+
+          formatted += `${key.toString()}: ${formatDataForPreview(data[key], false)}`;
+
+          if (formatted.length > MAX_PREVIEW_STRING_LENGTH) {
+            // Prevent doing a lot of unnecessary iteration...
+            break;
+          }
+        }
+
+        return `{${truncateForDisplay(formatted)}}`;
+      } else {
+        return '{…}';
+      }
+
+    case 'boolean':
+    case 'number':
+    case 'infinity':
+    case 'nan':
+    case 'null':
+    case 'undefined':
+      return data;
+
+    default:
+      try {
+        return truncateForDisplay('' + data);
+      } catch (error) {
+        return 'unserializable';
+      }
+
   }
 }
 
 /***/ }),
 
-/***/ 28:
+/***/ 29:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(process) {function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-exports = module.exports = SemVer;
+/* WEBPACK VAR INJECTION */(function(process) {exports = module.exports = SemVer;
 var debug;
 /* istanbul ignore next */
 
-if ((typeof process === "undefined" ? "undefined" : _typeof(process)) === 'object' && process.env && process.env.NODE_DEBUG && /\bsemver\b/i.test(process.env.NODE_DEBUG)) {
+if (typeof process === 'object' && process.env && process.env.NODE_DEBUG && /\bsemver\b/i.test(process.env.NODE_DEBUG)) {
   debug = function debug() {
     var args = Array.prototype.slice.call(arguments, 0);
     args.unshift('SEMVER');
@@ -2320,7 +1902,7 @@ for (var i = 0; i < R; i++) {
 exports.parse = parse;
 
 function parse(version, options) {
-  if (!options || _typeof(options) !== 'object') {
+  if (!options || typeof options !== 'object') {
     options = {
       loose: !!options,
       includePrerelease: false
@@ -2369,7 +1951,7 @@ function clean(version, options) {
 exports.SemVer = SemVer;
 
 function SemVer(version, options) {
-  if (!options || _typeof(options) !== 'object') {
+  if (!options || typeof options !== 'object') {
     options = {
       loose: !!options,
       includePrerelease: false
@@ -2820,13 +2402,13 @@ exports.cmp = cmp;
 function cmp(a, op, b, loose) {
   switch (op) {
     case '===':
-      if (_typeof(a) === 'object') a = a.version;
-      if (_typeof(b) === 'object') b = b.version;
+      if (typeof a === 'object') a = a.version;
+      if (typeof b === 'object') b = b.version;
       return a === b;
 
     case '!==':
-      if (_typeof(a) === 'object') a = a.version;
-      if (_typeof(b) === 'object') b = b.version;
+      if (typeof a === 'object') a = a.version;
+      if (typeof b === 'object') b = b.version;
       return a !== b;
 
     case '':
@@ -2857,7 +2439,7 @@ function cmp(a, op, b, loose) {
 exports.Comparator = Comparator;
 
 function Comparator(comp, options) {
-  if (!options || _typeof(options) !== 'object') {
+  if (!options || typeof options !== 'object') {
     options = {
       loose: !!options,
       includePrerelease: false
@@ -2941,7 +2523,7 @@ Comparator.prototype.intersects = function (comp, options) {
     throw new TypeError('a Comparator is required');
   }
 
-  if (!options || _typeof(options) !== 'object') {
+  if (!options || typeof options !== 'object') {
     options = {
       loose: !!options,
       includePrerelease: false
@@ -2978,7 +2560,7 @@ Comparator.prototype.intersects = function (comp, options) {
 exports.Range = Range;
 
 function Range(range, options) {
-  if (!options || _typeof(options) !== 'object') {
+  if (!options || typeof options !== 'object') {
     options = {
       loose: !!options,
       includePrerelease: false
@@ -3694,7 +3276,7 @@ function coerce(version, options) {
 
   return parse(match[2] + '.' + (match[3] || '0') + '.' + (match[4] || '0'), options);
 }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(44)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(45)))
 
 /***/ }),
 
@@ -3728,37 +3310,37 @@ function coerce(version, options) {
  * 
  */
 // Flip this flag to true to enable verbose console debug logging.
-var __DEBUG__ = false;
-var TREE_OPERATION_ADD = 1;
-var TREE_OPERATION_REMOVE = 2;
-var TREE_OPERATION_REORDER_CHILDREN = 3;
-var TREE_OPERATION_UPDATE_TREE_BASE_DURATION = 4;
-var LOCAL_STORAGE_FILTER_PREFERENCES_KEY = 'React::DevTools::componentFilters';
-var SESSION_STORAGE_LAST_SELECTION_KEY = 'React::DevTools::lastSelection';
-var SESSION_STORAGE_RECORD_CHANGE_DESCRIPTIONS_KEY = 'React::DevTools::recordChangeDescriptions';
-var SESSION_STORAGE_RELOAD_AND_PROFILE_KEY = 'React::DevTools::reloadAndProfile';
-var LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS = 'React::DevTools::breakOnConsoleErrors';
-var LOCAL_STORAGE_SHOULD_PATCH_CONSOLE_KEY = 'React::DevTools::appendComponentStack';
-var LOCAL_STORAGE_TRACE_UPDATES_ENABLED_KEY = 'React::DevTools::traceUpdatesEnabled';
-var PROFILER_EXPORT_VERSION = 4;
-var CHANGE_LOG_URL = 'https://github.com/facebook/react/blob/master/packages/react-devtools/CHANGELOG.md';
-var UNSUPPORTED_VERSION_URL = 'https://reactjs.org/blog/2019/08/15/new-react-devtools.html#how-do-i-get-the-old-version-back'; // HACK
+const __DEBUG__ = false;
+const TREE_OPERATION_ADD = 1;
+const TREE_OPERATION_REMOVE = 2;
+const TREE_OPERATION_REORDER_CHILDREN = 3;
+const TREE_OPERATION_UPDATE_TREE_BASE_DURATION = 4;
+const LOCAL_STORAGE_FILTER_PREFERENCES_KEY = 'React::DevTools::componentFilters';
+const SESSION_STORAGE_LAST_SELECTION_KEY = 'React::DevTools::lastSelection';
+const SESSION_STORAGE_RECORD_CHANGE_DESCRIPTIONS_KEY = 'React::DevTools::recordChangeDescriptions';
+const SESSION_STORAGE_RELOAD_AND_PROFILE_KEY = 'React::DevTools::reloadAndProfile';
+const LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS = 'React::DevTools::breakOnConsoleErrors';
+const LOCAL_STORAGE_SHOULD_PATCH_CONSOLE_KEY = 'React::DevTools::appendComponentStack';
+const LOCAL_STORAGE_TRACE_UPDATES_ENABLED_KEY = 'React::DevTools::traceUpdatesEnabled';
+const PROFILER_EXPORT_VERSION = 4;
+const CHANGE_LOG_URL = 'https://github.com/facebook/react/blob/master/packages/react-devtools/CHANGELOG.md';
+const UNSUPPORTED_VERSION_URL = 'https://reactjs.org/blog/2019/08/15/new-react-devtools.html#how-do-i-get-the-old-version-back'; // HACK
 //
 // Extracting during build time avoids a temporarily invalid state for the inline target.
 // Sometimes the inline target is rendered before root styles are applied,
 // which would result in e.g. NaN itemSize being passed to react-window list.
 //
 
-var COMFORTABLE_LINE_HEIGHT;
-var COMPACT_LINE_HEIGHT;
+let COMFORTABLE_LINE_HEIGHT;
+let COMPACT_LINE_HEIGHT;
 
 try {
   // $FlowFixMe
-  var rawStyleString = __webpack_require__(48).default;
+  const rawStyleString = __webpack_require__(49).default;
 
-  var extractVar = function extractVar(varName) {
-    var regExp = new RegExp("".concat(varName, ": ([0-9]+)"));
-    var match = rawStyleString.match(regExp);
+  const extractVar = varName => {
+    const regExp = new RegExp(`${varName}: ([0-9]+)`);
+    const match = rawStyleString.match(regExp);
     return parseInt(match[1], 10);
   };
 
@@ -3775,7 +3357,7 @@ try {
 
 /***/ }),
 
-/***/ 32:
+/***/ 33:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3877,34 +3459,26 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 /***/ }),
 
-/***/ 33:
+/***/ 34:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
  // A linked list to keep track of recently-used-ness
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+const Yallist = __webpack_require__(46);
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+const MAX = Symbol('max');
+const LENGTH = Symbol('length');
+const LENGTH_CALCULATOR = Symbol('lengthCalculator');
+const ALLOW_STALE = Symbol('allowStale');
+const MAX_AGE = Symbol('maxAge');
+const DISPOSE = Symbol('dispose');
+const NO_DISPOSE_ON_SET = Symbol('noDisposeOnSet');
+const LRU_LIST = Symbol('lruList');
+const CACHE = Symbol('cache');
+const UPDATE_AGE_ON_GET = Symbol('updateAgeOnGet');
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var Yallist = __webpack_require__(45);
-
-var MAX = Symbol('max');
-var LENGTH = Symbol('length');
-var LENGTH_CALCULATOR = Symbol('lengthCalculator');
-var ALLOW_STALE = Symbol('allowStale');
-var MAX_AGE = Symbol('maxAge');
-var DISPOSE = Symbol('dispose');
-var NO_DISPOSE_ON_SET = Symbol('noDisposeOnSet');
-var LRU_LIST = Symbol('lruList');
-var CACHE = Symbol('cache');
-var UPDATE_AGE_ON_GET = Symbol('updateAgeOnGet');
-
-var naiveLength = function naiveLength() {
-  return 1;
-}; // lruList is a yallist where the head is the youngest
+const naiveLength = () => 1; // lruList is a yallist where the head is the youngest
 // item, and the tail is the oldest.  the list contains the Hit
 // objects as the entries.
 // Each Hit object has a reference to its Yallist.Node.  This
@@ -3914,20 +3488,16 @@ var naiveLength = function naiveLength() {
 // the Yallist.Node object.
 
 
-var LRUCache =
-/*#__PURE__*/
-function () {
-  function LRUCache(options) {
-    _classCallCheck(this, LRUCache);
-
+class LRUCache {
+  constructor(options) {
     if (typeof options === 'number') options = {
       max: options
     };
     if (!options) options = {};
     if (options.max && (typeof options.max !== 'number' || options.max < 0)) throw new TypeError('max must be a non-negative number'); // Kind of weird to have a default max of Infinity, but oh well.
 
-    var max = this[MAX] = options.max || Infinity;
-    var lc = options.length || naiveLength;
+    const max = this[MAX] = options.max || Infinity;
+    const lc = options.length || naiveLength;
     this[LENGTH_CALCULATOR] = typeof lc !== 'function' ? naiveLength : lc;
     this[ALLOW_STALE] = options.stale || false;
     if (options.maxAge && typeof options.maxAge !== 'number') throw new TypeError('maxAge must be a number');
@@ -3939,260 +3509,216 @@ function () {
   } // resize the cache when the max changes.
 
 
-  _createClass(LRUCache, [{
-    key: "rforEach",
-    value: function rforEach(fn, thisp) {
-      thisp = thisp || this;
+  set max(mL) {
+    if (typeof mL !== 'number' || mL < 0) throw new TypeError('max must be a non-negative number');
+    this[MAX] = mL || Infinity;
+    trim(this);
+  }
 
-      for (var walker = this[LRU_LIST].tail; walker !== null;) {
-        var prev = walker.prev;
-        forEachStep(this, fn, walker, thisp);
-        walker = prev;
-      }
-    }
-  }, {
-    key: "forEach",
-    value: function forEach(fn, thisp) {
-      thisp = thisp || this;
+  get max() {
+    return this[MAX];
+  }
 
-      for (var walker = this[LRU_LIST].head; walker !== null;) {
-        var next = walker.next;
-        forEachStep(this, fn, walker, thisp);
-        walker = next;
-      }
-    }
-  }, {
-    key: "keys",
-    value: function keys() {
-      return this[LRU_LIST].toArray().map(function (k) {
-        return k.key;
+  set allowStale(allowStale) {
+    this[ALLOW_STALE] = !!allowStale;
+  }
+
+  get allowStale() {
+    return this[ALLOW_STALE];
+  }
+
+  set maxAge(mA) {
+    if (typeof mA !== 'number') throw new TypeError('maxAge must be a non-negative number');
+    this[MAX_AGE] = mA;
+    trim(this);
+  }
+
+  get maxAge() {
+    return this[MAX_AGE];
+  } // resize the cache when the lengthCalculator changes.
+
+
+  set lengthCalculator(lC) {
+    if (typeof lC !== 'function') lC = naiveLength;
+
+    if (lC !== this[LENGTH_CALCULATOR]) {
+      this[LENGTH_CALCULATOR] = lC;
+      this[LENGTH] = 0;
+      this[LRU_LIST].forEach(hit => {
+        hit.length = this[LENGTH_CALCULATOR](hit.value, hit.key);
+        this[LENGTH] += hit.length;
       });
     }
-  }, {
-    key: "values",
-    value: function values() {
-      return this[LRU_LIST].toArray().map(function (k) {
-        return k.value;
-      });
+
+    trim(this);
+  }
+
+  get lengthCalculator() {
+    return this[LENGTH_CALCULATOR];
+  }
+
+  get length() {
+    return this[LENGTH];
+  }
+
+  get itemCount() {
+    return this[LRU_LIST].length;
+  }
+
+  rforEach(fn, thisp) {
+    thisp = thisp || this;
+
+    for (let walker = this[LRU_LIST].tail; walker !== null;) {
+      const prev = walker.prev;
+      forEachStep(this, fn, walker, thisp);
+      walker = prev;
     }
-  }, {
-    key: "reset",
-    value: function reset() {
-      var _this = this;
+  }
 
-      if (this[DISPOSE] && this[LRU_LIST] && this[LRU_LIST].length) {
-        this[LRU_LIST].forEach(function (hit) {
-          return _this[DISPOSE](hit.key, hit.value);
-        });
-      }
+  forEach(fn, thisp) {
+    thisp = thisp || this;
 
-      this[CACHE] = new Map(); // hash of items by key
-
-      this[LRU_LIST] = new Yallist(); // list of items in order of use recency
-
-      this[LENGTH] = 0; // length of items in the list
+    for (let walker = this[LRU_LIST].head; walker !== null;) {
+      const next = walker.next;
+      forEachStep(this, fn, walker, thisp);
+      walker = next;
     }
-  }, {
-    key: "dump",
-    value: function dump() {
-      var _this2 = this;
+  }
 
-      return this[LRU_LIST].map(function (hit) {
-        return isStale(_this2, hit) ? false : {
-          k: hit.key,
-          v: hit.value,
-          e: hit.now + (hit.maxAge || 0)
-        };
-      }).toArray().filter(function (h) {
-        return h;
-      });
+  keys() {
+    return this[LRU_LIST].toArray().map(k => k.key);
+  }
+
+  values() {
+    return this[LRU_LIST].toArray().map(k => k.value);
+  }
+
+  reset() {
+    if (this[DISPOSE] && this[LRU_LIST] && this[LRU_LIST].length) {
+      this[LRU_LIST].forEach(hit => this[DISPOSE](hit.key, hit.value));
     }
-  }, {
-    key: "dumpLru",
-    value: function dumpLru() {
-      return this[LRU_LIST];
-    }
-  }, {
-    key: "set",
-    value: function set(key, value, maxAge) {
-      maxAge = maxAge || this[MAX_AGE];
-      if (maxAge && typeof maxAge !== 'number') throw new TypeError('maxAge must be a number');
-      var now = maxAge ? Date.now() : 0;
-      var len = this[LENGTH_CALCULATOR](value, key);
 
-      if (this[CACHE].has(key)) {
-        if (len > this[MAX]) {
-          _del(this, this[CACHE].get(key));
+    this[CACHE] = new Map(); // hash of items by key
 
-          return false;
-        }
+    this[LRU_LIST] = new Yallist(); // list of items in order of use recency
 
-        var node = this[CACHE].get(key);
-        var item = node.value; // dispose of the old one before overwriting
-        // split out into 2 ifs for better coverage tracking
+    this[LENGTH] = 0; // length of items in the list
+  }
 
-        if (this[DISPOSE]) {
-          if (!this[NO_DISPOSE_ON_SET]) this[DISPOSE](key, item.value);
-        }
+  dump() {
+    return this[LRU_LIST].map(hit => isStale(this, hit) ? false : {
+      k: hit.key,
+      v: hit.value,
+      e: hit.now + (hit.maxAge || 0)
+    }).toArray().filter(h => h);
+  }
 
-        item.now = now;
-        item.maxAge = maxAge;
-        item.value = value;
-        this[LENGTH] += len - item.length;
-        item.length = len;
-        this.get(key);
-        trim(this);
-        return true;
-      }
+  dumpLru() {
+    return this[LRU_LIST];
+  }
 
-      var hit = new Entry(key, value, len, now, maxAge); // oversized objects fall out of cache automatically.
+  set(key, value, maxAge) {
+    maxAge = maxAge || this[MAX_AGE];
+    if (maxAge && typeof maxAge !== 'number') throw new TypeError('maxAge must be a number');
+    const now = maxAge ? Date.now() : 0;
+    const len = this[LENGTH_CALCULATOR](value, key);
 
-      if (hit.length > this[MAX]) {
-        if (this[DISPOSE]) this[DISPOSE](key, value);
+    if (this[CACHE].has(key)) {
+      if (len > this[MAX]) {
+        del(this, this[CACHE].get(key));
         return false;
       }
 
-      this[LENGTH] += hit.length;
-      this[LRU_LIST].unshift(hit);
-      this[CACHE].set(key, this[LRU_LIST].head);
+      const node = this[CACHE].get(key);
+      const item = node.value; // dispose of the old one before overwriting
+      // split out into 2 ifs for better coverage tracking
+
+      if (this[DISPOSE]) {
+        if (!this[NO_DISPOSE_ON_SET]) this[DISPOSE](key, item.value);
+      }
+
+      item.now = now;
+      item.maxAge = maxAge;
+      item.value = value;
+      this[LENGTH] += len - item.length;
+      item.length = len;
+      this.get(key);
       trim(this);
       return true;
     }
-  }, {
-    key: "has",
-    value: function has(key) {
-      if (!this[CACHE].has(key)) return false;
-      var hit = this[CACHE].get(key).value;
-      return !isStale(this, hit);
-    }
-  }, {
-    key: "get",
-    value: function get(key) {
-      return _get(this, key, true);
-    }
-  }, {
-    key: "peek",
-    value: function peek(key) {
-      return _get(this, key, false);
-    }
-  }, {
-    key: "pop",
-    value: function pop() {
-      var node = this[LRU_LIST].tail;
-      if (!node) return null;
 
-      _del(this, node);
+    const hit = new Entry(key, value, len, now, maxAge); // oversized objects fall out of cache automatically.
 
-      return node.value;
+    if (hit.length > this[MAX]) {
+      if (this[DISPOSE]) this[DISPOSE](key, value);
+      return false;
     }
-  }, {
-    key: "del",
-    value: function del(key) {
-      _del(this, this[CACHE].get(key));
-    }
-  }, {
-    key: "load",
-    value: function load(arr) {
-      // reset the cache
-      this.reset();
-      var now = Date.now(); // A previous serialized cache has the most recent items first
 
-      for (var l = arr.length - 1; l >= 0; l--) {
-        var hit = arr[l];
-        var expiresAt = hit.e || 0;
-        if (expiresAt === 0) // the item was created without expiration in a non aged cache
-          this.set(hit.k, hit.v);else {
-          var maxAge = expiresAt - now; // dont add already expired items
+    this[LENGTH] += hit.length;
+    this[LRU_LIST].unshift(hit);
+    this[CACHE].set(key, this[LRU_LIST].head);
+    trim(this);
+    return true;
+  }
 
-          if (maxAge > 0) {
-            this.set(hit.k, hit.v, maxAge);
-          }
+  has(key) {
+    if (!this[CACHE].has(key)) return false;
+    const hit = this[CACHE].get(key).value;
+    return !isStale(this, hit);
+  }
+
+  get(key) {
+    return get(this, key, true);
+  }
+
+  peek(key) {
+    return get(this, key, false);
+  }
+
+  pop() {
+    const node = this[LRU_LIST].tail;
+    if (!node) return null;
+    del(this, node);
+    return node.value;
+  }
+
+  del(key) {
+    del(this, this[CACHE].get(key));
+  }
+
+  load(arr) {
+    // reset the cache
+    this.reset();
+    const now = Date.now(); // A previous serialized cache has the most recent items first
+
+    for (let l = arr.length - 1; l >= 0; l--) {
+      const hit = arr[l];
+      const expiresAt = hit.e || 0;
+      if (expiresAt === 0) // the item was created without expiration in a non aged cache
+        this.set(hit.k, hit.v);else {
+        const maxAge = expiresAt - now; // dont add already expired items
+
+        if (maxAge > 0) {
+          this.set(hit.k, hit.v, maxAge);
         }
       }
     }
-  }, {
-    key: "prune",
-    value: function prune() {
-      var _this3 = this;
+  }
 
-      this[CACHE].forEach(function (value, key) {
-        return _get(_this3, key, false);
-      });
-    }
-  }, {
-    key: "max",
-    set: function set(mL) {
-      if (typeof mL !== 'number' || mL < 0) throw new TypeError('max must be a non-negative number');
-      this[MAX] = mL || Infinity;
-      trim(this);
-    },
-    get: function get() {
-      return this[MAX];
-    }
-  }, {
-    key: "allowStale",
-    set: function set(allowStale) {
-      this[ALLOW_STALE] = !!allowStale;
-    },
-    get: function get() {
-      return this[ALLOW_STALE];
-    }
-  }, {
-    key: "maxAge",
-    set: function set(mA) {
-      if (typeof mA !== 'number') throw new TypeError('maxAge must be a non-negative number');
-      this[MAX_AGE] = mA;
-      trim(this);
-    },
-    get: function get() {
-      return this[MAX_AGE];
-    } // resize the cache when the lengthCalculator changes.
+  prune() {
+    this[CACHE].forEach((value, key) => get(this, key, false));
+  }
 
-  }, {
-    key: "lengthCalculator",
-    set: function set(lC) {
-      var _this4 = this;
+}
 
-      if (typeof lC !== 'function') lC = naiveLength;
-
-      if (lC !== this[LENGTH_CALCULATOR]) {
-        this[LENGTH_CALCULATOR] = lC;
-        this[LENGTH] = 0;
-        this[LRU_LIST].forEach(function (hit) {
-          hit.length = _this4[LENGTH_CALCULATOR](hit.value, hit.key);
-          _this4[LENGTH] += hit.length;
-        });
-      }
-
-      trim(this);
-    },
-    get: function get() {
-      return this[LENGTH_CALCULATOR];
-    }
-  }, {
-    key: "length",
-    get: function get() {
-      return this[LENGTH];
-    }
-  }, {
-    key: "itemCount",
-    get: function get() {
-      return this[LRU_LIST].length;
-    }
-  }]);
-
-  return LRUCache;
-}();
-
-var _get = function _get(self, key, doUse) {
-  var node = self[CACHE].get(key);
+const get = (self, key, doUse) => {
+  const node = self[CACHE].get(key);
 
   if (node) {
-    var hit = node.value;
+    const hit = node.value;
 
     if (isStale(self, hit)) {
-      _del(self, node);
-
+      del(self, node);
       if (!self[ALLOW_STALE]) return undefined;
     } else {
       if (doUse) {
@@ -4205,30 +3731,28 @@ var _get = function _get(self, key, doUse) {
   }
 };
 
-var isStale = function isStale(self, hit) {
+const isStale = (self, hit) => {
   if (!hit || !hit.maxAge && !self[MAX_AGE]) return false;
-  var diff = Date.now() - hit.now;
+  const diff = Date.now() - hit.now;
   return hit.maxAge ? diff > hit.maxAge : self[MAX_AGE] && diff > self[MAX_AGE];
 };
 
-var trim = function trim(self) {
+const trim = self => {
   if (self[LENGTH] > self[MAX]) {
-    for (var walker = self[LRU_LIST].tail; self[LENGTH] > self[MAX] && walker !== null;) {
+    for (let walker = self[LRU_LIST].tail; self[LENGTH] > self[MAX] && walker !== null;) {
       // We know that we're about to delete this one, and also
       // what the next least recently used key will be, so just
       // go ahead and set it now.
-      var prev = walker.prev;
-
-      _del(self, walker);
-
+      const prev = walker.prev;
+      del(self, walker);
       walker = prev;
     }
   }
 };
 
-var _del = function _del(self, node) {
+const del = (self, node) => {
   if (node) {
-    var hit = node.value;
+    const hit = node.value;
     if (self[DISPOSE]) self[DISPOSE](hit.key, hit.value);
     self[LENGTH] -= hit.length;
     self[CACHE].delete(hit.key);
@@ -4236,22 +3760,22 @@ var _del = function _del(self, node) {
   }
 };
 
-var Entry = function Entry(key, value, length, now, maxAge) {
-  _classCallCheck(this, Entry);
+class Entry {
+  constructor(key, value, length, now, maxAge) {
+    this.key = key;
+    this.value = value;
+    this.length = length;
+    this.now = now;
+    this.maxAge = maxAge || 0;
+  }
 
-  this.key = key;
-  this.value = value;
-  this.length = length;
-  this.now = now;
-  this.maxAge = maxAge || 0;
-};
+}
 
-var forEachStep = function forEachStep(self, fn, node, thisp) {
-  var hit = node.value;
+const forEachStep = (self, fn, node, thisp) => {
+  let hit = node.value;
 
   if (isStale(self, hit)) {
-    _del(self, node);
-
+    del(self, node);
     if (!self[ALLOW_STALE]) hit = undefined;
   }
 
@@ -4268,30 +3792,576 @@ module.exports = LRUCache;
 "use strict";
 
 // EXPORTS
+__webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ registerRenderer; });
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ patch; });
+
+// UNUSED EXPORTS: dangerous_setTargetConsoleForTesting, unpatch
+
+// EXTERNAL MODULE: ../react-devtools-shared/src/backend/renderer.js + 1 modules
+var backend_renderer = __webpack_require__(37);
+
+// EXTERNAL MODULE: ../react-devtools-shared/src/backend/ReactSymbols.js
+var ReactSymbols = __webpack_require__(4);
+
+// CONCATENATED MODULE: ../shared/ConsolePatchingDev.js
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+// Helpers to patch console.logs to avoid logging during side-effect free
+// replaying on render function. This currently only patches the object
+// lazily which won't cover if the log function was extracted eagerly.
+// We could also eagerly patch the method.
+let disabledDepth = 0;
+let prevLog;
+let prevInfo;
+let prevWarn;
+let prevError;
+let prevGroup;
+let prevGroupCollapsed;
+let prevGroupEnd;
+
+function disabledLog() {}
+
+disabledLog.__reactDisabledLog = true;
+function disableLogs() {
+  if (false) {}
+}
+function reenableLogs() {
+  if (false) {}
+}
+// CONCATENATED MODULE: ../react-devtools-shared/src/backend/DevToolsComponentStackFrame.js
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+// This is a DevTools fork of ReactComponentStackFrame.
+// This fork enables DevTools to use the same "native" component stack format,
+// while still maintaining support for multiple renderer versions
+// (which use different values for ReactTypeOfWork).
+ // These methods are safe to import from shared;
+// there is no React-specific logic here.
+
+
+let prefix;
+function describeBuiltInComponentFrame(name, source, ownerFn) {
+  if (prefix === undefined) {
+    // Extract the VM specific prefix used by each line.
+    try {
+      throw Error();
+    } catch (x) {
+      const match = x.stack.trim().match(/\n( *(at )?)/);
+      prefix = match && match[1] || '';
+    }
+  } // We use the prefix to ensure our stacks line up with native stack frames.
+
+
+  return '\n' + prefix + name;
+}
+let reentry = false;
+let componentFrameCache;
+
+if (false) {}
+
+function describeNativeComponentFrame(fn, construct, currentDispatcherRef) {
+  // If something asked for a stack inside a fake render, it should get ignored.
+  if (!fn || reentry) {
+    return '';
+  }
+
+  if (false) {}
+
+  let control;
+  const previousPrepareStackTrace = Error.prepareStackTrace; // $FlowFixMe It does accept undefined.
+
+  Error.prepareStackTrace = undefined;
+  reentry = true; // Override the dispatcher so effects scheduled by this shallow render are thrown away.
+  //
+  // Note that unlike the code this was forked from (in ReactComponentStackFrame)
+  // DevTools should override the dispatcher even when DevTools is compiled in production mode,
+  // because the app itself may be in development mode and log errors/warnings.
+
+  const previousDispatcher = currentDispatcherRef.current;
+  currentDispatcherRef.current = null;
+  disableLogs();
+
+  try {
+    // This should throw.
+    if (construct) {
+      // Something should be setting the props in the constructor.
+      const Fake = function Fake() {
+        throw Error();
+      }; // $FlowFixMe
+
+
+      Object.defineProperty(Fake.prototype, 'props', {
+        set: function set() {
+          // We use a throwing setter instead of frozen or non-writable props
+          // because that won't throw in a non-strict mode function.
+          throw Error();
+        }
+      });
+
+      if (typeof Reflect === 'object' && Reflect.construct) {
+        // We construct a different control for this case to include any extra
+        // frames added by the construct call.
+        try {
+          Reflect.construct(Fake, []);
+        } catch (x) {
+          control = x;
+        }
+
+        Reflect.construct(fn, [], Fake);
+      } else {
+        try {
+          Fake.call();
+        } catch (x) {
+          control = x;
+        }
+
+        fn.call(Fake.prototype);
+      }
+    } else {
+      try {
+        throw Error();
+      } catch (x) {
+        control = x;
+      }
+
+      fn();
+    }
+  } catch (sample) {
+    // This is inlined manually because closure doesn't do it for us.
+    if (sample && control && typeof sample.stack === 'string') {
+      // This extracts the first frame from the sample that isn't also in the control.
+      // Skipping one frame that we assume is the frame that calls the two.
+      const sampleLines = sample.stack.split('\n');
+      const controlLines = control.stack.split('\n');
+      let s = sampleLines.length - 1;
+      let c = controlLines.length - 1;
+
+      while (s >= 1 && c >= 0 && sampleLines[s] !== controlLines[c]) {
+        // We expect at least one stack frame to be shared.
+        // Typically this will be the root most one. However, stack frames may be
+        // cut off due to maximum stack limits. In this case, one maybe cut off
+        // earlier than the other. We assume that the sample is longer or the same
+        // and there for cut off earlier. So we should find the root most frame in
+        // the sample somewhere in the control.
+        c--;
+      }
+
+      for (; s >= 1 && c >= 0; s--, c--) {
+        // Next we find the first one that isn't the same which should be the
+        // frame that called our sample function and the control.
+        if (sampleLines[s] !== controlLines[c]) {
+          // In V8, the first line is describing the message but other VMs don't.
+          // If we're about to return the first line, and the control is also on the same
+          // line, that's a pretty good indicator that our sample threw at same line as
+          // the control. I.e. before we entered the sample frame. So we ignore this result.
+          // This can happen if you passed a class to function component, or non-function.
+          if (s !== 1 || c !== 1) {
+            do {
+              s--;
+              c--; // We may still have similar intermediate frames from the construct call.
+              // The next one that isn't the same should be our match though.
+
+              if (c < 0 || sampleLines[s] !== controlLines[c]) {
+                // V8 adds a "new" prefix for native classes. Let's remove it to make it prettier.
+                const frame = '\n' + sampleLines[s].replace(' at new ', ' at ');
+
+                if (false) {} // Return the line we found.
+
+
+                return frame;
+              }
+            } while (s >= 1 && c >= 0);
+          }
+
+          break;
+        }
+      }
+    }
+  } finally {
+    reentry = false;
+    Error.prepareStackTrace = previousPrepareStackTrace;
+    currentDispatcherRef.current = previousDispatcher;
+    reenableLogs();
+  } // Fallback to just using the name if we couldn't make it throw.
+
+
+  const name = fn ? fn.displayName || fn.name : '';
+  const syntheticFrame = name ? describeBuiltInComponentFrame(name) : '';
+
+  if (false) {}
+
+  return syntheticFrame;
+}
+function describeClassComponentFrame(ctor, source, ownerFn, currentDispatcherRef) {
+  return describeNativeComponentFrame(ctor, true, currentDispatcherRef);
+}
+function describeFunctionComponentFrame(fn, source, ownerFn, currentDispatcherRef) {
+  return describeNativeComponentFrame(fn, false, currentDispatcherRef);
+}
+
+function shouldConstruct(Component) {
+  const prototype = Component.prototype;
+  return !!(prototype && prototype.isReactComponent);
+}
+
+function describeUnknownElementTypeFrameInDEV(type, source, ownerFn, currentDispatcherRef) {
+  if (true) {
+    return '';
+  }
+
+  if (type == null) {
+    return '';
+  }
+
+  if (typeof type === 'function') {
+    return describeNativeComponentFrame(type, shouldConstruct(type), currentDispatcherRef);
+  }
+
+  if (typeof type === 'string') {
+    return describeBuiltInComponentFrame(type, source, ownerFn);
+  }
+
+  switch (type) {
+    case ReactSymbols["x" /* SUSPENSE_NUMBER */]:
+    case ReactSymbols["y" /* SUSPENSE_SYMBOL_STRING */]:
+      return describeBuiltInComponentFrame('Suspense', source, ownerFn);
+
+    case ReactSymbols["v" /* SUSPENSE_LIST_NUMBER */]:
+    case ReactSymbols["w" /* SUSPENSE_LIST_SYMBOL_STRING */]:
+      return describeBuiltInComponentFrame('SuspenseList', source, ownerFn);
+  }
+
+  if (typeof type === 'object') {
+    switch (type.$$typeof) {
+      case ReactSymbols["h" /* FORWARD_REF_NUMBER */]:
+      case ReactSymbols["i" /* FORWARD_REF_SYMBOL_STRING */]:
+        return describeFunctionComponentFrame(type.render, source, ownerFn, currentDispatcherRef);
+
+      case ReactSymbols["l" /* MEMO_NUMBER */]:
+      case ReactSymbols["m" /* MEMO_SYMBOL_STRING */]:
+        // Memo may contain any component type so we recursively resolve it.
+        return describeUnknownElementTypeFrameInDEV(type.type, source, ownerFn, currentDispatcherRef);
+
+      case ReactSymbols["a" /* BLOCK_NUMBER */]:
+      case ReactSymbols["b" /* BLOCK_SYMBOL_STRING */]:
+        return describeFunctionComponentFrame(type._render, source, ownerFn, currentDispatcherRef);
+
+      case ReactSymbols["j" /* LAZY_NUMBER */]:
+      case ReactSymbols["k" /* LAZY_SYMBOL_STRING */]:
+        {
+          const lazyComponent = type;
+          const payload = lazyComponent._payload;
+          const init = lazyComponent._init;
+
+          try {
+            // Lazy may contain any component type so we recursively resolve it.
+            return describeUnknownElementTypeFrameInDEV(init(payload), source, ownerFn, currentDispatcherRef);
+          } catch (x) {}
+        }
+    }
+  }
+
+  return '';
+}
+// CONCATENATED MODULE: ../react-devtools-shared/src/backend/DevToolsFiberComponentStack.js
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+// This is a DevTools fork of ReactFiberComponentStack.
+// This fork enables DevTools to use the same "native" component stack format,
+// while still maintaining support for multiple renderer versions
+// (which use different values for ReactTypeOfWork).
+
+
+function describeFiber(workTagMap, workInProgress, currentDispatcherRef) {
+  const HostComponent = workTagMap.HostComponent,
+        LazyComponent = workTagMap.LazyComponent,
+        SuspenseComponent = workTagMap.SuspenseComponent,
+        SuspenseListComponent = workTagMap.SuspenseListComponent,
+        FunctionComponent = workTagMap.FunctionComponent,
+        IndeterminateComponent = workTagMap.IndeterminateComponent,
+        SimpleMemoComponent = workTagMap.SimpleMemoComponent,
+        ForwardRef = workTagMap.ForwardRef,
+        Block = workTagMap.Block,
+        ClassComponent = workTagMap.ClassComponent;
+  const owner =  false ? undefined : null;
+  const source =  false ? undefined : null;
+
+  switch (workInProgress.tag) {
+    case HostComponent:
+      return describeBuiltInComponentFrame(workInProgress.type, source, owner);
+
+    case LazyComponent:
+      return describeBuiltInComponentFrame('Lazy', source, owner);
+
+    case SuspenseComponent:
+      return describeBuiltInComponentFrame('Suspense', source, owner);
+
+    case SuspenseListComponent:
+      return describeBuiltInComponentFrame('SuspenseList', source, owner);
+
+    case FunctionComponent:
+    case IndeterminateComponent:
+    case SimpleMemoComponent:
+      return describeFunctionComponentFrame(workInProgress.type, source, owner, currentDispatcherRef);
+
+    case ForwardRef:
+      return describeFunctionComponentFrame(workInProgress.type.render, source, owner, currentDispatcherRef);
+
+    case Block:
+      return describeFunctionComponentFrame(workInProgress.type._render, source, owner, currentDispatcherRef);
+
+    case ClassComponent:
+      return describeClassComponentFrame(workInProgress.type, source, owner, currentDispatcherRef);
+
+    default:
+      return '';
+  }
+}
+
+function getStackByFiberInDevAndProd(workTagMap, workInProgress, currentDispatcherRef) {
+  try {
+    let info = '';
+    let node = workInProgress;
+
+    do {
+      info += describeFiber(workTagMap, node, currentDispatcherRef);
+      node = node.return;
+    } while (node);
+
+    return info;
+  } catch (x) {
+    return '\nError generating stack: ' + x.message + '\n' + x.stack;
+  }
+}
+// CONCATENATED MODULE: ../react-devtools-shared/src/backend/console.js
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+
+
+const APPEND_STACK_TO_METHODS = ['error', 'trace', 'warn']; // React's custom built component stack strings match "\s{4}in"
+// Chrome's prefix matches "\s{4}at"
+
+const PREFIX_REGEX = /\s{4}(in|at)\s{1}/; // Firefox and Safari have no prefix ("")
+// but we can fallback to looking for location info (e.g. "foo.js:12:345")
+
+const ROW_COLUMN_NUMBER_REGEX = /:\d+:\d+(\n|$)/;
+const injectedRenderers = new Map();
+let targetConsole = console;
+let targetConsoleMethods = {};
+
+for (const method in console) {
+  targetConsoleMethods[method] = console[method];
+}
+
+let unpatchFn = null; // Enables e.g. Jest tests to inject a mock console object.
+
+function dangerous_setTargetConsoleForTesting(targetConsoleForTesting) {
+  targetConsole = targetConsoleForTesting;
+  targetConsoleMethods = {};
+
+  for (const method in targetConsole) {
+    targetConsoleMethods[method] = console[method];
+  }
+} // v16 renderers should use this method to inject internals necessary to generate a component stack.
+// These internals will be used if the console is patched.
+// Injecting them separately allows the console to easily be patched or un-patched later (at runtime).
+
+function registerRenderer(renderer) {
+  const currentDispatcherRef = renderer.currentDispatcherRef,
+        getCurrentFiber = renderer.getCurrentFiber,
+        findFiberByHostInstance = renderer.findFiberByHostInstance,
+        version = renderer.version; // Ignore React v15 and older because they don't expose a component stack anyway.
+
+  if (typeof findFiberByHostInstance !== 'function') {
+    return;
+  } // currentDispatcherRef gets injected for v16.8+ to support hooks inspection.
+  // getCurrentFiber gets injected for v16.9+.
+
+
+  if (currentDispatcherRef != null && typeof getCurrentFiber === 'function') {
+    const _getInternalReactCons = Object(backend_renderer["b" /* getInternalReactConstants */])(version),
+          ReactTypeOfWork = _getInternalReactCons.ReactTypeOfWork;
+
+    injectedRenderers.set(renderer, {
+      currentDispatcherRef,
+      getCurrentFiber,
+      workTagMap: ReactTypeOfWork
+    });
+  }
+}
+const consoleSettingsRef = {
+  appendComponentStack: false,
+  breakOnConsoleErrors: false
+}; // Patches console methods to append component stack for the current fiber.
+// Call unpatch() to remove the injected behavior.
+
+function patch({
+  appendComponentStack,
+  breakOnConsoleErrors
+}) {
+  // Settings may change after we've patched the console.
+  // Using a shared ref allows the patch function to read the latest values.
+  consoleSettingsRef.appendComponentStack = appendComponentStack;
+  consoleSettingsRef.breakOnConsoleErrors = breakOnConsoleErrors;
+
+  if (unpatchFn !== null) {
+    // Don't patch twice.
+    return;
+  }
+
+  const originalConsoleMethods = {};
+
+  unpatchFn = () => {
+    for (const method in originalConsoleMethods) {
+      try {
+        // $FlowFixMe property error|warn is not writable.
+        targetConsole[method] = originalConsoleMethods[method];
+      } catch (error) {}
+    }
+  };
+
+  APPEND_STACK_TO_METHODS.forEach(method => {
+    try {
+      const originalMethod = originalConsoleMethods[method] = targetConsole[method];
+
+      const overrideMethod = (...args) => {
+        const latestAppendComponentStack = consoleSettingsRef.appendComponentStack;
+        const latestBreakOnConsoleErrors = consoleSettingsRef.breakOnConsoleErrors;
+
+        if (latestAppendComponentStack) {
+          try {
+            // If we are ever called with a string that already has a component stack, e.g. a React error/warning,
+            // don't append a second stack.
+            const lastArg = args.length > 0 ? args[args.length - 1] : null;
+            const alreadyHasComponentStack = lastArg !== null && (PREFIX_REGEX.test(lastArg) || ROW_COLUMN_NUMBER_REGEX.test(lastArg));
+
+            if (!alreadyHasComponentStack) {
+              // If there's a component stack for at least one of the injected renderers, append it.
+              // We don't handle the edge case of stacks for more than one (e.g. interleaved renderers?)
+              // eslint-disable-next-line no-for-of-loops/no-for-of-loops
+              var _iterator = _createForOfIteratorHelper(injectedRenderers.values()),
+                  _step;
+
+              try {
+                for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                  const _step$value = _step.value,
+                        currentDispatcherRef = _step$value.currentDispatcherRef,
+                        getCurrentFiber = _step$value.getCurrentFiber,
+                        workTagMap = _step$value.workTagMap;
+                  const current = getCurrentFiber();
+
+                  if (current != null) {
+                    const componentStack = getStackByFiberInDevAndProd(workTagMap, current, currentDispatcherRef);
+
+                    if (componentStack !== '') {
+                      args.push(componentStack);
+                    }
+
+                    break;
+                  }
+                }
+              } catch (err) {
+                _iterator.e(err);
+              } finally {
+                _iterator.f();
+              }
+            }
+          } catch (error) {// Don't let a DevTools or React internal error interfere with logging.
+          }
+        }
+
+        if (latestBreakOnConsoleErrors) {
+          // --- Welcome to debugging with React DevTools ---
+          // This debugger statement means that you've enabled the "break on warnings" feature.
+          // Use the browser's Call Stack panel to step out of this override function-
+          // to where the original warning or error was logged.
+          // eslint-disable-next-line no-debugger
+          debugger;
+        }
+
+        originalMethod(...args);
+      };
+
+      overrideMethod.__REACT_DEVTOOLS_ORIGINAL_METHOD__ = originalMethod; // $FlowFixMe property error|warn is not writable.
+
+      targetConsole[method] = overrideMethod;
+    } catch (error) {}
+  });
+} // Removed component stack patch from console methods.
+
+function unpatch() {
+  if (unpatchFn !== null) {
+    unpatchFn();
+    unpatchFn = null;
+  }
+}
+
+/***/ }),
+
+/***/ 37:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
 __webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ getInternalReactConstants; });
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ attach; });
 
 // EXTERNAL MODULE: ../react-devtools-shared/node_modules/semver/semver.js
-var semver = __webpack_require__(28);
+var semver = __webpack_require__(29);
 
 // EXTERNAL MODULE: ../react-devtools-shared/src/types.js
 var types = __webpack_require__(1);
 
-// EXTERNAL MODULE: ../react-devtools-shared/src/utils.js
+// EXTERNAL MODULE: ../react-devtools-shared/src/utils.js + 1 modules
 var utils = __webpack_require__(2);
 
 // EXTERNAL MODULE: ../react-devtools-shared/src/storage.js
 var storage = __webpack_require__(7);
 
-// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react/node_modules/clipboard-js/clipboard.js
-var clipboard = __webpack_require__(20);
+// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.alt2/node_modules/clipboard-js/clipboard.js
+var clipboard = __webpack_require__(17);
 
 // EXTERNAL MODULE: ../react-devtools-shared/src/hydration.js
 var hydration = __webpack_require__(8);
 
 // CONCATENATED MODULE: ../react-devtools-shared/src/backend/utils.js
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -4308,13 +4378,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  */
 
 
-function cleanForBridge(data, isPathAllowed) {
-  var path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-
+function cleanForBridge(data, isPathAllowed, path = []) {
   if (data !== null) {
-    var cleanedPaths = [];
-    var unserializablePaths = [];
-    var cleanedData = Object(hydration["a" /* dehydrate */])(data, cleanedPaths, unserializablePaths, path, isPathAllowed);
+    const cleanedPaths = [];
+    const unserializablePaths = [];
+    const cleanedData = Object(hydration["a" /* dehydrate */])(data, cleanedPaths, unserializablePaths, path, isPathAllowed);
     return {
       data: cleanedData,
       cleaned: cleanedPaths,
@@ -4325,38 +4393,76 @@ function cleanForBridge(data, isPathAllowed) {
   }
 }
 function copyToClipboard(value) {
-  var safeToCopy = serializeToString(value);
-  var text = safeToCopy === undefined ? 'undefined' : safeToCopy;
-  var clipboardCopyText = window.__REACT_DEVTOOLS_GLOBAL_HOOK__.clipboardCopyText; // On Firefox navigator.clipboard.writeText has to be called from
+  const safeToCopy = serializeToString(value);
+  const text = safeToCopy === undefined ? 'undefined' : safeToCopy;
+  const clipboardCopyText = window.__REACT_DEVTOOLS_GLOBAL_HOOK__.clipboardCopyText; // On Firefox navigator.clipboard.writeText has to be called from
   // the content script js code (because it requires the clipboardWrite
   // permission to be allowed out of a "user handling" callback),
   // clipboardCopyText is an helper injected into the page from.
   // injectGlobalHook.
 
   if (typeof clipboardCopyText === 'function') {
-    clipboardCopyText(text).catch(function (err) {});
+    clipboardCopyText(text).catch(err => {});
   } else {
     Object(clipboard["copy"])(text);
   }
 }
-function copyWithSet(obj, path, value) {
-  var index = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+function copyWithDelete(obj, path, index = 0) {
+  const key = path[index];
+  const updated = Array.isArray(obj) ? obj.slice() : _objectSpread({}, obj);
 
+  if (index + 1 === path.length) {
+    if (Array.isArray(updated)) {
+      updated.splice(key, 1);
+    } else {
+      delete updated[key];
+    }
+  } else {
+    // $FlowFixMe number or string is fine here
+    updated[key] = copyWithDelete(obj[key], path, index + 1);
+  }
+
+  return updated;
+} // This function expects paths to be the same except for the final value.
+// e.g. ['path', 'to', 'foo'] and ['path', 'to', 'bar']
+
+function copyWithRename(obj, oldPath, newPath, index = 0) {
+  const oldKey = oldPath[index];
+  const updated = Array.isArray(obj) ? obj.slice() : _objectSpread({}, obj);
+
+  if (index + 1 === oldPath.length) {
+    const newKey = newPath[index]; // $FlowFixMe number or string is fine here
+
+    updated[newKey] = updated[oldKey];
+
+    if (Array.isArray(updated)) {
+      updated.splice(oldKey, 1);
+    } else {
+      delete updated[oldKey];
+    }
+  } else {
+    // $FlowFixMe number or string is fine here
+    updated[oldKey] = copyWithRename(obj[oldKey], oldPath, newPath, index + 1);
+  }
+
+  return updated;
+}
+function copyWithSet(obj, path, value, index = 0) {
   if (index >= path.length) {
     return value;
   }
 
-  var key = path[index];
-  var updated = Array.isArray(obj) ? obj.slice() : _objectSpread({}, obj); // $FlowFixMe number or string is fine here
+  const key = path[index];
+  const updated = Array.isArray(obj) ? obj.slice() : _objectSpread({}, obj); // $FlowFixMe number or string is fine here
 
   updated[key] = copyWithSet(obj[key], path, value, index + 1);
   return updated;
 }
 function serializeToString(data) {
-  var cache = new Set(); // Use a custom replacer function to protect against circular references.
+  const cache = new Set(); // Use a custom replacer function to protect against circular references.
 
-  return JSON.stringify(data, function (key, value) {
-    if (_typeof(value) === 'object' && value !== null) {
+  return JSON.stringify(data, (key, value) => {
+    if (typeof value === 'object' && value !== null) {
       if (cache.has(value)) {
         return;
       }
@@ -4375,11 +4481,11 @@ function serializeToString(data) {
 // EXTERNAL MODULE: ../react-devtools-shared/src/constants.js
 var constants = __webpack_require__(3);
 
-// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react/build/node_modules/react-debug-tools/index.js
-var react_debug_tools = __webpack_require__(50);
+// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.alt2/build/node_modules/react-debug-tools/index.js
+var react_debug_tools = __webpack_require__(51);
 
 // EXTERNAL MODULE: ../react-devtools-shared/src/backend/console.js + 3 modules
-var backend_console = __webpack_require__(25);
+var backend_console = __webpack_require__(35);
 
 // EXTERNAL MODULE: ../react-devtools-shared/src/backend/ReactSymbols.js
 var ReactSymbols = __webpack_require__(4);
@@ -4391,23 +4497,19 @@ function renderer_objectSpread(target) { for (var i = 1; i < arguments.length; i
 
 function renderer_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function renderer_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { renderer_typeof = function _typeof(obj) { return typeof obj; }; } else { renderer_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return renderer_typeof(obj); }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -4426,17 +4528,19 @@ function renderer_typeof(obj) { if (typeof Symbol === "function" && typeof Symbo
 
 
 
-// Some environments (e.g. React Native / Hermes) don't support the performance API yet.
-var getCurrentTime = (typeof performance === "undefined" ? "undefined" : renderer_typeof(performance)) === 'object' && typeof performance.now === 'function' ? function () {
-  return performance.now();
-} : function () {
-  return Date.now();
-};
+
+function getFiberFlags(fiber) {
+  // The name of this field changed from "effectTag" to "flags"
+  return fiber.flags !== undefined ? fiber.flags : fiber.effectTag;
+} // Some environments (e.g. React Native / Hermes) don't support the performance API yet.
+
+
+const getCurrentTime = typeof performance === 'object' && typeof performance.now === 'function' ? () => performance.now() : () => Date.now();
 function getInternalReactConstants(version) {
-  var ReactTypeOfSideEffect = {
-    NoEffect: 0,
-    PerformedWork: 1,
-    Placement: 2
+  const ReactTypeOfSideEffect = {
+    NoFlags: 0b00,
+    PerformedWork: 0b01,
+    Placement: 0b10
   }; // **********************************************************
   // The section below is copied from files in React repo.
   // Keep it in sync, and add version guards if it changes.
@@ -4445,7 +4549,7 @@ function getInternalReactConstants(version) {
   // but 16.9 is the first version to report priority level to DevTools,
   // so we can avoid checking for earlier versions and support pre-16.9 canary releases in the process.
 
-  var ReactPriorityLevels = {
+  const ReactPriorityLevels = {
     ImmediatePriority: 99,
     UserBlockingPriority: 98,
     NormalPriority: 97,
@@ -4453,7 +4557,7 @@ function getInternalReactConstants(version) {
     IdlePriority: 95,
     NoPriority: 90
   };
-  var ReactTypeOfWork = null; // **********************************************************
+  let ReactTypeOfWork = null; // **********************************************************
   // The section below is copied from files in React repo.
   // Keep it in sync, and add version guards if it changes.
 
@@ -4607,29 +4711,29 @@ function getInternalReactConstants(version) {
 
 
   function getTypeSymbol(type) {
-    var symbolOrNumber = renderer_typeof(type) === 'object' && type !== null ? type.$$typeof : type; // $FlowFixMe Flow doesn't know about typeof "symbol"
+    const symbolOrNumber = typeof type === 'object' && type !== null ? type.$$typeof : type; // $FlowFixMe Flow doesn't know about typeof "symbol"
 
-    return renderer_typeof(symbolOrNumber) === 'symbol' ? symbolOrNumber.toString() : symbolOrNumber;
+    return typeof symbolOrNumber === 'symbol' ? symbolOrNumber.toString() : symbolOrNumber;
   }
 
-  var _ReactTypeOfWork = ReactTypeOfWork,
-      ClassComponent = _ReactTypeOfWork.ClassComponent,
-      IncompleteClassComponent = _ReactTypeOfWork.IncompleteClassComponent,
-      FunctionComponent = _ReactTypeOfWork.FunctionComponent,
-      IndeterminateComponent = _ReactTypeOfWork.IndeterminateComponent,
-      ForwardRef = _ReactTypeOfWork.ForwardRef,
-      HostRoot = _ReactTypeOfWork.HostRoot,
-      HostComponent = _ReactTypeOfWork.HostComponent,
-      HostPortal = _ReactTypeOfWork.HostPortal,
-      HostText = _ReactTypeOfWork.HostText,
-      Fragment = _ReactTypeOfWork.Fragment,
-      MemoComponent = _ReactTypeOfWork.MemoComponent,
-      SimpleMemoComponent = _ReactTypeOfWork.SimpleMemoComponent,
-      SuspenseComponent = _ReactTypeOfWork.SuspenseComponent,
-      SuspenseListComponent = _ReactTypeOfWork.SuspenseListComponent;
+  const _ReactTypeOfWork = ReactTypeOfWork,
+        ClassComponent = _ReactTypeOfWork.ClassComponent,
+        IncompleteClassComponent = _ReactTypeOfWork.IncompleteClassComponent,
+        FunctionComponent = _ReactTypeOfWork.FunctionComponent,
+        IndeterminateComponent = _ReactTypeOfWork.IndeterminateComponent,
+        ForwardRef = _ReactTypeOfWork.ForwardRef,
+        HostRoot = _ReactTypeOfWork.HostRoot,
+        HostComponent = _ReactTypeOfWork.HostComponent,
+        HostPortal = _ReactTypeOfWork.HostPortal,
+        HostText = _ReactTypeOfWork.HostText,
+        Fragment = _ReactTypeOfWork.Fragment,
+        MemoComponent = _ReactTypeOfWork.MemoComponent,
+        SimpleMemoComponent = _ReactTypeOfWork.SimpleMemoComponent,
+        SuspenseComponent = _ReactTypeOfWork.SuspenseComponent,
+        SuspenseListComponent = _ReactTypeOfWork.SuspenseListComponent;
 
   function resolveFiberType(type) {
-    var typeSymbol = getTypeSymbol(type);
+    const typeSymbol = getTypeSymbol(type);
 
     switch (typeSymbol) {
       case ReactSymbols["l" /* MEMO_NUMBER */]:
@@ -4648,28 +4752,28 @@ function getInternalReactConstants(version) {
 
 
   function getDisplayNameForFiber(fiber) {
-    var type = fiber.type,
-        tag = fiber.tag;
-    var resolvedType = type;
+    const type = fiber.type,
+          tag = fiber.tag;
+    let resolvedType = type;
 
-    if (renderer_typeof(type) === 'object' && type !== null) {
+    if (typeof type === 'object' && type !== null) {
       resolvedType = resolveFiberType(type);
     }
 
-    var resolvedContext = null;
+    let resolvedContext = null;
 
     switch (tag) {
       case ClassComponent:
       case IncompleteClassComponent:
-        return Object(utils["f" /* getDisplayName */])(resolvedType);
+        return Object(utils["h" /* getDisplayName */])(resolvedType);
 
       case FunctionComponent:
       case IndeterminateComponent:
-        return Object(utils["f" /* getDisplayName */])(resolvedType);
+        return Object(utils["h" /* getDisplayName */])(resolvedType);
 
       case ForwardRef:
         // Mirror https://github.com/facebook/react/blob/7c21bf72ace77094fd1910cc350a548287ef8350/packages/shared/getComponentName.js#L27-L37
-        return type && type.displayName || Object(utils["f" /* getDisplayName */])(resolvedType, 'Anonymous');
+        return type && type.displayName || Object(utils["h" /* getDisplayName */])(resolvedType, 'Anonymous');
 
       case HostRoot:
         return null;
@@ -4684,7 +4788,7 @@ function getInternalReactConstants(version) {
 
       case MemoComponent:
       case SimpleMemoComponent:
-        return Object(utils["f" /* getDisplayName */])(resolvedType, 'Anonymous');
+        return Object(utils["h" /* getDisplayName */])(resolvedType, 'Anonymous');
 
       case SuspenseComponent:
         return 'Suspense';
@@ -4693,7 +4797,7 @@ function getInternalReactConstants(version) {
         return 'SuspenseList';
 
       default:
-        var typeSymbol = getTypeSymbol(type);
+        const typeSymbol = getTypeSymbol(type);
 
         switch (typeSymbol) {
           case ReactSymbols["c" /* CONCURRENT_MODE_NUMBER */]:
@@ -4707,7 +4811,7 @@ function getInternalReactConstants(version) {
             // PR #12501 changed it to "_context" for 16.3.1+
             // NOTE Keep in sync with inspectElementRaw()
             resolvedContext = fiber.type._context || fiber.type.context;
-            return "".concat(resolvedContext.displayName || 'Context', ".Provider");
+            return `${resolvedContext.displayName || 'Context'}.Provider`;
 
           case ReactSymbols["e" /* CONTEXT_NUMBER */]:
           case ReactSymbols["f" /* CONTEXT_SYMBOL_STRING */]:
@@ -4717,7 +4821,7 @@ function getInternalReactConstants(version) {
             resolvedContext = fiber.type._context || fiber.type; // NOTE: TraceUpdatesBackendManager depends on the name ending in '.Consumer'
             // If you change the name, figure out a more resilient way to detect it.
 
-            return "".concat(resolvedContext.displayName || 'Context', ".Consumer");
+            return `${resolvedContext.displayName || 'Context'}.Consumer`;
 
           case ReactSymbols["t" /* STRICT_MODE_NUMBER */]:
           case ReactSymbols["u" /* STRICT_MODE_SYMBOL_STRING */]:
@@ -4725,7 +4829,7 @@ function getInternalReactConstants(version) {
 
           case ReactSymbols["n" /* PROFILER_NUMBER */]:
           case ReactSymbols["o" /* PROFILER_SYMBOL_STRING */]:
-            return "Profiler(".concat(fiber.memoizedProps.id, ")");
+            return `Profiler(${fiber.memoizedProps.id})`;
 
           case ReactSymbols["r" /* SCOPE_NUMBER */]:
           case ReactSymbols["s" /* SCOPE_SYMBOL_STRING */]:
@@ -4741,52 +4845,56 @@ function getInternalReactConstants(version) {
   }
 
   return {
-    getDisplayNameForFiber: getDisplayNameForFiber,
-    getTypeSymbol: getTypeSymbol,
-    ReactPriorityLevels: ReactPriorityLevels,
-    ReactTypeOfWork: ReactTypeOfWork,
-    ReactTypeOfSideEffect: ReactTypeOfSideEffect
+    getDisplayNameForFiber,
+    getTypeSymbol,
+    ReactPriorityLevels,
+    ReactTypeOfWork,
+    ReactTypeOfSideEffect
   };
 }
 function attach(hook, rendererID, renderer, global) {
-  var _getInternalReactCons = getInternalReactConstants(renderer.version),
-      getDisplayNameForFiber = _getInternalReactCons.getDisplayNameForFiber,
-      getTypeSymbol = _getInternalReactCons.getTypeSymbol,
-      ReactPriorityLevels = _getInternalReactCons.ReactPriorityLevels,
-      ReactTypeOfWork = _getInternalReactCons.ReactTypeOfWork,
-      ReactTypeOfSideEffect = _getInternalReactCons.ReactTypeOfSideEffect;
+  const _getInternalReactCons = getInternalReactConstants(renderer.version),
+        getDisplayNameForFiber = _getInternalReactCons.getDisplayNameForFiber,
+        getTypeSymbol = _getInternalReactCons.getTypeSymbol,
+        ReactPriorityLevels = _getInternalReactCons.ReactPriorityLevels,
+        ReactTypeOfWork = _getInternalReactCons.ReactTypeOfWork,
+        ReactTypeOfSideEffect = _getInternalReactCons.ReactTypeOfSideEffect;
 
-  var NoEffect = ReactTypeOfSideEffect.NoEffect,
-      PerformedWork = ReactTypeOfSideEffect.PerformedWork,
-      Placement = ReactTypeOfSideEffect.Placement;
-  var FunctionComponent = ReactTypeOfWork.FunctionComponent,
-      ClassComponent = ReactTypeOfWork.ClassComponent,
-      ContextConsumer = ReactTypeOfWork.ContextConsumer,
-      DehydratedSuspenseComponent = ReactTypeOfWork.DehydratedSuspenseComponent,
-      Fragment = ReactTypeOfWork.Fragment,
-      ForwardRef = ReactTypeOfWork.ForwardRef,
-      HostRoot = ReactTypeOfWork.HostRoot,
-      HostPortal = ReactTypeOfWork.HostPortal,
-      HostComponent = ReactTypeOfWork.HostComponent,
-      HostText = ReactTypeOfWork.HostText,
-      IncompleteClassComponent = ReactTypeOfWork.IncompleteClassComponent,
-      IndeterminateComponent = ReactTypeOfWork.IndeterminateComponent,
-      MemoComponent = ReactTypeOfWork.MemoComponent,
-      OffscreenComponent = ReactTypeOfWork.OffscreenComponent,
-      SimpleMemoComponent = ReactTypeOfWork.SimpleMemoComponent,
-      SuspenseComponent = ReactTypeOfWork.SuspenseComponent,
-      SuspenseListComponent = ReactTypeOfWork.SuspenseListComponent;
-  var ImmediatePriority = ReactPriorityLevels.ImmediatePriority,
-      UserBlockingPriority = ReactPriorityLevels.UserBlockingPriority,
-      NormalPriority = ReactPriorityLevels.NormalPriority,
-      LowPriority = ReactPriorityLevels.LowPriority,
-      IdlePriority = ReactPriorityLevels.IdlePriority,
-      NoPriority = ReactPriorityLevels.NoPriority;
-  var overrideHookState = renderer.overrideHookState,
-      overrideProps = renderer.overrideProps,
-      setSuspenseHandler = renderer.setSuspenseHandler,
-      scheduleUpdate = renderer.scheduleUpdate;
-  var supportsTogglingSuspense = typeof setSuspenseHandler === 'function' && typeof scheduleUpdate === 'function'; // Patching the console enables DevTools to do a few useful things:
+  const NoFlags = ReactTypeOfSideEffect.NoFlags,
+        PerformedWork = ReactTypeOfSideEffect.PerformedWork,
+        Placement = ReactTypeOfSideEffect.Placement;
+  const FunctionComponent = ReactTypeOfWork.FunctionComponent,
+        ClassComponent = ReactTypeOfWork.ClassComponent,
+        ContextConsumer = ReactTypeOfWork.ContextConsumer,
+        DehydratedSuspenseComponent = ReactTypeOfWork.DehydratedSuspenseComponent,
+        Fragment = ReactTypeOfWork.Fragment,
+        ForwardRef = ReactTypeOfWork.ForwardRef,
+        HostRoot = ReactTypeOfWork.HostRoot,
+        HostPortal = ReactTypeOfWork.HostPortal,
+        HostComponent = ReactTypeOfWork.HostComponent,
+        HostText = ReactTypeOfWork.HostText,
+        IncompleteClassComponent = ReactTypeOfWork.IncompleteClassComponent,
+        IndeterminateComponent = ReactTypeOfWork.IndeterminateComponent,
+        MemoComponent = ReactTypeOfWork.MemoComponent,
+        OffscreenComponent = ReactTypeOfWork.OffscreenComponent,
+        SimpleMemoComponent = ReactTypeOfWork.SimpleMemoComponent,
+        SuspenseComponent = ReactTypeOfWork.SuspenseComponent,
+        SuspenseListComponent = ReactTypeOfWork.SuspenseListComponent;
+  const ImmediatePriority = ReactPriorityLevels.ImmediatePriority,
+        UserBlockingPriority = ReactPriorityLevels.UserBlockingPriority,
+        NormalPriority = ReactPriorityLevels.NormalPriority,
+        LowPriority = ReactPriorityLevels.LowPriority,
+        IdlePriority = ReactPriorityLevels.IdlePriority,
+        NoPriority = ReactPriorityLevels.NoPriority;
+  const overrideHookState = renderer.overrideHookState,
+        overrideHookStateDeletePath = renderer.overrideHookStateDeletePath,
+        overrideHookStateRenamePath = renderer.overrideHookStateRenamePath,
+        overrideProps = renderer.overrideProps,
+        overridePropsDeletePath = renderer.overridePropsDeletePath,
+        overridePropsRenamePath = renderer.overridePropsRenamePath,
+        setSuspenseHandler = renderer.setSuspenseHandler,
+        scheduleUpdate = renderer.scheduleUpdate;
+  const supportsTogglingSuspense = typeof setSuspenseHandler === 'function' && typeof scheduleUpdate === 'function'; // Patching the console enables DevTools to do a few useful things:
   // * Append component stacks to warnings and error messages
   // * Disable logging during re-renders to inspect hooks (see inspectHooksOfFiber)
   //
@@ -4797,43 +4905,43 @@ function attach(hook, rendererID, renderer, global) {
     // because it is stored in localStorage within the context of the extension.
     // It relies on the extension to pass the preference through via the global.
 
-    var appendComponentStack = window.__REACT_DEVTOOLS_APPEND_COMPONENT_STACK__ !== false;
-    var breakOnConsoleErrors = window.__REACT_DEVTOOLS_BREAK_ON_CONSOLE_ERRORS__ === true;
+    const appendComponentStack = window.__REACT_DEVTOOLS_APPEND_COMPONENT_STACK__ !== false;
+    const breakOnConsoleErrors = window.__REACT_DEVTOOLS_BREAK_ON_CONSOLE_ERRORS__ === true;
 
     if (appendComponentStack || breakOnConsoleErrors) {
       Object(backend_console["a" /* patch */])({
-        appendComponentStack: appendComponentStack,
-        breakOnConsoleErrors: breakOnConsoleErrors
+        appendComponentStack,
+        breakOnConsoleErrors
       });
     }
   }
 
-  var debug = function debug(name, fiber, parentFiber) {
+  const debug = (name, fiber, parentFiber) => {
     if (constants["p" /* __DEBUG__ */]) {
-      var displayName = getDisplayNameForFiber(fiber) || 'null';
-      var id = getFiberID(fiber);
-      var parentDisplayName = parentFiber != null && getDisplayNameForFiber(parentFiber) || 'null';
-      var parentID = parentFiber ? getFiberID(parentFiber) : ''; // NOTE: calling getFiberID or getPrimaryFiber is unsafe here
+      const displayName = getDisplayNameForFiber(fiber) || 'null';
+      const id = getFiberID(fiber);
+      const parentDisplayName = parentFiber != null && getDisplayNameForFiber(parentFiber) || 'null';
+      const parentID = parentFiber ? getFiberID(parentFiber) : ''; // NOTE: calling getFiberID or getPrimaryFiber is unsafe here
       // because it will put them in the map. For now, we'll omit them.
       // TODO: better debugging story for this.
 
-      console.log("[renderer] %c".concat(name, " %c").concat(displayName, " (").concat(id, ") %c").concat(parentFiber ? "".concat(parentDisplayName, " (").concat(parentID, ")") : ''), 'color: red; font-weight: bold;', 'color: blue;', 'color: purple;');
+      console.log(`[renderer] %c${name} %c${displayName} (${id}) %c${parentFiber ? `${parentDisplayName} (${parentID})` : ''}`, 'color: red; font-weight: bold;', 'color: blue;', 'color: purple;');
     }
   }; // Configurable Components tree filters.
 
 
-  var hideElementsWithDisplayNames = new Set();
-  var hideElementsWithPaths = new Set();
-  var hideElementsWithTypes = new Set(); // Highlight updates
+  const hideElementsWithDisplayNames = new Set();
+  const hideElementsWithPaths = new Set();
+  const hideElementsWithTypes = new Set(); // Highlight updates
 
-  var traceUpdatesEnabled = false;
-  var traceUpdatesForNodes = new Set();
+  let traceUpdatesEnabled = false;
+  const traceUpdatesForNodes = new Set();
 
   function applyComponentFilters(componentFilters) {
     hideElementsWithTypes.clear();
     hideElementsWithDisplayNames.clear();
     hideElementsWithPaths.clear();
-    componentFilters.forEach(function (componentFilter) {
+    componentFilters.forEach(componentFilter => {
       if (!componentFilter.isEnabled) {
         return;
       }
@@ -4862,7 +4970,7 @@ function attach(hook, rendererID, renderer, global) {
           break;
 
         default:
-          console.warn("Invalid component filter type \"".concat(componentFilter.type, "\""));
+          console.warn(`Invalid component filter type "${componentFilter.type}"`);
           break;
       }
     });
@@ -4879,7 +4987,7 @@ function attach(hook, rendererID, renderer, global) {
     // so for now just skip this message...
     //console.warn('⚛️ DevTools: Could not locate saved component filters');
     // Fallback to assuming the default filters in this case.
-    applyComponentFilters(Object(utils["e" /* getDefaultComponentFilters */])());
+    applyComponentFilters(Object(utils["g" /* getDefaultComponentFilters */])());
   } // If necessary, we can revisit optimizing this operation.
   // For example, we could add a new recursive unmount tree operation.
   // The unmount operations are already significantly smaller than mount operations though.
@@ -4894,7 +5002,7 @@ function attach(hook, rendererID, renderer, global) {
     } // Recursively unmount all roots.
 
 
-    hook.getFiberRoots(rendererID).forEach(function (root) {
+    hook.getFiberRoots(rendererID).forEach(root => {
       currentRootID = getFiberID(getPrimaryFiber(root.current));
       unmountFiberChildrenRecursively(root.current);
       recordUnmount(root.current, false);
@@ -4904,7 +5012,7 @@ function attach(hook, rendererID, renderer, global) {
 
     rootDisplayNameCounter.clear(); // Recursively re-mount all roots with new filter criteria applied.
 
-    hook.getFiberRoots(rendererID).forEach(function (root) {
+    hook.getFiberRoots(rendererID).forEach(root => {
       currentRootID = getFiberID(getPrimaryFiber(root.current));
       setRootPseudoKey(currentRootID, root.current);
       mountFiberRecursively(root.current, null, false, false);
@@ -4915,9 +5023,9 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function shouldFilterFiber(fiber) {
-    var _debugSource = fiber._debugSource,
-        tag = fiber.tag,
-        type = fiber.type;
+    const _debugSource = fiber._debugSource,
+          tag = fiber.tag,
+          type = fiber.type;
 
     switch (tag) {
       case DehydratedSuspenseComponent:
@@ -4939,7 +5047,7 @@ function attach(hook, rendererID, renderer, global) {
         return false;
 
       default:
-        var typeSymbol = getTypeSymbol(type);
+        const typeSymbol = getTypeSymbol(type);
 
         switch (typeSymbol) {
           case ReactSymbols["c" /* CONCURRENT_MODE_NUMBER */]:
@@ -4955,74 +5063,54 @@ function attach(hook, rendererID, renderer, global) {
 
     }
 
-    var elementType = getElementTypeForFiber(fiber);
+    const elementType = getElementTypeForFiber(fiber);
 
     if (hideElementsWithTypes.has(elementType)) {
       return true;
     }
 
     if (hideElementsWithDisplayNames.size > 0) {
-      var displayName = getDisplayNameForFiber(fiber);
+      const displayName = getDisplayNameForFiber(fiber);
 
       if (displayName != null) {
         // eslint-disable-next-line no-for-of-loops/no-for-of-loops
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
+        var _iterator = _createForOfIteratorHelper(hideElementsWithDisplayNames),
+            _step;
 
         try {
-          for (var _iterator = hideElementsWithDisplayNames[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var displayNameRegExp = _step.value;
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            const displayNameRegExp = _step.value;
 
             if (displayNameRegExp.test(displayName)) {
               return true;
             }
           }
         } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
+          _iterator.e(err);
         } finally {
-          try {
-            if (!_iteratorNormalCompletion && _iterator.return != null) {
-              _iterator.return();
-            }
-          } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
-            }
-          }
+          _iterator.f();
         }
       }
     }
 
     if (_debugSource != null && hideElementsWithPaths.size > 0) {
-      var fileName = _debugSource.fileName; // eslint-disable-next-line no-for-of-loops/no-for-of-loops
+      const fileName = _debugSource.fileName; // eslint-disable-next-line no-for-of-loops/no-for-of-loops
 
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
+      var _iterator2 = _createForOfIteratorHelper(hideElementsWithPaths),
+          _step2;
 
       try {
-        for (var _iterator2 = hideElementsWithPaths[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var pathRegExp = _step2.value;
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          const pathRegExp = _step2.value;
 
           if (pathRegExp.test(fileName)) {
             return true;
           }
         }
       } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
+        _iterator2.e(err);
       } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-            _iterator2.return();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
+        _iterator2.f();
       }
     }
 
@@ -5031,8 +5119,8 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function getElementTypeForFiber(fiber) {
-    var type = fiber.type,
-        tag = fiber.tag;
+    const type = fiber.type,
+          tag = fiber.tag;
 
     switch (tag) {
       case ClassComponent:
@@ -5068,7 +5156,7 @@ function attach(hook, rendererID, renderer, global) {
         return types["o" /* ElementTypeSuspenseList */];
 
       default:
-        var typeSymbol = getTypeSymbol(type);
+        const typeSymbol = getTypeSymbol(type);
 
         switch (typeSymbol) {
           case ReactSymbols["c" /* CONCURRENT_MODE_NUMBER */]:
@@ -5108,7 +5196,7 @@ function attach(hook, rendererID, renderer, global) {
       return fiber;
     }
 
-    var alternate = fiber.alternate;
+    const alternate = fiber.alternate;
 
     if (alternate != null && primaryFibers.has(alternate)) {
       return alternate;
@@ -5118,23 +5206,23 @@ function attach(hook, rendererID, renderer, global) {
     return fiber;
   }
 
-  var fiberToIDMap = new Map();
-  var idToFiberMap = new Map();
-  var primaryFibers = new Set(); // When profiling is supported, we store the latest tree base durations for each Fiber.
+  const fiberToIDMap = new Map();
+  const idToFiberMap = new Map();
+  const primaryFibers = new Set(); // When profiling is supported, we store the latest tree base durations for each Fiber.
   // This is so that we can quickly capture a snapshot of those values if profiling starts.
   // If we didn't store these values, we'd have to crawl the tree when profiling started,
   // and use a slow path to find each of the current Fibers.
 
-  var idToTreeBaseDurationMap = new Map(); // When profiling is supported, we store the latest tree base durations for each Fiber.
+  const idToTreeBaseDurationMap = new Map(); // When profiling is supported, we store the latest tree base durations for each Fiber.
   // This map enables us to filter these times by root when sending them to the frontend.
 
-  var idToRootMap = new Map(); // When a mount or update is in progress, this value tracks the root that is being operated on.
+  const idToRootMap = new Map(); // When a mount or update is in progress, this value tracks the root that is being operated on.
 
-  var currentRootID = -1;
+  let currentRootID = -1;
 
   function getFiberID(primaryFiber) {
     if (!fiberToIDMap.has(primaryFiber)) {
-      var id = Object(utils["j" /* getUID */])();
+      const id = Object(utils["l" /* getUID */])();
       fiberToIDMap.set(primaryFiber, id);
       idToFiberMap.set(id, primaryFiber);
     }
@@ -5175,8 +5263,8 @@ function attach(hook, rendererID, renderer, global) {
     switch (getElementTypeForFiber(fiber)) {
       case types["e" /* ElementTypeClass */]:
         if (idToContextsMap !== null) {
-          var id = getFiberID(getPrimaryFiber(fiber));
-          var contexts = getContextsForFiber(fiber);
+          const id = getFiberID(getPrimaryFiber(fiber));
+          const contexts = getContextsForFiber(fiber);
 
           if (contexts !== null) {
             idToContextsMap.set(id, contexts);
@@ -5191,14 +5279,14 @@ function attach(hook, rendererID, renderer, global) {
   } // Differentiates between a null context value and no context.
 
 
-  var NO_CONTEXT = {};
+  const NO_CONTEXT = {};
 
   function getContextsForFiber(fiber) {
     switch (getElementTypeForFiber(fiber)) {
       case types["e" /* ElementTypeClass */]:
-        var instance = fiber.stateNode;
-        var legacyContext = NO_CONTEXT;
-        var modernContext = NO_CONTEXT;
+        const instance = fiber.stateNode;
+        let legacyContext = NO_CONTEXT;
+        let modernContext = NO_CONTEXT;
 
         if (instance != null) {
           if (instance.constructor && instance.constructor.contextType != null) {
@@ -5224,7 +5312,7 @@ function attach(hook, rendererID, renderer, global) {
 
   function crawlToInitializeContextsMap(fiber) {
     updateContextsForFiber(fiber);
-    var current = fiber.child;
+    let current = fiber.child;
 
     while (current !== null) {
       crawlToInitializeContextsMap(current);
@@ -5236,21 +5324,21 @@ function attach(hook, rendererID, renderer, global) {
     switch (getElementTypeForFiber(fiber)) {
       case types["e" /* ElementTypeClass */]:
         if (idToContextsMap !== null) {
-          var id = getFiberID(getPrimaryFiber(fiber));
-          var prevContexts = idToContextsMap.has(id) ? idToContextsMap.get(id) : null;
-          var nextContexts = getContextsForFiber(fiber);
+          const id = getFiberID(getPrimaryFiber(fiber));
+          const prevContexts = idToContextsMap.has(id) ? idToContextsMap.get(id) : null;
+          const nextContexts = getContextsForFiber(fiber);
 
           if (prevContexts == null || nextContexts == null) {
             return null;
           }
 
-          var _prevContexts = _slicedToArray(prevContexts, 2),
-              prevLegacyContext = _prevContexts[0],
-              prevModernContext = _prevContexts[1];
+          const _prevContexts = _slicedToArray(prevContexts, 2),
+                prevLegacyContext = _prevContexts[0],
+                prevModernContext = _prevContexts[1];
 
-          var _nextContexts = _slicedToArray(nextContexts, 2),
-              nextLegacyContext = _nextContexts[0],
-              nextModernContext = _nextContexts[1];
+          const _nextContexts = _slicedToArray(nextContexts, 2),
+                nextLegacyContext = _nextContexts[0],
+                nextModernContext = _nextContexts[1];
 
           if (nextLegacyContext !== NO_CONTEXT) {
             return getChangedKeys(prevLegacyContext, nextLegacyContext);
@@ -5298,34 +5386,24 @@ function attach(hook, rendererID, renderer, global) {
       return null;
     }
 
-    var keys = new Set([].concat(_toConsumableArray(Object.keys(prev)), _toConsumableArray(Object.keys(next))));
-    var changedKeys = []; // eslint-disable-next-line no-for-of-loops/no-for-of-loops
+    const keys = new Set([...Object.keys(prev), ...Object.keys(next)]);
+    const changedKeys = []; // eslint-disable-next-line no-for-of-loops/no-for-of-loops
 
-    var _iteratorNormalCompletion3 = true;
-    var _didIteratorError3 = false;
-    var _iteratorError3 = undefined;
+    var _iterator3 = _createForOfIteratorHelper(keys),
+        _step3;
 
     try {
-      for (var _iterator3 = keys[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-        var key = _step3.value;
+      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+        const key = _step3.value;
 
         if (prev[key] !== next[key]) {
           changedKeys.push(key);
         }
       }
     } catch (err) {
-      _didIteratorError3 = true;
-      _iteratorError3 = err;
+      _iterator3.e(err);
     } finally {
-      try {
-        if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
-          _iterator3.return();
-        }
-      } finally {
-        if (_didIteratorError3) {
-          throw _iteratorError3;
-        }
-      }
+      _iterator3.f();
     }
 
     return changedKeys;
@@ -5342,7 +5420,7 @@ function attach(hook, rendererID, renderer, global) {
         // For types that execute user code, we check PerformedWork effect.
         // We don't reflect bailouts (either referential or sCU) in DevTools.
         // eslint-disable-next-line no-bitwise
-        return (nextFiber.effectTag & PerformedWork) === PerformedWork;
+        return (getFiberFlags(nextFiber) & PerformedWork) === PerformedWork;
       // Note: ContextConsumer only gets PerformedWork effect in 16.3.3+
       // so it won't get highlighted with React 16.3.0 to 16.3.2.
 
@@ -5353,13 +5431,13 @@ function attach(hook, rendererID, renderer, global) {
     }
   }
 
-  var pendingOperations = [];
-  var pendingRealUnmountedIDs = [];
-  var pendingSimulatedUnmountedIDs = [];
-  var pendingOperationsQueue = [];
-  var pendingStringTable = new Map();
-  var pendingStringTableLength = 0;
-  var pendingUnmountedRootID = null;
+  const pendingOperations = [];
+  const pendingRealUnmountedIDs = [];
+  const pendingSimulatedUnmountedIDs = [];
+  let pendingOperationsQueue = [];
+  const pendingStringTable = new Map();
+  let pendingStringTableLength = 0;
+  let pendingUnmountedRootID = null;
 
   function pushOperation(op) {
     if (false) {}
@@ -5382,8 +5460,8 @@ function attach(hook, rendererID, renderer, global) {
       }
     }
 
-    var numUnmountIDs = pendingRealUnmountedIDs.length + pendingSimulatedUnmountedIDs.length + (pendingUnmountedRootID === null ? 0 : 1);
-    var operations = new Array( // Identify which renderer this update is coming from.
+    const numUnmountIDs = pendingRealUnmountedIDs.length + pendingSimulatedUnmountedIDs.length + (pendingUnmountedRootID === null ? 0 : 1);
+    const operations = new Array( // Identify which renderer this update is coming from.
     2 + // [rendererID, rootFiberID]
     // How big is the string table?
     1 + // [stringTableLength]
@@ -5395,18 +5473,18 @@ function attach(hook, rendererID, renderer, global) {
     // This enables roots to be mapped to renderers,
     // Which in turn enables fiber props, states, and hooks to be inspected.
 
-    var i = 0;
+    let i = 0;
     operations[i++] = rendererID;
     operations[i++] = currentRootID; // Use this ID in case the root was unmounted!
     // Now fill in the string table.
     // [stringTableLength, str1Length, ...str1, str2Length, ...str2, ...]
 
     operations[i++] = pendingStringTableLength;
-    pendingStringTable.forEach(function (value, key) {
+    pendingStringTable.forEach((value, key) => {
       operations[i++] = key.length;
-      var encodedKey = Object(utils["p" /* utfEncodeString */])(key);
+      const encodedKey = Object(utils["s" /* utfEncodeString */])(key);
 
-      for (var j = 0; j < encodedKey.length; j++) {
+      for (let j = 0; j < encodedKey.length; j++) {
         operations[i + j] = encodedKey[j];
       }
 
@@ -5421,7 +5499,7 @@ function attach(hook, rendererID, renderer, global) {
       // They were inserted parents-first by React, but we want children-first.
       // So we traverse our array backwards.
 
-      for (var j = pendingRealUnmountedIDs.length - 1; j >= 0; j--) {
+      for (let j = pendingRealUnmountedIDs.length - 1; j >= 0; j--) {
         operations[i++] = pendingRealUnmountedIDs[j];
       } // Fill in the simulated unmounts (hidden Suspense subtrees) in their order.
       // (We want children to go before parents.)
@@ -5430,8 +5508,8 @@ function attach(hook, rendererID, renderer, global) {
       // to discover them during the traversal, as they would have been deleted.
 
 
-      for (var _j = 0; _j < pendingSimulatedUnmountedIDs.length; _j++) {
-        operations[i + _j] = pendingSimulatedUnmountedIDs[_j];
+      for (let j = 0; j < pendingSimulatedUnmountedIDs.length; j++) {
+        operations[i + j] = pendingSimulatedUnmountedIDs[j];
       }
 
       i += pendingSimulatedUnmountedIDs.length; // The root ID should always be unmounted last.
@@ -5443,8 +5521,8 @@ function attach(hook, rendererID, renderer, global) {
     } // Fill in the rest of the operations.
 
 
-    for (var _j2 = 0; _j2 < pendingOperations.length; _j2++) {
-      operations[i + _j2] = pendingOperations[_j2];
+    for (let j = 0; j < pendingOperations.length; j++) {
+      operations[i + j] = pendingOperations[j];
     }
 
     i += pendingOperations.length; // Let the frontend know about tree operations.
@@ -5474,13 +5552,13 @@ function attach(hook, rendererID, renderer, global) {
       return 0;
     }
 
-    var existingID = pendingStringTable.get(str);
+    const existingID = pendingStringTable.get(str);
 
     if (existingID !== undefined) {
       return existingID;
     }
 
-    var stringID = pendingStringTable.size + 1;
+    const stringID = pendingStringTable.size + 1;
     pendingStringTable.set(str, stringID); // The string table total length needs to account
     // both for the string length, and for the array item
     // that contains the length itself. Hence + 1.
@@ -5494,10 +5572,10 @@ function attach(hook, rendererID, renderer, global) {
       debug('recordMount()', fiber, parentFiber);
     }
 
-    var isRoot = fiber.tag === HostRoot;
-    var id = getFiberID(getPrimaryFiber(fiber));
-    var hasOwnerMetadata = fiber.hasOwnProperty('_debugOwner');
-    var isProfilingSupported = fiber.hasOwnProperty('treeBaseDuration');
+    const isRoot = fiber.tag === HostRoot;
+    const id = getFiberID(getPrimaryFiber(fiber));
+    const hasOwnerMetadata = fiber.hasOwnProperty('_debugOwner');
+    const isProfilingSupported = fiber.hasOwnProperty('treeBaseDuration');
 
     if (isRoot) {
       pushOperation(constants["k" /* TREE_OPERATION_ADD */]);
@@ -5512,17 +5590,17 @@ function attach(hook, rendererID, renderer, global) {
         }
       }
     } else {
-      var key = fiber.key;
-      var displayName = getDisplayNameForFiber(fiber);
-      var elementType = getElementTypeForFiber(fiber);
-      var _debugOwner = fiber._debugOwner;
-      var ownerID = _debugOwner != null ? getFiberID(getPrimaryFiber(_debugOwner)) : 0;
-      var parentID = parentFiber ? getFiberID(getPrimaryFiber(parentFiber)) : 0;
-      var displayNameStringID = getStringID(displayName); // This check is a guard to handle a React element that has been modified
+      const key = fiber.key;
+      const displayName = getDisplayNameForFiber(fiber);
+      const elementType = getElementTypeForFiber(fiber);
+      const _debugOwner = fiber._debugOwner;
+      const ownerID = _debugOwner != null ? getFiberID(getPrimaryFiber(_debugOwner)) : 0;
+      const parentID = parentFiber ? getFiberID(getPrimaryFiber(parentFiber)) : 0;
+      const displayNameStringID = getStringID(displayName); // This check is a guard to handle a React element that has been modified
       // in such a way as to bypass the default stringification of the "key" property.
 
-      var keyString = key === null ? null : '' + key;
-      var keyStringID = getStringID(keyString);
+      const keyString = key === null ? null : '' + key;
+      const keyStringID = getStringID(keyString);
       pushOperation(constants["k" /* TREE_OPERATION_ADD */]);
       pushOperation(id);
       pushOperation(elementType);
@@ -5552,8 +5630,8 @@ function attach(hook, rendererID, renderer, global) {
       }
     }
 
-    var isRoot = fiber.tag === HostRoot;
-    var primaryFiber = getPrimaryFiber(fiber);
+    const isRoot = fiber.tag === HostRoot;
+    const primaryFiber = getPrimaryFiber(fiber);
 
     if (!fiberToIDMap.has(primaryFiber)) {
       // If we've never seen this Fiber, it might be because
@@ -5566,7 +5644,7 @@ function attach(hook, rendererID, renderer, global) {
       return;
     }
 
-    var id = getFiberID(primaryFiber);
+    const id = getFiberID(primaryFiber);
 
     if (isRoot) {
       // Roots must be removed only after all children (pending and simulated) have been removed.
@@ -5586,7 +5664,7 @@ function attach(hook, rendererID, renderer, global) {
     fiberToIDMap.delete(primaryFiber);
     idToFiberMap.delete(id);
     primaryFibers.delete(primaryFiber);
-    var isProfilingSupported = fiber.hasOwnProperty('treeBaseDuration');
+    const isProfilingSupported = fiber.hasOwnProperty('treeBaseDuration');
 
     if (isProfilingSupported) {
       idToRootMap.delete(id);
@@ -5601,8 +5679,8 @@ function attach(hook, rendererID, renderer, global) {
     // Also remember whether to do the same for siblings.
 
 
-    var mightSiblingsBeOnTrackedPath = updateTrackedPathStateBeforeMount(fiber);
-    var shouldIncludeInTree = !shouldFilterFiber(fiber);
+    const mightSiblingsBeOnTrackedPath = updateTrackedPathStateBeforeMount(fiber);
+    const shouldIncludeInTree = !shouldFilterFiber(fiber);
 
     if (shouldIncludeInTree) {
       recordMount(fiber, parentFiber);
@@ -5610,7 +5688,7 @@ function attach(hook, rendererID, renderer, global) {
 
     if (traceUpdatesEnabled) {
       if (traceNearestHostComponentUpdate) {
-        var elementType = getElementTypeForFiber(fiber); // If an ancestor updated, we should mark the nearest host nodes for highlighting.
+        const elementType = getElementTypeForFiber(fiber); // If an ancestor updated, we should mark the nearest host nodes for highlighting.
 
         if (elementType === types["i" /* ElementTypeHostComponent */]) {
           traceUpdatesForNodes.add(fiber.stateNode);
@@ -5621,25 +5699,25 @@ function attach(hook, rendererID, renderer, global) {
 
     }
 
-    var isSuspense = fiber.tag === ReactTypeOfWork.SuspenseComponent;
+    const isSuspense = fiber.tag === ReactTypeOfWork.SuspenseComponent;
 
     if (isSuspense) {
-      var isTimedOut = fiber.memoizedState !== null;
+      const isTimedOut = fiber.memoizedState !== null;
 
       if (isTimedOut) {
         // Special case: if Suspense mounts in a timed-out state,
         // get the fallback child from the inner fragment and mount
         // it as if it was our own child. Updates handle this too.
-        var primaryChildFragment = fiber.child;
-        var fallbackChildFragment = primaryChildFragment ? primaryChildFragment.sibling : null;
-        var fallbackChild = fallbackChildFragment ? fallbackChildFragment.child : null;
+        const primaryChildFragment = fiber.child;
+        const fallbackChildFragment = primaryChildFragment ? primaryChildFragment.sibling : null;
+        const fallbackChild = fallbackChildFragment ? fallbackChildFragment.child : null;
 
         if (fallbackChild !== null) {
           mountFiberRecursively(fallbackChild, shouldIncludeInTree ? fiber : parentFiber, true, traceNearestHostComponentUpdate);
         }
       } else {
-        var primaryChild = null;
-        var areSuspenseChildrenConditionallyWrapped = OffscreenComponent === -1;
+        let primaryChild = null;
+        const areSuspenseChildrenConditionallyWrapped = OffscreenComponent === -1;
 
         if (areSuspenseChildrenConditionallyWrapped) {
           primaryChild = fiber.child;
@@ -5674,13 +5752,13 @@ function attach(hook, rendererID, renderer, global) {
     } // We might meet a nested Suspense on our way.
 
 
-    var isTimedOutSuspense = fiber.tag === ReactTypeOfWork.SuspenseComponent && fiber.memoizedState !== null;
-    var child = fiber.child;
+    const isTimedOutSuspense = fiber.tag === ReactTypeOfWork.SuspenseComponent && fiber.memoizedState !== null;
+    let child = fiber.child;
 
     if (isTimedOutSuspense) {
       // If it's showing fallback tree, let's traverse it instead.
-      var primaryChildFragment = fiber.child;
-      var fallbackChildFragment = primaryChildFragment ? primaryChildFragment.sibling : null; // Skip over to the real Fiber child.
+      const primaryChildFragment = fiber.child;
+      const fallbackChildFragment = primaryChildFragment ? primaryChildFragment.sibling : null; // Skip over to the real Fiber child.
 
       child = fallbackChildFragment ? fallbackChildFragment.child : null;
     }
@@ -5698,19 +5776,19 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function recordProfilingDurations(fiber) {
-    var id = getFiberID(getPrimaryFiber(fiber));
-    var actualDuration = fiber.actualDuration,
-        treeBaseDuration = fiber.treeBaseDuration;
+    const id = getFiberID(getPrimaryFiber(fiber));
+    const actualDuration = fiber.actualDuration,
+          treeBaseDuration = fiber.treeBaseDuration;
     idToTreeBaseDurationMap.set(id, treeBaseDuration || 0);
 
     if (isProfiling) {
-      var alternate = fiber.alternate; // It's important to update treeBaseDuration even if the current Fiber did not render,
+      const alternate = fiber.alternate; // It's important to update treeBaseDuration even if the current Fiber did not render,
       // because it's possible that one of its descendants did.
 
       if (alternate == null || treeBaseDuration !== alternate.treeBaseDuration) {
         // Tree base duration updates are included in the operations typed array.
         // So we have to convert them from milliseconds to microseconds so we can send them as ints.
-        var convertedTreeBaseDuration = Math.floor((treeBaseDuration || 0) * 1000);
+        const convertedTreeBaseDuration = Math.floor((treeBaseDuration || 0) * 1000);
         pushOperation(constants["n" /* TREE_OPERATION_UPDATE_TREE_BASE_DURATION */]);
         pushOperation(id);
         pushOperation(convertedTreeBaseDuration);
@@ -5724,8 +5802,8 @@ function attach(hook, rendererID, renderer, global) {
           // So we need to do this on the backend.
           // Note that this calculated self duration is not the same thing as the base duration.
           // The two are calculated differently (tree duration does not accumulate).
-          var selfDuration = actualDuration;
-          var child = fiber.child;
+          let selfDuration = actualDuration;
+          let child = fiber.child;
 
           while (child !== null) {
             selfDuration -= child.actualDuration || 0;
@@ -5736,12 +5814,12 @@ function attach(hook, rendererID, renderer, global) {
           // In other cases (e.g. Memo) actualDuration might be greater than 0 even if we "bailed out".
 
 
-          var metadata = currentCommitProfilingMetadata;
+          const metadata = currentCommitProfilingMetadata;
           metadata.durations.push(id, actualDuration, selfDuration);
           metadata.maxActualDuration = Math.max(metadata.maxActualDuration, actualDuration);
 
           if (recordChangeDescriptions) {
-            var changeDescription = getChangeDescription(alternate, fiber);
+            const changeDescription = getChangeDescription(alternate, fiber);
 
             if (changeDescription !== null) {
               if (metadata.changeDescriptions !== null) {
@@ -5757,20 +5835,24 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function recordResetChildren(fiber, childSet) {
-    // The frontend only really cares about the displayName, key, and children.
+    if (constants["p" /* __DEBUG__ */]) {
+      debug('recordResetChildren()', childSet, fiber);
+    } // The frontend only really cares about the displayName, key, and children.
     // The first two don't really change, so we are only concerned with the order of children here.
     // This is trickier than a simple comparison though, since certain types of fibers are filtered.
-    var nextChildren = []; // This is a naive implementation that shallowly recourses children.
+
+
+    const nextChildren = []; // This is a naive implementation that shallowly recourses children.
     // We might want to revisit this if it proves to be too inefficient.
 
-    var child = childSet;
+    let child = childSet;
 
     while (child !== null) {
       findReorderedChildrenRecursively(child, nextChildren);
       child = child.sibling;
     }
 
-    var numChildren = nextChildren.length;
+    const numChildren = nextChildren.length;
 
     if (numChildren < 2) {
       // No need to reorder.
@@ -5781,7 +5863,7 @@ function attach(hook, rendererID, renderer, global) {
     pushOperation(getFiberID(getPrimaryFiber(fiber)));
     pushOperation(numChildren);
 
-    for (var i = 0; i < nextChildren.length; i++) {
+    for (let i = 0; i < nextChildren.length; i++) {
       pushOperation(nextChildren[i]);
     }
   }
@@ -5790,7 +5872,21 @@ function attach(hook, rendererID, renderer, global) {
     if (!shouldFilterFiber(fiber)) {
       nextChildren.push(getFiberID(getPrimaryFiber(fiber)));
     } else {
-      var child = fiber.child;
+      let child = fiber.child;
+      const isTimedOutSuspense = fiber.tag === SuspenseComponent && fiber.memoizedState !== null;
+
+      if (isTimedOutSuspense) {
+        // Special case: if Suspense mounts in a timed-out state,
+        // get the fallback child from the inner fragment,
+        // and skip over the primary child.
+        const primaryChildFragment = fiber.child;
+        const fallbackChildFragment = primaryChildFragment ? primaryChildFragment.sibling : null;
+        const fallbackChild = fallbackChildFragment ? fallbackChildFragment.child : null;
+
+        if (fallbackChild !== null) {
+          child = fallbackChild;
+        }
+      }
 
       while (child !== null) {
         findReorderedChildrenRecursively(child, nextChildren);
@@ -5806,7 +5902,7 @@ function attach(hook, rendererID, renderer, global) {
     }
 
     if (traceUpdatesEnabled) {
-      var elementType = getElementTypeForFiber(nextFiber);
+      const elementType = getElementTypeForFiber(nextFiber);
 
       if (traceNearestHostComponentUpdate) {
         // If an ancestor updated, we should mark the nearest host nodes for highlighting.
@@ -5828,9 +5924,9 @@ function attach(hook, rendererID, renderer, global) {
       hasElementUpdatedSinceLastInspected = true;
     }
 
-    var shouldIncludeInTree = !shouldFilterFiber(nextFiber);
-    var isSuspense = nextFiber.tag === SuspenseComponent;
-    var shouldResetChildren = false; // The behavior of timed-out Suspense trees is unique.
+    const shouldIncludeInTree = !shouldFilterFiber(nextFiber);
+    const isSuspense = nextFiber.tag === SuspenseComponent;
+    let shouldResetChildren = false; // The behavior of timed-out Suspense trees is unique.
     // Rather than unmount the timed out content (and possibly lose important state),
     // React re-parents this content within a hidden Fragment while the fallback is showing.
     // This behavior doesn't need to be observable in the DevTools though.
@@ -5839,19 +5935,19 @@ function attach(hook, rendererID, renderer, global) {
     // so the Elements panel and Profiler don't need to special case them.
     // Suspense components only have a non-null memoizedState if they're timed-out.
 
-    var prevDidTimeout = isSuspense && prevFiber.memoizedState !== null;
-    var nextDidTimeOut = isSuspense && nextFiber.memoizedState !== null; // The logic below is inspired by the code paths in updateSuspenseComponent()
+    const prevDidTimeout = isSuspense && prevFiber.memoizedState !== null;
+    const nextDidTimeOut = isSuspense && nextFiber.memoizedState !== null; // The logic below is inspired by the code paths in updateSuspenseComponent()
     // inside ReactFiberBeginWork in the React source code.
 
     if (prevDidTimeout && nextDidTimeOut) {
       // Fallback -> Fallback:
       // 1. Reconcile fallback set.
-      var nextFiberChild = nextFiber.child;
-      var nextFallbackChildSet = nextFiberChild ? nextFiberChild.sibling : null; // Note: We can't use nextFiber.child.sibling.alternate
+      const nextFiberChild = nextFiber.child;
+      const nextFallbackChildSet = nextFiberChild ? nextFiberChild.sibling : null; // Note: We can't use nextFiber.child.sibling.alternate
       // because the set is special and alternate may not exist.
 
-      var prevFiberChild = prevFiber.child;
-      var prevFallbackChildSet = prevFiberChild ? prevFiberChild.sibling : null;
+      const prevFiberChild = prevFiber.child;
+      const prevFallbackChildSet = prevFiberChild ? prevFiberChild.sibling : null;
 
       if (nextFallbackChildSet != null && prevFallbackChildSet != null && updateFiberRecursively(nextFallbackChildSet, prevFallbackChildSet, nextFiber, traceNearestHostComponentUpdate)) {
         shouldResetChildren = true;
@@ -5861,10 +5957,10 @@ function attach(hook, rendererID, renderer, global) {
       // 1. Unmount fallback set
       // Note: don't emulate fallback unmount because React actually did it.
       // 2. Mount primary set
-      var nextPrimaryChildSet = nextFiber.child;
+      const nextPrimaryChildSet = nextFiber.child;
 
       if (nextPrimaryChildSet !== null) {
-        mountFiberRecursively(nextPrimaryChildSet, nextFiber, true, traceNearestHostComponentUpdate);
+        mountFiberRecursively(nextPrimaryChildSet, shouldIncludeInTree ? nextFiber : parentFiber, true, traceNearestHostComponentUpdate);
       }
 
       shouldResetChildren = true;
@@ -5875,12 +5971,11 @@ function attach(hook, rendererID, renderer, global) {
       // We need to manually walk the previous tree and record unmounts.
       unmountFiberChildrenRecursively(prevFiber); // 2. Mount fallback set
 
-      var _nextFiberChild = nextFiber.child;
+      const nextFiberChild = nextFiber.child;
+      const nextFallbackChildSet = nextFiberChild ? nextFiberChild.sibling : null;
 
-      var _nextFallbackChildSet = _nextFiberChild ? _nextFiberChild.sibling : null;
-
-      if (_nextFallbackChildSet != null) {
-        mountFiberRecursively(_nextFallbackChildSet, nextFiber, true, traceNearestHostComponentUpdate);
+      if (nextFallbackChildSet != null) {
+        mountFiberRecursively(nextFallbackChildSet, shouldIncludeInTree ? nextFiber : parentFiber, true, traceNearestHostComponentUpdate);
         shouldResetChildren = true;
       }
     } else {
@@ -5889,8 +5984,8 @@ function attach(hook, rendererID, renderer, global) {
       if (nextFiber.child !== prevFiber.child) {
         // If the first child is different, we need to traverse them.
         // Each next child will be either a new child (mount) or an alternate (update).
-        var nextChild = nextFiber.child;
-        var prevChildAtSameIndex = prevFiber.child;
+        let nextChild = nextFiber.child;
+        let prevChildAtSameIndex = prevFiber.child;
 
         while (nextChild) {
           // We already know children will be referentially different because
@@ -5898,7 +5993,7 @@ function attach(hook, rendererID, renderer, global) {
           // Schedule updates and mounts depending on whether alternates exist.
           // We don't track deletions here because they are reported separately.
           if (nextChild.alternate) {
-            var prevChild = nextChild.alternate;
+            const prevChild = nextChild.alternate;
 
             if (updateFiberRecursively(nextChild, prevChild, shouldIncludeInTree ? nextFiber : parentFiber, traceNearestHostComponentUpdate)) {
               // If a nested tree child order changed but it can't handle its own
@@ -5936,8 +6031,8 @@ function attach(hook, rendererID, renderer, global) {
           // If we're tracing updates and we've bailed out before reaching a host node,
           // we should fall back to recursively marking the nearest host descendants for highlight.
           if (traceNearestHostComponentUpdate) {
-            var hostFibers = findAllCurrentHostFibers(getFiberID(getPrimaryFiber(nextFiber)));
-            hostFibers.forEach(function (hostFiber) {
+            const hostFibers = findAllCurrentHostFibers(getFiberID(getPrimaryFiber(nextFiber)));
+            hostFibers.forEach(hostFiber => {
               traceUpdatesForNodes.add(hostFiber.stateNode);
             });
           }
@@ -5946,7 +6041,7 @@ function attach(hook, rendererID, renderer, global) {
     }
 
     if (shouldIncludeInTree) {
-      var isProfilingSupported = nextFiber.hasOwnProperty('treeBaseDuration');
+      const isProfilingSupported = nextFiber.hasOwnProperty('treeBaseDuration');
 
       if (isProfilingSupported) {
         recordProfilingDurations(nextFiber);
@@ -5958,12 +6053,12 @@ function attach(hook, rendererID, renderer, global) {
       // so that we can display them in a flat children set.
       if (shouldIncludeInTree) {
         // Normally, search for children from the rendered child.
-        var nextChildSet = nextFiber.child;
+        let nextChildSet = nextFiber.child;
 
         if (nextDidTimeOut) {
           // Special case: timed-out Suspense renders the fallback set.
-          var _nextFiberChild2 = nextFiber.child;
-          nextChildSet = _nextFiberChild2 ? _nextFiberChild2.sibling : null;
+          const nextFiberChild = nextFiber.child;
+          nextChildSet = nextFiberChild ? nextFiberChild.sibling : null;
         }
 
         if (nextChildSet != null) {
@@ -5986,13 +6081,13 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function flushInitialOperations() {
-    var localPendingOperationsQueue = pendingOperationsQueue;
+    const localPendingOperationsQueue = pendingOperationsQueue;
     pendingOperationsQueue = null;
 
     if (localPendingOperationsQueue !== null && localPendingOperationsQueue.length > 0) {
       // We may have already queued up some operations before the frontend connected
       // If so, let the frontend know about them.
-      localPendingOperationsQueue.forEach(function (operations) {
+      localPendingOperationsQueue.forEach(operations => {
         hook.emit('operations', operations);
       });
     } else {
@@ -6003,7 +6098,7 @@ function attach(hook, rendererID, renderer, global) {
       } // If we have not been profiling, then we can just walk the tree and build up its current state as-is.
 
 
-      hook.getFiberRoots(rendererID).forEach(function (root) {
+      hook.getFiberRoots(rendererID).forEach(root => {
         currentRootID = getFiberID(getPrimaryFiber(root.current));
         setRootPseudoKey(currentRootID, root.current); // Checking root.memoizedInteractions handles multi-renderer edge-case-
         // where some v16 renderers support profiling and others don't.
@@ -6015,11 +6110,9 @@ function attach(hook, rendererID, renderer, global) {
             changeDescriptions: recordChangeDescriptions ? new Map() : null,
             durations: [],
             commitTime: getCurrentTime() - profilingStartTime,
-            interactions: Array.from(root.memoizedInteractions).map(function (interaction) {
-              return renderer_objectSpread({}, interaction, {
-                timestamp: interaction.timestamp - profilingStartTime
-              });
-            }),
+            interactions: Array.from(root.memoizedInteractions).map(interaction => renderer_objectSpread(renderer_objectSpread({}, interaction), {}, {
+              timestamp: interaction.timestamp - profilingStartTime
+            })),
             maxActualDuration: 0,
             priorityLevel: null
           };
@@ -6040,8 +6133,8 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function handleCommitFiberRoot(root, priorityLevel) {
-    var current = root.current;
-    var alternate = current.alternate;
+    const current = root.current;
+    const alternate = current.alternate;
     currentRootID = getFiberID(getPrimaryFiber(current)); // Before the traversals, remember to start tracking
     // our path in case we have selection to restore.
 
@@ -6055,7 +6148,7 @@ function attach(hook, rendererID, renderer, global) {
     // where some v16 renderers support profiling and others don't.
 
 
-    var isProfilingSupported = root.memoizedInteractions != null;
+    const isProfilingSupported = root.memoizedInteractions != null;
 
     if (isProfiling && isProfilingSupported) {
       // If profiling is active, store commit time and duration, and the current interactions.
@@ -6064,11 +6157,9 @@ function attach(hook, rendererID, renderer, global) {
         changeDescriptions: recordChangeDescriptions ? new Map() : null,
         durations: [],
         commitTime: getCurrentTime() - profilingStartTime,
-        interactions: Array.from(root.memoizedInteractions).map(function (interaction) {
-          return renderer_objectSpread({}, interaction, {
-            timestamp: interaction.timestamp - profilingStartTime
-          });
-        }),
+        interactions: Array.from(root.memoizedInteractions).map(interaction => renderer_objectSpread(renderer_objectSpread({}, interaction), {}, {
+          timestamp: interaction.timestamp - profilingStartTime
+        })),
         maxActualDuration: 0,
         priorityLevel: priorityLevel == null ? null : formatPriorityLevel(priorityLevel)
       };
@@ -6076,8 +6167,8 @@ function attach(hook, rendererID, renderer, global) {
 
     if (alternate) {
       // TODO: relying on this seems a bit fishy.
-      var wasMounted = alternate.memoizedState != null && alternate.memoizedState.element != null;
-      var isMounted = current.memoizedState != null && current.memoizedState.element != null;
+      const wasMounted = alternate.memoizedState != null && alternate.memoizedState.element != null;
+      const isMounted = current.memoizedState != null && current.memoizedState.element != null;
 
       if (!wasMounted && isMounted) {
         // Mount a new root.
@@ -6098,7 +6189,7 @@ function attach(hook, rendererID, renderer, global) {
     }
 
     if (isProfiling && isProfilingSupported) {
-      var commitProfilingMetadata = rootToCommitProfilingMetadataMap.get(currentRootID);
+      const commitProfilingMetadata = rootToCommitProfilingMetadataMap.get(currentRootID);
 
       if (commitProfilingMetadata != null) {
         commitProfilingMetadata.push(currentCommitProfilingMetadata);
@@ -6118,15 +6209,15 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function findAllCurrentHostFibers(id) {
-    var fibers = [];
-    var fiber = findCurrentFiberUsingSlowPathById(id);
+    const fibers = [];
+    const fiber = findCurrentFiberUsingSlowPathById(id);
 
     if (!fiber) {
       return fibers;
     } // Next we'll drill down this component to find all HostComponent/Text.
 
 
-    var node = fiber;
+    let node = fiber;
 
     while (true) {
       if (node.tag === HostComponent || node.tag === HostText) {
@@ -6160,29 +6251,27 @@ function attach(hook, rendererID, renderer, global) {
 
   function findNativeNodesForFiberID(id) {
     try {
-      var _fiber = findCurrentFiberUsingSlowPathById(id);
+      let fiber = findCurrentFiberUsingSlowPathById(id);
 
-      if (_fiber === null) {
+      if (fiber === null) {
         return null;
       } // Special case for a timed-out Suspense.
 
 
-      var isTimedOutSuspense = _fiber.tag === SuspenseComponent && _fiber.memoizedState !== null;
+      const isTimedOutSuspense = fiber.tag === SuspenseComponent && fiber.memoizedState !== null;
 
       if (isTimedOutSuspense) {
         // A timed-out Suspense's findDOMNode is useless.
         // Try our best to find the fallback directly.
-        var maybeFallbackFiber = _fiber.child && _fiber.child.sibling;
+        const maybeFallbackFiber = fiber.child && fiber.child.sibling;
 
         if (maybeFallbackFiber != null) {
-          _fiber = maybeFallbackFiber;
+          fiber = maybeFallbackFiber;
         }
       }
 
-      var hostFibers = findAllCurrentHostFibers(id);
-      return hostFibers.map(function (hostFiber) {
-        return hostFiber.stateNode;
-      }).filter(Boolean);
+      const hostFibers = findAllCurrentHostFibers(id);
+      return hostFibers.map(hostFiber => hostFiber.stateNode).filter(Boolean);
     } catch (err) {
       // The fiber might have unmounted by now.
       return null;
@@ -6190,13 +6279,12 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function getDisplayNameForFiberID(id) {
-    var fiber = idToFiberMap.get(id);
+    const fiber = idToFiberMap.get(id);
     return fiber != null ? getDisplayNameForFiber(fiber) : null;
   }
 
-  function getFiberIDForNative(hostInstance) {
-    var findNearestUnfilteredAncestor = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-    var fiber = renderer.findFiberByHostInstance(hostInstance);
+  function getFiberIDForNative(hostInstance, findNearestUnfilteredAncestor = false) {
+    let fiber = renderer.findFiberByHostInstance(hostInstance);
 
     if (fiber != null) {
       if (findNearestUnfilteredAncestor) {
@@ -6211,25 +6299,25 @@ function attach(hook, rendererID, renderer, global) {
     return null;
   }
 
-  var MOUNTING = 1;
-  var MOUNTED = 2;
-  var UNMOUNTED = 3; // This function is copied from React and should be kept in sync:
+  const MOUNTING = 1;
+  const MOUNTED = 2;
+  const UNMOUNTED = 3; // This function is copied from React and should be kept in sync:
   // https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberTreeReflection.js
 
   function isFiberMountedImpl(fiber) {
-    var node = fiber;
+    let node = fiber;
 
     if (!fiber.alternate) {
       // If there is no alternate, this might be a new tree that isn't inserted
       // yet. If it is, then it will have a pending insertion effect on it.
-      if ((node.effectTag & Placement) !== NoEffect) {
+      if ((getFiberFlags(node) & Placement) !== NoFlags) {
         return MOUNTING;
       }
 
       while (node.return) {
         node = node.return;
 
-        if ((node.effectTag & Placement) !== NoEffect) {
+        if ((getFiberFlags(node) & Placement) !== NoFlags) {
           return MOUNTING;
         }
       }
@@ -6255,18 +6343,18 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function findCurrentFiberUsingSlowPathById(id) {
-    var fiber = idToFiberMap.get(id);
+    const fiber = idToFiberMap.get(id);
 
     if (fiber == null) {
-      console.warn("Could not find Fiber with id \"".concat(id, "\""));
+      console.warn(`Could not find Fiber with id "${id}"`);
       return null;
     }
 
-    var alternate = fiber.alternate;
+    const alternate = fiber.alternate;
 
     if (!alternate) {
       // If there is no alternate, then we only need to check if it is mounted.
-      var state = isFiberMountedImpl(fiber);
+      const state = isFiberMountedImpl(fiber);
 
       if (state === UNMOUNTED) {
         throw Error('Unable to find node on an unmounted component.');
@@ -6282,25 +6370,25 @@ function attach(hook, rendererID, renderer, global) {
     // special cases and we'll deal with them.
 
 
-    var a = fiber;
-    var b = alternate;
+    let a = fiber;
+    let b = alternate;
 
     while (true) {
-      var parentA = a.return;
+      const parentA = a.return;
 
       if (parentA === null) {
         // We're at the root.
         break;
       }
 
-      var parentB = parentA.alternate;
+      const parentB = parentA.alternate;
 
       if (parentB === null) {
         // There is no alternate. This is an unusual case. Currently, it only
         // happens when a Suspense component is hidden. An extra fragment fiber
         // is inserted in between the Suspense fiber and its children. Skip
         // over this extra fragment fiber and proceed to the next parent.
-        var nextParent = parentA.return;
+        const nextParent = parentA.return;
 
         if (nextParent !== null) {
           a = b = nextParent;
@@ -6315,7 +6403,7 @@ function attach(hook, rendererID, renderer, global) {
 
 
       if (parentA.child === parentB.child) {
-        var child = parentA.child;
+        let child = parentA.child;
 
         while (child) {
           if (child === a) {
@@ -6357,47 +6445,47 @@ function attach(hook, rendererID, renderer, global) {
         // which child belongs to which set.
         //
         // Search parent A's child set
-        var didFindChild = false;
-        var _child = parentA.child;
+        let didFindChild = false;
+        let child = parentA.child;
 
-        while (_child) {
-          if (_child === a) {
+        while (child) {
+          if (child === a) {
             didFindChild = true;
             a = parentA;
             b = parentB;
             break;
           }
 
-          if (_child === b) {
+          if (child === b) {
             didFindChild = true;
             b = parentA;
             a = parentB;
             break;
           }
 
-          _child = _child.sibling;
+          child = child.sibling;
         }
 
         if (!didFindChild) {
           // Search parent B's child set
-          _child = parentB.child;
+          child = parentB.child;
 
-          while (_child) {
-            if (_child === a) {
+          while (child) {
+            if (child === a) {
               didFindChild = true;
               a = parentB;
               b = parentA;
               break;
             }
 
-            if (_child === b) {
+            if (child === b) {
               didFindChild = true;
               b = parentB;
               a = parentA;
               break;
             }
 
-            _child = _child.sibling;
+            child = child.sibling;
           }
 
           if (!didFindChild) {
@@ -6428,24 +6516,24 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function prepareViewAttributeSource(id, path) {
-    var isCurrent = isMostRecentlyInspectedElementCurrent(id);
+    const isCurrent = isMostRecentlyInspectedElementCurrent(id);
 
     if (isCurrent) {
-      window.$attribute = Object(utils["h" /* getInObject */])(mostRecentlyInspectedElement, path);
+      window.$attribute = Object(utils["j" /* getInObject */])(mostRecentlyInspectedElement, path);
     }
   }
 
   function prepareViewElementSource(id) {
-    var fiber = idToFiberMap.get(id);
+    const fiber = idToFiberMap.get(id);
 
     if (fiber == null) {
-      console.warn("Could not find Fiber with id \"".concat(id, "\""));
+      console.warn(`Could not find Fiber with id "${id}"`);
       return;
     }
 
-    var elementType = fiber.elementType,
-        tag = fiber.tag,
-        type = fiber.type;
+    const elementType = fiber.elementType,
+          tag = fiber.tag,
+          type = fiber.type;
 
     switch (tag) {
       case ClassComponent:
@@ -6471,21 +6559,21 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function getOwnersList(id) {
-    var fiber = findCurrentFiberUsingSlowPathById(id);
+    const fiber = findCurrentFiberUsingSlowPathById(id);
 
     if (fiber == null) {
       return null;
     }
 
-    var _debugOwner = fiber._debugOwner;
-    var owners = [{
+    const _debugOwner = fiber._debugOwner;
+    const owners = [{
       displayName: getDisplayNameForFiber(fiber) || 'Anonymous',
-      id: id,
+      id,
       type: getElementTypeForFiber(fiber)
     }];
 
     if (_debugOwner) {
-      var owner = _debugOwner;
+      let owner = _debugOwner;
 
       while (owner !== null) {
         owners.unshift({
@@ -6504,9 +6592,9 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function getInstanceAndStyle(id) {
-    var instance = null;
-    var style = null;
-    var fiber = findCurrentFiberUsingSlowPathById(id);
+    let instance = null;
+    let style = null;
+    const fiber = findCurrentFiberUsingSlowPathById(id);
 
     if (fiber !== null) {
       instance = fiber.stateNode;
@@ -6517,39 +6605,39 @@ function attach(hook, rendererID, renderer, global) {
     }
 
     return {
-      instance: instance,
-      style: style
+      instance,
+      style
     };
   }
 
   function inspectElementRaw(id) {
-    var fiber = findCurrentFiberUsingSlowPathById(id);
+    const fiber = findCurrentFiberUsingSlowPathById(id);
 
     if (fiber == null) {
       return null;
     }
 
-    var _debugOwner = fiber._debugOwner,
-        _debugSource = fiber._debugSource,
-        stateNode = fiber.stateNode,
-        key = fiber.key,
-        memoizedProps = fiber.memoizedProps,
-        memoizedState = fiber.memoizedState,
-        dependencies = fiber.dependencies,
-        tag = fiber.tag,
-        type = fiber.type;
-    var elementType = getElementTypeForFiber(fiber);
-    var usesHooks = (tag === FunctionComponent || tag === SimpleMemoComponent || tag === ForwardRef) && (!!memoizedState || !!dependencies);
-    var typeSymbol = getTypeSymbol(type);
-    var canViewSource = false;
-    var context = null;
+    const _debugOwner = fiber._debugOwner,
+          _debugSource = fiber._debugSource,
+          stateNode = fiber.stateNode,
+          key = fiber.key,
+          memoizedProps = fiber.memoizedProps,
+          memoizedState = fiber.memoizedState,
+          dependencies = fiber.dependencies,
+          tag = fiber.tag,
+          type = fiber.type;
+    const elementType = getElementTypeForFiber(fiber);
+    const usesHooks = (tag === FunctionComponent || tag === SimpleMemoComponent || tag === ForwardRef) && (!!memoizedState || !!dependencies);
+    const typeSymbol = getTypeSymbol(type);
+    let canViewSource = false;
+    let context = null;
 
     if (tag === ClassComponent || tag === FunctionComponent || tag === IncompleteClassComponent || tag === IndeterminateComponent || tag === MemoComponent || tag === ForwardRef || tag === SimpleMemoComponent) {
       canViewSource = true;
 
       if (stateNode && stateNode.context != null) {
         // Don't show an empty context object for class components that don't use the context API.
-        var shouldHideContext = elementType === types["e" /* ElementTypeClass */] && !(type.contextTypes || type.contextType);
+        const shouldHideContext = elementType === types["e" /* ElementTypeClass */] && !(type.contextTypes || type.contextType);
 
         if (!shouldHideContext) {
           context = stateNode.context;
@@ -6559,33 +6647,33 @@ function attach(hook, rendererID, renderer, global) {
       // 16.3-16.5 read from "type" because the Consumer is the actual context object.
       // 16.6+ should read from "type._context" because Consumer can be different (in DEV).
       // NOTE Keep in sync with getDisplayNameForFiber()
-      var consumerResolvedContext = type._context || type; // Global context value.
+      const consumerResolvedContext = type._context || type; // Global context value.
 
       context = consumerResolvedContext._currentValue || null; // Look for overridden value.
 
-      var _current = fiber.return;
+      let current = fiber.return;
 
-      while (_current !== null) {
-        var currentType = _current.type;
-        var currentTypeSymbol = getTypeSymbol(currentType);
+      while (current !== null) {
+        const currentType = current.type;
+        const currentTypeSymbol = getTypeSymbol(currentType);
 
         if (currentTypeSymbol === ReactSymbols["p" /* PROVIDER_NUMBER */] || currentTypeSymbol === ReactSymbols["q" /* PROVIDER_SYMBOL_STRING */]) {
           // 16.3.0 exposed the context object as "context"
           // PR #12501 changed it to "_context" for 16.3.1+
           // NOTE Keep in sync with getDisplayNameForFiber()
-          var providerResolvedContext = currentType._context || currentType.context;
+          const providerResolvedContext = currentType._context || currentType.context;
 
           if (providerResolvedContext === consumerResolvedContext) {
-            context = _current.memoizedProps.value;
+            context = current.memoizedProps.value;
             break;
           }
         }
 
-        _current = _current.return;
+        current = current.return;
       }
     }
 
-    var hasLegacyContext = false;
+    let hasLegacyContext = false;
 
     if (context !== null) {
       hasLegacyContext = !!type.contextTypes; // To simplify hydration and display logic for context, wrap in a value object.
@@ -6596,11 +6684,11 @@ function attach(hook, rendererID, renderer, global) {
       };
     }
 
-    var owners = null;
+    let owners = null;
 
     if (_debugOwner) {
       owners = [];
-      var owner = _debugOwner;
+      let owner = _debugOwner;
 
       while (owner !== null) {
         owners.push({
@@ -6612,17 +6700,17 @@ function attach(hook, rendererID, renderer, global) {
       }
     }
 
-    var isTimedOutSuspense = tag === SuspenseComponent && memoizedState !== null;
-    var hooks = null;
+    const isTimedOutSuspense = tag === SuspenseComponent && memoizedState !== null;
+    let hooks = null;
 
     if (usesHooks) {
-      var originalConsoleMethods = {}; // Temporarily disable all console logging before re-running the hook.
+      const originalConsoleMethods = {}; // Temporarily disable all console logging before re-running the hook.
 
-      for (var method in console) {
+      for (const method in console) {
         try {
           originalConsoleMethods[method] = console[method]; // $FlowFixMe property error|warn is not writable.
 
-          console[method] = function () {};
+          console[method] = () => {};
         } catch (error) {}
       }
 
@@ -6630,64 +6718,68 @@ function attach(hook, rendererID, renderer, global) {
         hooks = Object(react_debug_tools["inspectHooksOfFiber"])(fiber, renderer.currentDispatcherRef);
       } finally {
         // Restore original console functionality.
-        for (var _method in originalConsoleMethods) {
+        for (const method in originalConsoleMethods) {
           try {
             // $FlowFixMe property error|warn is not writable.
-            console[_method] = originalConsoleMethods[_method];
+            console[method] = originalConsoleMethods[method];
           } catch (error) {}
         }
       }
     }
 
-    var rootType = null;
-    var current = fiber;
+    let rootType = null;
+    let current = fiber;
 
     while (current.return !== null) {
       current = current.return;
     }
 
-    var fiberRoot = current.stateNode;
+    const fiberRoot = current.stateNode;
 
     if (fiberRoot != null && fiberRoot._debugRootType !== null) {
       rootType = fiberRoot._debugRootType;
     }
 
     return {
-      id: id,
-      // Does the current renderer support editable hooks?
+      id,
+      // Does the current renderer support editable hooks and function props?
       canEditHooks: typeof overrideHookState === 'function',
-      // Does the current renderer support editable function props?
       canEditFunctionProps: typeof overrideProps === 'function',
+      // Does the current renderer support advanced editing interface?
+      canEditHooksAndDeletePaths: typeof overrideHookStateDeletePath === 'function',
+      canEditHooksAndRenamePaths: typeof overrideHookStateRenamePath === 'function',
+      canEditFunctionPropsDeletePaths: typeof overridePropsDeletePath === 'function',
+      canEditFunctionPropsRenamePaths: typeof overridePropsRenamePath === 'function',
       canToggleSuspense: supportsTogglingSuspense && ( // If it's showing the real content, we can always flip fallback.
       !isTimedOutSuspense || // If it's showing fallback because we previously forced it to,
       // allow toggling it back to remove the fallback override.
       forceFallbackForSuspenseIDs.has(id)),
       // Can view component source location.
-      canViewSource: canViewSource,
+      canViewSource,
       // Does the component have legacy context attached to it.
-      hasLegacyContext: hasLegacyContext,
+      hasLegacyContext,
       key: key != null ? key : null,
       displayName: getDisplayNameForFiber(fiber),
       type: elementType,
       // Inspectable properties.
       // TODO Review sanitization approach for the below inspectable values.
-      context: context,
-      hooks: hooks,
+      context,
+      hooks,
       props: memoizedProps,
       state: usesHooks ? null : memoizedState,
       // List of owners
-      owners: owners,
+      owners,
       // Location of component in source code.
       source: _debugSource || null,
-      rootType: rootType,
+      rootType,
       rendererPackageName: renderer.rendererPackageName,
       rendererVersion: renderer.version
     };
   }
 
-  var mostRecentlyInspectedElement = null;
-  var hasElementUpdatedSinceLastInspected = false;
-  var currentlyInspectedPaths = {};
+  let mostRecentlyInspectedElement = null;
+  let hasElementUpdatedSinceLastInspected = false;
+  let currentlyInspectedPaths = {};
 
   function isMostRecentlyInspectedElementCurrent(id) {
     return mostRecentlyInspectedElement !== null && mostRecentlyInspectedElement.id === id && !hasElementUpdatedSinceLastInspected;
@@ -6696,8 +6788,8 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function mergeInspectedPaths(path) {
-    var current = currentlyInspectedPaths;
-    path.forEach(function (key) {
+    let current = currentlyInspectedPaths;
+    path.forEach(key => {
       if (!current[key]) {
         current[key] = {};
       }
@@ -6730,13 +6822,13 @@ function attach(hook, rendererID, renderer, global) {
           break;
       }
 
-      var current = key === null ? currentlyInspectedPaths : currentlyInspectedPaths[key];
+      let current = key === null ? currentlyInspectedPaths : currentlyInspectedPaths[key];
 
       if (!current) {
         return false;
       }
 
-      for (var i = 0; i < path.length; i++) {
+      for (let i = 0; i < path.length; i++) {
         current = current[path[i]];
 
         if (!current) {
@@ -6749,20 +6841,20 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function updateSelectedElement(inspectedElement) {
-    var hooks = inspectedElement.hooks,
-        id = inspectedElement.id,
-        props = inspectedElement.props;
-    var fiber = idToFiberMap.get(id);
+    const hooks = inspectedElement.hooks,
+          id = inspectedElement.id,
+          props = inspectedElement.props;
+    const fiber = idToFiberMap.get(id);
 
     if (fiber == null) {
-      console.warn("Could not find Fiber with id \"".concat(id, "\""));
+      console.warn(`Could not find Fiber with id "${id}"`);
       return;
     }
 
-    var elementType = fiber.elementType,
-        stateNode = fiber.stateNode,
-        tag = fiber.tag,
-        type = fiber.type;
+    const elementType = fiber.elementType,
+          stateNode = fiber.stateNode,
+          tag = fiber.tag,
+          type = fiber.type;
 
     switch (tag) {
       case ClassComponent:
@@ -6773,15 +6865,15 @@ function attach(hook, rendererID, renderer, global) {
 
       case FunctionComponent:
         global.$r = {
-          hooks: hooks,
-          props: props,
-          type: type
+          hooks,
+          props,
+          type
         };
         break;
 
       case ForwardRef:
         global.$r = {
-          props: props,
+          props,
           type: type.render
         };
         break;
@@ -6789,7 +6881,7 @@ function attach(hook, rendererID, renderer, global) {
       case MemoComponent:
       case SimpleMemoComponent:
         global.$r = {
-          props: props,
+          props,
           type: elementType != null && elementType.type != null ? elementType.type : type
         };
         break;
@@ -6801,11 +6893,11 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function storeAsGlobal(id, path, count) {
-    var isCurrent = isMostRecentlyInspectedElementCurrent(id);
+    const isCurrent = isMostRecentlyInspectedElementCurrent(id);
 
     if (isCurrent) {
-      var value = Object(utils["h" /* getInObject */])(mostRecentlyInspectedElement, path);
-      var key = "$reactTemp".concat(count);
+      const value = Object(utils["j" /* getInObject */])(mostRecentlyInspectedElement, path);
+      const key = `$reactTemp${count}`;
       window[key] = value;
       console.log(key);
       console.log(value);
@@ -6813,20 +6905,20 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function copyElementPath(id, path) {
-    var isCurrent = isMostRecentlyInspectedElementCurrent(id);
+    const isCurrent = isMostRecentlyInspectedElementCurrent(id);
 
     if (isCurrent) {
-      copyToClipboard(Object(utils["h" /* getInObject */])(mostRecentlyInspectedElement, path));
+      copyToClipboard(Object(utils["j" /* getInObject */])(mostRecentlyInspectedElement, path));
     }
   }
 
   function inspectElement(id, path) {
-    var isCurrent = isMostRecentlyInspectedElementCurrent(id);
+    const isCurrent = isMostRecentlyInspectedElementCurrent(id);
 
     if (isCurrent) {
       if (path != null) {
         mergeInspectedPaths(path);
-        var secondaryCategory = null;
+        let secondaryCategory = null;
 
         if (path[0] === 'hooks') {
           secondaryCategory = 'hooks';
@@ -6835,16 +6927,16 @@ function attach(hook, rendererID, renderer, global) {
 
 
         return {
-          id: id,
+          id,
           type: 'hydrated-path',
-          path: path,
-          value: cleanForBridge(Object(utils["h" /* getInObject */])(mostRecentlyInspectedElement, path), createIsPathAllowed(null, secondaryCategory), path)
+          path,
+          value: cleanForBridge(Object(utils["j" /* getInObject */])(mostRecentlyInspectedElement, path), createIsPathAllowed(null, secondaryCategory), path)
         };
       } else {
         // If this element has not been updated since it was last inspected, we don't need to re-run it.
         // Instead we can just return the ID to indicate that it has not changed.
         return {
-          id: id,
+          id,
           type: 'no-change'
         };
       }
@@ -6859,7 +6951,7 @@ function attach(hook, rendererID, renderer, global) {
 
       if (mostRecentlyInspectedElement === null) {
         return {
-          id: id,
+          id,
           type: 'not-found'
         };
       }
@@ -6875,14 +6967,14 @@ function attach(hook, rendererID, renderer, global) {
       // This will enable us to send patches without re-inspecting if hydrated paths are requested.
       // (Reducing how often we shallow-render is a better DX for function components that use hooks.)
 
-      var cleanedInspectedElement = renderer_objectSpread({}, mostRecentlyInspectedElement);
+      const cleanedInspectedElement = renderer_objectSpread({}, mostRecentlyInspectedElement);
 
       cleanedInspectedElement.context = cleanForBridge(cleanedInspectedElement.context, createIsPathAllowed('context', null));
       cleanedInspectedElement.hooks = cleanForBridge(cleanedInspectedElement.hooks, createIsPathAllowed('hooks', 'hooks'));
       cleanedInspectedElement.props = cleanForBridge(cleanedInspectedElement.props, createIsPathAllowed('props', null));
       cleanedInspectedElement.state = cleanForBridge(cleanedInspectedElement.state, createIsPathAllowed('state', null));
       return {
-        id: id,
+        id,
         type: 'full-data',
         value: cleanedInspectedElement
       };
@@ -6890,17 +6982,17 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function logElementToConsole(id) {
-    var result = isMostRecentlyInspectedElementCurrent(id) ? mostRecentlyInspectedElement : inspectElementRaw(id);
+    const result = isMostRecentlyInspectedElementCurrent(id) ? mostRecentlyInspectedElement : inspectElementRaw(id);
 
     if (result === null) {
-      console.warn("Could not find Fiber with id \"".concat(id, "\""));
+      console.warn(`Could not find Fiber with id "${id}"`);
       return;
     }
 
-    var supportsGroup = typeof console.groupCollapsed === 'function';
+    const supportsGroup = typeof console.groupCollapsed === 'function';
 
     if (supportsGroup) {
-      console.groupCollapsed("[Click to expand] %c<".concat(result.displayName || 'Component', " />"), // --dom-tag-name-color is the CSS variable Chrome styles HTML elements with in the console.
+      console.groupCollapsed(`[Click to expand] %c<${result.displayName || 'Component'} />`, // --dom-tag-name-color is the CSS variable Chrome styles HTML elements with in the console.
       'color: var(--dom-tag-name-color); font-weight: normal;');
     }
 
@@ -6916,7 +7008,7 @@ function attach(hook, rendererID, renderer, global) {
       console.log('Hooks:', result.hooks);
     }
 
-    var nativeNodes = findNativeNodesForFiberID(id);
+    const nativeNodes = findNativeNodesForFiberID(id);
 
     if (nativeNodes !== null) {
       console.log('Nodes:', nativeNodes);
@@ -6935,90 +7027,219 @@ function attach(hook, rendererID, renderer, global) {
     }
   }
 
-  function setInHook(id, index, path, value) {
-    var fiber = findCurrentFiberUsingSlowPathById(id);
+  function deletePath(type, id, hookID, path) {
+    const fiber = findCurrentFiberUsingSlowPathById(id);
 
     if (fiber !== null) {
-      if (typeof overrideHookState === 'function') {
-        overrideHookState(fiber, index, path, value);
+      const instance = fiber.stateNode;
+
+      switch (type) {
+        case 'context':
+          // To simplify hydration and display of primitive context values (e.g. number, string)
+          // the inspectElement() method wraps context in a {value: ...} object.
+          // We need to remove the first part of the path (the "value") before continuing.
+          path = path.slice(1);
+
+          switch (fiber.tag) {
+            case ClassComponent:
+              if (path.length === 0) {// Simple context value (noop)
+              } else {
+                Object(utils["a" /* deletePathInObject */])(instance.context, path);
+              }
+
+              instance.forceUpdate();
+              break;
+
+            case FunctionComponent:
+              // Function components using legacy context are not editable
+              // because there's no instance on which to create a cloned, mutated context.
+              break;
+          }
+
+          break;
+
+        case 'hooks':
+          if (typeof overrideHookStateDeletePath === 'function') {
+            overrideHookStateDeletePath(fiber, hookID, path);
+          }
+
+          break;
+
+        case 'props':
+          if (instance === null) {
+            if (typeof overridePropsDeletePath === 'function') {
+              overridePropsDeletePath(fiber, path);
+            }
+          } else {
+            fiber.pendingProps = copyWithDelete(instance.props, path);
+            instance.forceUpdate();
+          }
+
+          break;
+
+        case 'state':
+          Object(utils["a" /* deletePathInObject */])(instance.state, path);
+          instance.forceUpdate();
+          break;
       }
     }
   }
 
-  function setInProps(id, path, value) {
-    var fiber = findCurrentFiberUsingSlowPathById(id);
+  function renamePath(type, id, hookID, oldPath, newPath) {
+    const fiber = findCurrentFiberUsingSlowPathById(id);
 
     if (fiber !== null) {
-      var instance = fiber.stateNode;
+      const instance = fiber.stateNode;
 
-      if (instance === null) {
-        if (typeof overrideProps === 'function') {
-          overrideProps(fiber, path, value);
-        }
-      } else {
-        fiber.pendingProps = copyWithSet(instance.props, path, value);
-        instance.forceUpdate();
+      switch (type) {
+        case 'context':
+          // To simplify hydration and display of primitive context values (e.g. number, string)
+          // the inspectElement() method wraps context in a {value: ...} object.
+          // We need to remove the first part of the path (the "value") before continuing.
+          oldPath = oldPath.slice(1);
+          newPath = newPath.slice(1);
+
+          switch (fiber.tag) {
+            case ClassComponent:
+              if (oldPath.length === 0) {// Simple context value (noop)
+              } else {
+                Object(utils["m" /* renamePathInObject */])(instance.context, oldPath, newPath);
+              }
+
+              instance.forceUpdate();
+              break;
+
+            case FunctionComponent:
+              // Function components using legacy context are not editable
+              // because there's no instance on which to create a cloned, mutated context.
+              break;
+          }
+
+          break;
+
+        case 'hooks':
+          if (typeof overrideHookStateRenamePath === 'function') {
+            overrideHookStateRenamePath(fiber, hookID, oldPath, newPath);
+          }
+
+          break;
+
+        case 'props':
+          if (instance === null) {
+            if (typeof overridePropsRenamePath === 'function') {
+              overridePropsRenamePath(fiber, oldPath, newPath);
+            }
+          } else {
+            fiber.pendingProps = copyWithRename(instance.props, oldPath, newPath);
+            instance.forceUpdate();
+          }
+
+          break;
+
+        case 'state':
+          Object(utils["m" /* renamePathInObject */])(instance.state, oldPath, newPath);
+          instance.forceUpdate();
+          break;
       }
     }
   }
 
-  function setInState(id, path, value) {
-    var fiber = findCurrentFiberUsingSlowPathById(id);
+  function overrideValueAtPath(type, id, hookID, path, value) {
+    const fiber = findCurrentFiberUsingSlowPathById(id);
 
     if (fiber !== null) {
-      var instance = fiber.stateNode;
-      Object(utils["m" /* setInObject */])(instance.state, path, value);
-      instance.forceUpdate();
-    }
-  }
+      const instance = fiber.stateNode;
 
-  function setInContext(id, path, value) {
-    // To simplify hydration and display of primitive context values (e.g. number, string)
-    // the inspectElement() method wraps context in a {value: ...} object.
-    // We need to remove the first part of the path (the "value") before continuing.
-    path = path.slice(1);
-    var fiber = findCurrentFiberUsingSlowPathById(id);
+      switch (type) {
+        case 'context':
+          // To simplify hydration and display of primitive context values (e.g. number, string)
+          // the inspectElement() method wraps context in a {value: ...} object.
+          // We need to remove the first part of the path (the "value") before continuing.
+          path = path.slice(1);
 
-    if (fiber !== null) {
-      var instance = fiber.stateNode;
+          switch (fiber.tag) {
+            case ClassComponent:
+              if (path.length === 0) {
+                // Simple context value
+                instance.context = value;
+              } else {
+                Object(utils["p" /* setInObject */])(instance.context, path, value);
+              }
 
-      if (path.length === 0) {
-        // Simple context value
-        instance.context = value;
-      } else {
-        Object(utils["m" /* setInObject */])(instance.context, path, value);
+              instance.forceUpdate();
+              break;
+
+            case FunctionComponent:
+              // Function components using legacy context are not editable
+              // because there's no instance on which to create a cloned, mutated context.
+              break;
+          }
+
+          break;
+
+        case 'hooks':
+          if (typeof overrideHookState === 'function') {
+            overrideHookState(fiber, hookID, path, value);
+          }
+
+          break;
+
+        case 'props':
+          switch (fiber.tag) {
+            case ClassComponent:
+              fiber.pendingProps = copyWithSet(instance.props, path, value);
+              instance.forceUpdate();
+              break;
+
+            default:
+              if (typeof overrideProps === 'function') {
+                overrideProps(fiber, path, value);
+              }
+
+              break;
+          }
+
+          break;
+
+        case 'state':
+          switch (fiber.tag) {
+            case ClassComponent:
+              Object(utils["p" /* setInObject */])(instance.state, path, value);
+              instance.forceUpdate();
+              break;
+          }
+
+          break;
       }
-
-      instance.forceUpdate();
     }
   }
 
-  var currentCommitProfilingMetadata = null;
-  var displayNamesByRootID = null;
-  var idToContextsMap = null;
-  var initialTreeBaseDurationsMap = null;
-  var initialIDToRootMap = null;
-  var isProfiling = false;
-  var profilingStartTime = 0;
-  var recordChangeDescriptions = false;
-  var rootToCommitProfilingMetadataMap = null;
+  let currentCommitProfilingMetadata = null;
+  let displayNamesByRootID = null;
+  let idToContextsMap = null;
+  let initialTreeBaseDurationsMap = null;
+  let initialIDToRootMap = null;
+  let isProfiling = false;
+  let profilingStartTime = 0;
+  let recordChangeDescriptions = false;
+  let rootToCommitProfilingMetadataMap = null;
 
   function getProfilingData() {
-    var dataForRoots = [];
+    const dataForRoots = [];
 
     if (rootToCommitProfilingMetadataMap === null) {
       throw Error('getProfilingData() called before any profiling data was recorded');
     }
 
-    rootToCommitProfilingMetadataMap.forEach(function (commitProfilingMetadata, rootID) {
-      var commitData = [];
-      var initialTreeBaseDurations = [];
-      var allInteractions = new Map();
-      var interactionCommits = new Map();
-      var displayName = displayNamesByRootID !== null && displayNamesByRootID.get(rootID) || 'Unknown';
+    rootToCommitProfilingMetadataMap.forEach((commitProfilingMetadata, rootID) => {
+      const commitData = [];
+      const initialTreeBaseDurations = [];
+      const allInteractions = new Map();
+      const interactionCommits = new Map();
+      const displayName = displayNamesByRootID !== null && displayNamesByRootID.get(rootID) || 'Unknown';
 
       if (initialTreeBaseDurationsMap != null) {
-        initialTreeBaseDurationsMap.forEach(function (treeBaseDuration, id) {
+        initialTreeBaseDurationsMap.forEach((treeBaseDuration, id) => {
           if (initialIDToRootMap != null && initialIDToRootMap.get(id) === rootID) {
             // We don't need to convert milliseconds to microseconds in this case,
             // because the profiling summary is JSON serialized.
@@ -7027,21 +7248,21 @@ function attach(hook, rendererID, renderer, global) {
         });
       }
 
-      commitProfilingMetadata.forEach(function (commitProfilingData, commitIndex) {
-        var changeDescriptions = commitProfilingData.changeDescriptions,
-            durations = commitProfilingData.durations,
-            interactions = commitProfilingData.interactions,
-            maxActualDuration = commitProfilingData.maxActualDuration,
-            priorityLevel = commitProfilingData.priorityLevel,
-            commitTime = commitProfilingData.commitTime;
-        var interactionIDs = [];
-        interactions.forEach(function (interaction) {
+      commitProfilingMetadata.forEach((commitProfilingData, commitIndex) => {
+        const changeDescriptions = commitProfilingData.changeDescriptions,
+              durations = commitProfilingData.durations,
+              interactions = commitProfilingData.interactions,
+              maxActualDuration = commitProfilingData.maxActualDuration,
+              priorityLevel = commitProfilingData.priorityLevel,
+              commitTime = commitProfilingData.commitTime;
+        const interactionIDs = [];
+        interactions.forEach(interaction => {
           if (!allInteractions.has(interaction.id)) {
             allInteractions.set(interaction.id, interaction);
           }
 
           interactionIDs.push(interaction.id);
-          var commitIndices = interactionCommits.get(interaction.id);
+          const commitIndices = interactionCommits.get(interaction.id);
 
           if (commitIndices != null) {
             commitIndices.push(commitIndex);
@@ -7049,11 +7270,11 @@ function attach(hook, rendererID, renderer, global) {
             interactionCommits.set(interaction.id, [commitIndex]);
           }
         });
-        var fiberActualDurations = [];
-        var fiberSelfDurations = [];
+        const fiberActualDurations = [];
+        const fiberSelfDurations = [];
 
-        for (var i = 0; i < durations.length; i += 3) {
-          var fiberID = durations[i];
+        for (let i = 0; i < durations.length; i += 3) {
+          const fiberID = durations[i];
           fiberActualDurations.push([fiberID, durations[i + 1]]);
           fiberSelfDurations.push([fiberID, durations[i + 2]]);
         }
@@ -7061,25 +7282,25 @@ function attach(hook, rendererID, renderer, global) {
         commitData.push({
           changeDescriptions: changeDescriptions !== null ? Array.from(changeDescriptions.entries()) : null,
           duration: maxActualDuration,
-          fiberActualDurations: fiberActualDurations,
-          fiberSelfDurations: fiberSelfDurations,
-          interactionIDs: interactionIDs,
-          priorityLevel: priorityLevel,
+          fiberActualDurations,
+          fiberSelfDurations,
+          interactionIDs,
+          priorityLevel,
           timestamp: commitTime
         });
       });
       dataForRoots.push({
-        commitData: commitData,
-        displayName: displayName,
-        initialTreeBaseDurations: initialTreeBaseDurations,
+        commitData,
+        displayName,
+        initialTreeBaseDurations,
         interactionCommits: Array.from(interactionCommits.entries()),
         interactions: Array.from(allInteractions.entries()),
-        rootID: rootID
+        rootID
       });
     });
     return {
-      dataForRoots: dataForRoots,
-      rendererID: rendererID
+      dataForRoots,
+      rendererID
     };
   }
 
@@ -7097,8 +7318,8 @@ function attach(hook, rendererID, renderer, global) {
     initialTreeBaseDurationsMap = new Map(idToTreeBaseDurationMap);
     initialIDToRootMap = new Map(idToRootMap);
     idToContextsMap = new Map();
-    hook.getFiberRoots(rendererID).forEach(function (root) {
-      var rootID = getFiberID(getPrimaryFiber(root.current));
+    hook.getFiberRoots(rendererID).forEach(root => {
+      const rootID = getFiberID(getPrimaryFiber(root.current));
       displayNamesByRootID.set(rootID, getDisplayNameForRoot(root.current));
 
       if (shouldRecordChangeDescriptions) {
@@ -7129,10 +7350,10 @@ function attach(hook, rendererID, renderer, global) {
     return false;
   }
 
-  var forceFallbackForSuspenseIDs = new Set();
+  const forceFallbackForSuspenseIDs = new Set();
 
   function shouldSuspendFiberAccordingToSet(fiber) {
-    var id = getFiberID(getPrimaryFiber(fiber));
+    const id = getFiberID(getPrimaryFiber(fiber));
     return forceFallbackForSuspenseIDs.has(id);
   }
 
@@ -7157,7 +7378,7 @@ function attach(hook, rendererID, renderer, global) {
       }
     }
 
-    var fiber = idToFiberMap.get(id);
+    const fiber = idToFiberMap.get(id);
 
     if (fiber != null) {
       scheduleUpdate(fiber);
@@ -7166,10 +7387,10 @@ function attach(hook, rendererID, renderer, global) {
   // In that case, we'll do some extra checks for matching mounts.
 
 
-  var trackedPath = null;
-  var trackedPathMatchFiber = null;
-  var trackedPathMatchDepth = -1;
-  var mightBeOnTrackedPath = false;
+  let trackedPath = null;
+  let trackedPathMatchFiber = null;
+  let trackedPathMatchDepth = -1;
+  let mightBeOnTrackedPath = false;
 
   function setTrackedPath(path) {
     if (path === null) {
@@ -7190,15 +7411,15 @@ function attach(hook, rendererID, renderer, global) {
       return false;
     }
 
-    var returnFiber = fiber.return;
-    var returnAlternate = returnFiber !== null ? returnFiber.alternate : null; // By now we know there's some selection to restore, and this is a new Fiber.
+    const returnFiber = fiber.return;
+    const returnAlternate = returnFiber !== null ? returnFiber.alternate : null; // By now we know there's some selection to restore, and this is a new Fiber.
     // Is this newly mounted Fiber a direct child of the current best match?
     // (This will also be true for new roots if we haven't matched anything yet.)
 
     if (trackedPathMatchFiber === returnFiber || trackedPathMatchFiber === returnAlternate && returnAlternate !== null) {
       // Is this the next Fiber we should select? Let's compare the frames.
-      var actualFrame = getPathFrame(fiber);
-      var expectedFrame = trackedPath[trackedPathMatchDepth + 1];
+      const actualFrame = getPathFrame(fiber);
+      const expectedFrame = trackedPath[trackedPathMatchDepth + 1];
 
       if (expectedFrame === undefined) {
         throw new Error('Expected to see a frame at the next depth.');
@@ -7241,26 +7462,26 @@ function attach(hook, rendererID, renderer, global) {
   // We will use this to try to disambiguate roots when restoring selection between reloads.
 
 
-  var rootPseudoKeys = new Map();
-  var rootDisplayNameCounter = new Map();
+  const rootPseudoKeys = new Map();
+  const rootDisplayNameCounter = new Map();
 
   function setRootPseudoKey(id, fiber) {
-    var name = getDisplayNameForRoot(fiber);
-    var counter = rootDisplayNameCounter.get(name) || 0;
+    const name = getDisplayNameForRoot(fiber);
+    const counter = rootDisplayNameCounter.get(name) || 0;
     rootDisplayNameCounter.set(name, counter + 1);
-    var pseudoKey = "".concat(name, ":").concat(counter);
+    const pseudoKey = `${name}:${counter}`;
     rootPseudoKeys.set(id, pseudoKey);
   }
 
   function removeRootPseudoKey(id) {
-    var pseudoKey = rootPseudoKeys.get(id);
+    const pseudoKey = rootPseudoKeys.get(id);
 
     if (pseudoKey === undefined) {
       throw new Error('Expected root pseudo key to be known.');
     }
 
-    var name = pseudoKey.substring(0, pseudoKey.lastIndexOf(':'));
-    var counter = rootDisplayNameCounter.get(name);
+    const name = pseudoKey.substring(0, pseudoKey.lastIndexOf(':'));
+    const counter = rootDisplayNameCounter.get(name);
 
     if (counter === undefined) {
       throw new Error('Expected counter to be known.');
@@ -7276,17 +7497,17 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function getDisplayNameForRoot(fiber) {
-    var preferredDisplayName = null;
-    var fallbackDisplayName = null;
-    var child = fiber.child; // Go at most three levels deep into direct children
+    let preferredDisplayName = null;
+    let fallbackDisplayName = null;
+    let child = fiber.child; // Go at most three levels deep into direct children
     // while searching for a child that has a displayName.
 
-    for (var i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
       if (child === null) {
         break;
       }
 
-      var displayName = getDisplayNameForFiber(child);
+      const displayName = getDisplayNameForFiber(child);
 
       if (displayName !== null) {
         // Prefer display names that we get from user-defined components.
@@ -7311,16 +7532,16 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function getPathFrame(fiber) {
-    var key = fiber.key;
-    var displayName = getDisplayNameForFiber(fiber);
-    var index = fiber.index;
+    const key = fiber.key;
+    let displayName = getDisplayNameForFiber(fiber);
+    const index = fiber.index;
 
     switch (fiber.tag) {
       case HostRoot:
         // Roots don't have a real displayName, index, or key.
         // Instead, we'll use the pseudo key (childDisplayName:indexWithThatName).
-        var id = getFiberID(getPrimaryFiber(fiber));
-        var pseudoKey = rootPseudoKeys.get(id);
+        const id = getFiberID(getPrimaryFiber(fiber));
+        const pseudoKey = rootPseudoKeys.get(id);
 
         if (pseudoKey === undefined) {
           throw new Error('Expected mounted root to have known pseudo key.');
@@ -7338,9 +7559,9 @@ function attach(hook, rendererID, renderer, global) {
     }
 
     return {
-      displayName: displayName,
-      key: key,
-      index: index
+      displayName,
+      key,
+      index
     };
   } // Produces a serializable representation that does a best effort
   // of identifying a particular Fiber between page reloads.
@@ -7349,13 +7570,13 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function getPathForElement(id) {
-    var fiber = idToFiberMap.get(id);
+    let fiber = idToFiberMap.get(id);
 
     if (fiber == null) {
       return null;
     }
 
-    var keyPath = [];
+    const keyPath = [];
 
     while (fiber !== null) {
       keyPath.push(getPathFrame(fiber));
@@ -7378,7 +7599,7 @@ function attach(hook, rendererID, renderer, global) {
     } // Find the closest Fiber store is aware of.
 
 
-    var fiber = trackedPathMatchFiber;
+    let fiber = trackedPathMatchFiber;
 
     while (fiber !== null && shouldFilterFiber(fiber)) {
       fiber = fiber.return;
@@ -7394,7 +7615,7 @@ function attach(hook, rendererID, renderer, global) {
     };
   }
 
-  var formatPriorityLevel = function formatPriorityLevel(priorityLevel) {
+  const formatPriorityLevel = priorityLevel => {
     if (priorityLevel == null) {
       return 'Unknown';
     }
@@ -7426,35 +7647,34 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   return {
-    cleanup: cleanup,
-    copyElementPath: copyElementPath,
-    findNativeNodesForFiberID: findNativeNodesForFiberID,
-    flushInitialOperations: flushInitialOperations,
-    getBestMatchForTrackedPath: getBestMatchForTrackedPath,
-    getDisplayNameForFiberID: getDisplayNameForFiberID,
-    getFiberIDForNative: getFiberIDForNative,
-    getInstanceAndStyle: getInstanceAndStyle,
-    getOwnersList: getOwnersList,
-    getPathForElement: getPathForElement,
-    getProfilingData: getProfilingData,
-    handleCommitFiberRoot: handleCommitFiberRoot,
-    handleCommitFiberUnmount: handleCommitFiberUnmount,
-    inspectElement: inspectElement,
-    logElementToConsole: logElementToConsole,
-    prepareViewAttributeSource: prepareViewAttributeSource,
-    prepareViewElementSource: prepareViewElementSource,
-    overrideSuspense: overrideSuspense,
-    renderer: renderer,
-    setInContext: setInContext,
-    setInHook: setInHook,
-    setInProps: setInProps,
-    setInState: setInState,
-    setTraceUpdatesEnabled: setTraceUpdatesEnabled,
-    setTrackedPath: setTrackedPath,
-    startProfiling: startProfiling,
-    stopProfiling: stopProfiling,
-    storeAsGlobal: storeAsGlobal,
-    updateComponentFilters: updateComponentFilters
+    cleanup,
+    copyElementPath,
+    deletePath,
+    findNativeNodesForFiberID,
+    flushInitialOperations,
+    getBestMatchForTrackedPath,
+    getDisplayNameForFiberID,
+    getFiberIDForNative,
+    getInstanceAndStyle,
+    getOwnersList,
+    getPathForElement,
+    getProfilingData,
+    handleCommitFiberRoot,
+    handleCommitFiberUnmount,
+    inspectElement,
+    logElementToConsole,
+    prepareViewAttributeSource,
+    prepareViewElementSource,
+    overrideSuspense,
+    overrideValueAtPath,
+    renamePath,
+    renderer,
+    setTraceUpdatesEnabled,
+    setTrackedPath,
+    startProfiling,
+    stopProfiling,
+    storeAsGlobal,
+    updateComponentFilters
   };
 }
 
@@ -7493,8 +7713,6 @@ function attach(hook, rendererID, renderer, global) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return PROFILER_SYMBOL_STRING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return PROVIDER_NUMBER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return PROVIDER_SYMBOL_STRING; });
-/* unused harmony export RESPONDER_NUMBER */
-/* unused harmony export RESPONDER_SYMBOL_STRING */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return SCOPE_NUMBER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return SCOPE_SYMBOL_STRING; });
 /* unused harmony export SERVER_BLOCK_NUMBER */
@@ -7518,51 +7736,49 @@ function attach(hook, rendererID, renderer, global) {
 // 1. DevTools requires symbols which may have been deleted in more recent versions (e.g. concurrent mode)
 // 2. DevTools must support both Symbol and numeric forms of each symbol;
 //    Since e.g. standalone DevTools runs in a separate process, it can't rely on its own ES capabilities.
-var BLOCK_NUMBER = 0xead9;
-var BLOCK_SYMBOL_STRING = 'Symbol(react.block)';
-var CONCURRENT_MODE_NUMBER = 0xeacf;
-var CONCURRENT_MODE_SYMBOL_STRING = 'Symbol(react.concurrent_mode)';
-var CONTEXT_NUMBER = 0xeace;
-var CONTEXT_SYMBOL_STRING = 'Symbol(react.context)';
-var DEPRECATED_ASYNC_MODE_SYMBOL_STRING = 'Symbol(react.async_mode)';
-var ELEMENT_NUMBER = 0xeac7;
-var ELEMENT_SYMBOL_STRING = 'Symbol(react.element)';
-var DEBUG_TRACING_MODE_NUMBER = 0xeae1;
-var DEBUG_TRACING_MODE_SYMBOL_STRING = 'Symbol(react.debug_trace_mode)';
-var FORWARD_REF_NUMBER = 0xead0;
-var FORWARD_REF_SYMBOL_STRING = 'Symbol(react.forward_ref)';
-var FRAGMENT_NUMBER = 0xeacb;
-var FRAGMENT_SYMBOL_STRING = 'Symbol(react.fragment)';
-var FUNDAMENTAL_NUMBER = 0xead5;
-var FUNDAMENTAL_SYMBOL_STRING = 'Symbol(react.fundamental)';
-var LAZY_NUMBER = 0xead4;
-var LAZY_SYMBOL_STRING = 'Symbol(react.lazy)';
-var MEMO_NUMBER = 0xead3;
-var MEMO_SYMBOL_STRING = 'Symbol(react.memo)';
-var OPAQUE_ID_NUMBER = 0xeae0;
-var OPAQUE_ID_SYMBOL_STRING = 'Symbol(react.opaque.id)';
-var PORTAL_NUMBER = 0xeaca;
-var PORTAL_SYMBOL_STRING = 'Symbol(react.portal)';
-var PROFILER_NUMBER = 0xead2;
-var PROFILER_SYMBOL_STRING = 'Symbol(react.profiler)';
-var PROVIDER_NUMBER = 0xeacd;
-var PROVIDER_SYMBOL_STRING = 'Symbol(react.provider)';
-var RESPONDER_NUMBER = 0xead6;
-var RESPONDER_SYMBOL_STRING = 'Symbol(react.responder)';
-var SCOPE_NUMBER = 0xead7;
-var SCOPE_SYMBOL_STRING = 'Symbol(react.scope)';
-var SERVER_BLOCK_NUMBER = 0xeada;
-var SERVER_BLOCK_SYMBOL_STRING = 'Symbol(react.server.block)';
-var STRICT_MODE_NUMBER = 0xeacc;
-var STRICT_MODE_SYMBOL_STRING = 'Symbol(react.strict_mode)';
-var SUSPENSE_NUMBER = 0xead1;
-var SUSPENSE_SYMBOL_STRING = 'Symbol(react.suspense)';
-var SUSPENSE_LIST_NUMBER = 0xead8;
-var SUSPENSE_LIST_SYMBOL_STRING = 'Symbol(react.suspense_list)';
+const BLOCK_NUMBER = 0xead9;
+const BLOCK_SYMBOL_STRING = 'Symbol(react.block)';
+const CONCURRENT_MODE_NUMBER = 0xeacf;
+const CONCURRENT_MODE_SYMBOL_STRING = 'Symbol(react.concurrent_mode)';
+const CONTEXT_NUMBER = 0xeace;
+const CONTEXT_SYMBOL_STRING = 'Symbol(react.context)';
+const DEPRECATED_ASYNC_MODE_SYMBOL_STRING = 'Symbol(react.async_mode)';
+const ELEMENT_NUMBER = 0xeac7;
+const ELEMENT_SYMBOL_STRING = 'Symbol(react.element)';
+const DEBUG_TRACING_MODE_NUMBER = 0xeae1;
+const DEBUG_TRACING_MODE_SYMBOL_STRING = 'Symbol(react.debug_trace_mode)';
+const FORWARD_REF_NUMBER = 0xead0;
+const FORWARD_REF_SYMBOL_STRING = 'Symbol(react.forward_ref)';
+const FRAGMENT_NUMBER = 0xeacb;
+const FRAGMENT_SYMBOL_STRING = 'Symbol(react.fragment)';
+const FUNDAMENTAL_NUMBER = 0xead5;
+const FUNDAMENTAL_SYMBOL_STRING = 'Symbol(react.fundamental)';
+const LAZY_NUMBER = 0xead4;
+const LAZY_SYMBOL_STRING = 'Symbol(react.lazy)';
+const MEMO_NUMBER = 0xead3;
+const MEMO_SYMBOL_STRING = 'Symbol(react.memo)';
+const OPAQUE_ID_NUMBER = 0xeae0;
+const OPAQUE_ID_SYMBOL_STRING = 'Symbol(react.opaque.id)';
+const PORTAL_NUMBER = 0xeaca;
+const PORTAL_SYMBOL_STRING = 'Symbol(react.portal)';
+const PROFILER_NUMBER = 0xead2;
+const PROFILER_SYMBOL_STRING = 'Symbol(react.profiler)';
+const PROVIDER_NUMBER = 0xeacd;
+const PROVIDER_SYMBOL_STRING = 'Symbol(react.provider)';
+const SCOPE_NUMBER = 0xead7;
+const SCOPE_SYMBOL_STRING = 'Symbol(react.scope)';
+const SERVER_BLOCK_NUMBER = 0xeada;
+const SERVER_BLOCK_SYMBOL_STRING = 'Symbol(react.server.block)';
+const STRICT_MODE_NUMBER = 0xeacc;
+const STRICT_MODE_SYMBOL_STRING = 'Symbol(react.strict_mode)';
+const SUSPENSE_NUMBER = 0xead1;
+const SUSPENSE_SYMBOL_STRING = 'Symbol(react.suspense)';
+const SUSPENSE_LIST_NUMBER = 0xead8;
+const SUSPENSE_LIST_SYMBOL_STRING = 'Symbol(react.suspense_list)';
 
 /***/ }),
 
-/***/ 44:
+/***/ 45:
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -7776,7 +7992,7 @@ process.umask = function () {
 
 /***/ }),
 
-/***/ 45:
+/***/ 46:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8261,50 +8477,8 @@ function Node(value, prev, next, list) {
 
 try {
   // add if support for Symbol.iterator is present
-  __webpack_require__(46)(Yallist);
+  __webpack_require__(47)(Yallist);
 } catch (er) {}
-
-/***/ }),
-
-/***/ 46:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function (Yallist) {
-  Yallist.prototype[Symbol.iterator] =
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee() {
-    var walker;
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            walker = this.head;
-
-          case 1:
-            if (!walker) {
-              _context.next = 7;
-              break;
-            }
-
-            _context.next = 4;
-            return walker.value;
-
-          case 4:
-            walker = walker.next;
-            _context.next = 1;
-            break;
-
-          case 7:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, this);
-  });
-};
 
 /***/ }),
 
@@ -8312,7 +8486,45 @@ module.exports = function (Yallist) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/** @license React v0.0.0-experimental-a9ba5283d
+
+
+module.exports = function (Yallist) {
+  Yallist.prototype[Symbol.iterator] = /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var walker;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          walker = this.head;
+
+        case 1:
+          if (!walker) {
+            _context.next = 7;
+            break;
+          }
+
+          _context.next = 4;
+          return walker.value;
+
+        case 4:
+          walker = walker.next;
+          _context.next = 1;
+          break;
+
+        case 7:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee, this);
+  });
+};
+
+/***/ }),
+
+/***/ 48:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/** @license React v0.0.0-experimental-51a3aa6af
  * react-is.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -8321,8 +8533,6 @@ module.exports = function (Yallist) {
  * LICENSE file in the root directory of this source tree.
  */
 
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var b = 60103,
     c = 60106,
@@ -8337,47 +8547,44 @@ var b = 60103,
     n = 60115,
     p = 60116,
     q = 60121,
-    t = 60122,
+    r = 60122,
     u = 60117,
-    v = 60118,
-    w = 60119,
-    x = 60129,
-    y = 60131;
+    v = 60129,
+    w = 60131;
 
 if ("function" === typeof Symbol && Symbol.for) {
-  var z = Symbol.for;
-  b = z("react.element");
-  c = z("react.portal");
-  d = z("react.fragment");
-  e = z("react.strict_mode");
-  f = z("react.profiler");
-  g = z("react.provider");
-  h = z("react.context");
-  k = z("react.forward_ref");
-  l = z("react.suspense");
-  m = z("react.suspense_list");
-  n = z("react.memo");
-  p = z("react.lazy");
-  q = z("react.block");
-  t = z("react.server.block");
-  u = z("react.fundamental");
-  v = z("react.responder");
-  w = z("react.scope");
-  x = z("react.debug_trace_mode");
-  y = z("react.legacy_hidden");
+  var x = Symbol.for;
+  b = x("react.element");
+  c = x("react.portal");
+  d = x("react.fragment");
+  e = x("react.strict_mode");
+  f = x("react.profiler");
+  g = x("react.provider");
+  h = x("react.context");
+  k = x("react.forward_ref");
+  l = x("react.suspense");
+  m = x("react.suspense_list");
+  n = x("react.memo");
+  p = x("react.lazy");
+  q = x("react.block");
+  r = x("react.server.block");
+  u = x("react.fundamental");
+  v = x("react.debug_trace_mode");
+  w = x("react.legacy_hidden");
 }
 
-function A(a) {
-  if ("object" === _typeof(a) && null !== a) {
-    var r = a.$$typeof;
+function y(a) {
+  if ("object" === typeof a && null !== a) {
+    var t = a.$$typeof;
 
-    switch (r) {
+    switch (t) {
       case b:
         switch (a = a.type, a) {
           case d:
           case f:
           case e:
           case l:
+          case m:
             return a;
 
           default:
@@ -8390,38 +8597,38 @@ function A(a) {
                 return a;
 
               default:
-                return r;
+                return t;
             }
 
         }
 
       case c:
-        return r;
+        return t;
     }
   }
 }
 
-var B = g,
-    C = b,
-    D = k,
-    E = d,
-    F = p,
-    G = n,
-    H = c,
-    I = f,
-    J = e,
-    K = l;
+var z = g,
+    A = b,
+    B = k,
+    C = d,
+    D = p,
+    E = n,
+    F = c,
+    G = f,
+    H = e,
+    I = l;
 exports.ContextConsumer = h;
-exports.ContextProvider = B;
-exports.Element = C;
-exports.ForwardRef = D;
-exports.Fragment = E;
-exports.Lazy = F;
-exports.Memo = G;
-exports.Portal = H;
-exports.Profiler = I;
-exports.StrictMode = J;
-exports.Suspense = K;
+exports.ContextProvider = z;
+exports.Element = A;
+exports.ForwardRef = B;
+exports.Fragment = C;
+exports.Lazy = D;
+exports.Memo = E;
+exports.Portal = F;
+exports.Profiler = G;
+exports.StrictMode = H;
+exports.Suspense = I;
 
 exports.isAsyncMode = function () {
   return !1;
@@ -8432,58 +8639,58 @@ exports.isConcurrentMode = function () {
 };
 
 exports.isContextConsumer = function (a) {
-  return A(a) === h;
+  return y(a) === h;
 };
 
 exports.isContextProvider = function (a) {
-  return A(a) === g;
+  return y(a) === g;
 };
 
 exports.isElement = function (a) {
-  return "object" === _typeof(a) && null !== a && a.$$typeof === b;
+  return "object" === typeof a && null !== a && a.$$typeof === b;
 };
 
 exports.isForwardRef = function (a) {
-  return A(a) === k;
+  return y(a) === k;
 };
 
 exports.isFragment = function (a) {
-  return A(a) === d;
+  return y(a) === d;
 };
 
 exports.isLazy = function (a) {
-  return A(a) === p;
+  return y(a) === p;
 };
 
 exports.isMemo = function (a) {
-  return A(a) === n;
+  return y(a) === n;
 };
 
 exports.isPortal = function (a) {
-  return A(a) === c;
+  return y(a) === c;
 };
 
 exports.isProfiler = function (a) {
-  return A(a) === f;
+  return y(a) === f;
 };
 
 exports.isStrictMode = function (a) {
-  return A(a) === e;
+  return y(a) === e;
 };
 
 exports.isSuspense = function (a) {
-  return A(a) === l;
+  return y(a) === l;
 };
 
 exports.isValidElementType = function (a) {
-  return "string" === typeof a || "function" === typeof a || a === d || a === f || a === x || a === e || a === l || a === m || a === y || "object" === _typeof(a) && null !== a && (a.$$typeof === p || a.$$typeof === n || a.$$typeof === g || a.$$typeof === h || a.$$typeof === k || a.$$typeof === u || a.$$typeof === v || a.$$typeof === w || a.$$typeof === q || a[0] === t) ? !0 : !1;
+  return "string" === typeof a || "function" === typeof a || a === d || a === f || a === v || a === e || a === l || a === m || a === w || "object" === typeof a && null !== a && (a.$$typeof === p || a.$$typeof === n || a.$$typeof === g || a.$$typeof === h || a.$$typeof === k || a.$$typeof === u || a.$$typeof === q || a[0] === r) ? !0 : !1;
 };
 
-exports.typeOf = A;
+exports.typeOf = y;
 
 /***/ }),
 
-/***/ 48:
+/***/ 49:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8492,11 +8699,11 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 49:
+/***/ 50:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/** @license React v0.0.0-experimental-a9ba5283d
+/** @license React v0.0.0-experimental-51a3aa6af
  * react.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -8506,9 +8713,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-var l = __webpack_require__(32),
+var l = __webpack_require__(33),
     m = 60103,
     p = 60106;
 
@@ -8548,15 +8753,13 @@ if ("function" === typeof Symbol && Symbol.for) {
 var y = "function" === typeof Symbol && Symbol.iterator;
 
 function z(a) {
-  if (null === a || "object" !== _typeof(a)) return null;
+  if (null === a || "object" !== typeof a) return null;
   a = y && a[y] || a["@@iterator"];
   return "function" === typeof a ? a : null;
 }
 
 function A(a) {
-  for (var b = "https://reactjs.org/docs/error-decoder.html?invariant=" + a, c = 1; c < arguments.length; c++) {
-    b += "&args[]=" + encodeURIComponent(arguments[c]);
-  }
+  for (var b = "https://reactjs.org/docs/error-decoder.html?invariant=" + a, c = 1; c < arguments.length; c++) b += "&args[]=" + encodeURIComponent(arguments[c]);
 
   return "Minified React error #" + a + "; visit " + b + " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.";
 }
@@ -8581,7 +8784,7 @@ function D(a, b, c) {
 D.prototype.isReactComponent = {};
 
 D.prototype.setState = function (a, b) {
-  if ("object" !== _typeof(a) && "function" !== typeof a && null != a) throw Error(A(85));
+  if ("object" !== typeof a && "function" !== typeof a && null != a) throw Error(A(85));
   this.updater.enqueueSetState(this, a, b, "setState");
 };
 
@@ -8620,20 +8823,14 @@ function K(a, b, c) {
       d = {},
       k = null,
       h = null;
-  if (null != b) for (e in void 0 !== b.ref && (h = b.ref), void 0 !== b.key && (k = "" + b.key), b) {
-    I.call(b, e) && !J.hasOwnProperty(e) && (d[e] = b[e]);
-  }
+  if (null != b) for (e in void 0 !== b.ref && (h = b.ref), void 0 !== b.key && (k = "" + b.key), b) I.call(b, e) && !J.hasOwnProperty(e) && (d[e] = b[e]);
   var g = arguments.length - 2;
   if (1 === g) d.children = c;else if (1 < g) {
-    for (var f = Array(g), n = 0; n < g; n++) {
-      f[n] = arguments[n + 2];
-    }
+    for (var f = Array(g), n = 0; n < g; n++) f[n] = arguments[n + 2];
 
     d.children = f;
   }
-  if (a && a.defaultProps) for (e in g = a.defaultProps, g) {
-    void 0 === d[e] && (d[e] = g[e]);
-  }
+  if (a && a.defaultProps) for (e in g = a.defaultProps, g) void 0 === d[e] && (d[e] = g[e]);
   return {
     $$typeof: m,
     type: a,
@@ -8656,7 +8853,7 @@ function L(a, b) {
 }
 
 function M(a) {
-  return "object" === _typeof(a) && null !== a && a.$$typeof === m;
+  return "object" === typeof a && null !== a && a.$$typeof === m;
 }
 
 function escape(a) {
@@ -8672,12 +8869,11 @@ function escape(a) {
 var N = /\/+/g;
 
 function O(a, b) {
-  return "object" === _typeof(a) && null !== a && null != a.key ? escape("" + a.key) : b.toString(36);
+  return "object" === typeof a && null !== a && null != a.key ? escape("" + a.key) : b.toString(36);
 }
 
 function P(a, b, c, e, d) {
-  var k = _typeof(a);
-
+  var k = typeof a;
   if ("undefined" === k || "boolean" === k) a = null;
   var h = !1;
   if (null === a) h = !0;else switch (k) {
@@ -8703,9 +8899,7 @@ function P(a, b, c, e, d) {
     k = a[g];
     var f = e + O(k, g);
     h += P(k, b, c, f, d);
-  } else if (f = z(a), "function" === typeof f) for (a = f.call(a), g = 0; !(k = a.next()).done;) {
-    k = k.value, f = e + O(k, g++), h += P(k, b, c, f, d);
-  } else if ("object" === k) throw b = "" + a, Error(A(31, "[object Object]" === b ? "object with keys {" + Object.keys(a).join(", ") + "}" : b));
+  } else if (f = z(a), "function" === typeof f) for (a = f.call(a), g = 0; !(k = a.next()).done;) k = k.value, f = e + O(k, g++), h += P(k, b, c, f, d);else if ("object" === k) throw b = "" + a, Error(A(31, "[object Object]" === b ? "object with keys {" + Object.keys(a).join(", ") + "}" : b));
   return h;
 }
 
@@ -8755,7 +8949,7 @@ function U() {
 }
 
 var V = {
-  suspense: null
+  transition: 0
 },
     W = {
   ReactCurrentDispatcher: T,
@@ -8806,18 +9000,14 @@ exports.cloneElement = function (a, b, c) {
     void 0 !== b.key && (d = "" + b.key);
     if (a.type && a.type.defaultProps) var g = a.type.defaultProps;
 
-    for (f in b) {
-      I.call(b, f) && !J.hasOwnProperty(f) && (e[f] = void 0 === b[f] && void 0 !== g ? g[f] : b[f]);
-    }
+    for (f in b) I.call(b, f) && !J.hasOwnProperty(f) && (e[f] = void 0 === b[f] && void 0 !== g ? g[f] : b[f]);
   }
 
   var f = arguments.length - 2;
   if (1 === f) e.children = c;else if (1 < f) {
     g = Array(f);
 
-    for (var n = 0; n < f; n++) {
-      g[n] = arguments[n + 2];
-    }
+    for (var n = 0; n < f; n++) g[n] = arguments[n + 2];
 
     e.children = g;
   }
@@ -8855,15 +9045,6 @@ exports.createFactory = function (a) {
   var b = K.bind(null, a);
   b.type = a;
   return b;
-};
-
-exports.createMutableSource = function (a, b) {
-  return {
-    _getVersion: b,
-    _source: a,
-    _workInProgressVersionPrimary: null,
-    _workInProgressVersionSecondary: null
-  };
 };
 
 exports.createRef = function () {
@@ -8920,27 +9101,40 @@ exports.unstable_block = function (a, b) {
   };
 };
 
-exports.unstable_useDeferredValue = function (a, b) {
-  return U().useDeferredValue(a, b);
+exports.unstable_createMutableSource = function (a, b) {
+  return {
+    _getVersion: b,
+    _source: a,
+    _workInProgressVersionPrimary: null,
+    _workInProgressVersionSecondary: null
+  };
+};
+
+exports.unstable_startTransition = function (a) {
+  var b = V.transition;
+  V.transition = 1;
+
+  try {
+    a();
+  } finally {
+    V.transition = b;
+  }
+};
+
+exports.unstable_useDeferredValue = function (a) {
+  return U().useDeferredValue(a);
+};
+
+exports.unstable_useMutableSource = function (a, b, c) {
+  return U().useMutableSource(a, b, c);
 };
 
 exports.unstable_useOpaqueIdentifier = function () {
   return U().useOpaqueIdentifier();
 };
 
-exports.unstable_useTransition = function (a) {
-  return U().useTransition(a);
-};
-
-exports.unstable_withSuspenseConfig = function (a, b) {
-  var c = V.suspense;
-  V.suspense = void 0 === b ? null : b;
-
-  try {
-    a();
-  } finally {
-    V.suspense = c;
-  }
+exports.unstable_useTransition = function () {
+  return U().useTransition();
 };
 
 exports.useCallback = function (a, b) {
@@ -8969,10 +9163,6 @@ exports.useMemo = function (a, b) {
   return U().useMemo(a, b);
 };
 
-exports.useMutableSource = function (a, b, c) {
-  return U().useMutableSource(a, b, c);
-};
-
 exports.useReducer = function (a, b, c) {
   return U().useReducer(a, b, c);
 };
@@ -8985,27 +9175,27 @@ exports.useState = function (a) {
   return U().useState(a);
 };
 
-exports.version = "16.13.1-experimental-a9ba5283d";
+exports.version = "17.0.0-alpha.0-experimental-51a3aa6af";
 
 /***/ }),
 
-/***/ 50:
+/***/ 51:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (true) {
-  module.exports = __webpack_require__(61);
+  module.exports = __webpack_require__(65);
 } else {}
 
 /***/ }),
 
-/***/ 61:
+/***/ 65:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/** @license React v0.0.0-experimental-a9ba5283d
+/** @license React v0.0.0-experimental-51a3aa6af
  * react-debug-tools.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -9015,11 +9205,9 @@ if (true) {
  */
 
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-var g = __webpack_require__(32),
-    k = __webpack_require__(62),
-    n = __webpack_require__(0).__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
+var g = __webpack_require__(33),
+    k = __webpack_require__(66),
+    p = __webpack_require__(0).__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
     v = 60128;
 
 if ("function" === typeof Symbol && Symbol.for) {
@@ -9044,17 +9232,6 @@ function A() {
         return null;
       }), B.useDebugValue(null), B.useCallback(function () {}), B.useMemo(function () {
         return null;
-      }), B.useMutableSource({
-        _source: {},
-        _getVersion: function _getVersion() {
-          return 1;
-        },
-        _workInProgressVersionPrimary: null,
-        _workInProgressVersionSecondary: null
-      }, function () {
-        return null;
-      }, function () {
-        return function () {};
       });
     } finally {
       var b = x;
@@ -9112,7 +9289,7 @@ var B = {
   useImperativeHandle: function useImperativeHandle(a) {
     D();
     var b = void 0;
-    null !== a && "object" === _typeof(a) && (b = a.current);
+    null !== a && "object" === typeof a && (b = a.current);
     x.push({
       primitive: "ImperativeHandle",
       stackError: Error(),
@@ -9176,27 +9353,13 @@ var B = {
     });
     return [a, function () {}];
   },
-  useResponder: function useResponder(a, b) {
-    x.push({
-      primitive: "Responder",
-      stackError: Error(),
-      value: {
-        responder: a.displayName || "EventResponder",
-        props: b
-      }
-    });
-    return {
-      responder: a,
-      props: b
-    };
-  },
-  useTransition: function useTransition(a) {
+  useTransition: function useTransition() {
     D();
     D();
     x.push({
       primitive: "Transition",
       stackError: Error(),
-      value: a
+      value: void 0
     });
     return [function () {}, !1];
   },
@@ -9241,14 +9404,10 @@ function F(a, b, c) {
   var d = b[c].source,
       e = 0;
 
-  a: for (; e < a.length; e++) {
-    if (a[e].source === d) {
-      for (var p = c + 1, q = e + 1; p < b.length && q < a.length; p++, q++) {
-        if (a[q].source !== b[p].source) continue a;
-      }
+  a: for (; e < a.length; e++) if (a[e].source === d) {
+    for (var n = c + 1, q = e + 1; n < b.length && q < a.length; n++, q++) if (a[q].source !== b[n].source) continue a;
 
-      return e;
-    }
+    return e;
   }
 
   return -1;
@@ -9269,7 +9428,7 @@ function H(a) {
 }
 
 function I(a, b) {
-  for (var c = [], d = null, e = c, p = 0, q = [], u = 0; u < b.length; u++) {
+  for (var c = [], d = null, e = c, n = 0, q = [], u = 0; u < b.length; u++) {
     var t = b[u];
     var f = a;
     var h = k.parse(t.stackError);
@@ -9278,12 +9437,10 @@ function I(a, b) {
       var m = h,
           r = F(m, f, E);
       if (-1 !== r) f = r;else {
-        for (var l = 0; l < f.length && 5 > l; l++) {
-          if (r = F(m, f, l), -1 !== r) {
-            E = l;
-            f = r;
-            break b;
-          }
+        for (var l = 0; l < f.length && 5 > l; l++) if (r = F(m, f, l), -1 !== r) {
+          E = l;
+          f = r;
+          break b;
         }
 
         f = -1;
@@ -9293,13 +9450,11 @@ function I(a, b) {
     b: {
       m = h;
       r = A().get(t.primitive);
-      if (void 0 !== r) for (l = 0; l < r.length && l < m.length; l++) {
-        if (r[l].source !== m[l].source) {
-          l < m.length - 1 && G(m[l].functionName, t.primitive) && l++;
-          l < m.length - 1 && G(m[l].functionName, t.primitive) && l++;
-          m = l;
-          break b;
-        }
+      if (void 0 !== r) for (l = 0; l < r.length && l < m.length; l++) if (r[l].source !== m[l].source) {
+        l < m.length - 1 && G(m[l].functionName, t.primitive) && l++;
+        l < m.length - 1 && G(m[l].functionName, t.primitive) && l++;
+        m = l;
+        break b;
       }
       m = -1;
     }
@@ -9310,30 +9465,24 @@ function I(a, b) {
       f = 0;
 
       if (null !== d) {
-        for (; f < h.length && f < d.length && h[h.length - f - 1].source === d[d.length - f - 1].source;) {
-          f++;
-        }
+        for (; f < h.length && f < d.length && h[h.length - f - 1].source === d[d.length - f - 1].source;) f++;
 
-        for (d = d.length - 1; d > f; d--) {
-          e = q.pop();
-        }
+        for (d = d.length - 1; d > f; d--) e = q.pop();
       }
 
-      for (d = h.length - f - 1; 1 <= d; d--) {
-        f = [], e.push({
-          id: null,
-          isStateEditable: !1,
-          name: H(h[d - 1].functionName),
-          value: void 0,
-          subHooks: f
-        }), q.push(e), e = f;
-      }
+      for (d = h.length - f - 1; 1 <= d; d--) f = [], e.push({
+        id: null,
+        isStateEditable: !1,
+        name: H(h[d - 1].functionName),
+        value: void 0,
+        subHooks: f
+      }), q.push(e), e = f;
 
       d = h;
     }
 
     h = t.primitive;
-    f = "Context" === h || "DebugValue" === h ? null : p++;
+    f = "Context" === h || "DebugValue" === h ? null : n++;
     e.push({
       id: f,
       isStateEditable: "Reducer" === h || "State" === h,
@@ -9359,7 +9508,7 @@ function J(a, b) {
 }
 
 function K(a, b, c) {
-  null == c && (c = n.ReactCurrentDispatcher);
+  null == c && (c = p.ReactCurrentDispatcher);
   var d = c.current;
   c.current = B;
 
@@ -9383,7 +9532,7 @@ function L(a) {
 exports.inspectHooks = K;
 
 exports.inspectHooksOfFiber = function (a, b) {
-  null == b && (b = n.ReactCurrentDispatcher);
+  null == b && (b = p.ReactCurrentDispatcher);
   z = a;
   if (0 !== a.tag && 15 !== a.tag && 11 !== a.tag && 22 !== a.tag) throw Error("Unknown Fiber. Needs to be a function component to inspect hooks.");
   A();
@@ -9394,19 +9543,17 @@ exports.inspectHooksOfFiber = function (a, b) {
     d = g({}, d);
     var e = c.defaultProps;
 
-    for (p in e) {
-      void 0 === d[p] && (d[p] = e[p]);
-    }
+    for (n in e) void 0 === d[n] && (d[n] = e[n]);
   }
 
   C = a.memoizedState;
-  var p = new Map();
+  var n = new Map();
 
   try {
     for (e = a; e;) {
       if (10 === e.tag) {
         var q = e.type._context;
-        p.has(q) || (p.set(q, q._currentValue), q._currentValue = e.memoizedProps.value);
+        n.has(q) || (n.set(q, q._currentValue), q._currentValue = e.memoizedProps.value);
       }
 
       e = e.return;
@@ -9435,24 +9582,22 @@ exports.inspectHooksOfFiber = function (a, b) {
 
     return K(c, d, b);
   } finally {
-    C = null, L(p);
+    C = null, L(n);
   }
 };
 
 /***/ }),
 
-/***/ 62:
+/***/ 66:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-(function (root, factory) {
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
   'use strict'; // Universal Module Definition (UMD) to support AMD, CommonJS/Node.js, Rhino, and browsers.
 
   /* istanbul ignore next */
 
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(63)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(67)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -9632,12 +9777,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 63:
+/***/ 67:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-(function (root, factory) {
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
   'use strict'; // Universal Module Definition (UMD) to support AMD, CommonJS/Node.js, Rhino, and browsers.
 
   /* istanbul ignore next */
@@ -9788,7 +9931,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 64:
+/***/ 68:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9883,8 +10026,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -9894,7 +10035,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
  * 
  */
 
-var meta = {
+const meta = {
   inspectable: Symbol('inspectable'),
   inspected: Symbol('inspected'),
   name: Symbol('name'),
@@ -9911,18 +10052,18 @@ var meta = {
 //
 // Reducing this threshold will improve the speed of initial component inspection,
 // but may decrease the responsiveness of expanding objects/arrays to inspect further.
-var LEVEL_THRESHOLD = 2;
+const LEVEL_THRESHOLD = 2;
 /**
  * Generate the dehydrated metadata for complex object instances
  */
 
 function createDehydrated(type, inspectable, data, cleaned, path) {
   cleaned.push(path);
-  var dehydrated = {
-    inspectable: inspectable,
-    type: type,
-    preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
-    preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
+  const dehydrated = {
+    inspectable,
+    type,
+    preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
+    preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
     name: !data.constructor || data.constructor.name === 'Object' ? '' : data.constructor.name
   };
 
@@ -9958,30 +10099,29 @@ function createDehydrated(type, inspectable, data, cleaned, path) {
  */
 
 
-function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
-  var level = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
-  var type = Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getDataType */ "d"])(data);
-  var isPathAllowedCheck;
+function dehydrate(data, cleaned, unserializable, path, isPathAllowed, level = 0) {
+  const type = Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getDataType */ "f"])(data);
+  let isPathAllowedCheck;
 
   switch (type) {
     case 'html_element':
       cleaned.push(path);
       return {
         inspectable: false,
-        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
         name: data.tagName,
-        type: type
+        type
       };
 
     case 'function':
       cleaned.push(path);
       return {
         inspectable: false,
-        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
-        name: data.name || 'function',
-        type: type
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
+        name: typeof data.name === 'function' || !data.name ? 'function' : data.name,
+        type
       };
 
     case 'string':
@@ -9991,20 +10131,20 @@ function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
       cleaned.push(path);
       return {
         inspectable: false,
-        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
         name: data.toString(),
-        type: type
+        type
       };
 
     case 'symbol':
       cleaned.push(path);
       return {
         inspectable: false,
-        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
         name: data.toString(),
-        type: type
+        type
       };
     // React Elements aren't very inspector-friendly,
     // and often contain private fields or circular references.
@@ -10013,10 +10153,10 @@ function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
       cleaned.push(path);
       return {
         inspectable: false,
-        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
-        name: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getDisplayNameForReactElement */ "g"])(data) || 'Unknown',
-        type: type
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
+        name: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getDisplayNameForReactElement */ "i"])(data) || 'Unknown',
+        type
       };
     // ArrayBuffers error if you try to inspect them.
 
@@ -10025,11 +10165,11 @@ function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
       cleaned.push(path);
       return {
         inspectable: false,
-        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
         name: type === 'data_view' ? 'DataView' : 'ArrayBuffer',
         size: data.byteLength,
-        type: type
+        type
       };
 
     case 'array':
@@ -10039,10 +10179,9 @@ function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
         return createDehydrated(type, true, data, cleaned, path);
       }
 
-      return data.map(function (item, i) {
-        return dehydrate(item, cleaned, unserializable, path.concat([i]), isPathAllowed, isPathAllowedCheck ? 1 : level + 1);
-      });
+      return data.map((item, i) => dehydrate(item, cleaned, unserializable, path.concat([i]), isPathAllowed, isPathAllowedCheck ? 1 : level + 1));
 
+    case 'html_all_collection':
     case 'typed_array':
     case 'iterator':
       isPathAllowedCheck = isPathAllowed(path);
@@ -10050,48 +10189,56 @@ function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
       if (level >= LEVEL_THRESHOLD && !isPathAllowedCheck) {
         return createDehydrated(type, true, data, cleaned, path);
       } else {
-        var unserializableValue = {
+        const unserializableValue = {
           unserializable: true,
           type: type,
           readonly: true,
           size: type === 'typed_array' ? data.length : undefined,
-          preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-          preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
+          preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+          preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
           name: !data.constructor || data.constructor.name === 'Object' ? '' : data.constructor.name
         };
 
-        if (_typeof(data[Symbol.iterator])) {
+        if (typeof data[Symbol.iterator]) {
           // TRICKY
           // Don't use [...spread] syntax for this purpose.
           // This project uses @babel/plugin-transform-spread in "loose" mode which only works with Array values.
           // Other types (e.g. typed arrays, Sets) will not spread correctly.
-          Array.from(data).forEach(function (item, i) {
-            return unserializableValue[i] = dehydrate(item, cleaned, unserializable, path.concat([i]), isPathAllowed, isPathAllowedCheck ? 1 : level + 1);
-          });
+          Array.from(data).forEach((item, i) => unserializableValue[i] = dehydrate(item, cleaned, unserializable, path.concat([i]), isPathAllowed, isPathAllowedCheck ? 1 : level + 1));
         }
 
         unserializable.push(path);
         return unserializableValue;
       }
 
+    case 'opaque_iterator':
+      cleaned.push(path);
+      return {
+        inspectable: false,
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
+        name: data[Symbol.toStringTag],
+        type
+      };
+
     case 'date':
       cleaned.push(path);
       return {
         inspectable: false,
-        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
         name: data.toString(),
-        type: type
+        type
       };
 
     case 'regexp':
       cleaned.push(path);
       return {
         inspectable: false,
-        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, false),
-        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "a"])(data, true),
+        preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
+        preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
         name: data.toString(),
-        type: type
+        type
       };
 
     case 'object':
@@ -10100,12 +10247,11 @@ function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
       if (level >= LEVEL_THRESHOLD && !isPathAllowedCheck) {
         return createDehydrated(type, true, data, cleaned, path);
       } else {
-        var object = {};
-
-        for (var name in data) {
-          object[name] = dehydrate(data[name], cleaned, unserializable, path.concat([name]), isPathAllowed, isPathAllowedCheck ? 1 : level + 1);
-        }
-
+        const object = {};
+        Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getAllEnumerableKeys */ "c"])(data).forEach(key => {
+          const name = key.toString();
+          object[name] = dehydrate(data[key], cleaned, unserializable, path.concat([name]), isPathAllowed, isPathAllowedCheck ? 1 : level + 1);
+        });
         return object;
       }
 
@@ -10116,7 +10262,7 @@ function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
       // We dehydrate+rehydrate them to preserve their type.
       cleaned.push(path);
       return {
-        type: type
+        type
       };
 
     default:
@@ -10124,7 +10270,7 @@ function dehydrate(data, cleaned, unserializable, path, isPathAllowed) {
   }
 }
 function fillInPath(object, data, path, value) {
-  var target = Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getInObject */ "h"])(object, path);
+  const target = Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getInObject */ "j"])(object, path);
 
   if (target != null) {
     if (!target[meta.unserializable]) {
@@ -10140,10 +10286,10 @@ function fillInPath(object, data, path, value) {
   }
 
   if (value !== null && data.unserializable.length > 0) {
-    var unserializablePath = data.unserializable[0];
-    var isMatch = unserializablePath.length === path.length;
+    const unserializablePath = data.unserializable[0];
+    let isMatch = unserializablePath.length === path.length;
 
-    for (var i = 0; i < path.length; i++) {
+    for (let i = 0; i < path.length; i++) {
       if (path[i] !== unserializablePath[i]) {
         isMatch = false;
         break;
@@ -10155,19 +10301,19 @@ function fillInPath(object, data, path, value) {
     }
   }
 
-  Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* setInObject */ "m"])(object, path, value);
+  Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* setInObject */ "p"])(object, path, value);
 }
 function hydrate(object, cleaned, unserializable) {
-  cleaned.forEach(function (path) {
-    var length = path.length;
-    var last = path[length - 1];
-    var parent = Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getInObject */ "h"])(object, path.slice(0, length - 1));
+  cleaned.forEach(path => {
+    const length = path.length;
+    const last = path[length - 1];
+    const parent = Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getInObject */ "j"])(object, path.slice(0, length - 1));
 
     if (!parent || !parent.hasOwnProperty(last)) {
       return;
     }
 
-    var value = parent[last];
+    const value = parent[last];
 
     if (value.type === 'infinity') {
       parent[last] = Infinity;
@@ -10177,7 +10323,7 @@ function hydrate(object, cleaned, unserializable) {
       parent[last] = undefined;
     } else {
       // Replace the string keys with Symbols so they're non-enumerable.
-      var replaced = {};
+      const replaced = {};
       replaced[meta.inspectable] = !!value.inspectable;
       replaced[meta.inspected] = false;
       replaced[meta.name] = value.name;
@@ -10189,18 +10335,18 @@ function hydrate(object, cleaned, unserializable) {
       parent[last] = replaced;
     }
   });
-  unserializable.forEach(function (path) {
-    var length = path.length;
-    var last = path[length - 1];
-    var parent = Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getInObject */ "h"])(object, path.slice(0, length - 1));
+  unserializable.forEach(path => {
+    const length = path.length;
+    const last = path[length - 1];
+    const parent = Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* getInObject */ "j"])(object, path.slice(0, length - 1));
 
     if (!parent || !parent.hasOwnProperty(last)) {
       return;
     }
 
-    var node = parent[last];
+    const node = parent[last];
 
-    var replacement = _objectSpread({}, node);
+    const replacement = _objectSpread({}, node);
 
     upgradeUnserializable(replacement, node);
     parent[last] = replacement;
@@ -10209,41 +10355,48 @@ function hydrate(object, cleaned, unserializable) {
 }
 
 function upgradeUnserializable(destination, source) {
-  var _Object$definePropert;
-
-  Object.defineProperties(destination, (_Object$definePropert = {}, _defineProperty(_Object$definePropert, meta.inspected, {
-    configurable: true,
-    enumerable: false,
-    value: !!source.inspected
-  }), _defineProperty(_Object$definePropert, meta.name, {
-    configurable: true,
-    enumerable: false,
-    value: source.name
-  }), _defineProperty(_Object$definePropert, meta.preview_long, {
-    configurable: true,
-    enumerable: false,
-    value: source.preview_long
-  }), _defineProperty(_Object$definePropert, meta.preview_short, {
-    configurable: true,
-    enumerable: false,
-    value: source.preview_short
-  }), _defineProperty(_Object$definePropert, meta.size, {
-    configurable: true,
-    enumerable: false,
-    value: source.size
-  }), _defineProperty(_Object$definePropert, meta.readonly, {
-    configurable: true,
-    enumerable: false,
-    value: !!source.readonly
-  }), _defineProperty(_Object$definePropert, meta.type, {
-    configurable: true,
-    enumerable: false,
-    value: source.type
-  }), _defineProperty(_Object$definePropert, meta.unserializable, {
-    configurable: true,
-    enumerable: false,
-    value: !!source.unserializable
-  }), _Object$definePropert));
+  Object.defineProperties(destination, {
+    [meta.inspected]: {
+      configurable: true,
+      enumerable: false,
+      value: !!source.inspected
+    },
+    [meta.name]: {
+      configurable: true,
+      enumerable: false,
+      value: source.name
+    },
+    [meta.preview_long]: {
+      configurable: true,
+      enumerable: false,
+      value: source.preview_long
+    },
+    [meta.preview_short]: {
+      configurable: true,
+      enumerable: false,
+      value: source.preview_short
+    },
+    [meta.size]: {
+      configurable: true,
+      enumerable: false,
+      value: source.size
+    },
+    [meta.readonly]: {
+      configurable: true,
+      enumerable: false,
+      value: !!source.readonly
+    },
+    [meta.type]: {
+      configurable: true,
+      enumerable: false,
+      value: source.type
+    },
+    [meta.unserializable]: {
+      configurable: true,
+      enumerable: false,
+      value: !!source.unserializable
+    }
+  });
   delete destination.inspected;
   delete destination.name;
   delete destination.preview_long;
@@ -10257,3 +10410,4 @@ function upgradeUnserializable(destination, source) {
 /***/ })
 
 /******/ });
+//# sourceMappingURL=injectGlobalHook.js.map

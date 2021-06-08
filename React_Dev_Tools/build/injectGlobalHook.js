@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 168);
+/******/ 	return __webpack_require__(__webpack_require__.s = 171);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -93,7 +93,7 @@
 
 
 if (true) {
-  module.exports = __webpack_require__(50);
+  module.exports = __webpack_require__(52);
 } else {}
 
 /***/ }),
@@ -165,24 +165,24 @@ const ComponentFilterHOC = 4;
 
 
 if (true) {
-  module.exports = __webpack_require__(48);
+  module.exports = __webpack_require__(50);
 } else {}
 
 /***/ }),
 
-/***/ 168:
+/***/ 171:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.alt2/node_modules/nullthrows/nullthrows.js
-var nullthrows = __webpack_require__(68);
+// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.devtools/node_modules/nullthrows/nullthrows.js
+var nullthrows = __webpack_require__(70);
 var nullthrows_default = /*#__PURE__*/__webpack_require__.n(nullthrows);
 
 // EXTERNAL MODULE: ../react-devtools-shared/src/backend/console.js + 3 modules
-var console = __webpack_require__(35);
+var console = __webpack_require__(38);
 
 // CONCATENATED MODULE: ../react-devtools-shared/src/hook.js
 /**
@@ -433,6 +433,14 @@ function installHook(target) {
     if (rendererInterface != null) {
       rendererInterface.handleCommitFiberRoot(root, priorityLevel);
     }
+  }
+
+  function onPostCommitFiberRoot(rendererID, root) {
+    const rendererInterface = rendererInterfaces.get(rendererID);
+
+    if (rendererInterface != null) {
+      rendererInterface.handlePostCommitFiberRoot(root);
+    }
   } // TODO: More meaningful names for "rendererInterfaces" and "renderers".
 
 
@@ -457,7 +465,8 @@ function installHook(target) {
     // React calls these methods.
     checkDCE,
     onCommitFiberUnmount,
-    onCommitFiberRoot
+    onCommitFiberRoot,
+    onPostCommitFiberRoot
   };
   Object.defineProperty(target, '__REACT_DEVTOOLS_GLOBAL_HOOK__', {
     // This property needs to be configurable for the test environment,
@@ -545,7 +554,7 @@ window.__REACT_DEVTOOLS_GLOBAL_HOOK__.nativeWeakMap = WeakMap;
 window.__REACT_DEVTOOLS_GLOBAL_HOOK__.nativeSet = Set;
 `; // If we have just reloaded to profile, we need to inject the renderer interface before the app loads.
 
-if (Object(storage["d" /* sessionStorageGetItem */])(constants["j" /* SESSION_STORAGE_RELOAD_AND_PROFILE_KEY */]) === 'true') {
+if (Object(storage["d" /* sessionStorageGetItem */])(constants["l" /* SESSION_STORAGE_RELOAD_AND_PROFILE_KEY */]) === 'true') {
   const rendererURL = chrome.runtime.getURL('build/renderer.js');
   let rendererCode; // We need to inject in time to catch the initial mount.
   // This means we need to synchronously read the renderer code itself,
@@ -582,7 +591,7 @@ if (typeof exportFunction === 'function') {
 
 /***/ }),
 
-/***/ 17:
+/***/ 19:
 /***/ (function(module, exports, __webpack_require__) {
 
 //  Import support https://stackoverflow.com/questions/13673346/supporting-both-commonjs-and-amd
@@ -905,31 +914,32 @@ if (typeof exportFunction === 'function') {
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, "c", function() { return /* binding */ getAllEnumerableKeys; });
 __webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ getDisplayName; });
-__webpack_require__.d(__webpack_exports__, "l", function() { return /* binding */ getUID; });
-__webpack_require__.d(__webpack_exports__, "r", function() { return /* binding */ utfDecodeString; });
-__webpack_require__.d(__webpack_exports__, "s", function() { return /* binding */ utfEncodeString; });
+__webpack_require__.d(__webpack_exports__, "m", function() { return /* binding */ getUID; });
+__webpack_require__.d(__webpack_exports__, "s", function() { return /* binding */ utfDecodeString; });
+__webpack_require__.d(__webpack_exports__, "t", function() { return /* binding */ utfEncodeString; });
 __webpack_require__.d(__webpack_exports__, "g", function() { return /* binding */ getDefaultComponentFilters; });
 __webpack_require__.d(__webpack_exports__, "k", function() { return /* binding */ getSavedComponentFilters; });
-__webpack_require__.d(__webpack_exports__, "n", function() { return /* binding */ saveComponentFilters; });
+__webpack_require__.d(__webpack_exports__, "o", function() { return /* binding */ saveComponentFilters; });
 __webpack_require__.d(__webpack_exports__, "d", function() { return /* binding */ getAppendComponentStack; });
 __webpack_require__.d(__webpack_exports__, "e", function() { return /* binding */ getBreakOnConsoleErrors; });
-__webpack_require__.d(__webpack_exports__, "o", function() { return /* binding */ separateDisplayNameAndHOCs; });
-__webpack_require__.d(__webpack_exports__, "q", function() { return /* binding */ shallowDiffers; });
+__webpack_require__.d(__webpack_exports__, "l", function() { return /* binding */ getShowInlineWarningsAndErrors; });
+__webpack_require__.d(__webpack_exports__, "p", function() { return /* binding */ separateDisplayNameAndHOCs; });
+__webpack_require__.d(__webpack_exports__, "r", function() { return /* binding */ shallowDiffers; });
 __webpack_require__.d(__webpack_exports__, "j", function() { return /* binding */ getInObject; });
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ deletePathInObject; });
-__webpack_require__.d(__webpack_exports__, "m", function() { return /* binding */ renamePathInObject; });
-__webpack_require__.d(__webpack_exports__, "p", function() { return /* binding */ setInObject; });
+__webpack_require__.d(__webpack_exports__, "n", function() { return /* binding */ renamePathInObject; });
+__webpack_require__.d(__webpack_exports__, "q", function() { return /* binding */ setInObject; });
 __webpack_require__.d(__webpack_exports__, "f", function() { return /* binding */ getDataType; });
 __webpack_require__.d(__webpack_exports__, "i", function() { return /* binding */ getDisplayNameForReactElement; });
 __webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ formatDataForPreview; });
 
-// UNUSED EXPORTS: alphaSortKeys, printOperationsArray, setAppendComponentStack, setBreakOnConsoleErrors
+// UNUSED EXPORTS: alphaSortKeys, printOperationsArray, setAppendComponentStack, setBreakOnConsoleErrors, setShowInlineWarningsAndErrors
 
-// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.alt2/node_modules/lru-cache/index.js
-var lru_cache = __webpack_require__(34);
+// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.devtools/node_modules/lru-cache/index.js
+var lru_cache = __webpack_require__(36);
 var lru_cache_default = /*#__PURE__*/__webpack_require__.n(lru_cache);
 
-// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.alt2/build/node_modules/react-is/index.js
+// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.devtools/build/node_modules/react-is/index.js
 var react_is = __webpack_require__(10);
 
 // CONCATENATED MODULE: ../shared/ReactSymbols.js
@@ -958,14 +968,12 @@ let REACT_SUSPENSE_TYPE = 0xead1;
 let REACT_SUSPENSE_LIST_TYPE = 0xead8;
 let REACT_MEMO_TYPE = 0xead3;
 let REACT_LAZY_TYPE = 0xead4;
-let REACT_BLOCK_TYPE = 0xead9;
-let REACT_SERVER_BLOCK_TYPE = 0xeada;
-let REACT_FUNDAMENTAL_TYPE = 0xead5;
 let REACT_SCOPE_TYPE = 0xead7;
 let REACT_OPAQUE_ID_TYPE = 0xeae0;
 let REACT_DEBUG_TRACING_MODE_TYPE = 0xeae1;
 let REACT_OFFSCREEN_TYPE = 0xeae2;
 let REACT_LEGACY_HIDDEN_TYPE = 0xeae3;
+let REACT_CACHE_TYPE = 0xeae4;
 
 if (typeof Symbol === 'function' && Symbol.for) {
   const symbolFor = Symbol.for;
@@ -981,14 +989,12 @@ if (typeof Symbol === 'function' && Symbol.for) {
   REACT_SUSPENSE_LIST_TYPE = symbolFor('react.suspense_list');
   REACT_MEMO_TYPE = symbolFor('react.memo');
   REACT_LAZY_TYPE = symbolFor('react.lazy');
-  REACT_BLOCK_TYPE = symbolFor('react.block');
-  REACT_SERVER_BLOCK_TYPE = symbolFor('react.server.block');
-  REACT_FUNDAMENTAL_TYPE = symbolFor('react.fundamental');
   REACT_SCOPE_TYPE = symbolFor('react.scope');
   REACT_OPAQUE_ID_TYPE = symbolFor('react.opaque.id');
   REACT_DEBUG_TRACING_MODE_TYPE = symbolFor('react.debug_trace_mode');
   REACT_OFFSCREEN_TYPE = symbolFor('react.offscreen');
   REACT_LEGACY_HIDDEN_TYPE = symbolFor('react.legacy_hidden');
+  REACT_CACHE_TYPE = symbolFor('react.cache');
 }
 
 const MAYBE_ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
@@ -1053,7 +1059,7 @@ function alphaSortKeys(a, b) {
   }
 }
 function getAllEnumerableKeys(obj) {
-  const keys = [];
+  const keys = new Set();
   let current = obj;
 
   while (current != null) {
@@ -1062,7 +1068,7 @@ function getAllEnumerableKeys(obj) {
     currentKeys.forEach(key => {
       // $FlowFixMe: key can be a Symbol https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor
       if (descriptors[key].enumerable) {
-        keys.push(key);
+        keys.add(key);
       }
     });
     current = Object.getPrototypeOf(current);
@@ -1136,7 +1142,7 @@ function printOperationsArray(operations) {
     const operation = operations[i];
 
     switch (operation) {
-      case constants["k" /* TREE_OPERATION_ADD */]:
+      case constants["m" /* TREE_OPERATION_ADD */]:
         {
           const id = operations[i + 1];
           const type = operations[i + 2];
@@ -1163,7 +1169,7 @@ function printOperationsArray(operations) {
           break;
         }
 
-      case constants["l" /* TREE_OPERATION_REMOVE */]:
+      case constants["n" /* TREE_OPERATION_REMOVE */]:
         {
           const removeLength = operations[i + 1];
           i += 2;
@@ -1177,7 +1183,14 @@ function printOperationsArray(operations) {
           break;
         }
 
-      case constants["m" /* TREE_OPERATION_REORDER_CHILDREN */]:
+      case constants["o" /* TREE_OPERATION_REMOVE_ROOT */]:
+        {
+          i += 1;
+          logs.push(`Remove root ${rootID}`);
+          break;
+        }
+
+      case constants["p" /* TREE_OPERATION_REORDER_CHILDREN */]:
         {
           const id = operations[i + 1];
           const numChildren = operations[i + 2];
@@ -1188,15 +1201,23 @@ function printOperationsArray(operations) {
           break;
         }
 
-      case constants["n" /* TREE_OPERATION_UPDATE_TREE_BASE_DURATION */]:
+      case constants["r" /* TREE_OPERATION_UPDATE_TREE_BASE_DURATION */]:
         // Base duration updates are only sent while profiling is in progress.
         // We can ignore them at this point.
         // The profiler UI uses them lazily in order to generate the tree.
         i += 3;
         break;
 
+      case constants["q" /* TREE_OPERATION_UPDATE_ERRORS_OR_WARNINGS */]:
+        const id = operations[i + 1];
+        const numErrors = operations[i + 2];
+        const numWarnings = operations[i + 3];
+        i += 4;
+        logs.push(`Node ${id} has ${numErrors} errors and ${numWarnings} warnings`);
+        break;
+
       default:
-        throw Error(`Unsupported Bridge operation ${operation}`);
+        throw Error(`Unsupported Bridge operation "${operation}"`);
     }
   }
 
@@ -1250,6 +1271,20 @@ function getBreakOnConsoleErrors() {
 }
 function setBreakOnConsoleErrors(value) {
   Object(storage["c" /* localStorageSetItem */])(constants["e" /* LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS */], JSON.stringify(value));
+}
+function getShowInlineWarningsAndErrors() {
+  try {
+    const raw = Object(storage["a" /* localStorageGetItem */])(constants["g" /* LOCAL_STORAGE_SHOW_INLINE_WARNINGS_AND_ERRORS_KEY */]);
+
+    if (raw != null) {
+      return JSON.parse(raw);
+    }
+  } catch (error) {}
+
+  return true;
+}
+function setShowInlineWarningsAndErrors(value) {
+  Object(storage["c" /* localStorageSetItem */])(constants["g" /* LOCAL_STORAGE_SHOW_INLINE_WARNINGS_AND_ERRORS_KEY */], JSON.stringify(value));
 }
 function separateDisplayNameAndHOCs(displayName, type) {
   if (displayName === null) {
@@ -1501,7 +1536,9 @@ function getDisplayNameForReactElement(element) {
       return 'SuspenseList';
 
     default:
-      const type = element.type;
+      const {
+        type
+      } = element;
 
       if (typeof type === 'string') {
         return type;
@@ -1681,7 +1718,7 @@ function formatDataForPreview(data, showFormattedValue) {
 
     case 'object':
       if (showFormattedValue) {
-        const keys = getAllEnumerableKeys(data).sort(alphaSortKeys);
+        const keys = Array.from(getAllEnumerableKeys(data)).sort(alphaSortKeys);
         let formatted = '';
 
         for (let i = 0; i < keys.length; i++) {
@@ -1724,6 +1761,38 @@ function formatDataForPreview(data, showFormattedValue) {
 
 /***/ }),
 
+/***/ 25:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return enableProfilerChangedHookIndices; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return isInternalFacebookBuild; });
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+
+/************************************************************************
+ * This file is forked between different DevTools implementations.
+ * It should never be imported directly!
+ * It should always be imported from "react-devtools-feature-flags".
+ ************************************************************************/
+const enableProfilerChangedHookIndices = false;
+const isInternalFacebookBuild = false;
+/************************************************************************
+ * Do not edit the code below.
+ * It ensures this fork exports the same types as the default flags file.
+ ************************************************************************/
+
+// eslint-disable-next-line no-unused-expressions
+null;
+
+/***/ }),
+
 /***/ 29:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1732,13 +1801,13 @@ var debug;
 /* istanbul ignore next */
 
 if (typeof process === 'object' && process.env && process.env.NODE_DEBUG && /\bsemver\b/i.test(process.env.NODE_DEBUG)) {
-  debug = function debug() {
+  debug = function () {
     var args = Array.prototype.slice.call(arguments, 0);
     args.unshift('SEMVER');
     console.log.apply(console, args);
   };
 } else {
-  debug = function debug() {};
+  debug = function () {};
 } // Note: this is the semver.org version of the spec that it implements
 // Not necessarily the package version of this code.
 
@@ -3276,7 +3345,7 @@ function coerce(version, options) {
 
   return parse(match[2] + '.' + (match[3] || '0') + '.' + (match[4] || '0'), options);
 }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(45)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(47)))
 
 /***/ }),
 
@@ -3284,21 +3353,25 @@ function coerce(version, options) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return __DEBUG__; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return TREE_OPERATION_ADD; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return TREE_OPERATION_REMOVE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return TREE_OPERATION_REORDER_CHILDREN; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return TREE_OPERATION_UPDATE_TREE_BASE_DURATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return __DEBUG__; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return TREE_OPERATION_ADD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return TREE_OPERATION_REMOVE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return TREE_OPERATION_REORDER_CHILDREN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return TREE_OPERATION_UPDATE_TREE_BASE_DURATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return TREE_OPERATION_UPDATE_ERRORS_OR_WARNINGS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return TREE_OPERATION_REMOVE_ROOT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOCAL_STORAGE_FILTER_PREFERENCES_KEY; });
 /* unused harmony export SESSION_STORAGE_LAST_SELECTION_KEY */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SESSION_STORAGE_RECORD_CHANGE_DESCRIPTIONS_KEY; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return SESSION_STORAGE_RELOAD_AND_PROFILE_KEY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return SESSION_STORAGE_RECORD_CHANGE_DESCRIPTIONS_KEY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return SESSION_STORAGE_RELOAD_AND_PROFILE_KEY; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return LOCAL_STORAGE_SHOULD_PATCH_CONSOLE_KEY; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return LOCAL_STORAGE_TRACE_UPDATES_ENABLED_KEY; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return PROFILER_EXPORT_VERSION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return LOCAL_STORAGE_SHOW_INLINE_WARNINGS_AND_ERRORS_KEY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return LOCAL_STORAGE_TRACE_UPDATES_ENABLED_KEY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return PROFILER_EXPORT_VERSION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CHANGE_LOG_URL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return UNSUPPORTED_VERSION_URL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return UNSUPPORTED_VERSION_URL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return REACT_DEVTOOLS_WORKPLACE_URL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return COMFORTABLE_LINE_HEIGHT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return COMPACT_LINE_HEIGHT; });
 /**
@@ -3315,16 +3388,20 @@ const TREE_OPERATION_ADD = 1;
 const TREE_OPERATION_REMOVE = 2;
 const TREE_OPERATION_REORDER_CHILDREN = 3;
 const TREE_OPERATION_UPDATE_TREE_BASE_DURATION = 4;
+const TREE_OPERATION_UPDATE_ERRORS_OR_WARNINGS = 5;
+const TREE_OPERATION_REMOVE_ROOT = 6;
 const LOCAL_STORAGE_FILTER_PREFERENCES_KEY = 'React::DevTools::componentFilters';
 const SESSION_STORAGE_LAST_SELECTION_KEY = 'React::DevTools::lastSelection';
 const SESSION_STORAGE_RECORD_CHANGE_DESCRIPTIONS_KEY = 'React::DevTools::recordChangeDescriptions';
 const SESSION_STORAGE_RELOAD_AND_PROFILE_KEY = 'React::DevTools::reloadAndProfile';
 const LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS = 'React::DevTools::breakOnConsoleErrors';
 const LOCAL_STORAGE_SHOULD_PATCH_CONSOLE_KEY = 'React::DevTools::appendComponentStack';
+const LOCAL_STORAGE_SHOW_INLINE_WARNINGS_AND_ERRORS_KEY = 'React::DevTools::showInlineWarningsAndErrors';
 const LOCAL_STORAGE_TRACE_UPDATES_ENABLED_KEY = 'React::DevTools::traceUpdatesEnabled';
-const PROFILER_EXPORT_VERSION = 4;
+const PROFILER_EXPORT_VERSION = 5;
 const CHANGE_LOG_URL = 'https://github.com/facebook/react/blob/master/packages/react-devtools/CHANGELOG.md';
-const UNSUPPORTED_VERSION_URL = 'https://reactjs.org/blog/2019/08/15/new-react-devtools.html#how-do-i-get-the-old-version-back'; // HACK
+const UNSUPPORTED_VERSION_URL = 'https://reactjs.org/blog/2019/08/15/new-react-devtools.html#how-do-i-get-the-old-version-back';
+const REACT_DEVTOOLS_WORKPLACE_URL = 'https://fburl.com/react-devtools-workplace-group'; // HACK
 //
 // Extracting during build time avoids a temporarily invalid state for the inline target.
 // Sometimes the inline target is rendered before root styles are applied,
@@ -3336,7 +3413,7 @@ let COMPACT_LINE_HEIGHT;
 
 try {
   // $FlowFixMe
-  const rawStyleString = __webpack_require__(49).default;
+  const rawStyleString = __webpack_require__(51).default;
 
   const extractVar = varName => {
     const regExp = new RegExp(`${varName}: ([0-9]+)`);
@@ -3357,7 +3434,7 @@ try {
 
 /***/ }),
 
-/***/ 33:
+/***/ 35:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3459,13 +3536,13 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 /***/ }),
 
-/***/ 34:
+/***/ 36:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
  // A linked list to keep track of recently-used-ness
 
-const Yallist = __webpack_require__(46);
+const Yallist = __webpack_require__(48);
 
 const MAX = Symbol('max');
 const LENGTH = Symbol('length');
@@ -3786,7 +3863,7 @@ module.exports = LRUCache;
 
 /***/ }),
 
-/***/ 35:
+/***/ 38:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3795,21 +3872,15 @@ module.exports = LRUCache;
 __webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ registerRenderer; });
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ patch; });
 
-// UNUSED EXPORTS: dangerous_setTargetConsoleForTesting, unpatch
+// UNUSED EXPORTS: isStringComponentStack, dangerous_setTargetConsoleForTesting, unpatch
 
-// EXTERNAL MODULE: ../react-devtools-shared/src/backend/renderer.js + 1 modules
-var backend_renderer = __webpack_require__(37);
+// EXTERNAL MODULE: ../react-devtools-shared/src/backend/renderer.js + 3 modules
+var backend_renderer = __webpack_require__(40);
 
 // EXTERNAL MODULE: ../react-devtools-shared/src/backend/ReactSymbols.js
 var ReactSymbols = __webpack_require__(4);
 
-// CONCATENATED MODULE: ../shared/ConsolePatchingDev.js
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+// CONCATENATED MODULE: ../react-devtools-shared/src/backend/DevToolsConsolePatching.js
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -3818,6 +3889,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  *
  * 
  */
+// This is a DevTools fork of shared/ConsolePatchingDev.
+// The shared console patching code is DEV-only.
+// We can't use it since DevTools only ships production builds.
 // Helpers to patch console.logs to avoid logging during side-effect free
 // replaying on render function. This currently only patches the object
 // lazily which won't cover if the log function was extracted eagerly.
@@ -3835,10 +3909,77 @@ function disabledLog() {}
 
 disabledLog.__reactDisabledLog = true;
 function disableLogs() {
-  if (false) {}
+  if (disabledDepth === 0) {
+    /* eslint-disable react-internal/no-production-logging */
+    prevLog = console.log;
+    prevInfo = console.info;
+    prevWarn = console.warn;
+    prevError = console.error;
+    prevGroup = console.group;
+    prevGroupCollapsed = console.groupCollapsed;
+    prevGroupEnd = console.groupEnd; // https://github.com/facebook/react/issues/19099
+
+    const props = {
+      configurable: true,
+      enumerable: true,
+      value: disabledLog,
+      writable: true
+    }; // $FlowFixMe Flow thinks console is immutable.
+
+    Object.defineProperties(console, {
+      info: props,
+      log: props,
+      warn: props,
+      error: props,
+      group: props,
+      groupCollapsed: props,
+      groupEnd: props
+    });
+    /* eslint-enable react-internal/no-production-logging */
+  }
+
+  disabledDepth++;
 }
 function reenableLogs() {
-  if (false) {}
+  disabledDepth--;
+
+  if (disabledDepth === 0) {
+    /* eslint-disable react-internal/no-production-logging */
+    const props = {
+      configurable: true,
+      enumerable: true,
+      writable: true
+    }; // $FlowFixMe Flow thinks console is immutable.
+
+    Object.defineProperties(console, {
+      log: { ...props,
+        value: prevLog
+      },
+      info: { ...props,
+        value: prevInfo
+      },
+      warn: { ...props,
+        value: prevWarn
+      },
+      error: { ...props,
+        value: prevError
+      },
+      group: { ...props,
+        value: prevGroup
+      },
+      groupCollapsed: { ...props,
+        value: prevGroupCollapsed
+      },
+      groupEnd: { ...props,
+        value: prevGroupEnd
+      }
+    });
+    /* eslint-enable react-internal/no-production-logging */
+  }
+
+  if (disabledDepth < 0) {
+    console.error('disabledDepth fell below zero. ' + 'This is a bug in React. Please file an issue.');
+  }
 }
 // CONCATENATED MODULE: ../react-devtools-shared/src/backend/DevToolsComponentStackFrame.js
 /**
@@ -3853,8 +3994,8 @@ function reenableLogs() {
 // This fork enables DevTools to use the same "native" component stack format,
 // while still maintaining support for multiple renderer versions
 // (which use different values for ReactTypeOfWork).
- // These methods are safe to import from shared;
-// there is no React-specific logic here.
+ // The shared console patching code is DEV-only.
+// We can't use it since DevTools only ships production builds.
 
 
 let prefix;
@@ -3903,13 +4044,13 @@ function describeNativeComponentFrame(fn, construct, currentDispatcherRef) {
     // This should throw.
     if (construct) {
       // Something should be setting the props in the constructor.
-      const Fake = function Fake() {
+      const Fake = function () {
         throw Error();
       }; // $FlowFixMe
 
 
       Object.defineProperty(Fake.prototype, 'props', {
-        set: function set() {
+        set: function () {
           // We use a throwing setter instead of frozen or non-writable props
           // because that won't throw in a non-strict mode function.
           throw Error();
@@ -4040,32 +4181,28 @@ function describeUnknownElementTypeFrameInDEV(type, source, ownerFn, currentDisp
   }
 
   switch (type) {
-    case ReactSymbols["x" /* SUSPENSE_NUMBER */]:
-    case ReactSymbols["y" /* SUSPENSE_SYMBOL_STRING */]:
+    case ReactSymbols["v" /* SUSPENSE_NUMBER */]:
+    case ReactSymbols["w" /* SUSPENSE_SYMBOL_STRING */]:
       return describeBuiltInComponentFrame('Suspense', source, ownerFn);
 
-    case ReactSymbols["v" /* SUSPENSE_LIST_NUMBER */]:
-    case ReactSymbols["w" /* SUSPENSE_LIST_SYMBOL_STRING */]:
+    case ReactSymbols["t" /* SUSPENSE_LIST_NUMBER */]:
+    case ReactSymbols["u" /* SUSPENSE_LIST_SYMBOL_STRING */]:
       return describeBuiltInComponentFrame('SuspenseList', source, ownerFn);
   }
 
   if (typeof type === 'object') {
     switch (type.$$typeof) {
-      case ReactSymbols["h" /* FORWARD_REF_NUMBER */]:
-      case ReactSymbols["i" /* FORWARD_REF_SYMBOL_STRING */]:
+      case ReactSymbols["f" /* FORWARD_REF_NUMBER */]:
+      case ReactSymbols["g" /* FORWARD_REF_SYMBOL_STRING */]:
         return describeFunctionComponentFrame(type.render, source, ownerFn, currentDispatcherRef);
 
-      case ReactSymbols["l" /* MEMO_NUMBER */]:
-      case ReactSymbols["m" /* MEMO_SYMBOL_STRING */]:
+      case ReactSymbols["j" /* MEMO_NUMBER */]:
+      case ReactSymbols["k" /* MEMO_SYMBOL_STRING */]:
         // Memo may contain any component type so we recursively resolve it.
         return describeUnknownElementTypeFrameInDEV(type.type, source, ownerFn, currentDispatcherRef);
 
-      case ReactSymbols["a" /* BLOCK_NUMBER */]:
-      case ReactSymbols["b" /* BLOCK_SYMBOL_STRING */]:
-        return describeFunctionComponentFrame(type._render, source, ownerFn, currentDispatcherRef);
-
-      case ReactSymbols["j" /* LAZY_NUMBER */]:
-      case ReactSymbols["k" /* LAZY_SYMBOL_STRING */]:
+      case ReactSymbols["h" /* LAZY_NUMBER */]:
+      case ReactSymbols["i" /* LAZY_SYMBOL_STRING */]:
         {
           const lazyComponent = type;
           const payload = lazyComponent._payload;
@@ -4097,16 +4234,17 @@ function describeUnknownElementTypeFrameInDEV(type, source, ownerFn, currentDisp
 
 
 function describeFiber(workTagMap, workInProgress, currentDispatcherRef) {
-  const HostComponent = workTagMap.HostComponent,
-        LazyComponent = workTagMap.LazyComponent,
-        SuspenseComponent = workTagMap.SuspenseComponent,
-        SuspenseListComponent = workTagMap.SuspenseListComponent,
-        FunctionComponent = workTagMap.FunctionComponent,
-        IndeterminateComponent = workTagMap.IndeterminateComponent,
-        SimpleMemoComponent = workTagMap.SimpleMemoComponent,
-        ForwardRef = workTagMap.ForwardRef,
-        Block = workTagMap.Block,
-        ClassComponent = workTagMap.ClassComponent;
+  const {
+    HostComponent,
+    LazyComponent,
+    SuspenseComponent,
+    SuspenseListComponent,
+    FunctionComponent,
+    IndeterminateComponent,
+    SimpleMemoComponent,
+    ForwardRef,
+    ClassComponent
+  } = workTagMap;
   const owner =  false ? undefined : null;
   const source =  false ? undefined : null;
 
@@ -4130,9 +4268,6 @@ function describeFiber(workTagMap, workInProgress, currentDispatcherRef) {
 
     case ForwardRef:
       return describeFunctionComponentFrame(workInProgress.type.render, source, owner, currentDispatcherRef);
-
-    case Block:
-      return describeFunctionComponentFrame(workInProgress.type._render, source, owner, currentDispatcherRef);
 
     case ClassComponent:
       return describeClassComponentFrame(workInProgress.type, source, owner, currentDispatcherRef);
@@ -4158,12 +4293,6 @@ function getStackByFiberInDevAndProd(workTagMap, workInProgress, currentDispatch
   }
 }
 // CONCATENATED MODULE: ../react-devtools-shared/src/backend/console.js
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -4181,6 +4310,9 @@ const PREFIX_REGEX = /\s{4}(in|at)\s{1}/; // Firefox and Safari have no prefix (
 // but we can fallback to looking for location info (e.g. "foo.js:12:345")
 
 const ROW_COLUMN_NUMBER_REGEX = /:\d+:\d+(\n|$)/;
+function isStringComponentStack(text) {
+  return PREFIX_REGEX.test(text) || ROW_COLUMN_NUMBER_REGEX.test(text);
+}
 const injectedRenderers = new Map();
 let targetConsole = console;
 let targetConsoleMethods = {};
@@ -4202,11 +4334,13 @@ function dangerous_setTargetConsoleForTesting(targetConsoleForTesting) {
 // These internals will be used if the console is patched.
 // Injecting them separately allows the console to easily be patched or un-patched later (at runtime).
 
-function registerRenderer(renderer) {
-  const currentDispatcherRef = renderer.currentDispatcherRef,
-        getCurrentFiber = renderer.getCurrentFiber,
-        findFiberByHostInstance = renderer.findFiberByHostInstance,
-        version = renderer.version; // Ignore React v15 and older because they don't expose a component stack anyway.
+function registerRenderer(renderer, onErrorOrWarning) {
+  const {
+    currentDispatcherRef,
+    getCurrentFiber,
+    findFiberByHostInstance,
+    version
+  } = renderer; // Ignore React v15 and older because they don't expose a component stack anyway.
 
   if (typeof findFiberByHostInstance !== 'function') {
     return;
@@ -4215,30 +4349,34 @@ function registerRenderer(renderer) {
 
 
   if (currentDispatcherRef != null && typeof getCurrentFiber === 'function') {
-    const _getInternalReactCons = Object(backend_renderer["b" /* getInternalReactConstants */])(version),
-          ReactTypeOfWork = _getInternalReactCons.ReactTypeOfWork;
-
+    const {
+      ReactTypeOfWork
+    } = Object(backend_renderer["b" /* getInternalReactConstants */])(version);
     injectedRenderers.set(renderer, {
       currentDispatcherRef,
       getCurrentFiber,
-      workTagMap: ReactTypeOfWork
+      workTagMap: ReactTypeOfWork,
+      onErrorOrWarning
     });
   }
 }
 const consoleSettingsRef = {
   appendComponentStack: false,
-  breakOnConsoleErrors: false
+  breakOnConsoleErrors: false,
+  showInlineWarningsAndErrors: false
 }; // Patches console methods to append component stack for the current fiber.
 // Call unpatch() to remove the injected behavior.
 
 function patch({
   appendComponentStack,
-  breakOnConsoleErrors
+  breakOnConsoleErrors,
+  showInlineWarningsAndErrors
 }) {
   // Settings may change after we've patched the console.
   // Using a shared ref allows the patch function to read the latest values.
   consoleSettingsRef.appendComponentStack = appendComponentStack;
   consoleSettingsRef.breakOnConsoleErrors = breakOnConsoleErrors;
+  consoleSettingsRef.showInlineWarningsAndErrors = showInlineWarningsAndErrors;
 
   if (unpatchFn !== null) {
     // Don't patch twice.
@@ -4261,52 +4399,57 @@ function patch({
       const originalMethod = originalConsoleMethods[method] = targetConsole[method];
 
       const overrideMethod = (...args) => {
-        const latestAppendComponentStack = consoleSettingsRef.appendComponentStack;
-        const latestBreakOnConsoleErrors = consoleSettingsRef.breakOnConsoleErrors;
+        let shouldAppendWarningStack = false;
 
-        if (latestAppendComponentStack) {
-          try {
-            // If we are ever called with a string that already has a component stack, e.g. a React error/warning,
-            // don't append a second stack.
-            const lastArg = args.length > 0 ? args[args.length - 1] : null;
-            const alreadyHasComponentStack = lastArg !== null && (PREFIX_REGEX.test(lastArg) || ROW_COLUMN_NUMBER_REGEX.test(lastArg));
+        if (consoleSettingsRef.appendComponentStack) {
+          const lastArg = args.length > 0 ? args[args.length - 1] : null;
+          const alreadyHasComponentStack = typeof lastArg === 'string' && isStringComponentStack(lastArg); // If we are ever called with a string that already has a component stack,
+          // e.g. a React error/warning, don't append a second stack.
 
-            if (!alreadyHasComponentStack) {
-              // If there's a component stack for at least one of the injected renderers, append it.
-              // We don't handle the edge case of stacks for more than one (e.g. interleaved renderers?)
-              // eslint-disable-next-line no-for-of-loops/no-for-of-loops
-              var _iterator = _createForOfIteratorHelper(injectedRenderers.values()),
-                  _step;
+          shouldAppendWarningStack = !alreadyHasComponentStack;
+        }
 
+        const shouldShowInlineWarningsAndErrors = consoleSettingsRef.showInlineWarningsAndErrors && (method === 'error' || method === 'warn');
+
+        if (shouldAppendWarningStack || shouldShowInlineWarningsAndErrors) {
+          // Search for the first renderer that has a current Fiber.
+          // We don't handle the edge case of stacks for more than one (e.g. interleaved renderers?)
+          // eslint-disable-next-line no-for-of-loops/no-for-of-loops
+          for (const {
+            currentDispatcherRef,
+            getCurrentFiber,
+            onErrorOrWarning,
+            workTagMap
+          } of injectedRenderers.values()) {
+            const current = getCurrentFiber();
+
+            if (current != null) {
               try {
-                for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                  const _step$value = _step.value,
-                        currentDispatcherRef = _step$value.currentDispatcherRef,
-                        getCurrentFiber = _step$value.getCurrentFiber,
-                        workTagMap = _step$value.workTagMap;
-                  const current = getCurrentFiber();
-
-                  if (current != null) {
-                    const componentStack = getStackByFiberInDevAndProd(workTagMap, current, currentDispatcherRef);
-
-                    if (componentStack !== '') {
-                      args.push(componentStack);
-                    }
-
-                    break;
+                if (shouldShowInlineWarningsAndErrors) {
+                  // patch() is called by two places: (1) the hook and (2) the renderer backend.
+                  // The backend is what impliments a message queue, so it's the only one that injects onErrorOrWarning.
+                  if (typeof onErrorOrWarning === 'function') {
+                    onErrorOrWarning(current, method, // Copy args before we mutate them (e.g. adding the component stack)
+                    args.slice());
                   }
                 }
-              } catch (err) {
-                _iterator.e(err);
+
+                if (shouldAppendWarningStack) {
+                  const componentStack = getStackByFiberInDevAndProd(workTagMap, current, currentDispatcherRef);
+
+                  if (componentStack !== '') {
+                    args.push(componentStack);
+                  }
+                }
+              } catch (error) {// Don't let a DevTools or React internal error interfere with logging.
               } finally {
-                _iterator.f();
+                break;
               }
             }
-          } catch (error) {// Don't let a DevTools or React internal error interfere with logging.
           }
         }
 
-        if (latestBreakOnConsoleErrors) {
+        if (consoleSettingsRef.breakOnConsoleErrors) {
           // --- Welcome to debugging with React DevTools ---
           // This debugger statement means that you've enabled the "break on warnings" feature.
           // Use the browser's Call Stack panel to step out of this override function-
@@ -4318,7 +4461,8 @@ function patch({
         originalMethod(...args);
       };
 
-      overrideMethod.__REACT_DEVTOOLS_ORIGINAL_METHOD__ = originalMethod; // $FlowFixMe property error|warn is not writable.
+      overrideMethod.__REACT_DEVTOOLS_ORIGINAL_METHOD__ = originalMethod;
+      originalMethod.__REACT_DEVTOOLS_OVERRIDE_METHOD__ = overrideMethod; // $FlowFixMe property error|warn is not writable.
 
       targetConsole[method] = overrideMethod;
     } catch (error) {}
@@ -4334,7 +4478,93 @@ function unpatch() {
 
 /***/ }),
 
-/***/ 37:
+/***/ 4:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CONCURRENT_MODE_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CONCURRENT_MODE_SYMBOL_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CONTEXT_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CONTEXT_SYMBOL_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return DEPRECATED_ASYNC_MODE_SYMBOL_STRING; });
+/* unused harmony export ELEMENT_NUMBER */
+/* unused harmony export ELEMENT_SYMBOL_STRING */
+/* unused harmony export DEBUG_TRACING_MODE_NUMBER */
+/* unused harmony export DEBUG_TRACING_MODE_SYMBOL_STRING */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return FORWARD_REF_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return FORWARD_REF_SYMBOL_STRING; });
+/* unused harmony export FRAGMENT_NUMBER */
+/* unused harmony export FRAGMENT_SYMBOL_STRING */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return LAZY_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return LAZY_SYMBOL_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return MEMO_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return MEMO_SYMBOL_STRING; });
+/* unused harmony export OPAQUE_ID_NUMBER */
+/* unused harmony export OPAQUE_ID_SYMBOL_STRING */
+/* unused harmony export PORTAL_NUMBER */
+/* unused harmony export PORTAL_SYMBOL_STRING */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return PROFILER_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return PROFILER_SYMBOL_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return PROVIDER_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return PROVIDER_SYMBOL_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return SCOPE_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return SCOPE_SYMBOL_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return STRICT_MODE_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return STRICT_MODE_SYMBOL_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return SUSPENSE_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return SUSPENSE_SYMBOL_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return SUSPENSE_LIST_NUMBER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return SUSPENSE_LIST_SYMBOL_STRING; });
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+// This list should be kept updated to reflect additions to 'shared/ReactSymbols'.
+// DevTools can't import symbols from 'shared/ReactSymbols' directly for two reasons:
+// 1. DevTools requires symbols which may have been deleted in more recent versions (e.g. concurrent mode)
+// 2. DevTools must support both Symbol and numeric forms of each symbol;
+//    Since e.g. standalone DevTools runs in a separate process, it can't rely on its own ES capabilities.
+const CONCURRENT_MODE_NUMBER = 0xeacf;
+const CONCURRENT_MODE_SYMBOL_STRING = 'Symbol(react.concurrent_mode)';
+const CONTEXT_NUMBER = 0xeace;
+const CONTEXT_SYMBOL_STRING = 'Symbol(react.context)';
+const DEPRECATED_ASYNC_MODE_SYMBOL_STRING = 'Symbol(react.async_mode)';
+const ELEMENT_NUMBER = 0xeac7;
+const ELEMENT_SYMBOL_STRING = 'Symbol(react.element)';
+const DEBUG_TRACING_MODE_NUMBER = 0xeae1;
+const DEBUG_TRACING_MODE_SYMBOL_STRING = 'Symbol(react.debug_trace_mode)';
+const FORWARD_REF_NUMBER = 0xead0;
+const FORWARD_REF_SYMBOL_STRING = 'Symbol(react.forward_ref)';
+const FRAGMENT_NUMBER = 0xeacb;
+const FRAGMENT_SYMBOL_STRING = 'Symbol(react.fragment)';
+const LAZY_NUMBER = 0xead4;
+const LAZY_SYMBOL_STRING = 'Symbol(react.lazy)';
+const MEMO_NUMBER = 0xead3;
+const MEMO_SYMBOL_STRING = 'Symbol(react.memo)';
+const OPAQUE_ID_NUMBER = 0xeae0;
+const OPAQUE_ID_SYMBOL_STRING = 'Symbol(react.opaque.id)';
+const PORTAL_NUMBER = 0xeaca;
+const PORTAL_SYMBOL_STRING = 'Symbol(react.portal)';
+const PROFILER_NUMBER = 0xead2;
+const PROFILER_SYMBOL_STRING = 'Symbol(react.profiler)';
+const PROVIDER_NUMBER = 0xeacd;
+const PROVIDER_SYMBOL_STRING = 'Symbol(react.provider)';
+const SCOPE_NUMBER = 0xead7;
+const SCOPE_SYMBOL_STRING = 'Symbol(react.scope)';
+const STRICT_MODE_NUMBER = 0xeacc;
+const STRICT_MODE_SYMBOL_STRING = 'Symbol(react.strict_mode)';
+const SUSPENSE_NUMBER = 0xead1;
+const SUSPENSE_SYMBOL_STRING = 'Symbol(react.suspense)';
+const SUSPENSE_LIST_NUMBER = 0xead8;
+const SUSPENSE_LIST_SYMBOL_STRING = 'Symbol(react.suspense_list)';
+
+/***/ }),
+
+/***/ 40:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4355,19 +4585,13 @@ var utils = __webpack_require__(2);
 // EXTERNAL MODULE: ../react-devtools-shared/src/storage.js
 var storage = __webpack_require__(7);
 
-// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.alt2/node_modules/clipboard-js/clipboard.js
-var clipboard = __webpack_require__(17);
+// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.devtools/node_modules/clipboard-js/clipboard.js
+var clipboard = __webpack_require__(19);
 
 // EXTERNAL MODULE: ../react-devtools-shared/src/hydration.js
 var hydration = __webpack_require__(8);
 
-// CONCATENATED MODULE: ../react-devtools-shared/src/backend/utils.js
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+// CONCATENATED MODULE: ../shared/isArray.js
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -4376,6 +4600,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  *
  * 
  */
+const isArrayImpl = Array.isArray; // eslint-disable-next-line no-redeclare
+
+function isArray(a) {
+  return isArrayImpl(a);
+}
+
+/* harmony default export */ var shared_isArray = (isArray);
+// CONCATENATED MODULE: ../react-devtools-shared/src/backend/utils.js
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+
 
 
 function cleanForBridge(data, isPathAllowed, path = []) {
@@ -4395,7 +4636,9 @@ function cleanForBridge(data, isPathAllowed, path = []) {
 function copyToClipboard(value) {
   const safeToCopy = serializeToString(value);
   const text = safeToCopy === undefined ? 'undefined' : safeToCopy;
-  const clipboardCopyText = window.__REACT_DEVTOOLS_GLOBAL_HOOK__.clipboardCopyText; // On Firefox navigator.clipboard.writeText has to be called from
+  const {
+    clipboardCopyText
+  } = window.__REACT_DEVTOOLS_GLOBAL_HOOK__; // On Firefox navigator.clipboard.writeText has to be called from
   // the content script js code (because it requires the clipboardWrite
   // permission to be allowed out of a "user handling" callback),
   // clipboardCopyText is an helper injected into the page from.
@@ -4409,10 +4652,11 @@ function copyToClipboard(value) {
 }
 function copyWithDelete(obj, path, index = 0) {
   const key = path[index];
-  const updated = Array.isArray(obj) ? obj.slice() : _objectSpread({}, obj);
+  const updated = shared_isArray(obj) ? obj.slice() : { ...obj
+  };
 
   if (index + 1 === path.length) {
-    if (Array.isArray(updated)) {
+    if (shared_isArray(updated)) {
       updated.splice(key, 1);
     } else {
       delete updated[key];
@@ -4428,14 +4672,15 @@ function copyWithDelete(obj, path, index = 0) {
 
 function copyWithRename(obj, oldPath, newPath, index = 0) {
   const oldKey = oldPath[index];
-  const updated = Array.isArray(obj) ? obj.slice() : _objectSpread({}, obj);
+  const updated = shared_isArray(obj) ? obj.slice() : { ...obj
+  };
 
   if (index + 1 === oldPath.length) {
     const newKey = newPath[index]; // $FlowFixMe number or string is fine here
 
     updated[newKey] = updated[oldKey];
 
-    if (Array.isArray(updated)) {
+    if (shared_isArray(updated)) {
       updated.splice(oldKey, 1);
     } else {
       delete updated[oldKey];
@@ -4453,10 +4698,32 @@ function copyWithSet(obj, path, value, index = 0) {
   }
 
   const key = path[index];
-  const updated = Array.isArray(obj) ? obj.slice() : _objectSpread({}, obj); // $FlowFixMe number or string is fine here
+  const updated = shared_isArray(obj) ? obj.slice() : { ...obj
+  }; // $FlowFixMe number or string is fine here
 
   updated[key] = copyWithSet(obj[key], path, value, index + 1);
   return updated;
+}
+function getEffectDurations(root) {
+  // Profiling durations are only available for certain builds.
+  // If available, they'll be stored on the HostRoot.
+  let effectDuration = null;
+  let passiveEffectDuration = null;
+  const hostRoot = root.current;
+
+  if (hostRoot != null) {
+    const stateNode = hostRoot.stateNode;
+
+    if (stateNode != null) {
+      effectDuration = stateNode.effectDuration != null ? stateNode.effectDuration : null;
+      passiveEffectDuration = stateNode.passiveEffectDuration != null ? stateNode.passiveEffectDuration : null;
+    }
+  }
+
+  return {
+    effectDuration,
+    passiveEffectDuration
+  };
 }
 function serializeToString(data) {
   const cache = new Set(); // Use a custom replacer function to protect against circular references.
@@ -4477,40 +4744,78 @@ function serializeToString(data) {
 
     return value;
   });
+} // based on https://github.com/tmpfs/format-util/blob/0e62d430efb0a1c51448709abd3e2406c14d8401/format.js#L1
+// based on https://developer.mozilla.org/en-US/docs/Web/API/console#Using_string_substitutions
+// Implements s, d, i and f placeholders
+
+function format(maybeMessage, ...inputArgs) {
+  const args = inputArgs.slice(); // Symbols cannot be concatenated with Strings.
+
+  let formatted = typeof maybeMessage === 'symbol' ? maybeMessage.toString() : '' + maybeMessage; // If the first argument is a string, check for substitutions.
+
+  if (typeof maybeMessage === 'string') {
+    if (args.length) {
+      const REGEXP = /(%?)(%([jds]))/g;
+      formatted = formatted.replace(REGEXP, (match, escaped, ptn, flag) => {
+        let arg = args.shift();
+
+        switch (flag) {
+          case 's':
+            arg += '';
+            break;
+
+          case 'd':
+          case 'i':
+            arg = parseInt(arg, 10).toString();
+            break;
+
+          case 'f':
+            arg = parseFloat(arg).toString();
+            break;
+        }
+
+        if (!escaped) {
+          return arg;
+        }
+
+        args.unshift(arg);
+        return match;
+      });
+    }
+  } // Arguments that remain after formatting.
+
+
+  if (args.length) {
+    for (let i = 0; i < args.length; i++) {
+      const arg = args[i]; // Symbols cannot be concatenated with Strings.
+
+      formatted += ' ' + (typeof arg === 'symbol' ? arg.toString() : arg);
+    }
+  } // Update escaped %% values.
+
+
+  formatted = formatted.replace(/%{2,2}/g, '%');
+  return '' + formatted;
+}
+function isSynchronousXHRSupported() {
+  return !!(window.document && window.document.featurePolicy && window.document.featurePolicy.allowsFeature('sync-xhr'));
 }
 // EXTERNAL MODULE: ../react-devtools-shared/src/constants.js
 var constants = __webpack_require__(3);
 
-// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.alt2/build/node_modules/react-debug-tools/index.js
-var react_debug_tools = __webpack_require__(51);
+// EXTERNAL MODULE: /Users/bvaughn/Documents/git/react.devtools/build/node_modules/react-debug-tools/index.js
+var react_debug_tools = __webpack_require__(53);
 
 // EXTERNAL MODULE: ../react-devtools-shared/src/backend/console.js + 3 modules
-var backend_console = __webpack_require__(35);
+var backend_console = __webpack_require__(38);
 
 // EXTERNAL MODULE: ../react-devtools-shared/src/backend/ReactSymbols.js
 var ReactSymbols = __webpack_require__(4);
 
-// CONCATENATED MODULE: ../react-devtools-shared/src/backend/renderer.js
-function renderer_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+// EXTERNAL MODULE: ../react-devtools-shared/src/config/DevToolsFeatureFlags.extension-oss.js
+var DevToolsFeatureFlags_extension_oss = __webpack_require__(25);
 
-function renderer_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { renderer_ownKeys(Object(source), true).forEach(function (key) { renderer_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { renderer_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function renderer_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-
+// CONCATENATED MODULE: ../shared/objectIs.js
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -4519,6 +4824,31 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
  *
  * 
  */
+
+/**
+ * inlined Object.is polyfill to avoid requiring consumers ship their own
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+ */
+function is(x, y) {
+  return x === y && (x !== 0 || 1 / x === 1 / y) || x !== x && y !== y // eslint-disable-line no-self-compare
+  ;
+}
+
+const objectIs = typeof Object.is === 'function' ? Object.is : is;
+/* harmony default export */ var shared_objectIs = (objectIs);
+// CONCATENATED MODULE: ../react-devtools-shared/src/backend/renderer.js
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+
+
+
+
 
 
 
@@ -4540,7 +4870,8 @@ function getInternalReactConstants(version) {
   const ReactTypeOfSideEffect = {
     NoFlags: 0b00,
     PerformedWork: 0b01,
-    Placement: 0b10
+    Placement: 0b10,
+    Incomplete: 0b10000000000000
   }; // **********************************************************
   // The section below is copied from files in React repo.
   // Keep it in sync, and add version guards if it changes.
@@ -4549,7 +4880,7 @@ function getInternalReactConstants(version) {
   // but 16.9 is the first version to report priority level to DevTools,
   // so we can avoid checking for earlier versions and support pre-16.9 canary releases in the process.
 
-  const ReactPriorityLevels = {
+  let ReactPriorityLevels = {
     ImmediatePriority: 99,
     UserBlockingPriority: 98,
     NormalPriority: 97,
@@ -4557,14 +4888,29 @@ function getInternalReactConstants(version) {
     IdlePriority: 95,
     NoPriority: 90
   };
+
+  if (Object(semver["gt"])(version, '17.0.2')) {
+    ReactPriorityLevels = {
+      ImmediatePriority: 1,
+      UserBlockingPriority: 2,
+      NormalPriority: 3,
+      LowPriority: 4,
+      IdlePriority: 5,
+      NoPriority: 0
+    };
+  }
+
   let ReactTypeOfWork = null; // **********************************************************
   // The section below is copied from files in React repo.
   // Keep it in sync, and add version guards if it changes.
+  //
+  // TODO Update the gt() check below to be gte() whichever the next version number is.
+  // Currently the version in Git is 17.0.2 (but that version has not been/may not end up being released).
 
-  if (Object(semver["gte"])(version, '17.0.0-alpha')) {
-    // TODO (Offscreen) Update the version number above to reflect the first Offscreen alpha/beta release.
+  if (Object(semver["gt"])(version, '17.0.1')) {
     ReactTypeOfWork = {
-      Block: 22,
+      CacheComponent: 24,
+      // Experimental
       ClassComponent: 1,
       ContextConsumer: 9,
       ContextProvider: 10,
@@ -4584,11 +4930,52 @@ function getInternalReactConstants(version) {
       IncompleteClassComponent: 17,
       IndeterminateComponent: 2,
       LazyComponent: 16,
+      LegacyHiddenComponent: 23,
+      MemoComponent: 14,
+      Mode: 8,
+      OffscreenComponent: 22,
+      // Experimental
+      Profiler: 12,
+      ScopeComponent: 21,
+      // Experimental
+      SimpleMemoComponent: 15,
+      SuspenseComponent: 13,
+      SuspenseListComponent: 19,
+      // Experimental
+      YieldComponent: -1 // Removed
+
+    };
+  } else if (Object(semver["gte"])(version, '17.0.0-alpha')) {
+    ReactTypeOfWork = {
+      CacheComponent: -1,
+      // Doesn't exist yet
+      ClassComponent: 1,
+      ContextConsumer: 9,
+      ContextProvider: 10,
+      CoroutineComponent: -1,
+      // Removed
+      CoroutineHandlerPhase: -1,
+      // Removed
+      DehydratedSuspenseComponent: 18,
+      // Behind a flag
+      ForwardRef: 11,
+      Fragment: 7,
+      FunctionComponent: 0,
+      HostComponent: 5,
+      HostPortal: 4,
+      HostRoot: 3,
+      HostText: 6,
+      IncompleteClassComponent: 17,
+      IndeterminateComponent: 2,
+      LazyComponent: 16,
+      LegacyHiddenComponent: 24,
       MemoComponent: 14,
       Mode: 8,
       OffscreenComponent: 23,
       // Experimental
       Profiler: 12,
+      ScopeComponent: 21,
+      // Experimental
       SimpleMemoComponent: 15,
       SuspenseComponent: 13,
       SuspenseListComponent: 19,
@@ -4598,7 +4985,8 @@ function getInternalReactConstants(version) {
     };
   } else if (Object(semver["gte"])(version, '16.6.0-beta.0')) {
     ReactTypeOfWork = {
-      Block: 22,
+      CacheComponent: -1,
+      // Doens't exist yet
       ClassComponent: 1,
       ContextConsumer: 9,
       ContextProvider: 10,
@@ -4618,11 +5006,14 @@ function getInternalReactConstants(version) {
       IncompleteClassComponent: 17,
       IndeterminateComponent: 2,
       LazyComponent: 16,
+      LegacyHiddenComponent: -1,
       MemoComponent: 14,
       Mode: 8,
       OffscreenComponent: -1,
       // Experimental
       Profiler: 12,
+      ScopeComponent: -1,
+      // Experimental
       SimpleMemoComponent: 15,
       SuspenseComponent: 13,
       SuspenseListComponent: 19,
@@ -4632,8 +5023,8 @@ function getInternalReactConstants(version) {
     };
   } else if (Object(semver["gte"])(version, '16.4.3-alpha')) {
     ReactTypeOfWork = {
-      Block: -1,
-      // Doesn't exist yet
+      CacheComponent: -1,
+      // Doens't exist yet
       ClassComponent: 2,
       ContextConsumer: 11,
       ContextProvider: 12,
@@ -4655,12 +5046,15 @@ function getInternalReactConstants(version) {
       IndeterminateComponent: 4,
       LazyComponent: -1,
       // Doesn't exist yet
+      LegacyHiddenComponent: -1,
       MemoComponent: -1,
       // Doesn't exist yet
       Mode: 10,
       OffscreenComponent: -1,
       // Experimental
       Profiler: 15,
+      ScopeComponent: -1,
+      // Experimental
       SimpleMemoComponent: -1,
       // Doesn't exist yet
       SuspenseComponent: 16,
@@ -4671,8 +5065,8 @@ function getInternalReactConstants(version) {
     };
   } else {
     ReactTypeOfWork = {
-      Block: -1,
-      // Doesn't exist yet
+      CacheComponent: -1,
+      // Doens't exist yet
       ClassComponent: 2,
       ContextConsumer: 12,
       ContextProvider: 13,
@@ -4692,12 +5086,15 @@ function getInternalReactConstants(version) {
       IndeterminateComponent: 0,
       LazyComponent: -1,
       // Doesn't exist yet
+      LegacyHiddenComponent: -1,
       MemoComponent: -1,
       // Doesn't exist yet
       Mode: 11,
       OffscreenComponent: -1,
       // Experimental
       Profiler: 15,
+      ScopeComponent: -1,
+      // Experimental
       SimpleMemoComponent: -1,
       // Doesn't exist yet
       SuspenseComponent: 16,
@@ -4716,33 +5113,40 @@ function getInternalReactConstants(version) {
     return typeof symbolOrNumber === 'symbol' ? symbolOrNumber.toString() : symbolOrNumber;
   }
 
-  const _ReactTypeOfWork = ReactTypeOfWork,
-        ClassComponent = _ReactTypeOfWork.ClassComponent,
-        IncompleteClassComponent = _ReactTypeOfWork.IncompleteClassComponent,
-        FunctionComponent = _ReactTypeOfWork.FunctionComponent,
-        IndeterminateComponent = _ReactTypeOfWork.IndeterminateComponent,
-        ForwardRef = _ReactTypeOfWork.ForwardRef,
-        HostRoot = _ReactTypeOfWork.HostRoot,
-        HostComponent = _ReactTypeOfWork.HostComponent,
-        HostPortal = _ReactTypeOfWork.HostPortal,
-        HostText = _ReactTypeOfWork.HostText,
-        Fragment = _ReactTypeOfWork.Fragment,
-        MemoComponent = _ReactTypeOfWork.MemoComponent,
-        SimpleMemoComponent = _ReactTypeOfWork.SimpleMemoComponent,
-        SuspenseComponent = _ReactTypeOfWork.SuspenseComponent,
-        SuspenseListComponent = _ReactTypeOfWork.SuspenseListComponent;
+  const {
+    CacheComponent,
+    ClassComponent,
+    IncompleteClassComponent,
+    FunctionComponent,
+    IndeterminateComponent,
+    ForwardRef,
+    HostRoot,
+    HostComponent,
+    HostPortal,
+    HostText,
+    Fragment,
+    LazyComponent,
+    LegacyHiddenComponent,
+    MemoComponent,
+    OffscreenComponent,
+    Profiler,
+    ScopeComponent,
+    SimpleMemoComponent,
+    SuspenseComponent,
+    SuspenseListComponent
+  } = ReactTypeOfWork;
 
   function resolveFiberType(type) {
     const typeSymbol = getTypeSymbol(type);
 
     switch (typeSymbol) {
-      case ReactSymbols["l" /* MEMO_NUMBER */]:
-      case ReactSymbols["m" /* MEMO_SYMBOL_STRING */]:
+      case ReactSymbols["j" /* MEMO_NUMBER */]:
+      case ReactSymbols["k" /* MEMO_SYMBOL_STRING */]:
         // recursively resolving memo type in case of memo(forwardRef(Component))
         return resolveFiberType(type.type);
 
-      case ReactSymbols["h" /* FORWARD_REF_NUMBER */]:
-      case ReactSymbols["i" /* FORWARD_REF_SYMBOL_STRING */]:
+      case ReactSymbols["f" /* FORWARD_REF_NUMBER */]:
+      case ReactSymbols["g" /* FORWARD_REF_SYMBOL_STRING */]:
         return type.render;
 
       default:
@@ -4752,8 +5156,11 @@ function getInternalReactConstants(version) {
 
 
   function getDisplayNameForFiber(fiber) {
-    const type = fiber.type,
-          tag = fiber.tag;
+    const {
+      elementType,
+      type,
+      tag
+    } = fiber;
     let resolvedType = type;
 
     if (typeof type === 'object' && type !== null) {
@@ -4763,6 +5170,9 @@ function getInternalReactConstants(version) {
     let resolvedContext = null;
 
     switch (tag) {
+      case CacheComponent:
+        return 'Cache';
+
       case ClassComponent:
       case IncompleteClassComponent:
         return Object(utils["h" /* getDisplayName */])(resolvedType);
@@ -4786,35 +5196,53 @@ function getInternalReactConstants(version) {
       case Fragment:
         return null;
 
+      case LazyComponent:
+        // This display name will not be user visible.
+        // Once a Lazy component loads its inner component, React replaces the tag and type.
+        // This display name will only show up in console logs when DevTools DEBUG mode is on.
+        return 'Lazy';
+
       case MemoComponent:
       case SimpleMemoComponent:
-        return Object(utils["h" /* getDisplayName */])(resolvedType, 'Anonymous');
+        return elementType && elementType.displayName || type && type.displayName || Object(utils["h" /* getDisplayName */])(resolvedType, 'Anonymous');
 
       case SuspenseComponent:
         return 'Suspense';
 
+      case LegacyHiddenComponent:
+        return 'LegacyHidden';
+
+      case OffscreenComponent:
+        return 'Offscreen';
+
+      case ScopeComponent:
+        return 'Scope';
+
       case SuspenseListComponent:
         return 'SuspenseList';
+
+      case Profiler:
+        return 'Profiler';
 
       default:
         const typeSymbol = getTypeSymbol(type);
 
         switch (typeSymbol) {
-          case ReactSymbols["c" /* CONCURRENT_MODE_NUMBER */]:
-          case ReactSymbols["d" /* CONCURRENT_MODE_SYMBOL_STRING */]:
-          case ReactSymbols["g" /* DEPRECATED_ASYNC_MODE_SYMBOL_STRING */]:
+          case ReactSymbols["a" /* CONCURRENT_MODE_NUMBER */]:
+          case ReactSymbols["b" /* CONCURRENT_MODE_SYMBOL_STRING */]:
+          case ReactSymbols["e" /* DEPRECATED_ASYNC_MODE_SYMBOL_STRING */]:
             return null;
 
-          case ReactSymbols["p" /* PROVIDER_NUMBER */]:
-          case ReactSymbols["q" /* PROVIDER_SYMBOL_STRING */]:
+          case ReactSymbols["n" /* PROVIDER_NUMBER */]:
+          case ReactSymbols["o" /* PROVIDER_SYMBOL_STRING */]:
             // 16.3.0 exposed the context object as "context"
             // PR #12501 changed it to "_context" for 16.3.1+
             // NOTE Keep in sync with inspectElementRaw()
             resolvedContext = fiber.type._context || fiber.type.context;
             return `${resolvedContext.displayName || 'Context'}.Provider`;
 
-          case ReactSymbols["e" /* CONTEXT_NUMBER */]:
-          case ReactSymbols["f" /* CONTEXT_SYMBOL_STRING */]:
+          case ReactSymbols["c" /* CONTEXT_NUMBER */]:
+          case ReactSymbols["d" /* CONTEXT_SYMBOL_STRING */]:
             // 16.3-16.5 read from "type" because the Consumer is the actual context object.
             // 16.6+ should read from "type._context" because Consumer can be different (in DEV).
             // NOTE Keep in sync with inspectElementRaw()
@@ -4823,16 +5251,16 @@ function getInternalReactConstants(version) {
 
             return `${resolvedContext.displayName || 'Context'}.Consumer`;
 
-          case ReactSymbols["t" /* STRICT_MODE_NUMBER */]:
-          case ReactSymbols["u" /* STRICT_MODE_SYMBOL_STRING */]:
+          case ReactSymbols["r" /* STRICT_MODE_NUMBER */]:
+          case ReactSymbols["s" /* STRICT_MODE_SYMBOL_STRING */]:
             return null;
 
-          case ReactSymbols["n" /* PROFILER_NUMBER */]:
-          case ReactSymbols["o" /* PROFILER_SYMBOL_STRING */]:
+          case ReactSymbols["l" /* PROFILER_NUMBER */]:
+          case ReactSymbols["m" /* PROFILER_SYMBOL_STRING */]:
             return `Profiler(${fiber.memoizedProps.id})`;
 
-          case ReactSymbols["r" /* SCOPE_NUMBER */]:
-          case ReactSymbols["s" /* SCOPE_SYMBOL_STRING */]:
+          case ReactSymbols["p" /* SCOPE_NUMBER */]:
+          case ReactSymbols["q" /* SCOPE_SYMBOL_STRING */]:
             return 'Scope';
 
           default:
@@ -4853,79 +5281,197 @@ function getInternalReactConstants(version) {
   };
 }
 function attach(hook, rendererID, renderer, global) {
-  const _getInternalReactCons = getInternalReactConstants(renderer.version),
-        getDisplayNameForFiber = _getInternalReactCons.getDisplayNameForFiber,
-        getTypeSymbol = _getInternalReactCons.getTypeSymbol,
-        ReactPriorityLevels = _getInternalReactCons.ReactPriorityLevels,
-        ReactTypeOfWork = _getInternalReactCons.ReactTypeOfWork,
-        ReactTypeOfSideEffect = _getInternalReactCons.ReactTypeOfSideEffect;
+  // Newer versions of the reconciler package also specific reconciler version.
+  // If that version number is present, use it.
+  // Third party renderer versions may not match the reconciler version,
+  // and the latter is what's important in terms of tags and symbols.
+  const version = renderer.reconcilerVersion || renderer.version;
+  const {
+    getDisplayNameForFiber,
+    getTypeSymbol,
+    ReactPriorityLevels,
+    ReactTypeOfWork,
+    ReactTypeOfSideEffect
+  } = getInternalReactConstants(version);
+  const {
+    Incomplete,
+    NoFlags,
+    PerformedWork,
+    Placement
+  } = ReactTypeOfSideEffect;
+  const {
+    CacheComponent,
+    ClassComponent,
+    ContextConsumer,
+    DehydratedSuspenseComponent,
+    ForwardRef,
+    Fragment,
+    FunctionComponent,
+    HostRoot,
+    HostPortal,
+    HostComponent,
+    HostText,
+    IncompleteClassComponent,
+    IndeterminateComponent,
+    LegacyHiddenComponent,
+    MemoComponent,
+    OffscreenComponent,
+    SimpleMemoComponent,
+    SuspenseComponent,
+    SuspenseListComponent
+  } = ReactTypeOfWork;
+  const {
+    ImmediatePriority,
+    UserBlockingPriority,
+    NormalPriority,
+    LowPriority,
+    IdlePriority,
+    NoPriority
+  } = ReactPriorityLevels;
+  const {
+    overrideHookState,
+    overrideHookStateDeletePath,
+    overrideHookStateRenamePath,
+    overrideProps,
+    overridePropsDeletePath,
+    overridePropsRenamePath,
+    setSuspenseHandler,
+    scheduleUpdate
+  } = renderer;
+  const supportsTogglingSuspense = typeof setSuspenseHandler === 'function' && typeof scheduleUpdate === 'function'; // Tracks Fibers with recently changed number of error/warning messages.
+  // These collections store the Fiber rather than the ID,
+  // in order to avoid generating an ID for Fibers that never get mounted
+  // (due to e.g. Suspense or error boundaries).
+  // onErrorOrWarning() adds Fibers and recordPendingErrorsAndWarnings() later clears them.
 
-  const NoFlags = ReactTypeOfSideEffect.NoFlags,
-        PerformedWork = ReactTypeOfSideEffect.PerformedWork,
-        Placement = ReactTypeOfSideEffect.Placement;
-  const FunctionComponent = ReactTypeOfWork.FunctionComponent,
-        ClassComponent = ReactTypeOfWork.ClassComponent,
-        ContextConsumer = ReactTypeOfWork.ContextConsumer,
-        DehydratedSuspenseComponent = ReactTypeOfWork.DehydratedSuspenseComponent,
-        Fragment = ReactTypeOfWork.Fragment,
-        ForwardRef = ReactTypeOfWork.ForwardRef,
-        HostRoot = ReactTypeOfWork.HostRoot,
-        HostPortal = ReactTypeOfWork.HostPortal,
-        HostComponent = ReactTypeOfWork.HostComponent,
-        HostText = ReactTypeOfWork.HostText,
-        IncompleteClassComponent = ReactTypeOfWork.IncompleteClassComponent,
-        IndeterminateComponent = ReactTypeOfWork.IndeterminateComponent,
-        MemoComponent = ReactTypeOfWork.MemoComponent,
-        OffscreenComponent = ReactTypeOfWork.OffscreenComponent,
-        SimpleMemoComponent = ReactTypeOfWork.SimpleMemoComponent,
-        SuspenseComponent = ReactTypeOfWork.SuspenseComponent,
-        SuspenseListComponent = ReactTypeOfWork.SuspenseListComponent;
-  const ImmediatePriority = ReactPriorityLevels.ImmediatePriority,
-        UserBlockingPriority = ReactPriorityLevels.UserBlockingPriority,
-        NormalPriority = ReactPriorityLevels.NormalPriority,
-        LowPriority = ReactPriorityLevels.LowPriority,
-        IdlePriority = ReactPriorityLevels.IdlePriority,
-        NoPriority = ReactPriorityLevels.NoPriority;
-  const overrideHookState = renderer.overrideHookState,
-        overrideHookStateDeletePath = renderer.overrideHookStateDeletePath,
-        overrideHookStateRenamePath = renderer.overrideHookStateRenamePath,
-        overrideProps = renderer.overrideProps,
-        overridePropsDeletePath = renderer.overridePropsDeletePath,
-        overridePropsRenamePath = renderer.overridePropsRenamePath,
-        setSuspenseHandler = renderer.setSuspenseHandler,
-        scheduleUpdate = renderer.scheduleUpdate;
-  const supportsTogglingSuspense = typeof setSuspenseHandler === 'function' && typeof scheduleUpdate === 'function'; // Patching the console enables DevTools to do a few useful things:
+  const fibersWithChangedErrorOrWarningCounts = new Set();
+  const pendingFiberToErrorsMap = new Map();
+  const pendingFiberToWarningsMap = new Map(); // Mapping of fiber IDs to error/warning messages and counts.
+
+  const fiberIDToErrorsMap = new Map();
+  const fiberIDToWarningsMap = new Map();
+
+  function clearErrorsAndWarnings() {
+    // eslint-disable-next-line no-for-of-loops/no-for-of-loops
+    for (const id of fiberIDToErrorsMap.keys()) {
+      const fiber = idToArbitraryFiberMap.get(id);
+
+      if (fiber != null) {
+        fibersWithChangedErrorOrWarningCounts.add(fiber);
+        updateMostRecentlyInspectedElementIfNecessary(id);
+      }
+    } // eslint-disable-next-line no-for-of-loops/no-for-of-loops
+
+
+    for (const id of fiberIDToWarningsMap.keys()) {
+      const fiber = idToArbitraryFiberMap.get(id);
+
+      if (fiber != null) {
+        fibersWithChangedErrorOrWarningCounts.add(fiber);
+        updateMostRecentlyInspectedElementIfNecessary(id);
+      }
+    }
+
+    fiberIDToErrorsMap.clear();
+    fiberIDToWarningsMap.clear();
+    flushPendingEvents();
+  }
+
+  function clearMessageCountHelper(fiberID, pendingFiberToMessageCountMap, fiberIDToMessageCountMap) {
+    const fiber = idToArbitraryFiberMap.get(fiberID);
+
+    if (fiber != null) {
+      // Throw out any pending changes.
+      pendingFiberToErrorsMap.delete(fiber);
+
+      if (fiberIDToMessageCountMap.has(fiberID)) {
+        fiberIDToMessageCountMap.delete(fiberID); // If previous flushed counts have changed, schedule an update too.
+
+        fibersWithChangedErrorOrWarningCounts.add(fiber);
+        flushPendingEvents();
+        updateMostRecentlyInspectedElementIfNecessary(fiberID);
+      } else {
+        fibersWithChangedErrorOrWarningCounts.delete(fiber);
+      }
+    }
+  }
+
+  function clearErrorsForFiberID(fiberID) {
+    clearMessageCountHelper(fiberID, pendingFiberToErrorsMap, fiberIDToErrorsMap);
+  }
+
+  function clearWarningsForFiberID(fiberID) {
+    clearMessageCountHelper(fiberID, pendingFiberToWarningsMap, fiberIDToWarningsMap);
+  }
+
+  function updateMostRecentlyInspectedElementIfNecessary(fiberID) {
+    if (mostRecentlyInspectedElement !== null && mostRecentlyInspectedElement.id === fiberID) {
+      hasElementUpdatedSinceLastInspected = true;
+    }
+  } // Called when an error or warning is logged during render, commit, or passive (including unmount functions).
+
+
+  function onErrorOrWarning(fiber, type, args) {
+    const message = format(...args);
+
+    if (constants["t" /* __DEBUG__ */]) {
+      debug('onErrorOrWarning', fiber, null, `${type}: "${message}"`);
+    } // Mark this Fiber as needed its warning/error count updated during the next flush.
+
+
+    fibersWithChangedErrorOrWarningCounts.add(fiber); // Track the warning/error for later.
+
+    const fiberMap = type === 'error' ? pendingFiberToErrorsMap : pendingFiberToWarningsMap;
+    const messageMap = fiberMap.get(fiber);
+
+    if (messageMap != null) {
+      const count = messageMap.get(message) || 0;
+      messageMap.set(message, count + 1);
+    } else {
+      fiberMap.set(fiber, new Map([[message, 1]]));
+    } // Passive effects may trigger errors or warnings too;
+    // In this case, we should wait until the rest of the passive effects have run,
+    // but we shouldn't wait until the next commit because that might be a long time.
+    // This would also cause "tearing" between an inspected Component and the tree view.
+    // Then again we don't want to flush too soon because this could be an error during async rendering.
+    // Use a debounce technique to ensure that we'll eventually flush.
+
+
+    flushPendingErrorsAndWarningsAfterDelay();
+  } // Patching the console enables DevTools to do a few useful things:
   // * Append component stacks to warnings and error messages
   // * Disable logging during re-renders to inspect hooks (see inspectHooksOfFiber)
   //
   // Don't patch in test environments because we don't want to interfere with Jest's own console overrides.
 
+
   if (true) {
-    Object(backend_console["b" /* registerRenderer */])(renderer); // The renderer interface can't read these preferences directly,
+    Object(backend_console["b" /* registerRenderer */])(renderer, onErrorOrWarning); // The renderer interface can't read these preferences directly,
     // because it is stored in localStorage within the context of the extension.
     // It relies on the extension to pass the preference through via the global.
 
     const appendComponentStack = window.__REACT_DEVTOOLS_APPEND_COMPONENT_STACK__ !== false;
     const breakOnConsoleErrors = window.__REACT_DEVTOOLS_BREAK_ON_CONSOLE_ERRORS__ === true;
+    const showInlineWarningsAndErrors = window.__REACT_DEVTOOLS_SHOW_INLINE_WARNINGS_AND_ERRORS__ !== false;
 
-    if (appendComponentStack || breakOnConsoleErrors) {
+    if (appendComponentStack || breakOnConsoleErrors || showInlineWarningsAndErrors) {
       Object(backend_console["a" /* patch */])({
         appendComponentStack,
-        breakOnConsoleErrors
+        breakOnConsoleErrors,
+        showInlineWarningsAndErrors
       });
     }
   }
 
-  const debug = (name, fiber, parentFiber) => {
-    if (constants["p" /* __DEBUG__ */]) {
-      const displayName = getDisplayNameForFiber(fiber) || 'null';
-      const id = getFiberID(fiber);
-      const parentDisplayName = parentFiber != null && getDisplayNameForFiber(parentFiber) || 'null';
-      const parentID = parentFiber ? getFiberID(parentFiber) : ''; // NOTE: calling getFiberID or getPrimaryFiber is unsafe here
-      // because it will put them in the map. For now, we'll omit them.
-      // TODO: better debugging story for this.
-
-      console.log(`[renderer] %c${name} %c${displayName} (${id}) %c${parentFiber ? `${parentDisplayName} (${parentID})` : ''}`, 'color: red; font-weight: bold;', 'color: blue;', 'color: purple;');
+  const debug = (name, fiber, parentFiber, extraString = '') => {
+    if (constants["t" /* __DEBUG__ */]) {
+      const displayName = fiber.tag + ':' + (getDisplayNameForFiber(fiber) || 'null');
+      const maybeID = getFiberIDUnsafe(fiber) || '<no id>';
+      const parentDisplayName = parentFiber ? parentFiber.tag + ':' + (getDisplayNameForFiber(parentFiber) || 'null') : '';
+      const maybeParentID = parentFiber ? getFiberIDUnsafe(parentFiber) || '<no-id>' : '';
+      console.groupCollapsed(`[renderer] %c${name} %c${displayName} (${maybeID}) %c${parentFiber ? `${parentDisplayName} (${maybeParentID})` : ''} %c${extraString}`, 'color: red; font-weight: bold;', 'color: blue;', 'color: purple;', 'color: black;');
+      console.log(new Error().stack.split('\n').slice(1).join('\n'));
+      console.groupEnd();
     }
   }; // Configurable Components tree filters.
 
@@ -5003,9 +5549,12 @@ function attach(hook, rendererID, renderer, global) {
 
 
     hook.getFiberRoots(rendererID).forEach(root => {
-      currentRootID = getFiberID(getPrimaryFiber(root.current));
-      unmountFiberChildrenRecursively(root.current);
-      recordUnmount(root.current, false);
+      currentRootID = getOrGenerateFiberID(root.current); // The TREE_OPERATION_REMOVE_ROOT operation serves two purposes:
+      // 1. It avoids sending unnecessary bridge traffic to clear a root.
+      // 2. It preserves Fiber IDs when remounting (below) which in turn ID to error/warning mapping.
+
+      pushOperation(constants["o" /* TREE_OPERATION_REMOVE_ROOT */]);
+      flushPendingEvents(root);
       currentRootID = -1;
     });
     applyComponentFilters(componentFilters); // Reset pseudo counters so that new path selections will be persisted.
@@ -5013,19 +5562,24 @@ function attach(hook, rendererID, renderer, global) {
     rootDisplayNameCounter.clear(); // Recursively re-mount all roots with new filter criteria applied.
 
     hook.getFiberRoots(rendererID).forEach(root => {
-      currentRootID = getFiberID(getPrimaryFiber(root.current));
+      currentRootID = getOrGenerateFiberID(root.current);
       setRootPseudoKey(currentRootID, root.current);
       mountFiberRecursively(root.current, null, false, false);
       flushPendingEvents(root);
       currentRootID = -1;
-    });
+    }); // Also re-evaluate all error and warning counts given the new filters.
+
+    reevaluateErrorsAndWarnings();
+    flushPendingEvents();
   } // NOTICE Keep in sync with get*ForFiber methods
 
 
   function shouldFilterFiber(fiber) {
-    const _debugSource = fiber._debugSource,
-          tag = fiber.tag,
-          type = fiber.type;
+    const {
+      _debugSource,
+      tag,
+      type
+    } = fiber;
 
     switch (tag) {
       case DehydratedSuspenseComponent:
@@ -5039,6 +5593,7 @@ function attach(hook, rendererID, renderer, global) {
       case HostPortal:
       case HostText:
       case Fragment:
+      case LegacyHiddenComponent:
       case OffscreenComponent:
         return true;
 
@@ -5050,11 +5605,11 @@ function attach(hook, rendererID, renderer, global) {
         const typeSymbol = getTypeSymbol(type);
 
         switch (typeSymbol) {
-          case ReactSymbols["c" /* CONCURRENT_MODE_NUMBER */]:
-          case ReactSymbols["d" /* CONCURRENT_MODE_SYMBOL_STRING */]:
-          case ReactSymbols["g" /* DEPRECATED_ASYNC_MODE_SYMBOL_STRING */]:
-          case ReactSymbols["t" /* STRICT_MODE_NUMBER */]:
-          case ReactSymbols["u" /* STRICT_MODE_SYMBOL_STRING */]:
+          case ReactSymbols["a" /* CONCURRENT_MODE_NUMBER */]:
+          case ReactSymbols["b" /* CONCURRENT_MODE_SYMBOL_STRING */]:
+          case ReactSymbols["e" /* DEPRECATED_ASYNC_MODE_SYMBOL_STRING */]:
+          case ReactSymbols["r" /* STRICT_MODE_NUMBER */]:
+          case ReactSymbols["s" /* STRICT_MODE_SYMBOL_STRING */]:
             return true;
 
           default:
@@ -5074,43 +5629,23 @@ function attach(hook, rendererID, renderer, global) {
 
       if (displayName != null) {
         // eslint-disable-next-line no-for-of-loops/no-for-of-loops
-        var _iterator = _createForOfIteratorHelper(hideElementsWithDisplayNames),
-            _step;
-
-        try {
-          for (_iterator.s(); !(_step = _iterator.n()).done;) {
-            const displayNameRegExp = _step.value;
-
-            if (displayNameRegExp.test(displayName)) {
-              return true;
-            }
+        for (const displayNameRegExp of hideElementsWithDisplayNames) {
+          if (displayNameRegExp.test(displayName)) {
+            return true;
           }
-        } catch (err) {
-          _iterator.e(err);
-        } finally {
-          _iterator.f();
         }
       }
     }
 
     if (_debugSource != null && hideElementsWithPaths.size > 0) {
-      const fileName = _debugSource.fileName; // eslint-disable-next-line no-for-of-loops/no-for-of-loops
+      const {
+        fileName
+      } = _debugSource; // eslint-disable-next-line no-for-of-loops/no-for-of-loops
 
-      var _iterator2 = _createForOfIteratorHelper(hideElementsWithPaths),
-          _step2;
-
-      try {
-        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-          const pathRegExp = _step2.value;
-
-          if (pathRegExp.test(fileName)) {
-            return true;
-          }
+      for (const pathRegExp of hideElementsWithPaths) {
+        if (pathRegExp.test(fileName)) {
+          return true;
         }
-      } catch (err) {
-        _iterator2.e(err);
-      } finally {
-        _iterator2.f();
       }
     }
 
@@ -5119,8 +5654,10 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function getElementTypeForFiber(fiber) {
-    const type = fiber.type,
-          tag = fiber.tag;
+    const {
+      type,
+      tag
+    } = fiber;
 
     switch (tag) {
       case ClassComponent:
@@ -5159,25 +5696,25 @@ function attach(hook, rendererID, renderer, global) {
         const typeSymbol = getTypeSymbol(type);
 
         switch (typeSymbol) {
-          case ReactSymbols["c" /* CONCURRENT_MODE_NUMBER */]:
-          case ReactSymbols["d" /* CONCURRENT_MODE_SYMBOL_STRING */]:
-          case ReactSymbols["g" /* DEPRECATED_ASYNC_MODE_SYMBOL_STRING */]:
+          case ReactSymbols["a" /* CONCURRENT_MODE_NUMBER */]:
+          case ReactSymbols["b" /* CONCURRENT_MODE_SYMBOL_STRING */]:
+          case ReactSymbols["e" /* DEPRECATED_ASYNC_MODE_SYMBOL_STRING */]:
             return types["k" /* ElementTypeOtherOrUnknown */];
 
-          case ReactSymbols["p" /* PROVIDER_NUMBER */]:
-          case ReactSymbols["q" /* PROVIDER_SYMBOL_STRING */]:
+          case ReactSymbols["n" /* PROVIDER_NUMBER */]:
+          case ReactSymbols["o" /* PROVIDER_SYMBOL_STRING */]:
             return types["f" /* ElementTypeContext */];
 
-          case ReactSymbols["e" /* CONTEXT_NUMBER */]:
-          case ReactSymbols["f" /* CONTEXT_SYMBOL_STRING */]:
+          case ReactSymbols["c" /* CONTEXT_NUMBER */]:
+          case ReactSymbols["d" /* CONTEXT_SYMBOL_STRING */]:
             return types["f" /* ElementTypeContext */];
 
-          case ReactSymbols["t" /* STRICT_MODE_NUMBER */]:
-          case ReactSymbols["u" /* STRICT_MODE_SYMBOL_STRING */]:
+          case ReactSymbols["r" /* STRICT_MODE_NUMBER */]:
+          case ReactSymbols["s" /* STRICT_MODE_SYMBOL_STRING */]:
             return types["k" /* ElementTypeOtherOrUnknown */];
 
-          case ReactSymbols["n" /* PROFILER_NUMBER */]:
-          case ReactSymbols["o" /* PROFILER_SYMBOL_STRING */]:
+          case ReactSymbols["l" /* PROFILER_NUMBER */]:
+          case ReactSymbols["m" /* PROFILER_SYMBOL_STRING */]:
             return types["l" /* ElementTypeProfiler */];
 
           default:
@@ -5185,30 +5722,17 @@ function attach(hook, rendererID, renderer, global) {
         }
 
     }
-  } // This is a slightly annoying indirection.
-  // It is currently necessary because DevTools wants to use unique objects as keys for instances.
-  // However fibers have two versions.
-  // We use this set to remember first encountered fiber for each conceptual instance.
+  } // Map of one or more Fibers in a pair to their unique id number.
+  // We track both Fibers to support Fast Refresh,
+  // which may forcefully replace one of the pair as part of hot reloading.
+  // In that case it's still important to be able to locate the previous ID during subsequent renders.
 
 
-  function getPrimaryFiber(fiber) {
-    if (primaryFibers.has(fiber)) {
-      return fiber;
-    }
+  const fiberToIDMap = new Map(); // Map of id to one (arbitrary) Fiber in a pair.
+  // This Map is used to e.g. get the display name for a Fiber or schedule an update,
+  // operations that should be the same whether the current and work-in-progress Fiber is used.
 
-    const alternate = fiber.alternate;
-
-    if (alternate != null && primaryFibers.has(alternate)) {
-      return alternate;
-    }
-
-    primaryFibers.add(fiber);
-    return fiber;
-  }
-
-  const fiberToIDMap = new Map();
-  const idToFiberMap = new Map();
-  const primaryFibers = new Set(); // When profiling is supported, we store the latest tree base durations for each Fiber.
+  const idToArbitraryFiberMap = new Map(); // When profiling is supported, we store the latest tree base durations for each Fiber.
   // This is so that we can quickly capture a snapshot of those values if profiling starts.
   // If we didn't store these values, we'd have to crawl the tree when profiling started,
   // and use a slow path to find each of the current Fibers.
@@ -5218,16 +5742,147 @@ function attach(hook, rendererID, renderer, global) {
 
   const idToRootMap = new Map(); // When a mount or update is in progress, this value tracks the root that is being operated on.
 
-  let currentRootID = -1;
+  let currentRootID = -1; // Returns the unique ID for a Fiber or generates and caches a new one if the Fiber hasn't been seen before.
+  // Once this method has been called for a Fiber, untrackFiberID() should always be called later to avoid leaking.
 
-  function getFiberID(primaryFiber) {
-    if (!fiberToIDMap.has(primaryFiber)) {
-      const id = Object(utils["l" /* getUID */])();
-      fiberToIDMap.set(primaryFiber, id);
-      idToFiberMap.set(id, primaryFiber);
+  function getOrGenerateFiberID(fiber) {
+    let id = null;
+
+    if (fiberToIDMap.has(fiber)) {
+      id = fiberToIDMap.get(fiber);
+    } else {
+      const {
+        alternate
+      } = fiber;
+
+      if (alternate !== null && fiberToIDMap.has(alternate)) {
+        id = fiberToIDMap.get(alternate);
+      }
     }
 
-    return fiberToIDMap.get(primaryFiber);
+    let didGenerateID = false;
+
+    if (id === null) {
+      didGenerateID = true;
+      id = Object(utils["m" /* getUID */])();
+    } // This refinement is for Flow purposes only.
+
+
+    const refinedID = id; // Make sure we're tracking this Fiber
+    // e.g. if it just mounted or an error was logged during initial render.
+
+    if (!fiberToIDMap.has(fiber)) {
+      fiberToIDMap.set(fiber, refinedID);
+      idToArbitraryFiberMap.set(refinedID, fiber);
+    } // Also make sure we're tracking its alternate,
+    // e.g. in case this is the first update after mount.
+
+
+    const {
+      alternate
+    } = fiber;
+
+    if (alternate !== null) {
+      if (!fiberToIDMap.has(alternate)) {
+        fiberToIDMap.set(alternate, refinedID);
+      }
+    }
+
+    if (constants["t" /* __DEBUG__ */]) {
+      if (didGenerateID) {
+        debug('getOrGenerateFiberID()', fiber, fiber.return, 'Generated a new UID');
+      }
+    }
+
+    return refinedID;
+  } // Returns an ID if one has already been generated for the Fiber or throws.
+
+
+  function getFiberIDThrows(fiber) {
+    const maybeID = getFiberIDUnsafe(fiber);
+
+    if (maybeID !== null) {
+      return maybeID;
+    }
+
+    throw Error(`Could not find ID for Fiber "${getDisplayNameForFiber(fiber) || ''}"`);
+  } // Returns an ID if one has already been generated for the Fiber or null if one has not been generated.
+  // Use this method while e.g. logging to avoid over-retaining Fibers.
+
+
+  function getFiberIDUnsafe(fiber) {
+    if (fiberToIDMap.has(fiber)) {
+      return fiberToIDMap.get(fiber);
+    } else {
+      const {
+        alternate
+      } = fiber;
+
+      if (alternate !== null && fiberToIDMap.has(alternate)) {
+        return fiberToIDMap.get(alternate);
+      }
+    }
+
+    return null;
+  } // Removes a Fiber (and its alternate) from the Maps used to track their id.
+  // This method should always be called when a Fiber is unmounting.
+
+
+  function untrackFiberID(fiber) {
+    if (constants["t" /* __DEBUG__ */]) {
+      debug('untrackFiberID()', fiber, fiber.return, 'schedule after delay');
+    } // Untrack Fibers after a slight delay in order to support a Fast Refresh edge case:
+    // 1. Component type is updated and Fast Refresh schedules an update+remount.
+    // 2. flushPendingErrorsAndWarningsAfterDelay() runs, sees the old Fiber is no longer mounted
+    //    (it's been disconnected by Fast Refresh), and calls untrackFiberID() to clear it from the Map.
+    // 3. React flushes pending passive effects before it runs the next render,
+    //    which logs an error or warning, which causes a new ID to be generated for this Fiber.
+    // 4. DevTools now tries to unmount the old Component with the new ID.
+    //
+    // The underlying problem here is the premature clearing of the Fiber ID,
+    // but DevTools has no way to detect that a given Fiber has been scheduled for Fast Refresh.
+    // (The "_debugNeedsRemount" flag won't necessarily be set.)
+    //
+    // The best we can do is to delay untracking by a small amount,
+    // and give React time to process the Fast Refresh delay.
+
+
+    untrackFibersSet.add(fiber);
+
+    if (untrackFibersTimeoutID === null) {
+      untrackFibersTimeoutID = setTimeout(untrackFibers, 1000);
+    }
+  }
+
+  const untrackFibersSet = new Set();
+  let untrackFibersTimeoutID = null;
+
+  function untrackFibers() {
+    if (untrackFibersTimeoutID !== null) {
+      clearTimeout(untrackFibersTimeoutID);
+      untrackFibersTimeoutID = null;
+    }
+
+    untrackFibersSet.forEach(fiber => {
+      const fiberID = getFiberIDUnsafe(fiber);
+
+      if (fiberID !== null) {
+        idToArbitraryFiberMap.delete(fiberID); // Also clear any errors/warnings associated with this fiber.
+
+        clearErrorsForFiberID(fiberID);
+        clearWarningsForFiberID(fiberID);
+      }
+
+      fiberToIDMap.delete(fiber);
+      const {
+        alternate
+      } = fiber;
+
+      if (alternate !== null) {
+        fiberToIDMap.delete(alternate);
+      }
+    });
+    untrackFibersSet.clear();
   }
 
   function getChangeDescription(prevFiber, nextFiber) {
@@ -5245,13 +5900,23 @@ function attach(hook, rendererID, renderer, global) {
             state: null
           };
         } else {
-          return {
+          const data = {
             context: getContextChangedKeys(nextFiber),
-            didHooksChange: didHooksChange(prevFiber.memoizedState, nextFiber.memoizedState),
+            didHooksChange: false,
             isFirstMount: false,
             props: getChangedKeys(prevFiber.memoizedProps, nextFiber.memoizedProps),
             state: getChangedKeys(prevFiber.memoizedState, nextFiber.memoizedState)
-          };
+          }; // Only traverse the hooks list once, depending on what info we're returning.
+
+          if (DevToolsFeatureFlags_extension_oss["a" /* enableProfilerChangedHookIndices */]) {
+            const indices = getChangedHooksIndices(prevFiber.memoizedState, nextFiber.memoizedState);
+            data.hooks = indices;
+            data.didHooksChange = indices !== null && indices.length > 0;
+          } else {
+            data.didHooksChange = didHooksChange(prevFiber.memoizedState, nextFiber.memoizedState);
+          }
+
+          return data;
         }
 
       default:
@@ -5263,7 +5928,7 @@ function attach(hook, rendererID, renderer, global) {
     switch (getElementTypeForFiber(fiber)) {
       case types["e" /* ElementTypeClass */]:
         if (idToContextsMap !== null) {
-          const id = getFiberID(getPrimaryFiber(fiber));
+          const id = getFiberIDThrows(fiber);
           const contexts = getContextsForFiber(fiber);
 
           if (contexts !== null) {
@@ -5324,7 +5989,7 @@ function attach(hook, rendererID, renderer, global) {
     switch (getElementTypeForFiber(fiber)) {
       case types["e" /* ElementTypeClass */]:
         if (idToContextsMap !== null) {
-          const id = getFiberID(getPrimaryFiber(fiber));
+          const id = getFiberIDThrows(fiber);
           const prevContexts = idToContextsMap.has(id) ? idToContextsMap.get(id) : null;
           const nextContexts = getContextsForFiber(fiber);
 
@@ -5332,13 +5997,8 @@ function attach(hook, rendererID, renderer, global) {
             return null;
           }
 
-          const _prevContexts = _slicedToArray(prevContexts, 2),
-                prevLegacyContext = _prevContexts[0],
-                prevModernContext = _prevContexts[1];
-
-          const _nextContexts = _slicedToArray(nextContexts, 2),
-                nextLegacyContext = _nextContexts[0],
-                nextModernContext = _nextContexts[1];
+          const [prevLegacyContext, prevModernContext] = prevContexts;
+          const [nextLegacyContext, nextModernContext] = nextContexts;
 
           if (nextLegacyContext !== NO_CONTEXT) {
             return getChangedKeys(prevLegacyContext, nextLegacyContext);
@@ -5356,6 +6016,45 @@ function attach(hook, rendererID, renderer, global) {
     return null;
   }
 
+  function areHookInputsEqual(nextDeps, prevDeps) {
+    if (prevDeps === null) {
+      return false;
+    }
+
+    for (let i = 0; i < prevDeps.length && i < nextDeps.length; i++) {
+      if (shared_objectIs(nextDeps[i], prevDeps[i])) {
+        continue;
+      }
+
+      return false;
+    }
+
+    return true;
+  }
+
+  function isEffect(memoizedState) {
+    if (memoizedState === null || typeof memoizedState !== 'object') {
+      return false;
+    }
+
+    const {
+      deps
+    } = memoizedState;
+    const hasOwnProperty = Object.prototype.hasOwnProperty.bind(memoizedState);
+    return hasOwnProperty('create') && hasOwnProperty('destroy') && hasOwnProperty('deps') && hasOwnProperty('next') && hasOwnProperty('tag') && (deps === null || shared_isArray(deps));
+  }
+
+  function didHookChange(prev, next) {
+    const prevMemoizedState = prev.memoizedState;
+    const nextMemoizedState = next.memoizedState;
+
+    if (isEffect(prevMemoizedState) && isEffect(nextMemoizedState)) {
+      return prevMemoizedState !== nextMemoizedState && !areHookInputsEqual(nextMemoizedState.deps, prevMemoizedState.deps);
+    }
+
+    return nextMemoizedState !== prevMemoizedState;
+  }
+
   function didHooksChange(prev, next) {
     if (prev == null || next == null) {
       return false;
@@ -5364,7 +6063,7 @@ function attach(hook, rendererID, renderer, global) {
 
     if (next.hasOwnProperty('baseState') && next.hasOwnProperty('memoizedState') && next.hasOwnProperty('next') && next.hasOwnProperty('queue')) {
       while (next !== null) {
-        if (next.memoizedState !== prev.memoizedState) {
+        if (didHookChange(prev, next)) {
           return true;
         } else {
           next = next.next;
@@ -5374,6 +6073,33 @@ function attach(hook, rendererID, renderer, global) {
     }
 
     return false;
+  }
+
+  function getChangedHooksIndices(prev, next) {
+    if (DevToolsFeatureFlags_extension_oss["a" /* enableProfilerChangedHookIndices */]) {
+      if (prev == null || next == null) {
+        return null;
+      }
+
+      const indices = [];
+      let index = 0;
+
+      if (next.hasOwnProperty('baseState') && next.hasOwnProperty('memoizedState') && next.hasOwnProperty('next') && next.hasOwnProperty('queue')) {
+        while (next !== null) {
+          if (didHookChange(prev, next)) {
+            indices.push(index);
+          }
+
+          next = next.next;
+          prev = prev.next;
+          index++;
+        }
+      }
+
+      return indices;
+    }
+
+    return null;
   }
 
   function getChangedKeys(prev, next) {
@@ -5389,21 +6115,10 @@ function attach(hook, rendererID, renderer, global) {
     const keys = new Set([...Object.keys(prev), ...Object.keys(next)]);
     const changedKeys = []; // eslint-disable-next-line no-for-of-loops/no-for-of-loops
 
-    var _iterator3 = _createForOfIteratorHelper(keys),
-        _step3;
-
-    try {
-      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-        const key = _step3.value;
-
-        if (prev[key] !== next[key]) {
-          changedKeys.push(key);
-        }
+    for (const key of keys) {
+      if (prev[key] !== next[key]) {
+        changedKeys.push(key);
       }
-    } catch (err) {
-      _iterator3.e(err);
-    } finally {
-      _iterator3.f();
     }
 
     return changedKeys;
@@ -5445,7 +6160,135 @@ function attach(hook, rendererID, renderer, global) {
     pendingOperations.push(op);
   }
 
+  function flushOrQueueOperations(operations) {
+    if (pendingOperationsQueue !== null) {
+      pendingOperationsQueue.push(operations);
+    } else {
+      hook.emit('operations', operations);
+    }
+  }
+
+  let flushPendingErrorsAndWarningsAfterDelayTimeoutID = null;
+
+  function clearPendingErrorsAndWarningsAfterDelay() {
+    if (flushPendingErrorsAndWarningsAfterDelayTimeoutID !== null) {
+      clearTimeout(flushPendingErrorsAndWarningsAfterDelayTimeoutID);
+      flushPendingErrorsAndWarningsAfterDelayTimeoutID = null;
+    }
+  }
+
+  function flushPendingErrorsAndWarningsAfterDelay() {
+    clearPendingErrorsAndWarningsAfterDelay();
+    flushPendingErrorsAndWarningsAfterDelayTimeoutID = setTimeout(() => {
+      flushPendingErrorsAndWarningsAfterDelayTimeoutID = null;
+
+      if (pendingOperations.length > 0) {
+        // On the off chance that something else has pushed pending operations,
+        // we should bail on warnings; it's probably not safe to push midway.
+        return;
+      }
+
+      recordPendingErrorsAndWarnings();
+
+      if (pendingOperations.length === 0) {
+        // No warnings or errors to flush; we can bail out early here too.
+        return;
+      } // We can create a smaller operations array than flushPendingEvents()
+      // because we only need to flush warning and error counts.
+      // Only a few pieces of fixed information are required up front.
+
+
+      const operations = new Array(3 + pendingOperations.length);
+      operations[0] = rendererID;
+      operations[1] = currentRootID;
+      operations[2] = 0; // String table size
+
+      for (let j = 0; j < pendingOperations.length; j++) {
+        operations[3 + j] = pendingOperations[j];
+      }
+
+      flushOrQueueOperations(operations);
+      pendingOperations.length = 0;
+    }, 1000);
+  }
+
+  function reevaluateErrorsAndWarnings() {
+    fibersWithChangedErrorOrWarningCounts.clear();
+    fiberIDToErrorsMap.forEach((countMap, fiberID) => {
+      const fiber = idToArbitraryFiberMap.get(fiberID);
+
+      if (fiber != null) {
+        fibersWithChangedErrorOrWarningCounts.add(fiber);
+      }
+    });
+    fiberIDToWarningsMap.forEach((countMap, fiberID) => {
+      const fiber = idToArbitraryFiberMap.get(fiberID);
+
+      if (fiber != null) {
+        fibersWithChangedErrorOrWarningCounts.add(fiber);
+      }
+    });
+    recordPendingErrorsAndWarnings();
+  }
+
+  function mergeMapsAndGetCountHelper(fiber, fiberID, pendingFiberToMessageCountMap, fiberIDToMessageCountMap) {
+    let newCount = 0;
+    let messageCountMap = fiberIDToMessageCountMap.get(fiberID);
+    const pendingMessageCountMap = pendingFiberToMessageCountMap.get(fiber);
+
+    if (pendingMessageCountMap != null) {
+      if (messageCountMap == null) {
+        messageCountMap = pendingMessageCountMap;
+        fiberIDToMessageCountMap.set(fiberID, pendingMessageCountMap);
+      } else {
+        // This Flow refinement should not be necessary and yet...
+        const refinedMessageCountMap = messageCountMap;
+        pendingMessageCountMap.forEach((pendingCount, message) => {
+          const previousCount = refinedMessageCountMap.get(message) || 0;
+          refinedMessageCountMap.set(message, previousCount + pendingCount);
+        });
+      }
+    }
+
+    if (!shouldFilterFiber(fiber)) {
+      if (messageCountMap != null) {
+        messageCountMap.forEach(count => {
+          newCount += count;
+        });
+      }
+    }
+
+    pendingFiberToMessageCountMap.delete(fiber);
+    return newCount;
+  }
+
+  function recordPendingErrorsAndWarnings() {
+    clearPendingErrorsAndWarningsAfterDelay();
+    fibersWithChangedErrorOrWarningCounts.forEach(fiber => {
+      const fiberID = getFiberIDUnsafe(fiber);
+
+      if (fiberID === null) {// Don't send updates for Fibers that didn't mount due to e.g. Suspense or an error boundary.
+      } else {
+        const errorCount = mergeMapsAndGetCountHelper(fiber, fiberID, pendingFiberToErrorsMap, fiberIDToErrorsMap);
+        const warningCount = mergeMapsAndGetCountHelper(fiber, fiberID, pendingFiberToWarningsMap, fiberIDToWarningsMap);
+        pushOperation(constants["q" /* TREE_OPERATION_UPDATE_ERRORS_OR_WARNINGS */]);
+        pushOperation(fiberID);
+        pushOperation(errorCount);
+        pushOperation(warningCount);
+      } // Always clean up so that we don't leak.
+
+
+      pendingFiberToErrorsMap.delete(fiber);
+      pendingFiberToWarningsMap.delete(fiber);
+    });
+    fibersWithChangedErrorOrWarningCounts.clear();
+  }
+
   function flushPendingEvents(root) {
+    // Add any pending errors and warnings to the operations array.
+    // We do this just before flushing, so we can ignore errors for no-longer-mounted Fibers.
+    recordPendingErrorsAndWarnings();
+
     if (pendingOperations.length === 0 && pendingRealUnmountedIDs.length === 0 && pendingSimulatedUnmountedIDs.length === 0 && pendingUnmountedRootID === null) {
       // If we aren't profiling, we can just bail out here.
       // No use sending an empty update over the bridge.
@@ -5475,14 +6318,13 @@ function attach(hook, rendererID, renderer, global) {
 
     let i = 0;
     operations[i++] = rendererID;
-    operations[i++] = currentRootID; // Use this ID in case the root was unmounted!
-    // Now fill in the string table.
+    operations[i++] = currentRootID; // Now fill in the string table.
     // [stringTableLength, str1Length, ...str1, str2Length, ...str2, ...]
 
     operations[i++] = pendingStringTableLength;
     pendingStringTable.forEach((value, key) => {
       operations[i++] = key.length;
-      const encodedKey = Object(utils["s" /* utfEncodeString */])(key);
+      const encodedKey = Object(utils["t" /* utfEncodeString */])(key);
 
       for (let j = 0; j < encodedKey.length; j++) {
         operations[i + j] = encodedKey[j];
@@ -5493,7 +6335,7 @@ function attach(hook, rendererID, renderer, global) {
 
     if (numUnmountIDs > 0) {
       // All unmounts except roots are batched in a single message.
-      operations[i++] = constants["l" /* TREE_OPERATION_REMOVE */]; // The first number is how many unmounted IDs we're gonna send.
+      operations[i++] = constants["n" /* TREE_OPERATION_REMOVE */]; // The first number is how many unmounted IDs we're gonna send.
 
       operations[i++] = numUnmountIDs; // Fill in the real unmounts in the reverse order.
       // They were inserted parents-first by React, but we want children-first.
@@ -5526,18 +6368,8 @@ function attach(hook, rendererID, renderer, global) {
     }
 
     i += pendingOperations.length; // Let the frontend know about tree operations.
-    // The first value in this array will identify which root it corresponds to,
-    // so we do no longer need to dispatch a separate root-committed event.
 
-    if (pendingOperationsQueue !== null) {
-      // Until the frontend has been connected, store the tree operations.
-      // This will let us avoid walking the tree later when the frontend connects,
-      // and it enables the Profiler's reload-and-profile functionality to work as well.
-      pendingOperationsQueue.push(operations);
-    } else {
-      // If we've already connected to the frontend, just pass the operations through.
-      hook.emit('operations', operations);
-    }
+    flushOrQueueOperations(operations); // Reset all of the pending state now that we've told the frontend about it.
 
     pendingOperations.length = 0;
     pendingRealUnmountedIDs.length = 0;
@@ -5568,17 +6400,18 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function recordMount(fiber, parentFiber) {
-    if (constants["p" /* __DEBUG__ */]) {
+    const isRoot = fiber.tag === HostRoot;
+    const id = getOrGenerateFiberID(fiber);
+
+    if (constants["t" /* __DEBUG__ */]) {
       debug('recordMount()', fiber, parentFiber);
     }
 
-    const isRoot = fiber.tag === HostRoot;
-    const id = getFiberID(getPrimaryFiber(fiber));
     const hasOwnerMetadata = fiber.hasOwnProperty('_debugOwner');
     const isProfilingSupported = fiber.hasOwnProperty('treeBaseDuration');
 
     if (isRoot) {
-      pushOperation(constants["k" /* TREE_OPERATION_ADD */]);
+      pushOperation(constants["m" /* TREE_OPERATION_ADD */]);
       pushOperation(id);
       pushOperation(types["m" /* ElementTypeRoot */]);
       pushOperation(isProfilingSupported ? 1 : 0);
@@ -5590,18 +6423,27 @@ function attach(hook, rendererID, renderer, global) {
         }
       }
     } else {
-      const key = fiber.key;
+      const {
+        key
+      } = fiber;
       const displayName = getDisplayNameForFiber(fiber);
       const elementType = getElementTypeForFiber(fiber);
-      const _debugOwner = fiber._debugOwner;
-      const ownerID = _debugOwner != null ? getFiberID(getPrimaryFiber(_debugOwner)) : 0;
-      const parentID = parentFiber ? getFiberID(getPrimaryFiber(parentFiber)) : 0;
+      const {
+        _debugOwner
+      } = fiber; // Ideally we should call getFiberIDThrows() for _debugOwner,
+      // since owners are almost always higher in the tree (and so have already been processed),
+      // but in some (rare) instances reported in open source, a descendant mounts before an owner.
+      // Since this is a DEV only field it's probably okay to also just lazily generate and ID here if needed.
+      // See https://github.com/facebook/react/issues/21445
+
+      const ownerID = _debugOwner != null ? getOrGenerateFiberID(_debugOwner) : 0;
+      const parentID = parentFiber ? getFiberIDThrows(parentFiber) : 0;
       const displayNameStringID = getStringID(displayName); // This check is a guard to handle a React element that has been modified
       // in such a way as to bypass the default stringification of the "key" property.
 
       const keyString = key === null ? null : '' + key;
       const keyStringID = getStringID(keyString);
-      pushOperation(constants["k" /* TREE_OPERATION_ADD */]);
+      pushOperation(constants["m" /* TREE_OPERATION_ADD */]);
       pushOperation(id);
       pushOperation(elementType);
       pushOperation(parentID);
@@ -5617,8 +6459,8 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function recordUnmount(fiber, isSimulated) {
-    if (constants["p" /* __DEBUG__ */]) {
-      debug('recordUnmount()', fiber);
+    if (constants["t" /* __DEBUG__ */]) {
+      debug('recordUnmount()', fiber, null, isSimulated ? 'unmount is simulated' : '');
     }
 
     if (trackedPathMatchFiber !== null) {
@@ -5630,21 +6472,22 @@ function attach(hook, rendererID, renderer, global) {
       }
     }
 
-    const isRoot = fiber.tag === HostRoot;
-    const primaryFiber = getPrimaryFiber(fiber);
+    const unsafeID = getFiberIDUnsafe(fiber);
 
-    if (!fiberToIDMap.has(primaryFiber)) {
-      // If we've never seen this Fiber, it might be because
-      // it is inside a non-current Suspense fragment tree,
-      // and so the store is not even aware of it.
-      // In that case we can just ignore it, or otherwise
-      // there will be errors later on.
-      primaryFibers.delete(primaryFiber); // TODO: this is fragile and can obscure actual bugs.
-
+    if (unsafeID === null) {
+      // If we've never seen this Fiber, it might be inside of a legacy render Suspense fragment (so the store is not even aware of it).
+      // In that case we can just ignore it or it will cause errors later on.
+      // One example of this is a Lazy component that never resolves before being unmounted.
+      //
+      // This also might indicate a Fast Refresh force-remount scenario.
+      //
+      // TODO: This is fragile and can obscure actual bugs.
       return;
-    }
+    } // Flow refinement.
 
-    const id = getFiberID(primaryFiber);
+
+    const id = unsafeID;
+    const isRoot = fiber.tag === HostRoot;
 
     if (isRoot) {
       // Roots must be removed only after all children (pending and simulated) have been removed.
@@ -5661,93 +6504,99 @@ function attach(hook, rendererID, renderer, global) {
       }
     }
 
-    fiberToIDMap.delete(primaryFiber);
-    idToFiberMap.delete(id);
-    primaryFibers.delete(primaryFiber);
-    const isProfilingSupported = fiber.hasOwnProperty('treeBaseDuration');
+    if (!fiber._debugNeedsRemount) {
+      untrackFiberID(fiber);
+      const isProfilingSupported = fiber.hasOwnProperty('treeBaseDuration');
 
-    if (isProfilingSupported) {
-      idToRootMap.delete(id);
-      idToTreeBaseDurationMap.delete(id);
+      if (isProfilingSupported) {
+        idToRootMap.delete(id);
+        idToTreeBaseDurationMap.delete(id);
+      }
     }
   }
 
-  function mountFiberRecursively(fiber, parentFiber, traverseSiblings, traceNearestHostComponentUpdate) {
-    if (constants["p" /* __DEBUG__ */]) {
-      debug('mountFiberRecursively()', fiber, parentFiber);
-    } // If we have the tree selection from previous reload, try to match this Fiber.
-    // Also remember whether to do the same for siblings.
+  function mountFiberRecursively(firstChild, parentFiber, traverseSiblings, traceNearestHostComponentUpdate) {
+    // Iterate over siblings rather than recursing.
+    // This reduces the chance of stack overflow for wide trees (e.g. lists with many items).
+    let fiber = firstChild;
+
+    while (fiber !== null) {
+      // Generate an ID even for filtered Fibers, in case it's needed later (e.g. for Profiling).
+      getOrGenerateFiberID(fiber);
+
+      if (constants["t" /* __DEBUG__ */]) {
+        debug('mountFiberRecursively()', fiber, parentFiber);
+      } // If we have the tree selection from previous reload, try to match this Fiber.
+      // Also remember whether to do the same for siblings.
 
 
-    const mightSiblingsBeOnTrackedPath = updateTrackedPathStateBeforeMount(fiber);
-    const shouldIncludeInTree = !shouldFilterFiber(fiber);
+      const mightSiblingsBeOnTrackedPath = updateTrackedPathStateBeforeMount(fiber);
+      const shouldIncludeInTree = !shouldFilterFiber(fiber);
 
-    if (shouldIncludeInTree) {
-      recordMount(fiber, parentFiber);
-    }
+      if (shouldIncludeInTree) {
+        recordMount(fiber, parentFiber);
+      }
 
-    if (traceUpdatesEnabled) {
-      if (traceNearestHostComponentUpdate) {
-        const elementType = getElementTypeForFiber(fiber); // If an ancestor updated, we should mark the nearest host nodes for highlighting.
+      if (traceUpdatesEnabled) {
+        if (traceNearestHostComponentUpdate) {
+          const elementType = getElementTypeForFiber(fiber); // If an ancestor updated, we should mark the nearest host nodes for highlighting.
 
-        if (elementType === types["i" /* ElementTypeHostComponent */]) {
-          traceUpdatesForNodes.add(fiber.stateNode);
-          traceNearestHostComponentUpdate = false;
-        }
-      } // We intentionally do not re-enable the traceNearestHostComponentUpdate flag in this branch,
-      // because we don't want to highlight every host node inside of a newly mounted subtree.
+          if (elementType === types["i" /* ElementTypeHostComponent */]) {
+            traceUpdatesForNodes.add(fiber.stateNode);
+            traceNearestHostComponentUpdate = false;
+          }
+        } // We intentionally do not re-enable the traceNearestHostComponentUpdate flag in this branch,
+        // because we don't want to highlight every host node inside of a newly mounted subtree.
 
-    }
+      }
 
-    const isSuspense = fiber.tag === ReactTypeOfWork.SuspenseComponent;
+      const isSuspense = fiber.tag === ReactTypeOfWork.SuspenseComponent;
 
-    if (isSuspense) {
-      const isTimedOut = fiber.memoizedState !== null;
+      if (isSuspense) {
+        const isTimedOut = fiber.memoizedState !== null;
 
-      if (isTimedOut) {
-        // Special case: if Suspense mounts in a timed-out state,
-        // get the fallback child from the inner fragment and mount
-        // it as if it was our own child. Updates handle this too.
-        const primaryChildFragment = fiber.child;
-        const fallbackChildFragment = primaryChildFragment ? primaryChildFragment.sibling : null;
-        const fallbackChild = fallbackChildFragment ? fallbackChildFragment.child : null;
+        if (isTimedOut) {
+          // Special case: if Suspense mounts in a timed-out state,
+          // get the fallback child from the inner fragment and mount
+          // it as if it was our own child. Updates handle this too.
+          const primaryChildFragment = fiber.child;
+          const fallbackChildFragment = primaryChildFragment ? primaryChildFragment.sibling : null;
+          const fallbackChild = fallbackChildFragment ? fallbackChildFragment.child : null;
 
-        if (fallbackChild !== null) {
-          mountFiberRecursively(fallbackChild, shouldIncludeInTree ? fiber : parentFiber, true, traceNearestHostComponentUpdate);
+          if (fallbackChild !== null) {
+            mountFiberRecursively(fallbackChild, shouldIncludeInTree ? fiber : parentFiber, true, traceNearestHostComponentUpdate);
+          }
+        } else {
+          let primaryChild = null;
+          const areSuspenseChildrenConditionallyWrapped = OffscreenComponent === -1;
+
+          if (areSuspenseChildrenConditionallyWrapped) {
+            primaryChild = fiber.child;
+          } else if (fiber.child !== null) {
+            primaryChild = fiber.child.child;
+          }
+
+          if (primaryChild !== null) {
+            mountFiberRecursively(primaryChild, shouldIncludeInTree ? fiber : parentFiber, true, traceNearestHostComponentUpdate);
+          }
         }
       } else {
-        let primaryChild = null;
-        const areSuspenseChildrenConditionallyWrapped = OffscreenComponent === -1;
-
-        if (areSuspenseChildrenConditionallyWrapped) {
-          primaryChild = fiber.child;
-        } else if (fiber.child !== null) {
-          primaryChild = fiber.child.child;
+        if (fiber.child !== null) {
+          mountFiberRecursively(fiber.child, shouldIncludeInTree ? fiber : parentFiber, true, traceNearestHostComponentUpdate);
         }
-
-        if (primaryChild !== null) {
-          mountFiberRecursively(primaryChild, shouldIncludeInTree ? fiber : parentFiber, true, traceNearestHostComponentUpdate);
-        }
-      }
-    } else {
-      if (fiber.child !== null) {
-        mountFiberRecursively(fiber.child, shouldIncludeInTree ? fiber : parentFiber, true, traceNearestHostComponentUpdate);
-      }
-    } // We're exiting this Fiber now, and entering its siblings.
-    // If we have selection to restore, we might need to re-activate tracking.
+      } // We're exiting this Fiber now, and entering its siblings.
+      // If we have selection to restore, we might need to re-activate tracking.
 
 
-    updateTrackedPathStateAfterMount(mightSiblingsBeOnTrackedPath);
-
-    if (traverseSiblings && fiber.sibling !== null) {
-      mountFiberRecursively(fiber.sibling, parentFiber, true, traceNearestHostComponentUpdate);
+      updateTrackedPathStateAfterMount(mightSiblingsBeOnTrackedPath);
+      fiber = traverseSiblings ? fiber.sibling : null;
     }
   } // We use this to simulate unmounting for Suspense trees
   // when we switch from primary to fallback.
 
 
   function unmountFiberChildrenRecursively(fiber) {
-    if (constants["p" /* __DEBUG__ */]) {
+    if (constants["t" /* __DEBUG__ */]) {
       debug('unmountFiberChildrenRecursively()', fiber);
     } // We might meet a nested Suspense on our way.
 
@@ -5776,20 +6625,24 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function recordProfilingDurations(fiber) {
-    const id = getFiberID(getPrimaryFiber(fiber));
-    const actualDuration = fiber.actualDuration,
-          treeBaseDuration = fiber.treeBaseDuration;
+    const id = getFiberIDThrows(fiber);
+    const {
+      actualDuration,
+      treeBaseDuration
+    } = fiber;
     idToTreeBaseDurationMap.set(id, treeBaseDuration || 0);
 
     if (isProfiling) {
-      const alternate = fiber.alternate; // It's important to update treeBaseDuration even if the current Fiber did not render,
+      const {
+        alternate
+      } = fiber; // It's important to update treeBaseDuration even if the current Fiber did not render,
       // because it's possible that one of its descendants did.
 
       if (alternate == null || treeBaseDuration !== alternate.treeBaseDuration) {
         // Tree base duration updates are included in the operations typed array.
         // So we have to convert them from milliseconds to microseconds so we can send them as ints.
         const convertedTreeBaseDuration = Math.floor((treeBaseDuration || 0) * 1000);
-        pushOperation(constants["n" /* TREE_OPERATION_UPDATE_TREE_BASE_DURATION */]);
+        pushOperation(constants["r" /* TREE_OPERATION_UPDATE_TREE_BASE_DURATION */]);
         pushOperation(id);
         pushOperation(convertedTreeBaseDuration);
       }
@@ -5835,7 +6688,7 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function recordResetChildren(fiber, childSet) {
-    if (constants["p" /* __DEBUG__ */]) {
+    if (constants["t" /* __DEBUG__ */]) {
       debug('recordResetChildren()', childSet, fiber);
     } // The frontend only really cares about the displayName, key, and children.
     // The first two don't really change, so we are only concerned with the order of children here.
@@ -5859,8 +6712,8 @@ function attach(hook, rendererID, renderer, global) {
       return;
     }
 
-    pushOperation(constants["m" /* TREE_OPERATION_REORDER_CHILDREN */]);
-    pushOperation(getFiberID(getPrimaryFiber(fiber)));
+    pushOperation(constants["p" /* TREE_OPERATION_REORDER_CHILDREN */]);
+    pushOperation(getFiberIDThrows(fiber));
     pushOperation(numChildren);
 
     for (let i = 0; i < nextChildren.length; i++) {
@@ -5870,7 +6723,7 @@ function attach(hook, rendererID, renderer, global) {
 
   function findReorderedChildrenRecursively(fiber, nextChildren) {
     if (!shouldFilterFiber(fiber)) {
-      nextChildren.push(getFiberID(getPrimaryFiber(fiber)));
+      nextChildren.push(getFiberIDThrows(fiber));
     } else {
       let child = fiber.child;
       const isTimedOutSuspense = fiber.tag === SuspenseComponent && fiber.memoizedState !== null;
@@ -5897,7 +6750,9 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function updateFiberRecursively(nextFiber, prevFiber, parentFiber, traceNearestHostComponentUpdate) {
-    if (constants["p" /* __DEBUG__ */]) {
+    const id = getOrGenerateFiberID(nextFiber);
+
+    if (constants["t" /* __DEBUG__ */]) {
       debug('updateFiberRecursively()', nextFiber, parentFiber);
     }
 
@@ -5918,7 +6773,7 @@ function attach(hook, rendererID, renderer, global) {
       }
     }
 
-    if (mostRecentlyInspectedElement !== null && mostRecentlyInspectedElement.id === getFiberID(getPrimaryFiber(nextFiber)) && didFiberRender(prevFiber, nextFiber)) {
+    if (mostRecentlyInspectedElement !== null && mostRecentlyInspectedElement.id === id && didFiberRender(prevFiber, nextFiber)) {
       // If this Fiber has updated, clear cached inspected data.
       // If it is inspected again, it may need to be re-run to obtain updated hooks values.
       hasElementUpdatedSinceLastInspected = true;
@@ -6031,7 +6886,7 @@ function attach(hook, rendererID, renderer, global) {
           // If we're tracing updates and we've bailed out before reaching a host node,
           // we should fall back to recursively marking the nearest host descendants for highlight.
           if (traceNearestHostComponentUpdate) {
-            const hostFibers = findAllCurrentHostFibers(getFiberID(getPrimaryFiber(nextFiber)));
+            const hostFibers = findAllCurrentHostFibers(getFiberIDThrows(nextFiber));
             hostFibers.forEach(hostFiber => {
               traceUpdatesForNodes.add(hostFiber.stateNode);
             });
@@ -6080,6 +6935,19 @@ function attach(hook, rendererID, renderer, global) {
   function cleanup() {// We don't patch any methods so there is no cleanup.
   }
 
+  function rootSupportsProfiling(root) {
+    if (root.memoizedInteractions != null) {
+      // v16 builds include this field for the scheduler/tracing API.
+      return true;
+    } else if (root.current != null && root.current.hasOwnProperty('treeBaseDuration')) {
+      // The scheduler/tracing API was removed in v17 though
+      // so we need to check a non-root Fiber.
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   function flushInitialOperations() {
     const localPendingOperationsQueue = pendingOperationsQueue;
     pendingOperationsQueue = null;
@@ -6099,22 +6967,21 @@ function attach(hook, rendererID, renderer, global) {
 
 
       hook.getFiberRoots(rendererID).forEach(root => {
-        currentRootID = getFiberID(getPrimaryFiber(root.current));
-        setRootPseudoKey(currentRootID, root.current); // Checking root.memoizedInteractions handles multi-renderer edge-case-
-        // where some v16 renderers support profiling and others don't.
+        currentRootID = getOrGenerateFiberID(root.current);
+        setRootPseudoKey(currentRootID, root.current); // Handle multi-renderer edge-case where only some v16 renderers support profiling.
 
-        if (isProfiling && root.memoizedInteractions != null) {
-          // If profiling is active, store commit time and duration, and the current interactions.
+        if (isProfiling && rootSupportsProfiling(root)) {
+          // If profiling is active, store commit time and duration.
           // The frontend may request this information after profiling has stopped.
           currentCommitProfilingMetadata = {
             changeDescriptions: recordChangeDescriptions ? new Map() : null,
             durations: [],
             commitTime: getCurrentTime() - profilingStartTime,
-            interactions: Array.from(root.memoizedInteractions).map(interaction => renderer_objectSpread(renderer_objectSpread({}, interaction), {}, {
-              timestamp: interaction.timestamp - profilingStartTime
-            })),
             maxActualDuration: 0,
-            priorityLevel: null
+            priorityLevel: null,
+            updaters: getUpdatersList(root),
+            effectDuration: null,
+            passiveEffectDuration: null
           };
         }
 
@@ -6125,6 +6992,10 @@ function attach(hook, rendererID, renderer, global) {
     }
   }
 
+  function getUpdatersList(root) {
+    return root.memoizedUpdaters != null ? Array.from(root.memoizedUpdaters).map(fiberToSerializedElement) : null;
+  }
+
   function handleCommitFiberUnmount(fiber) {
     // This is not recursive.
     // We can't traverse fibers after unmounting so instead
@@ -6132,10 +7003,26 @@ function attach(hook, rendererID, renderer, global) {
     recordUnmount(fiber, false);
   }
 
+  function handlePostCommitFiberRoot(root) {
+    if (isProfiling && rootSupportsProfiling(root)) {
+      if (currentCommitProfilingMetadata !== null) {
+        const {
+          effectDuration,
+          passiveEffectDuration
+        } = getEffectDurations(root);
+        currentCommitProfilingMetadata.effectDuration = effectDuration;
+        currentCommitProfilingMetadata.passiveEffectDuration = passiveEffectDuration;
+      }
+    }
+  }
+
   function handleCommitFiberRoot(root, priorityLevel) {
     const current = root.current;
-    const alternate = current.alternate;
-    currentRootID = getFiberID(getPrimaryFiber(current)); // Before the traversals, remember to start tracking
+    const alternate = current.alternate; // Flush any pending Fibers that we are untracking before processing the new commit.
+    // If we don't do this, we might end up double-deleting Fibers in some cases (like Legacy Suspense).
+
+    untrackFibers();
+    currentRootID = getOrGenerateFiberID(current); // Before the traversals, remember to start tracking
     // our path in case we have selection to restore.
 
     if (trackedPath !== null) {
@@ -6144,24 +7031,25 @@ function attach(hook, rendererID, renderer, global) {
 
     if (traceUpdatesEnabled) {
       traceUpdatesForNodes.clear();
-    } // Checking root.memoizedInteractions handles multi-renderer edge-case-
-    // where some v16 renderers support profiling and others don't.
+    } // Handle multi-renderer edge-case where only some v16 renderers support profiling.
 
 
-    const isProfilingSupported = root.memoizedInteractions != null;
+    const isProfilingSupported = rootSupportsProfiling(root);
 
     if (isProfiling && isProfilingSupported) {
-      // If profiling is active, store commit time and duration, and the current interactions.
+      // If profiling is active, store commit time and duration.
       // The frontend may request this information after profiling has stopped.
       currentCommitProfilingMetadata = {
         changeDescriptions: recordChangeDescriptions ? new Map() : null,
         durations: [],
         commitTime: getCurrentTime() - profilingStartTime,
-        interactions: Array.from(root.memoizedInteractions).map(interaction => renderer_objectSpread(renderer_objectSpread({}, interaction), {}, {
-          timestamp: interaction.timestamp - profilingStartTime
-        })),
         maxActualDuration: 0,
-        priorityLevel: priorityLevel == null ? null : formatPriorityLevel(priorityLevel)
+        priorityLevel: priorityLevel == null ? null : formatPriorityLevel(priorityLevel),
+        updaters: getUpdatersList(root),
+        // Initialize to null; if new enough React version is running,
+        // these values will be read during separate handlePostCommitFiberRoot() call.
+        effectDuration: null,
+        passiveEffectDuration: null
       };
     }
 
@@ -6279,7 +7167,7 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function getDisplayNameForFiberID(id) {
-    const fiber = idToFiberMap.get(id);
+    const fiber = idToArbitraryFiberMap.get(id);
     return fiber != null ? getDisplayNameForFiber(fiber) : null;
   }
 
@@ -6293,7 +7181,7 @@ function attach(hook, rendererID, renderer, global) {
         }
       }
 
-      return getFiberID(getPrimaryFiber(fiber));
+      return getFiberIDThrows(fiber);
     }
 
     return null;
@@ -6306,19 +7194,44 @@ function attach(hook, rendererID, renderer, global) {
 
   function isFiberMountedImpl(fiber) {
     let node = fiber;
+    let prevNode = null;
 
     if (!fiber.alternate) {
       // If there is no alternate, this might be a new tree that isn't inserted
       // yet. If it is, then it will have a pending insertion effect on it.
       if ((getFiberFlags(node) & Placement) !== NoFlags) {
         return MOUNTING;
+      } // This indicates an error during render.
+
+
+      if ((getFiberFlags(node) & Incomplete) !== NoFlags) {
+        return UNMOUNTED;
       }
 
       while (node.return) {
+        prevNode = node;
         node = node.return;
 
         if ((getFiberFlags(node) & Placement) !== NoFlags) {
           return MOUNTING;
+        } // This indicates an error during render.
+
+
+        if ((getFiberFlags(node) & Incomplete) !== NoFlags) {
+          return UNMOUNTED;
+        } // If this node is inside of a timed out suspense subtree, we should also ignore errors/warnings.
+
+
+        const isTimedOutSuspense = node.tag === SuspenseComponent && node.memoizedState !== null;
+
+        if (isTimedOutSuspense) {
+          // Note that this does not include errors/warnings in the Fallback tree though!
+          const primaryChildFragment = node.child;
+          const fallbackChildFragment = primaryChildFragment ? primaryChildFragment.sibling : null;
+
+          if (prevNode !== fallbackChildFragment) {
+            return UNMOUNTED;
+          }
         }
       }
     } else {
@@ -6343,7 +7256,7 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function findCurrentFiberUsingSlowPathById(id) {
-    const fiber = idToFiberMap.get(id);
+    const fiber = idToArbitraryFiberMap.get(id);
 
     if (fiber == null) {
       console.warn(`Could not find Fiber with id "${id}"`);
@@ -6516,24 +7429,24 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function prepareViewAttributeSource(id, path) {
-    const isCurrent = isMostRecentlyInspectedElementCurrent(id);
-
-    if (isCurrent) {
+    if (isMostRecentlyInspectedElement(id)) {
       window.$attribute = Object(utils["j" /* getInObject */])(mostRecentlyInspectedElement, path);
     }
   }
 
   function prepareViewElementSource(id) {
-    const fiber = idToFiberMap.get(id);
+    const fiber = idToArbitraryFiberMap.get(id);
 
     if (fiber == null) {
       console.warn(`Could not find Fiber with id "${id}"`);
       return;
     }
 
-    const elementType = fiber.elementType,
-          tag = fiber.tag,
-          type = fiber.type;
+    const {
+      elementType,
+      tag,
+      type
+    } = fiber;
 
     switch (tag) {
       case ClassComponent:
@@ -6558,6 +7471,15 @@ function attach(hook, rendererID, renderer, global) {
     }
   }
 
+  function fiberToSerializedElement(fiber) {
+    return {
+      displayName: getDisplayNameForFiber(fiber) || 'Anonymous',
+      id: getFiberIDThrows(fiber),
+      key: fiber.key,
+      type: getElementTypeForFiber(fiber)
+    };
+  }
+
   function getOwnersList(id) {
     const fiber = findCurrentFiberUsingSlowPathById(id);
 
@@ -6565,22 +7487,16 @@ function attach(hook, rendererID, renderer, global) {
       return null;
     }
 
-    const _debugOwner = fiber._debugOwner;
-    const owners = [{
-      displayName: getDisplayNameForFiber(fiber) || 'Anonymous',
-      id,
-      type: getElementTypeForFiber(fiber)
-    }];
+    const {
+      _debugOwner
+    } = fiber;
+    const owners = [fiberToSerializedElement(fiber)];
 
     if (_debugOwner) {
       let owner = _debugOwner;
 
       while (owner !== null) {
-        owners.unshift({
-          displayName: getDisplayNameForFiber(owner) || 'Anonymous',
-          id: getFiberID(getPrimaryFiber(owner)),
-          type: getElementTypeForFiber(owner)
-        });
+        owners.unshift(fiberToSerializedElement(owner));
         owner = owner._debugOwner || null;
       }
     }
@@ -6617,17 +7533,22 @@ function attach(hook, rendererID, renderer, global) {
       return null;
     }
 
-    const _debugOwner = fiber._debugOwner,
-          _debugSource = fiber._debugSource,
-          stateNode = fiber.stateNode,
-          key = fiber.key,
-          memoizedProps = fiber.memoizedProps,
-          memoizedState = fiber.memoizedState,
-          dependencies = fiber.dependencies,
-          tag = fiber.tag,
-          type = fiber.type;
+    const {
+      _debugOwner,
+      _debugSource,
+      stateNode,
+      key,
+      memoizedProps,
+      memoizedState,
+      dependencies,
+      tag,
+      type
+    } = fiber;
     const elementType = getElementTypeForFiber(fiber);
-    const usesHooks = (tag === FunctionComponent || tag === SimpleMemoComponent || tag === ForwardRef) && (!!memoizedState || !!dependencies);
+    const usesHooks = (tag === FunctionComponent || tag === SimpleMemoComponent || tag === ForwardRef) && (!!memoizedState || !!dependencies); // TODO Show custom UI for Cache like we do for Suspense
+    // For now, just hide state data entirely since it's not meant to be inspected.
+
+    const showState = !usesHooks && tag !== CacheComponent;
     const typeSymbol = getTypeSymbol(type);
     let canViewSource = false;
     let context = null;
@@ -6643,7 +7564,7 @@ function attach(hook, rendererID, renderer, global) {
           context = stateNode.context;
         }
       }
-    } else if (typeSymbol === ReactSymbols["e" /* CONTEXT_NUMBER */] || typeSymbol === ReactSymbols["f" /* CONTEXT_SYMBOL_STRING */]) {
+    } else if (typeSymbol === ReactSymbols["c" /* CONTEXT_NUMBER */] || typeSymbol === ReactSymbols["d" /* CONTEXT_SYMBOL_STRING */]) {
       // 16.3-16.5 read from "type" because the Consumer is the actual context object.
       // 16.6+ should read from "type._context" because Consumer can be different (in DEV).
       // NOTE Keep in sync with getDisplayNameForFiber()
@@ -6657,7 +7578,7 @@ function attach(hook, rendererID, renderer, global) {
         const currentType = current.type;
         const currentTypeSymbol = getTypeSymbol(currentType);
 
-        if (currentTypeSymbol === ReactSymbols["p" /* PROVIDER_NUMBER */] || currentTypeSymbol === ReactSymbols["q" /* PROVIDER_SYMBOL_STRING */]) {
+        if (currentTypeSymbol === ReactSymbols["n" /* PROVIDER_NUMBER */] || currentTypeSymbol === ReactSymbols["o" /* PROVIDER_SYMBOL_STRING */]) {
           // 16.3.0 exposed the context object as "context"
           // PR #12501 changed it to "_context" for 16.3.1+
           // NOTE Keep in sync with getDisplayNameForFiber()
@@ -6691,11 +7612,7 @@ function attach(hook, rendererID, renderer, global) {
       let owner = _debugOwner;
 
       while (owner !== null) {
-        owners.push({
-          displayName: getDisplayNameForFiber(owner) || 'Anonymous',
-          id: getFiberID(getPrimaryFiber(owner)),
-          type: getElementTypeForFiber(owner)
-        });
+        owners.push(fiberToSerializedElement(owner));
         owner = owner._debugOwner || null;
       }
     }
@@ -6740,6 +7657,8 @@ function attach(hook, rendererID, renderer, global) {
       rootType = fiberRoot._debugRootType;
     }
 
+    const errors = fiberIDToErrorsMap.get(id) || new Map();
+    const warnings = fiberIDToWarningsMap.get(id) || new Map();
     return {
       id,
       // Does the current renderer support editable hooks and function props?
@@ -6766,7 +7685,9 @@ function attach(hook, rendererID, renderer, global) {
       context,
       hooks,
       props: memoizedProps,
-      state: usesHooks ? null : memoizedState,
+      state: showState ? memoizedState : null,
+      errors: Array.from(errors.entries()),
+      warnings: Array.from(warnings.entries()),
       // List of owners
       owners,
       // Location of component in source code.
@@ -6781,8 +7702,12 @@ function attach(hook, rendererID, renderer, global) {
   let hasElementUpdatedSinceLastInspected = false;
   let currentlyInspectedPaths = {};
 
+  function isMostRecentlyInspectedElement(id) {
+    return mostRecentlyInspectedElement !== null && mostRecentlyInspectedElement.id === id;
+  }
+
   function isMostRecentlyInspectedElementCurrent(id) {
-    return mostRecentlyInspectedElement !== null && mostRecentlyInspectedElement.id === id && !hasElementUpdatedSinceLastInspected;
+    return isMostRecentlyInspectedElement(id) && !hasElementUpdatedSinceLastInspected;
   } // Track the intersection of currently inspected paths,
   // so that we can send their data along if the element is re-rendered.
 
@@ -6841,20 +7766,24 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function updateSelectedElement(inspectedElement) {
-    const hooks = inspectedElement.hooks,
-          id = inspectedElement.id,
-          props = inspectedElement.props;
-    const fiber = idToFiberMap.get(id);
+    const {
+      hooks,
+      id,
+      props
+    } = inspectedElement;
+    const fiber = idToArbitraryFiberMap.get(id);
 
     if (fiber == null) {
       console.warn(`Could not find Fiber with id "${id}"`);
       return;
     }
 
-    const elementType = fiber.elementType,
-          stateNode = fiber.stateNode,
-          tag = fiber.tag,
-          type = fiber.type;
+    const {
+      elementType,
+      stateNode,
+      tag,
+      type
+    } = fiber;
 
     switch (tag) {
       case ClassComponent:
@@ -6873,6 +7802,7 @@ function attach(hook, rendererID, renderer, global) {
 
       case ForwardRef:
         global.$r = {
+          hooks,
           props,
           type: type.render
         };
@@ -6881,6 +7811,7 @@ function attach(hook, rendererID, renderer, global) {
       case MemoComponent:
       case SimpleMemoComponent:
         global.$r = {
+          hooks,
           props,
           type: elementType != null && elementType.type != null ? elementType.type : type
         };
@@ -6893,9 +7824,7 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function storeAsGlobal(id, path, count) {
-    const isCurrent = isMostRecentlyInspectedElementCurrent(id);
-
-    if (isCurrent) {
+    if (isMostRecentlyInspectedElement(id)) {
       const value = Object(utils["j" /* getInObject */])(mostRecentlyInspectedElement, path);
       const key = `$reactTemp${count}`;
       window[key] = value;
@@ -6905,80 +7834,78 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function copyElementPath(id, path) {
-    const isCurrent = isMostRecentlyInspectedElementCurrent(id);
-
-    if (isCurrent) {
+    if (isMostRecentlyInspectedElement(id)) {
       copyToClipboard(Object(utils["j" /* getInObject */])(mostRecentlyInspectedElement, path));
     }
   }
 
-  function inspectElement(id, path) {
-    const isCurrent = isMostRecentlyInspectedElementCurrent(id);
+  function inspectElement(requestID, id, path) {
+    if (path !== null) {
+      mergeInspectedPaths(path);
+    }
 
-    if (isCurrent) {
-      if (path != null) {
-        mergeInspectedPaths(path);
-        let secondaryCategory = null;
+    if (isMostRecentlyInspectedElement(id)) {
+      if (!hasElementUpdatedSinceLastInspected) {
+        if (path !== null) {
+          let secondaryCategory = null;
 
-        if (path[0] === 'hooks') {
-          secondaryCategory = 'hooks';
-        } // If this element has not been updated since it was last inspected,
-        // we can just return the subset of data in the newly-inspected path.
+          if (path[0] === 'hooks') {
+            secondaryCategory = 'hooks';
+          } // If this element has not been updated since it was last inspected,
+          // we can just return the subset of data in the newly-inspected path.
 
 
-        return {
-          id,
-          type: 'hydrated-path',
-          path,
-          value: cleanForBridge(Object(utils["j" /* getInObject */])(mostRecentlyInspectedElement, path), createIsPathAllowed(null, secondaryCategory), path)
-        };
-      } else {
-        // If this element has not been updated since it was last inspected, we don't need to re-run it.
-        // Instead we can just return the ID to indicate that it has not changed.
-        return {
-          id,
-          type: 'no-change'
-        };
+          return {
+            id,
+            responseID: requestID,
+            type: 'hydrated-path',
+            path,
+            value: cleanForBridge(Object(utils["j" /* getInObject */])(mostRecentlyInspectedElement, path), createIsPathAllowed(null, secondaryCategory), path)
+          };
+        } else {
+          // If this element has not been updated since it was last inspected, we don't need to return it.
+          // Instead we can just return the ID to indicate that it has not changed.
+          return {
+            id,
+            responseID: requestID,
+            type: 'no-change'
+          };
+        }
       }
     } else {
-      hasElementUpdatedSinceLastInspected = false;
+      currentlyInspectedPaths = {};
+    }
 
-      if (mostRecentlyInspectedElement === null || mostRecentlyInspectedElement.id !== id) {
-        currentlyInspectedPaths = {};
-      }
+    hasElementUpdatedSinceLastInspected = false;
+    mostRecentlyInspectedElement = inspectElementRaw(id);
 
-      mostRecentlyInspectedElement = inspectElementRaw(id);
-
-      if (mostRecentlyInspectedElement === null) {
-        return {
-          id,
-          type: 'not-found'
-        };
-      }
-
-      if (path != null) {
-        mergeInspectedPaths(path);
-      } // Any time an inspected element has an update,
-      // we should update the selected $r value as wel.
-      // Do this before dehydration (cleanForBridge).
-
-
-      updateSelectedElement(mostRecentlyInspectedElement); // Clone before cleaning so that we preserve the full data.
-      // This will enable us to send patches without re-inspecting if hydrated paths are requested.
-      // (Reducing how often we shallow-render is a better DX for function components that use hooks.)
-
-      const cleanedInspectedElement = renderer_objectSpread({}, mostRecentlyInspectedElement);
-
-      cleanedInspectedElement.context = cleanForBridge(cleanedInspectedElement.context, createIsPathAllowed('context', null));
-      cleanedInspectedElement.hooks = cleanForBridge(cleanedInspectedElement.hooks, createIsPathAllowed('hooks', 'hooks'));
-      cleanedInspectedElement.props = cleanForBridge(cleanedInspectedElement.props, createIsPathAllowed('props', null));
-      cleanedInspectedElement.state = cleanForBridge(cleanedInspectedElement.state, createIsPathAllowed('state', null));
+    if (mostRecentlyInspectedElement === null) {
       return {
         id,
-        type: 'full-data',
-        value: cleanedInspectedElement
+        responseID: requestID,
+        type: 'not-found'
       };
-    }
+    } // Any time an inspected element has an update,
+    // we should update the selected $r value as wel.
+    // Do this before dehydration (cleanForBridge).
+
+
+    updateSelectedElement(mostRecentlyInspectedElement); // Clone before cleaning so that we preserve the full data.
+    // This will enable us to send patches without re-inspecting if hydrated paths are requested.
+    // (Reducing how often we shallow-render is a better DX for function components that use hooks.)
+
+    const cleanedInspectedElement = { ...mostRecentlyInspectedElement
+    };
+    cleanedInspectedElement.context = cleanForBridge(cleanedInspectedElement.context, createIsPathAllowed('context', null));
+    cleanedInspectedElement.hooks = cleanForBridge(cleanedInspectedElement.hooks, createIsPathAllowed('hooks', 'hooks'));
+    cleanedInspectedElement.props = cleanForBridge(cleanedInspectedElement.props, createIsPathAllowed('props', null));
+    cleanedInspectedElement.state = cleanForBridge(cleanedInspectedElement.state, createIsPathAllowed('state', null));
+    return {
+      id,
+      responseID: requestID,
+      type: 'full-data',
+      value: cleanedInspectedElement
+    };
   }
 
   function logElementToConsole(id) {
@@ -7103,7 +8030,7 @@ function attach(hook, rendererID, renderer, global) {
             case ClassComponent:
               if (oldPath.length === 0) {// Simple context value (noop)
               } else {
-                Object(utils["m" /* renamePathInObject */])(instance.context, oldPath, newPath);
+                Object(utils["n" /* renamePathInObject */])(instance.context, oldPath, newPath);
               }
 
               instance.forceUpdate();
@@ -7137,7 +8064,7 @@ function attach(hook, rendererID, renderer, global) {
           break;
 
         case 'state':
-          Object(utils["m" /* renamePathInObject */])(instance.state, oldPath, newPath);
+          Object(utils["n" /* renamePathInObject */])(instance.state, oldPath, newPath);
           instance.forceUpdate();
           break;
       }
@@ -7163,7 +8090,7 @@ function attach(hook, rendererID, renderer, global) {
                 // Simple context value
                 instance.context = value;
               } else {
-                Object(utils["p" /* setInObject */])(instance.context, path, value);
+                Object(utils["q" /* setInObject */])(instance.context, path, value);
               }
 
               instance.forceUpdate();
@@ -7204,7 +8131,7 @@ function attach(hook, rendererID, renderer, global) {
         case 'state':
           switch (fiber.tag) {
             case ClassComponent:
-              Object(utils["p" /* setInObject */])(instance.state, path, value);
+              Object(utils["q" /* setInObject */])(instance.state, path, value);
               instance.forceUpdate();
               break;
           }
@@ -7234,8 +8161,6 @@ function attach(hook, rendererID, renderer, global) {
     rootToCommitProfilingMetadataMap.forEach((commitProfilingMetadata, rootID) => {
       const commitData = [];
       const initialTreeBaseDurations = [];
-      const allInteractions = new Map();
-      const interactionCommits = new Map();
       const displayName = displayNamesByRootID !== null && displayNamesByRootID.get(rootID) || 'Unknown';
 
       if (initialTreeBaseDurationsMap != null) {
@@ -7249,27 +8174,16 @@ function attach(hook, rendererID, renderer, global) {
       }
 
       commitProfilingMetadata.forEach((commitProfilingData, commitIndex) => {
-        const changeDescriptions = commitProfilingData.changeDescriptions,
-              durations = commitProfilingData.durations,
-              interactions = commitProfilingData.interactions,
-              maxActualDuration = commitProfilingData.maxActualDuration,
-              priorityLevel = commitProfilingData.priorityLevel,
-              commitTime = commitProfilingData.commitTime;
-        const interactionIDs = [];
-        interactions.forEach(interaction => {
-          if (!allInteractions.has(interaction.id)) {
-            allInteractions.set(interaction.id, interaction);
-          }
-
-          interactionIDs.push(interaction.id);
-          const commitIndices = interactionCommits.get(interaction.id);
-
-          if (commitIndices != null) {
-            commitIndices.push(commitIndex);
-          } else {
-            interactionCommits.set(interaction.id, [commitIndex]);
-          }
-        });
+        const {
+          changeDescriptions,
+          durations,
+          effectDuration,
+          maxActualDuration,
+          passiveEffectDuration,
+          priorityLevel,
+          commitTime,
+          updaters
+        } = commitProfilingData;
         const fiberActualDurations = [];
         const fiberSelfDurations = [];
 
@@ -7282,19 +8196,19 @@ function attach(hook, rendererID, renderer, global) {
         commitData.push({
           changeDescriptions: changeDescriptions !== null ? Array.from(changeDescriptions.entries()) : null,
           duration: maxActualDuration,
+          effectDuration,
           fiberActualDurations,
           fiberSelfDurations,
-          interactionIDs,
+          passiveEffectDuration,
           priorityLevel,
-          timestamp: commitTime
+          timestamp: commitTime,
+          updaters
         });
       });
       dataForRoots.push({
         commitData,
         displayName,
         initialTreeBaseDurations,
-        interactionCommits: Array.from(interactionCommits.entries()),
-        interactions: Array.from(allInteractions.entries()),
         rootID
       });
     });
@@ -7319,7 +8233,7 @@ function attach(hook, rendererID, renderer, global) {
     initialIDToRootMap = new Map(idToRootMap);
     idToContextsMap = new Map();
     hook.getFiberRoots(rendererID).forEach(root => {
-      const rootID = getFiberID(getPrimaryFiber(root.current));
+      const rootID = getFiberIDThrows(root.current);
       displayNamesByRootID.set(rootID, getDisplayNameForRoot(root.current));
 
       if (shouldRecordChangeDescriptions) {
@@ -7340,8 +8254,8 @@ function attach(hook, rendererID, renderer, global) {
   } // Automatically start profiling so that we don't miss timing info from initial "mount".
 
 
-  if (Object(storage["d" /* sessionStorageGetItem */])(constants["j" /* SESSION_STORAGE_RELOAD_AND_PROFILE_KEY */]) === 'true') {
-    startProfiling(Object(storage["d" /* sessionStorageGetItem */])(constants["i" /* SESSION_STORAGE_RECORD_CHANGE_DESCRIPTIONS_KEY */]) === 'true');
+  if (Object(storage["d" /* sessionStorageGetItem */])(constants["l" /* SESSION_STORAGE_RELOAD_AND_PROFILE_KEY */]) === 'true') {
+    startProfiling(Object(storage["d" /* sessionStorageGetItem */])(constants["k" /* SESSION_STORAGE_RECORD_CHANGE_DESCRIPTIONS_KEY */]) === 'true');
   } // React will switch between these implementations depending on whether
   // we have any manually suspended Fibers or not.
 
@@ -7353,8 +8267,8 @@ function attach(hook, rendererID, renderer, global) {
   const forceFallbackForSuspenseIDs = new Set();
 
   function shouldSuspendFiberAccordingToSet(fiber) {
-    const id = getFiberID(getPrimaryFiber(fiber));
-    return forceFallbackForSuspenseIDs.has(id);
+    const maybeID = getFiberIDUnsafe(fiber);
+    return maybeID !== null && forceFallbackForSuspenseIDs.has(maybeID);
   }
 
   function overrideSuspense(id, forceFallback) {
@@ -7378,7 +8292,7 @@ function attach(hook, rendererID, renderer, global) {
       }
     }
 
-    const fiber = idToFiberMap.get(id);
+    const fiber = idToArbitraryFiberMap.get(id);
 
     if (fiber != null) {
       scheduleUpdate(fiber);
@@ -7532,7 +8446,9 @@ function attach(hook, rendererID, renderer, global) {
   }
 
   function getPathFrame(fiber) {
-    const key = fiber.key;
+    const {
+      key
+    } = fiber;
     let displayName = getDisplayNameForFiber(fiber);
     const index = fiber.index;
 
@@ -7540,7 +8456,7 @@ function attach(hook, rendererID, renderer, global) {
       case HostRoot:
         // Roots don't have a real displayName, index, or key.
         // Instead, we'll use the pseudo key (childDisplayName:indexWithThatName).
-        const id = getFiberID(getPrimaryFiber(fiber));
+        const id = getFiberIDThrows(fiber);
         const pseudoKey = rootPseudoKeys.get(id);
 
         if (pseudoKey === undefined) {
@@ -7570,7 +8486,7 @@ function attach(hook, rendererID, renderer, global) {
 
 
   function getPathForElement(id) {
-    let fiber = idToFiberMap.get(id);
+    let fiber = idToArbitraryFiberMap.get(id);
 
     if (fiber == null) {
       return null;
@@ -7610,7 +8526,7 @@ function attach(hook, rendererID, renderer, global) {
     }
 
     return {
-      id: getFiberID(getPrimaryFiber(fiber)),
+      id: getFiberIDThrows(fiber),
       isFullMatch: trackedPathMatchDepth === trackedPath.length - 1
     };
   }
@@ -7648,6 +8564,9 @@ function attach(hook, rendererID, renderer, global) {
 
   return {
     cleanup,
+    clearErrorsAndWarnings,
+    clearErrorsForFiberID,
+    clearWarningsForFiberID,
     copyElementPath,
     deletePath,
     findNativeNodesForFiberID,
@@ -7661,6 +8580,7 @@ function attach(hook, rendererID, renderer, global) {
     getProfilingData,
     handleCommitFiberRoot,
     handleCommitFiberUnmount,
+    handlePostCommitFiberRoot,
     inspectElement,
     logElementToConsole,
     prepareViewAttributeSource,
@@ -7680,105 +8600,7 @@ function attach(hook, rendererID, renderer, global) {
 
 /***/ }),
 
-/***/ 4:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BLOCK_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return BLOCK_SYMBOL_STRING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CONCURRENT_MODE_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CONCURRENT_MODE_SYMBOL_STRING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return CONTEXT_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return CONTEXT_SYMBOL_STRING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return DEPRECATED_ASYNC_MODE_SYMBOL_STRING; });
-/* unused harmony export ELEMENT_NUMBER */
-/* unused harmony export ELEMENT_SYMBOL_STRING */
-/* unused harmony export DEBUG_TRACING_MODE_NUMBER */
-/* unused harmony export DEBUG_TRACING_MODE_SYMBOL_STRING */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return FORWARD_REF_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return FORWARD_REF_SYMBOL_STRING; });
-/* unused harmony export FRAGMENT_NUMBER */
-/* unused harmony export FRAGMENT_SYMBOL_STRING */
-/* unused harmony export FUNDAMENTAL_NUMBER */
-/* unused harmony export FUNDAMENTAL_SYMBOL_STRING */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return LAZY_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return LAZY_SYMBOL_STRING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return MEMO_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return MEMO_SYMBOL_STRING; });
-/* unused harmony export OPAQUE_ID_NUMBER */
-/* unused harmony export OPAQUE_ID_SYMBOL_STRING */
-/* unused harmony export PORTAL_NUMBER */
-/* unused harmony export PORTAL_SYMBOL_STRING */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return PROFILER_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return PROFILER_SYMBOL_STRING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return PROVIDER_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return PROVIDER_SYMBOL_STRING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return SCOPE_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return SCOPE_SYMBOL_STRING; });
-/* unused harmony export SERVER_BLOCK_NUMBER */
-/* unused harmony export SERVER_BLOCK_SYMBOL_STRING */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return STRICT_MODE_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return STRICT_MODE_SYMBOL_STRING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return SUSPENSE_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return SUSPENSE_SYMBOL_STRING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return SUSPENSE_LIST_NUMBER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return SUSPENSE_LIST_SYMBOL_STRING; });
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-// This list should be kept updated to reflect additions to 'shared/ReactSymbols'.
-// DevTools can't import symbols from 'shared/ReactSymbols' directly for two reasons:
-// 1. DevTools requires symbols which may have been deleted in more recent versions (e.g. concurrent mode)
-// 2. DevTools must support both Symbol and numeric forms of each symbol;
-//    Since e.g. standalone DevTools runs in a separate process, it can't rely on its own ES capabilities.
-const BLOCK_NUMBER = 0xead9;
-const BLOCK_SYMBOL_STRING = 'Symbol(react.block)';
-const CONCURRENT_MODE_NUMBER = 0xeacf;
-const CONCURRENT_MODE_SYMBOL_STRING = 'Symbol(react.concurrent_mode)';
-const CONTEXT_NUMBER = 0xeace;
-const CONTEXT_SYMBOL_STRING = 'Symbol(react.context)';
-const DEPRECATED_ASYNC_MODE_SYMBOL_STRING = 'Symbol(react.async_mode)';
-const ELEMENT_NUMBER = 0xeac7;
-const ELEMENT_SYMBOL_STRING = 'Symbol(react.element)';
-const DEBUG_TRACING_MODE_NUMBER = 0xeae1;
-const DEBUG_TRACING_MODE_SYMBOL_STRING = 'Symbol(react.debug_trace_mode)';
-const FORWARD_REF_NUMBER = 0xead0;
-const FORWARD_REF_SYMBOL_STRING = 'Symbol(react.forward_ref)';
-const FRAGMENT_NUMBER = 0xeacb;
-const FRAGMENT_SYMBOL_STRING = 'Symbol(react.fragment)';
-const FUNDAMENTAL_NUMBER = 0xead5;
-const FUNDAMENTAL_SYMBOL_STRING = 'Symbol(react.fundamental)';
-const LAZY_NUMBER = 0xead4;
-const LAZY_SYMBOL_STRING = 'Symbol(react.lazy)';
-const MEMO_NUMBER = 0xead3;
-const MEMO_SYMBOL_STRING = 'Symbol(react.memo)';
-const OPAQUE_ID_NUMBER = 0xeae0;
-const OPAQUE_ID_SYMBOL_STRING = 'Symbol(react.opaque.id)';
-const PORTAL_NUMBER = 0xeaca;
-const PORTAL_SYMBOL_STRING = 'Symbol(react.portal)';
-const PROFILER_NUMBER = 0xead2;
-const PROFILER_SYMBOL_STRING = 'Symbol(react.profiler)';
-const PROVIDER_NUMBER = 0xeacd;
-const PROVIDER_SYMBOL_STRING = 'Symbol(react.provider)';
-const SCOPE_NUMBER = 0xead7;
-const SCOPE_SYMBOL_STRING = 'Symbol(react.scope)';
-const SERVER_BLOCK_NUMBER = 0xeada;
-const SERVER_BLOCK_SYMBOL_STRING = 'Symbol(react.server.block)';
-const STRICT_MODE_NUMBER = 0xeacc;
-const STRICT_MODE_SYMBOL_STRING = 'Symbol(react.strict_mode)';
-const SUSPENSE_NUMBER = 0xead1;
-const SUSPENSE_SYMBOL_STRING = 'Symbol(react.suspense)';
-const SUSPENSE_LIST_NUMBER = 0xead8;
-const SUSPENSE_LIST_SYMBOL_STRING = 'Symbol(react.suspense_list)';
-
-/***/ }),
-
-/***/ 45:
+/***/ 47:
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -7992,7 +8814,7 @@ process.umask = function () {
 
 /***/ }),
 
-/***/ 46:
+/***/ 48:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8477,54 +9299,32 @@ function Node(value, prev, next, list) {
 
 try {
   // add if support for Symbol.iterator is present
-  __webpack_require__(47)(Yallist);
+  __webpack_require__(49)(Yallist);
 } catch (er) {}
 
 /***/ }),
 
-/***/ 47:
+/***/ 49:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function (Yallist) {
-  Yallist.prototype[Symbol.iterator] = /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var walker;
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) switch (_context.prev = _context.next) {
-        case 0:
-          walker = this.head;
-
-        case 1:
-          if (!walker) {
-            _context.next = 7;
-            break;
-          }
-
-          _context.next = 4;
-          return walker.value;
-
-        case 4:
-          walker = walker.next;
-          _context.next = 1;
-          break;
-
-        case 7:
-        case "end":
-          return _context.stop();
-      }
-    }, _callee, this);
-  });
+  Yallist.prototype[Symbol.iterator] = function* () {
+    for (let walker = this.head; walker; walker = walker.next) {
+      yield walker.value;
+    }
+  };
 };
 
 /***/ }),
 
-/***/ 48:
+/***/ 50:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/** @license React v0.0.0-experimental-51a3aa6af
+/** @license React vundefined
  * react-is.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -8546,34 +9346,33 @@ var b = 60103,
     m = 60120,
     n = 60115,
     p = 60116,
-    q = 60121,
-    r = 60122,
-    u = 60117,
-    v = 60129,
-    w = 60131;
+    q = 60129,
+    r = 60131,
+    u = 60132;
 
 if ("function" === typeof Symbol && Symbol.for) {
-  var x = Symbol.for;
-  b = x("react.element");
-  c = x("react.portal");
-  d = x("react.fragment");
-  e = x("react.strict_mode");
-  f = x("react.profiler");
-  g = x("react.provider");
-  h = x("react.context");
-  k = x("react.forward_ref");
-  l = x("react.suspense");
-  m = x("react.suspense_list");
-  n = x("react.memo");
-  p = x("react.lazy");
-  q = x("react.block");
-  r = x("react.server.block");
-  u = x("react.fundamental");
-  v = x("react.debug_trace_mode");
-  w = x("react.legacy_hidden");
+  var v = Symbol.for;
+  b = v("react.element");
+  c = v("react.portal");
+  d = v("react.fragment");
+  e = v("react.strict_mode");
+  f = v("react.profiler");
+  g = v("react.provider");
+  h = v("react.context");
+  k = v("react.forward_ref");
+  l = v("react.suspense");
+  m = v("react.suspense_list");
+  n = v("react.memo");
+  p = v("react.lazy");
+  q = v("react.debug_trace_mode");
+  r = v("react.legacy_hidden");
+  u = v("react.cache");
 }
 
-function y(a) {
+var w = 0;
+"function" === typeof Symbol && (w = Symbol.for("react.module.reference"));
+
+function x(a) {
   if ("object" === typeof a && null !== a) {
     var t = a.$$typeof;
 
@@ -8608,27 +9407,29 @@ function y(a) {
   }
 }
 
-var z = g,
-    A = b,
-    B = k,
-    C = d,
-    D = p,
-    E = n,
-    F = c,
-    G = f,
-    H = e,
-    I = l;
+var y = g,
+    z = b,
+    A = k,
+    B = d,
+    C = p,
+    D = n,
+    E = c,
+    F = f,
+    G = e,
+    H = l,
+    I = m;
 exports.ContextConsumer = h;
-exports.ContextProvider = z;
-exports.Element = A;
-exports.ForwardRef = B;
-exports.Fragment = C;
-exports.Lazy = D;
-exports.Memo = E;
-exports.Portal = F;
-exports.Profiler = G;
-exports.StrictMode = H;
-exports.Suspense = I;
+exports.ContextProvider = y;
+exports.Element = z;
+exports.ForwardRef = A;
+exports.Fragment = B;
+exports.Lazy = C;
+exports.Memo = D;
+exports.Portal = E;
+exports.Profiler = F;
+exports.StrictMode = G;
+exports.Suspense = H;
+exports.SuspenseList = I;
 
 exports.isAsyncMode = function () {
   return !1;
@@ -8639,11 +9440,11 @@ exports.isConcurrentMode = function () {
 };
 
 exports.isContextConsumer = function (a) {
-  return y(a) === h;
+  return x(a) === h;
 };
 
 exports.isContextProvider = function (a) {
-  return y(a) === g;
+  return x(a) === g;
 };
 
 exports.isElement = function (a) {
@@ -8651,59 +9452,63 @@ exports.isElement = function (a) {
 };
 
 exports.isForwardRef = function (a) {
-  return y(a) === k;
+  return x(a) === k;
 };
 
 exports.isFragment = function (a) {
-  return y(a) === d;
+  return x(a) === d;
 };
 
 exports.isLazy = function (a) {
-  return y(a) === p;
+  return x(a) === p;
 };
 
 exports.isMemo = function (a) {
-  return y(a) === n;
+  return x(a) === n;
 };
 
 exports.isPortal = function (a) {
-  return y(a) === c;
+  return x(a) === c;
 };
 
 exports.isProfiler = function (a) {
-  return y(a) === f;
+  return x(a) === f;
 };
 
 exports.isStrictMode = function (a) {
-  return y(a) === e;
+  return x(a) === e;
 };
 
 exports.isSuspense = function (a) {
-  return y(a) === l;
+  return x(a) === l;
+};
+
+exports.isSuspenseList = function (a) {
+  return x(a) === m;
 };
 
 exports.isValidElementType = function (a) {
-  return "string" === typeof a || "function" === typeof a || a === d || a === f || a === v || a === e || a === l || a === m || a === w || "object" === typeof a && null !== a && (a.$$typeof === p || a.$$typeof === n || a.$$typeof === g || a.$$typeof === h || a.$$typeof === k || a.$$typeof === u || a.$$typeof === q || a[0] === r) ? !0 : !1;
+  return "string" === typeof a || "function" === typeof a || a === d || a === f || a === q || a === e || a === l || a === m || a === r || a === u || "object" === typeof a && null !== a && (a.$$typeof === p || a.$$typeof === n || a.$$typeof === g || a.$$typeof === h || a.$$typeof === k || a.$$typeof === w || void 0 !== a.getModuleId) ? !0 : !1;
 };
 
-exports.typeOf = y;
+exports.typeOf = x;
 
 /***/ }),
 
-/***/ 49:
+/***/ 51:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (":root {\n  /**\n   * IMPORTANT: When new theme variables are added below– also add them to SettingsContext updateThemeVariables()\n   */\n\n  /* Light theme */\n  --light-color-attribute-name: #ef6632;\n  --light-color-attribute-name-not-editable: #23272f;\n  --light-color-attribute-name-inverted: rgba(255, 255, 255, 0.7);\n  --light-color-attribute-value: #1a1aa6;\n  --light-color-attribute-value-inverted: #ffffff;\n  --light-color-attribute-editable-value: #1a1aa6;\n  --light-color-background: #ffffff;\n  --light-color-background-hover: rgba(0, 136, 250, 0.1);\n  --light-color-background-inactive: #e5e5e5;\n  --light-color-background-invalid: #fff0f0;\n  --light-color-background-selected: #0088fa;\n  --light-color-button-background: #ffffff;\n  --light-color-button-background-focus: #ededed;\n  --light-color-button: #5f6673;\n  --light-color-button-disabled: #cfd1d5;\n  --light-color-button-active: #0088fa;\n  --light-color-button-focus: #23272f;\n  --light-color-button-hover: #23272f;\n  --light-color-border: #eeeeee;\n  --light-color-commit-did-not-render-fill: #cfd1d5;\n  --light-color-commit-did-not-render-fill-text: #000000;\n  --light-color-commit-did-not-render-pattern: #cfd1d5;\n  --light-color-commit-did-not-render-pattern-text: #333333;\n  --light-color-commit-gradient-0: #37afa9;\n  --light-color-commit-gradient-1: #63b19e;\n  --light-color-commit-gradient-2: #80b393;\n  --light-color-commit-gradient-3: #97b488;\n  --light-color-commit-gradient-4: #abb67d;\n  --light-color-commit-gradient-5: #beb771;\n  --light-color-commit-gradient-6: #cfb965;\n  --light-color-commit-gradient-7: #dfba57;\n  --light-color-commit-gradient-8: #efbb49;\n  --light-color-commit-gradient-9: #febc38;\n  --light-color-commit-gradient-text: #000000;\n  --light-color-component-name: #6a51b2;\n  --light-color-component-name-inverted: #ffffff;\n  --light-color-component-badge-background: rgba(0, 0, 0, 0.1);\n  --light-color-component-badge-background-inverted: rgba(255, 255, 255, 0.25);\n  --light-color-component-badge-count: #777d88;\n  --light-color-component-badge-count-inverted: rgba(255, 255, 255, 0.7);\n  --light-color-context-background: rgba(0,0,0,.9);\n  --light-color-context-background-hover: rgba(255, 255, 255, 0.1);\n  --light-color-context-background-selected: #178fb9;\n  --light-color-context-border: #3d424a;\n  --light-color-context-text: #ffffff;\n  --light-color-context-text-selected: #ffffff;\n  --light-color-dim: #777d88;\n  --light-color-dimmer: #cfd1d5;\n  --light-color-dimmest: #eff0f1;\n  --light-color-error-background: hsl(0, 100%, 97%);\n  --light-color-error-border: hsl(0, 100%, 92%);\n  --light-color-error-text: #ff0000;\n  --light-color-expand-collapse-toggle: #777d88;\n  --light-color-link: #0000ff;\n  --light-color-modal-background: rgba(255, 255, 255, 0.75);\n  --light-color-record-active: #fc3a4b;\n  --light-color-record-hover: #3578e5;\n  --light-color-record-inactive: #0088fa;\n  --light-color-scroll-thumb: #c2c2c2;\n  --light-color-scroll-track: #fafafa;\n  --light-color-search-match: yellow;\n  --light-color-search-match-current: #f7923b;\n  --light-color-selected-tree-highlight-active: rgba(0, 136, 250, 0.1);\n  --light-color-selected-tree-highlight-inactive: rgba(0, 0, 0, 0.05);\n  --light-color-shadow: rgba(0, 0, 0, 0.25);\n  --light-color-tab-selected-border: #0088fa;\n  --light-color-text: #000000;\n  --light-color-text-invalid: #ff0000;\n  --light-color-text-selected: #ffffff;\n  --light-color-toggle-background-invalid: #fc3a4b;\n  --light-color-toggle-background-on: #0088fa;\n  --light-color-toggle-background-off: #cfd1d5;\n  --light-color-toggle-text: #ffffff;\n  --light-color-tooltip-background: rgba(0, 0, 0, 0.9);\n  --light-color-tooltip-text: #ffffff;\n\n  /* Dark theme */\n  --dark-color-attribute-name: #9d87d2;\n  --dark-color-attribute-name-not-editable: #ededed;\n  --dark-color-attribute-name-inverted: #282828;\n  --dark-color-attribute-value: #cedae0;\n  --dark-color-attribute-value-inverted: #ffffff;\n  --dark-color-attribute-editable-value: yellow;\n  --dark-color-background: #282c34;\n  --dark-color-background-hover: rgba(255, 255, 255, 0.1);\n  --dark-color-background-inactive: #3d424a;\n  --dark-color-background-invalid: #5c0000;\n  --dark-color-background-selected: #178fb9;\n  --dark-color-button-background: #282c34;\n  --dark-color-button-background-focus: #3d424a;\n  --dark-color-button: #afb3b9;\n  --dark-color-button-active: #61dafb;\n  --dark-color-button-disabled: #4f5766;\n  --dark-color-button-focus: #a2e9fc;\n  --dark-color-button-hover: #ededed;\n  --dark-color-border: #3d424a;\n  --dark-color-commit-did-not-render-fill: #777d88;\n  --dark-color-commit-did-not-render-fill-text: #000000;\n  --dark-color-commit-did-not-render-pattern: #666c77;\n  --dark-color-commit-did-not-render-pattern-text: #ffffff;\n  --dark-color-commit-gradient-0: #37afa9;\n  --dark-color-commit-gradient-1: #63b19e;\n  --dark-color-commit-gradient-2: #80b393;\n  --dark-color-commit-gradient-3: #97b488;\n  --dark-color-commit-gradient-4: #abb67d;\n  --dark-color-commit-gradient-5: #beb771;\n  --dark-color-commit-gradient-6: #cfb965;\n  --dark-color-commit-gradient-7: #dfba57;\n  --dark-color-commit-gradient-8: #efbb49;\n  --dark-color-commit-gradient-9: #febc38;\n  --dark-color-commit-gradient-text: #000000;\n  --dark-color-component-name: #61dafb;\n  --dark-color-component-name-inverted: #282828;\n  --dark-color-component-badge-background: rgba(255, 255, 255, 0.25);\n  --dark-color-component-badge-background-inverted: rgba(0, 0, 0, 0.25);\n  --dark-color-component-badge-count: #8f949d;\n  --dark-color-component-badge-count-inverted: rgba(255, 255, 255, 0.7);\n  --dark-color-context-background: rgba(255,255,255,.9);\n  --dark-color-context-background-hover: rgba(0, 136, 250, 0.1);\n  --dark-color-context-background-selected: #0088fa;\n  --dark-color-context-border: #eeeeee;\n  --dark-color-context-text: #000000;\n  --dark-color-context-text-selected: #ffffff;\n  --dark-color-dim: #8f949d;\n  --dark-color-dimmer: #777d88;\n  --dark-color-dimmest: #4f5766;\n  --dark-color-error-background: #200;\n  --dark-color-error-border: #900;\n  --dark-color-error-text: #f55;\n  --dark-color-expand-collapse-toggle: #8f949d;\n  --dark-color-link: #61dafb;\n  --dark-color-modal-background: rgba(0, 0, 0, 0.75);\n  --dark-color-record-active: #fc3a4b;\n  --dark-color-record-hover: #a2e9fc;\n  --dark-color-record-inactive: #61dafb;\n  --dark-color-scroll-thumb: #afb3b9;\n  --dark-color-scroll-track: #313640;\n  --dark-color-search-match: yellow;\n  --dark-color-search-match-current: #f7923b;\n  --dark-color-selected-tree-highlight-active: rgba(23, 143, 185, 0.15);\n  --dark-color-selected-tree-highlight-inactive: rgba(255, 255, 255, 0.05);\n  --dark-color-shadow: rgba(0, 0, 0, 0.5);\n  --dark-color-tab-selected-border: #178fb9;\n  --dark-color-text: #ffffff;\n  --dark-color-text-invalid: #ff8080;\n  --dark-color-text-selected: #ffffff;\n  --dark-color-toggle-background-invalid: #fc3a4b;\n  --dark-color-toggle-background-on: #178fb9;\n  --dark-color-toggle-background-off: #777d88;\n  --dark-color-toggle-text: #ffffff;\n  --dark-color-tooltip-background: rgba(255, 255, 255, 0.9);\n  --dark-color-tooltip-text: #000000;\n\n  /* Font smoothing */\n  --light-font-smoothing: auto;\n  --dark-font-smoothing: antialiased;\n  --font-smoothing: auto;\n\n  /* Compact density */\n  --compact-font-size-monospace-small: 9px;\n  --compact-font-size-monospace-normal: 11px;\n  --compact-font-size-monospace-large: 15px;\n  --compact-font-size-sans-small: 10px;\n  --compact-font-size-sans-normal: 12px;\n  --compact-font-size-sans-large: 14px;\n  --compact-line-height-data: 18px;\n  --compact-root-font-size: 16px;\n\n  /* Comfortable density */\n  --comfortable-font-size-monospace-small: 10px;\n  --comfortable-font-size-monospace-normal: 13px;\n  --comfortable-font-size-monospace-large: 17px;\n  --comfortable-font-size-sans-small: 12px;\n  --comfortable-font-size-sans-normal: 14px;\n  --comfortable-font-size-sans-large: 16px;\n  --comfortable-line-height-data: 22px;\n  --comfortable-root-font-size: 20px;\n\n  /* GitHub.com system fonts */\n  --font-family-monospace: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,\n    Courier, monospace;\n  --font-family-sans: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica,\n    Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;\n\n  /* Constant values shared between JS and CSS */\n  --interaction-commit-size: 10px;\n  --interaction-label-width: 200px;\n}\n");
+/* harmony default export */ __webpack_exports__["default"] = (":root {\n  /**\n   * IMPORTANT: When new theme variables are added below– also add them to SettingsContext updateThemeVariables()\n   */\n\n  /* Light theme */\n  --light-color-attribute-name: #ef6632;\n  --light-color-attribute-name-not-editable: #23272f;\n  --light-color-attribute-name-inverted: rgba(255, 255, 255, 0.7);\n  --light-color-attribute-value: #1a1aa6;\n  --light-color-attribute-value-inverted: #ffffff;\n  --light-color-attribute-editable-value: #1a1aa6;\n  --light-color-background: #ffffff;\n  --light-color-background-hover: rgba(0, 136, 250, 0.1);\n  --light-color-background-inactive: #e5e5e5;\n  --light-color-background-invalid: #fff0f0;\n  --light-color-background-selected: #0088fa;\n  --light-color-button-background: #ffffff;\n  --light-color-button-background-focus: #ededed;\n  --light-color-button: #5f6673;\n  --light-color-button-disabled: #cfd1d5;\n  --light-color-button-active: #0088fa;\n  --light-color-button-focus: #23272f;\n  --light-color-button-hover: #23272f;\n  --light-color-border: #eeeeee;\n  --light-color-commit-did-not-render-fill: #cfd1d5;\n  --light-color-commit-did-not-render-fill-text: #000000;\n  --light-color-commit-did-not-render-pattern: #cfd1d5;\n  --light-color-commit-did-not-render-pattern-text: #333333;\n  --light-color-commit-gradient-0: #37afa9;\n  --light-color-commit-gradient-1: #63b19e;\n  --light-color-commit-gradient-2: #80b393;\n  --light-color-commit-gradient-3: #97b488;\n  --light-color-commit-gradient-4: #abb67d;\n  --light-color-commit-gradient-5: #beb771;\n  --light-color-commit-gradient-6: #cfb965;\n  --light-color-commit-gradient-7: #dfba57;\n  --light-color-commit-gradient-8: #efbb49;\n  --light-color-commit-gradient-9: #febc38;\n  --light-color-commit-gradient-text: #000000;\n  --light-color-component-name: #6a51b2;\n  --light-color-component-name-inverted: #ffffff;\n  --light-color-component-badge-background: rgba(0, 0, 0, 0.1);\n  --light-color-component-badge-background-inverted: rgba(255, 255, 255, 0.25);\n  --light-color-component-badge-count: #777d88;\n  --light-color-component-badge-count-inverted: rgba(255, 255, 255, 0.7);\n  --light-color-console-error-badge-text: #ffffff;\n  --light-color-console-error-background: #fff0f0;\n  --light-color-console-error-border: #ffd6d6;\n  --light-color-console-error-icon: #eb3941;\n  --light-color-console-error-text: #fe2e31;\n  --light-color-console-warning-badge-text: #000000;\n  --light-color-console-warning-background: #fffbe5;\n  --light-color-console-warning-border: #fff5c1;\n  --light-color-console-warning-icon: #f4bd00;\n  --light-color-console-warning-text: #64460c;\n  --light-color-context-background: rgba(0,0,0,.9);\n  --light-color-context-background-hover: rgba(255, 255, 255, 0.1);\n  --light-color-context-background-selected: #178fb9;\n  --light-color-context-border: #3d424a;\n  --light-color-context-text: #ffffff;\n  --light-color-context-text-selected: #ffffff;\n  --light-color-dim: #777d88;\n  --light-color-dimmer: #cfd1d5;\n  --light-color-dimmest: #eff0f1;\n  --light-color-error-background: hsl(0, 100%, 97%);\n  --light-color-error-border: hsl(0, 100%, 92%);\n  --light-color-error-text: #ff0000;\n  --light-color-expand-collapse-toggle: #777d88;\n  --light-color-link: #0000ff;\n  --light-color-modal-background: rgba(255, 255, 255, 0.75);\n  --light-color-bridge-version-npm-background: #eff0f1;\n  --light-color-bridge-version-npm-text: #000000;\n  --light-color-bridge-version-number: #0088fa;\n  --light-color-primitive-hook-badge-background: #e5e5e5;\n  --light-color-primitive-hook-badge-text: #5f6673;\n  --light-color-record-active: #fc3a4b;\n  --light-color-record-hover: #3578e5;\n  --light-color-record-inactive: #0088fa;\n  --light-color-scroll-thumb: #c2c2c2;\n  --light-color-scroll-track: #fafafa;\n  --light-color-search-match: yellow;\n  --light-color-search-match-current: #f7923b;\n  --light-color-selected-tree-highlight-active: rgba(0, 136, 250, 0.1);\n  --light-color-selected-tree-highlight-inactive: rgba(0, 0, 0, 0.05);\n  --light-color-shadow: rgba(0, 0, 0, 0.25);\n  --light-color-tab-selected-border: #0088fa;\n  --light-color-text: #000000;\n  --light-color-text-invalid: #ff0000;\n  --light-color-text-selected: #ffffff;\n  --light-color-toggle-background-invalid: #fc3a4b;\n  --light-color-toggle-background-on: #0088fa;\n  --light-color-toggle-background-off: #cfd1d5;\n  --light-color-toggle-text: #ffffff;\n  --light-color-tooltip-background: rgba(0, 0, 0, 0.9);\n  --light-color-tooltip-text: #ffffff;\n\n  /* Dark theme */\n  --dark-color-attribute-name: #9d87d2;\n  --dark-color-attribute-name-not-editable: #ededed;\n  --dark-color-attribute-name-inverted: #282828;\n  --dark-color-attribute-value: #cedae0;\n  --dark-color-attribute-value-inverted: #ffffff;\n  --dark-color-attribute-editable-value: yellow;\n  --dark-color-background: #282c34;\n  --dark-color-background-hover: rgba(255, 255, 255, 0.1);\n  --dark-color-background-inactive: #3d424a;\n  --dark-color-background-invalid: #5c0000;\n  --dark-color-background-selected: #178fb9;\n  --dark-color-button-background: #282c34;\n  --dark-color-button-background-focus: #3d424a;\n  --dark-color-button: #afb3b9;\n  --dark-color-button-active: #61dafb;\n  --dark-color-button-disabled: #4f5766;\n  --dark-color-button-focus: #a2e9fc;\n  --dark-color-button-hover: #ededed;\n  --dark-color-border: #3d424a;\n  --dark-color-commit-did-not-render-fill: #777d88;\n  --dark-color-commit-did-not-render-fill-text: #000000;\n  --dark-color-commit-did-not-render-pattern: #666c77;\n  --dark-color-commit-did-not-render-pattern-text: #ffffff;\n  --dark-color-commit-gradient-0: #37afa9;\n  --dark-color-commit-gradient-1: #63b19e;\n  --dark-color-commit-gradient-2: #80b393;\n  --dark-color-commit-gradient-3: #97b488;\n  --dark-color-commit-gradient-4: #abb67d;\n  --dark-color-commit-gradient-5: #beb771;\n  --dark-color-commit-gradient-6: #cfb965;\n  --dark-color-commit-gradient-7: #dfba57;\n  --dark-color-commit-gradient-8: #efbb49;\n  --dark-color-commit-gradient-9: #febc38;\n  --dark-color-commit-gradient-text: #000000;\n  --dark-color-component-name: #61dafb;\n  --dark-color-component-name-inverted: #282828;\n  --dark-color-component-badge-background: rgba(255, 255, 255, 0.25);\n  --dark-color-component-badge-background-inverted: rgba(0, 0, 0, 0.25);\n  --dark-color-component-badge-count: #8f949d;\n  --dark-color-component-badge-count-inverted: rgba(255, 255, 255, 0.7);\n  --dark-color-console-error-badge-text: #000000;\n  --dark-color-console-error-background: #290000;\n  --dark-color-console-error-border: #5c0000;\n  --dark-color-console-error-icon: #eb3941;\n  --dark-color-console-error-text: #fc7f7f;\n  --dark-color-console-warning-badge-text: #000000;\n  --dark-color-console-warning-background: #332b00;\n  --dark-color-console-warning-border: #665500;\n  --dark-color-console-warning-icon: #f4bd00;\n  --dark-color-console-warning-text: #f5f2ed;\n  --dark-color-context-background: rgba(255,255,255,.9);\n  --dark-color-context-background-hover: rgba(0, 136, 250, 0.1);\n  --dark-color-context-background-selected: #0088fa;\n  --dark-color-context-border: #eeeeee;\n  --dark-color-context-text: #000000;\n  --dark-color-context-text-selected: #ffffff;\n  --dark-color-dim: #8f949d;\n  --dark-color-dimmer: #777d88;\n  --dark-color-dimmest: #4f5766;\n  --dark-color-error-background: #200;\n  --dark-color-error-border: #900;\n  --dark-color-error-text: #f55;\n  --dark-color-expand-collapse-toggle: #8f949d;\n  --dark-color-link: #61dafb;\n  --dark-color-modal-background: rgba(0, 0, 0, 0.75);\n  --dark-color-bridge-version-npm-background: rgba(0, 0, 0, 0.25);\n  --dark-color-bridge-version-npm-text: #ffffff;\n  --dark-color-bridge-version-number: yellow;\n  --dark-color-primitive-hook-badge-background: rgba(0, 0, 0, 0.25);\n  --dark-color-primitive-hook-badge-text: rgba(255, 255, 255, 0.7);\n  --dark-color-record-active: #fc3a4b;\n  --dark-color-record-hover: #a2e9fc;\n  --dark-color-record-inactive: #61dafb;\n  --dark-color-scroll-thumb: #afb3b9;\n  --dark-color-scroll-track: #313640;\n  --dark-color-search-match: yellow;\n  --dark-color-search-match-current: #f7923b;\n  --dark-color-selected-tree-highlight-active: rgba(23, 143, 185, 0.15);\n  --dark-color-selected-tree-highlight-inactive: rgba(255, 255, 255, 0.05);\n  --dark-color-shadow: rgba(0, 0, 0, 0.5);\n  --dark-color-tab-selected-border: #178fb9;\n  --dark-color-text: #ffffff;\n  --dark-color-text-invalid: #ff8080;\n  --dark-color-text-selected: #ffffff;\n  --dark-color-toggle-background-invalid: #fc3a4b;\n  --dark-color-toggle-background-on: #178fb9;\n  --dark-color-toggle-background-off: #777d88;\n  --dark-color-toggle-text: #ffffff;\n  --dark-color-tooltip-background: rgba(255, 255, 255, 0.9);\n  --dark-color-tooltip-text: #000000;\n\n  /* Font smoothing */\n  --light-font-smoothing: auto;\n  --dark-font-smoothing: antialiased;\n  --font-smoothing: auto;\n\n  /* Compact density */\n  --compact-font-size-monospace-small: 9px;\n  --compact-font-size-monospace-normal: 11px;\n  --compact-font-size-monospace-large: 15px;\n  --compact-font-size-sans-small: 10px;\n  --compact-font-size-sans-normal: 12px;\n  --compact-font-size-sans-large: 14px;\n  --compact-line-height-data: 18px;\n  --compact-root-font-size: 16px;\n\n  /* Comfortable density */\n  --comfortable-font-size-monospace-small: 10px;\n  --comfortable-font-size-monospace-normal: 13px;\n  --comfortable-font-size-monospace-large: 17px;\n  --comfortable-font-size-sans-small: 12px;\n  --comfortable-font-size-sans-normal: 14px;\n  --comfortable-font-size-sans-large: 16px;\n  --comfortable-line-height-data: 22px;\n  --comfortable-root-font-size: 20px;\n\n  /* GitHub.com system fonts */\n  --font-family-monospace: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,\n    Courier, monospace;\n  --font-family-sans: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica,\n    Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;\n}\n");
 
 /***/ }),
 
-/***/ 50:
+/***/ 52:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/** @license React v0.0.0-experimental-51a3aa6af
+/** @license React vundefined
  * react.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -8713,7 +9518,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
-var l = __webpack_require__(33),
+var l = __webpack_require__(35),
     m = 60103,
     p = 60106;
 
@@ -8724,93 +9529,94 @@ var q = 60109,
     r = 60110,
     t = 60112;
 exports.Suspense = 60113;
-exports.unstable_SuspenseList = 60120;
+exports.SuspenseList = 60120;
 var u = 60115,
-    v = 60116,
-    w = 60121;
+    v = 60116;
 exports.unstable_DebugTracingMode = 60129;
 exports.unstable_LegacyHidden = 60131;
+exports.unstable_Cache = 60132;
 
 if ("function" === typeof Symbol && Symbol.for) {
-  var x = Symbol.for;
-  m = x("react.element");
-  p = x("react.portal");
-  exports.Fragment = x("react.fragment");
-  exports.StrictMode = x("react.strict_mode");
-  exports.Profiler = x("react.profiler");
-  q = x("react.provider");
-  r = x("react.context");
-  t = x("react.forward_ref");
-  exports.Suspense = x("react.suspense");
-  exports.unstable_SuspenseList = x("react.suspense_list");
-  u = x("react.memo");
-  v = x("react.lazy");
-  w = x("react.block");
-  exports.unstable_DebugTracingMode = x("react.debug_trace_mode");
-  exports.unstable_LegacyHidden = x("react.legacy_hidden");
+  var w = Symbol.for;
+  m = w("react.element");
+  p = w("react.portal");
+  exports.Fragment = w("react.fragment");
+  exports.StrictMode = w("react.strict_mode");
+  exports.Profiler = w("react.profiler");
+  q = w("react.provider");
+  r = w("react.context");
+  t = w("react.forward_ref");
+  exports.Suspense = w("react.suspense");
+  exports.SuspenseList = w("react.suspense_list");
+  u = w("react.memo");
+  v = w("react.lazy");
+  exports.unstable_DebugTracingMode = w("react.debug_trace_mode");
+  exports.unstable_LegacyHidden = w("react.legacy_hidden");
+  exports.unstable_Cache = w("react.cache");
 }
 
-var y = "function" === typeof Symbol && Symbol.iterator;
+var x = "function" === typeof Symbol && Symbol.iterator;
 
-function z(a) {
+function y(a) {
   if (null === a || "object" !== typeof a) return null;
-  a = y && a[y] || a["@@iterator"];
+  a = x && a[x] || a["@@iterator"];
   return "function" === typeof a ? a : null;
 }
 
-function A(a) {
+function z(a) {
   for (var b = "https://reactjs.org/docs/error-decoder.html?invariant=" + a, c = 1; c < arguments.length; c++) b += "&args[]=" + encodeURIComponent(arguments[c]);
 
   return "Minified React error #" + a + "; visit " + b + " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.";
 }
 
-var B = {
-  isMounted: function isMounted() {
+var A = {
+  isMounted: function () {
     return !1;
   },
-  enqueueForceUpdate: function enqueueForceUpdate() {},
-  enqueueReplaceState: function enqueueReplaceState() {},
-  enqueueSetState: function enqueueSetState() {}
+  enqueueForceUpdate: function () {},
+  enqueueReplaceState: function () {},
+  enqueueSetState: function () {}
 },
-    C = {};
+    B = {};
 
-function D(a, b, c) {
+function C(a, b, c) {
   this.props = a;
   this.context = b;
-  this.refs = C;
-  this.updater = c || B;
+  this.refs = B;
+  this.updater = c || A;
 }
 
-D.prototype.isReactComponent = {};
+C.prototype.isReactComponent = {};
 
-D.prototype.setState = function (a, b) {
-  if ("object" !== typeof a && "function" !== typeof a && null != a) throw Error(A(85));
+C.prototype.setState = function (a, b) {
+  if ("object" !== typeof a && "function" !== typeof a && null != a) throw Error(z(85));
   this.updater.enqueueSetState(this, a, b, "setState");
 };
 
-D.prototype.forceUpdate = function (a) {
+C.prototype.forceUpdate = function (a) {
   this.updater.enqueueForceUpdate(this, a, "forceUpdate");
 };
 
-function E() {}
+function D() {}
 
-E.prototype = D.prototype;
+D.prototype = C.prototype;
 
-function F(a, b, c) {
+function E(a, b, c) {
   this.props = a;
   this.context = b;
-  this.refs = C;
-  this.updater = c || B;
+  this.refs = B;
+  this.updater = c || A;
 }
 
-var G = F.prototype = new E();
-G.constructor = F;
-l(G, D.prototype);
-G.isPureReactComponent = !0;
-var H = {
+var F = E.prototype = new D();
+F.constructor = E;
+l(F, C.prototype);
+F.isPureReactComponent = !0;
+var G = Array.isArray,
+    H = Object.prototype.hasOwnProperty,
+    I = {
   current: null
 },
-    I = Object.prototype.hasOwnProperty,
     J = {
   key: !0,
   ref: !0,
@@ -8823,7 +9629,7 @@ function K(a, b, c) {
       d = {},
       k = null,
       h = null;
-  if (null != b) for (e in void 0 !== b.ref && (h = b.ref), void 0 !== b.key && (k = "" + b.key), b) I.call(b, e) && !J.hasOwnProperty(e) && (d[e] = b[e]);
+  if (null != b) for (e in void 0 !== b.ref && (h = b.ref), void 0 !== b.key && (k = "" + b.key), b) H.call(b, e) && !J.hasOwnProperty(e) && (d[e] = b[e]);
   var g = arguments.length - 2;
   if (1 === g) d.children = c;else if (1 < g) {
     for (var f = Array(g), n = 0; n < g; n++) f[n] = arguments[n + 2];
@@ -8837,7 +9643,7 @@ function K(a, b, c) {
     key: k,
     ref: h,
     props: d,
-    _owner: H.current
+    _owner: I.current
   };
 }
 
@@ -8890,16 +9696,16 @@ function P(a, b, c, e, d) {
       }
 
   }
-  if (h) return h = a, d = d(h), a = "" === e ? "." + O(h, 0) : e, Array.isArray(d) ? (c = "", null != a && (c = a.replace(N, "$&/") + "/"), P(d, b, c, "", function (a) {
+  if (h) return h = a, d = d(h), a = "" === e ? "." + O(h, 0) : e, G(d) ? (c = "", null != a && (c = a.replace(N, "$&/") + "/"), P(d, b, c, "", function (a) {
     return a;
   })) : null != d && (M(d) && (d = L(d, c + (!d.key || h && h.key === d.key ? "" : ("" + d.key).replace(N, "$&/") + "/") + a)), b.push(d)), 1;
   h = 0;
   e = "" === e ? "." : e + ":";
-  if (Array.isArray(a)) for (var g = 0; g < a.length; g++) {
+  if (G(a)) for (var g = 0; g < a.length; g++) {
     k = a[g];
     var f = e + O(k, g);
     h += P(k, b, c, f, d);
-  } else if (f = z(a), "function" === typeof f) for (a = f.call(a), g = 0; !(k = a.next()).done;) k = k.value, f = e + O(k, g++), h += P(k, b, c, f, d);else if ("object" === k) throw b = "" + a, Error(A(31, "[object Object]" === b ? "object with keys {" + Object.keys(a).join(", ") + "}" : b));
+  } else if (f = y(a), "function" === typeof f) for (a = f.call(a), g = 0; !(k = a.next()).done;) k = k.value, f = e + O(k, g++), h += P(k, b, c, f, d);else if ("object" === k) throw b = "" + a, Error(z(31, "[object Object]" === b ? "object with keys {" + Object.keys(a).join(", ") + "}" : b));
   return h;
 }
 
@@ -8930,31 +9736,16 @@ function R(a) {
   throw a._result;
 }
 
-function S(a) {
-  return {
-    $$typeof: w,
-    _data: a.load.apply(null, a.args),
-    _render: a.render
-  };
-}
-
-var T = {
+var S = {
   current: null
-};
-
-function U() {
-  var a = T.current;
-  if (null === a) throw Error(A(321));
-  return a;
-}
-
-var V = {
+},
+    T = {
   transition: 0
 },
-    W = {
-  ReactCurrentDispatcher: T,
-  ReactCurrentBatchConfig: V,
-  ReactCurrentOwner: H,
+    U = {
+  ReactCurrentDispatcher: S,
+  ReactCurrentBatchConfig: T,
+  ReactCurrentOwner: I,
   IsSomeRendererActing: {
     current: !1
   },
@@ -8962,45 +9753,45 @@ var V = {
 };
 exports.Children = {
   map: Q,
-  forEach: function forEach(a, b, c) {
+  forEach: function (a, b, c) {
     Q(a, function () {
       b.apply(this, arguments);
     }, c);
   },
-  count: function count(a) {
+  count: function (a) {
     var b = 0;
     Q(a, function () {
       b++;
     });
     return b;
   },
-  toArray: function toArray(a) {
+  toArray: function (a) {
     return Q(a, function (a) {
       return a;
     }) || [];
   },
-  only: function only(a) {
-    if (!M(a)) throw Error(A(143));
+  only: function (a) {
+    if (!M(a)) throw Error(z(143));
     return a;
   }
 };
-exports.Component = D;
-exports.PureComponent = F;
-exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = W;
+exports.Component = C;
+exports.PureComponent = E;
+exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = U;
 
 exports.cloneElement = function (a, b, c) {
-  if (null === a || void 0 === a) throw Error(A(267, a));
+  if (null === a || void 0 === a) throw Error(z(267, a));
   var e = l({}, a.props),
       d = a.key,
       k = a.ref,
       h = a._owner;
 
   if (null != b) {
-    void 0 !== b.ref && (k = b.ref, h = H.current);
+    void 0 !== b.ref && (k = b.ref, h = I.current);
     void 0 !== b.key && (d = "" + b.key);
     if (a.type && a.type.defaultProps) var g = a.type.defaultProps;
 
-    for (f in b) I.call(b, f) && !J.hasOwnProperty(f) && (e[f] = void 0 === b[f] && void 0 !== g ? g[f] : b[f]);
+    for (f in b) H.call(b, f) && !J.hasOwnProperty(f) && (e[f] = void 0 === b[f] && void 0 !== g ? g[f] : b[f]);
   }
 
   var f = arguments.length - 2;
@@ -9021,11 +9812,9 @@ exports.cloneElement = function (a, b, c) {
   };
 };
 
-exports.createContext = function (a, b) {
-  void 0 === b && (b = null);
+exports.createContext = function (a) {
   a = {
     $$typeof: r,
-    _calculateChangedBits: b,
     _currentValue: a,
     _currentValue2: a,
     _threadCount: 0,
@@ -9081,24 +9870,15 @@ exports.memo = function (a, b) {
   };
 };
 
-exports.unstable_block = function (a, b) {
-  return void 0 === b ? function () {
-    return {
-      $$typeof: w,
-      _data: void 0,
-      _render: a
-    };
-  } : function () {
-    return {
-      $$typeof: v,
-      _payload: {
-        load: b,
-        args: arguments,
-        render: a
-      },
-      _init: S
-    };
-  };
+exports.startTransition = function (a) {
+  var b = T.transition;
+  T.transition = 1;
+
+  try {
+    a();
+  } finally {
+    T.transition = b;
+  }
 };
 
 exports.unstable_createMutableSource = function (a, b) {
@@ -9110,92 +9890,89 @@ exports.unstable_createMutableSource = function (a, b) {
   };
 };
 
-exports.unstable_startTransition = function (a) {
-  var b = V.transition;
-  V.transition = 1;
-
-  try {
-    a();
-  } finally {
-    V.transition = b;
-  }
+exports.unstable_getCacheForType = function (a) {
+  return S.current.getCacheForType(a);
 };
 
-exports.unstable_useDeferredValue = function (a) {
-  return U().useDeferredValue(a);
+exports.unstable_useCacheRefresh = function () {
+  return S.current.useCacheRefresh();
 };
 
 exports.unstable_useMutableSource = function (a, b, c) {
-  return U().useMutableSource(a, b, c);
+  return S.current.useMutableSource(a, b, c);
 };
 
 exports.unstable_useOpaqueIdentifier = function () {
-  return U().useOpaqueIdentifier();
-};
-
-exports.unstable_useTransition = function () {
-  return U().useTransition();
+  return S.current.useOpaqueIdentifier();
 };
 
 exports.useCallback = function (a, b) {
-  return U().useCallback(a, b);
+  return S.current.useCallback(a, b);
 };
 
-exports.useContext = function (a, b) {
-  return U().useContext(a, b);
+exports.useContext = function (a) {
+  return S.current.useContext(a);
 };
 
 exports.useDebugValue = function () {};
 
+exports.useDeferredValue = function (a) {
+  return S.current.useDeferredValue(a);
+};
+
 exports.useEffect = function (a, b) {
-  return U().useEffect(a, b);
+  return S.current.useEffect(a, b);
 };
 
 exports.useImperativeHandle = function (a, b, c) {
-  return U().useImperativeHandle(a, b, c);
+  return S.current.useImperativeHandle(a, b, c);
 };
 
 exports.useLayoutEffect = function (a, b) {
-  return U().useLayoutEffect(a, b);
+  return S.current.useLayoutEffect(a, b);
 };
 
 exports.useMemo = function (a, b) {
-  return U().useMemo(a, b);
+  return S.current.useMemo(a, b);
 };
 
 exports.useReducer = function (a, b, c) {
-  return U().useReducer(a, b, c);
+  return S.current.useReducer(a, b, c);
 };
 
 exports.useRef = function (a) {
-  return U().useRef(a);
+  return S.current.useRef(a);
 };
 
 exports.useState = function (a) {
-  return U().useState(a);
+  return S.current.useState(a);
 };
 
-exports.version = "17.0.0-alpha.0-experimental-51a3aa6af";
+exports.useTransition = function () {
+  return S.current.useTransition();
+};
+
+exports.version = "17.0.3-experimental-965fb8be6";
 
 /***/ }),
 
-/***/ 51:
+/***/ 53:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (true) {
-  module.exports = __webpack_require__(65);
+  module.exports = __webpack_require__(67);
 } else {}
 
 /***/ }),
 
-/***/ 65:
+/***/ 67:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/** @license React v0.0.0-experimental-51a3aa6af
+/** @license React vundefined
  * react-debug-tools.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -9205,192 +9982,211 @@ if (true) {
  */
 
 
-var g = __webpack_require__(33),
-    k = __webpack_require__(66),
-    p = __webpack_require__(0).__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
-    v = 60128;
+var g = __webpack_require__(35),
+    h = __webpack_require__(68);
 
-if ("function" === typeof Symbol && Symbol.for) {
-  var w = Symbol.for;
-  v = w("react.opaque.id");
+function n(a) {
+  for (var b = "https://reactjs.org/docs/error-decoder.html?invariant=" + a, c = 1; c < arguments.length; c++) b += "&args[]=" + encodeURIComponent(arguments[c]);
+
+  return "Minified React error #" + a + "; visit " + b + " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.";
 }
 
-var x = [],
-    y = null,
-    z = null;
+var v = __webpack_require__(0).__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
+    w = 60128;
 
-function A() {
-  if (null === y) {
+if ("function" === typeof Symbol && Symbol.for) {
+  var x = Symbol.for;
+  w = x("react.opaque.id");
+}
+
+var y = [],
+    z = null,
+    A = null;
+
+function B() {
+  if (null === z) {
     var a = new Map();
 
     try {
-      B.useContext({
+      C.useContext({
         _currentValue: null
-      }), B.useState(null), B.useReducer(function (a) {
+      }), C.useState(null), C.useReducer(function (a) {
         return a;
-      }, null), B.useRef(null), B.useLayoutEffect(function () {}), B.useEffect(function () {}), B.useImperativeHandle(void 0, function () {
+      }, null), C.useRef(null), "function" === typeof C.useCacheRefresh && C.useCacheRefresh(), C.useLayoutEffect(function () {}), C.useEffect(function () {}), C.useImperativeHandle(void 0, function () {
         return null;
-      }), B.useDebugValue(null), B.useCallback(function () {}), B.useMemo(function () {
+      }), C.useDebugValue(null), C.useCallback(function () {}), C.useMemo(function () {
         return null;
       });
     } finally {
-      var b = x;
-      x = [];
+      var b = y;
+      y = [];
     }
 
     for (var c = 0; c < b.length; c++) {
       var d = b[c];
-      a.set(d.primitive, k.parse(d.stackError));
+      a.set(d.primitive, h.parse(d.stackError));
     }
 
-    y = a;
+    z = a;
   }
 
-  return y;
+  return z;
 }
 
-var C = null;
+var D = null;
 
-function D() {
-  var a = C;
-  null !== a && (C = a.next);
+function E() {
+  var a = D;
+  null !== a && (D = a.next);
   return a;
 }
 
-var B = {
-  readContext: function readContext(a) {
+var C = {
+  getCacheForType: function () {
+    throw Error(n(248));
+  },
+  readContext: function (a) {
     return a._currentValue;
   },
-  useCallback: function useCallback(a) {
-    var b = D();
-    x.push({
+  useCacheRefresh: function () {
+    var a = E();
+    y.push({
+      primitive: "CacheRefresh",
+      stackError: Error(),
+      value: null !== a ? a.memoizedState : function () {}
+    });
+    return function () {};
+  },
+  useCallback: function (a) {
+    var b = E();
+    y.push({
       primitive: "Callback",
       stackError: Error(),
       value: null !== b ? b.memoizedState[0] : a
     });
     return a;
   },
-  useContext: function useContext(a) {
-    x.push({
+  useContext: function (a) {
+    y.push({
       primitive: "Context",
       stackError: Error(),
       value: a._currentValue
     });
     return a._currentValue;
   },
-  useEffect: function useEffect(a) {
-    D();
-    x.push({
+  useEffect: function (a) {
+    E();
+    y.push({
       primitive: "Effect",
       stackError: Error(),
       value: a
     });
   },
-  useImperativeHandle: function useImperativeHandle(a) {
-    D();
+  useImperativeHandle: function (a) {
+    E();
     var b = void 0;
     null !== a && "object" === typeof a && (b = a.current);
-    x.push({
+    y.push({
       primitive: "ImperativeHandle",
       stackError: Error(),
       value: b
     });
   },
-  useDebugValue: function useDebugValue(a, b) {
-    x.push({
+  useDebugValue: function (a, b) {
+    y.push({
       primitive: "DebugValue",
       stackError: Error(),
       value: "function" === typeof b ? b(a) : a
     });
   },
-  useLayoutEffect: function useLayoutEffect(a) {
-    D();
-    x.push({
+  useLayoutEffect: function (a) {
+    E();
+    y.push({
       primitive: "LayoutEffect",
       stackError: Error(),
       value: a
     });
   },
-  useMemo: function useMemo(a) {
-    var b = D();
+  useMemo: function (a) {
+    var b = E();
     a = null !== b ? b.memoizedState[0] : a();
-    x.push({
+    y.push({
       primitive: "Memo",
       stackError: Error(),
       value: a
     });
     return a;
   },
-  useReducer: function useReducer(a, b, c) {
-    a = D();
+  useReducer: function (a, b, c) {
+    a = E();
     b = null !== a ? a.memoizedState : void 0 !== c ? c(b) : b;
-    x.push({
+    y.push({
       primitive: "Reducer",
       stackError: Error(),
       value: b
     });
     return [b, function () {}];
   },
-  useRef: function useRef(a) {
-    var b = D();
+  useRef: function (a) {
+    var b = E();
     a = null !== b ? b.memoizedState : {
       current: a
     };
-    x.push({
+    y.push({
       primitive: "Ref",
       stackError: Error(),
       value: a.current
     });
     return a;
   },
-  useState: function useState(a) {
-    var b = D();
+  useState: function (a) {
+    var b = E();
     a = null !== b ? b.memoizedState : "function" === typeof a ? a() : a;
-    x.push({
+    y.push({
       primitive: "State",
       stackError: Error(),
       value: a
     });
     return [a, function () {}];
   },
-  useTransition: function useTransition() {
-    D();
-    D();
-    x.push({
+  useTransition: function () {
+    E();
+    E();
+    y.push({
       primitive: "Transition",
       stackError: Error(),
       value: void 0
     });
-    return [function () {}, !1];
+    return [!1, function () {}];
   },
-  useMutableSource: function useMutableSource(a, b) {
-    D();
-    D();
-    D();
-    D();
+  useMutableSource: function (a, b) {
+    E();
+    E();
+    E();
+    E();
     a = b(a._source);
-    x.push({
+    y.push({
       primitive: "MutableSource",
       stackError: Error(),
       value: a
     });
     return a;
   },
-  useDeferredValue: function useDeferredValue(a) {
-    D();
-    D();
-    x.push({
+  useDeferredValue: function (a) {
+    E();
+    E();
+    y.push({
       primitive: "DeferredValue",
       stackError: Error(),
       value: a
     });
     return a;
   },
-  useOpaqueIdentifier: function useOpaqueIdentifier() {
-    var a = D();
-    z && 0 === z.mode && D();
-    (a = null === a ? void 0 : a.memoizedState) && a.$$typeof === v && (a = void 0);
-    x.push({
+  useOpaqueIdentifier: function () {
+    var a = E();
+    A && 0 === A.mode && E();
+    (a = null === a ? void 0 : a.memoizedState) && a.$$typeof === w && (a = void 0);
+    y.push({
       primitive: "OpaqueIdentifier",
       stackError: Error(),
       value: a
@@ -9398,14 +10194,14 @@ var B = {
     return a;
   }
 },
-    E = 0;
+    F = 0;
 
-function F(a, b, c) {
+function G(a, b, c) {
   var d = b[c].source,
       e = 0;
 
   a: for (; e < a.length; e++) if (a[e].source === d) {
-    for (var n = c + 1, q = e + 1; n < b.length && q < a.length; n++, q++) if (a[q].source !== b[n].source) continue a;
+    for (var p = c + 1, q = e + 1; p < b.length && q < a.length; p++, q++) if (a[q].source !== b[p].source) continue a;
 
     return e;
   }
@@ -9413,13 +10209,13 @@ function F(a, b, c) {
   return -1;
 }
 
-function G(a, b) {
+function H(a, b) {
   if (!a) return !1;
   b = "use" + b;
   return a.length < b.length ? !1 : a.lastIndexOf(b) === a.length - b.length;
 }
 
-function H(a) {
+function I(a) {
   if (!a) return "";
   var b = a.lastIndexOf(".");
   -1 === b && (b = 0);
@@ -9427,18 +10223,18 @@ function H(a) {
   return a.substr(b);
 }
 
-function I(a, b) {
-  for (var c = [], d = null, e = c, n = 0, q = [], u = 0; u < b.length; u++) {
+function J(a, b) {
+  for (var c = [], d = null, e = c, p = 0, q = [], u = 0; u < b.length; u++) {
     var t = b[u];
     var f = a;
-    var h = k.parse(t.stackError);
+    var k = h.parse(t.stackError);
 
     b: {
-      var m = h,
-          r = F(m, f, E);
+      var m = k,
+          r = G(m, f, F);
       if (-1 !== r) f = r;else {
-        for (var l = 0; l < f.length && 5 > l; l++) if (r = F(m, f, l), -1 !== r) {
-          E = l;
+        for (var l = 0; l < f.length && 5 > l; l++) if (r = G(m, f, l), -1 !== r) {
+          F = l;
           f = r;
           break b;
         }
@@ -9448,58 +10244,58 @@ function I(a, b) {
     }
 
     b: {
-      m = h;
-      r = A().get(t.primitive);
+      m = k;
+      r = B().get(t.primitive);
       if (void 0 !== r) for (l = 0; l < r.length && l < m.length; l++) if (r[l].source !== m[l].source) {
-        l < m.length - 1 && G(m[l].functionName, t.primitive) && l++;
-        l < m.length - 1 && G(m[l].functionName, t.primitive) && l++;
+        l < m.length - 1 && H(m[l].functionName, t.primitive) && l++;
+        l < m.length - 1 && H(m[l].functionName, t.primitive) && l++;
         m = l;
         break b;
       }
       m = -1;
     }
 
-    h = -1 === f || -1 === m || 2 > f - m ? null : h.slice(m, f - 1);
+    k = -1 === f || -1 === m || 2 > f - m ? null : k.slice(m, f - 1);
 
-    if (null !== h) {
+    if (null !== k) {
       f = 0;
 
       if (null !== d) {
-        for (; f < h.length && f < d.length && h[h.length - f - 1].source === d[d.length - f - 1].source;) f++;
+        for (; f < k.length && f < d.length && k[k.length - f - 1].source === d[d.length - f - 1].source;) f++;
 
         for (d = d.length - 1; d > f; d--) e = q.pop();
       }
 
-      for (d = h.length - f - 1; 1 <= d; d--) f = [], e.push({
+      for (d = k.length - f - 1; 1 <= d; d--) f = [], e.push({
         id: null,
         isStateEditable: !1,
-        name: H(h[d - 1].functionName),
+        name: I(k[d - 1].functionName),
         value: void 0,
         subHooks: f
       }), q.push(e), e = f;
 
-      d = h;
+      d = k;
     }
 
-    h = t.primitive;
-    f = "Context" === h || "DebugValue" === h ? null : n++;
+    k = t.primitive;
+    f = "Context" === k || "DebugValue" === k ? null : p++;
     e.push({
       id: f,
-      isStateEditable: "Reducer" === h || "State" === h,
-      name: h,
+      isStateEditable: "Reducer" === k || "State" === k,
+      name: k,
       value: t.value,
       subHooks: []
     });
   }
 
-  J(c, null);
+  K(c, null);
   return c;
 }
 
-function J(a, b) {
+function K(a, b) {
   for (var c = [], d = 0; d < a.length; d++) {
     var e = a[d];
-    "DebugValue" === e.name && 0 === e.subHooks.length ? (a.splice(d, 1), d--, c.push(e)) : J(e.subHooks, e);
+    "DebugValue" === e.name && 0 === e.subHooks.length ? (a.splice(d, 1), d--, c.push(e)) : K(e.subHooks, e);
   }
 
   null !== b && (1 === c.length ? b.value = c[0].value : 1 < c.length && (b.value = c.map(function (a) {
@@ -9507,35 +10303,35 @@ function J(a, b) {
   })));
 }
 
-function K(a, b, c) {
-  null == c && (c = p.ReactCurrentDispatcher);
+function L(a, b, c) {
+  null == c && (c = v.ReactCurrentDispatcher);
   var d = c.current;
-  c.current = B;
+  c.current = C;
 
   try {
     var e = Error();
     a(b);
   } finally {
-    a = x, x = [], c.current = d;
+    a = y, y = [], c.current = d;
   }
 
-  c = k.parse(e);
-  return I(c, a);
+  c = h.parse(e);
+  return J(c, a);
 }
 
-function L(a) {
+function M(a) {
   a.forEach(function (a, c) {
     return c._currentValue = a;
   });
 }
 
-exports.inspectHooks = K;
+exports.inspectHooks = L;
 
 exports.inspectHooksOfFiber = function (a, b) {
-  null == b && (b = p.ReactCurrentDispatcher);
-  z = a;
-  if (0 !== a.tag && 15 !== a.tag && 11 !== a.tag && 22 !== a.tag) throw Error("Unknown Fiber. Needs to be a function component to inspect hooks.");
-  A();
+  null == b && (b = v.ReactCurrentDispatcher);
+  A = a;
+  if (0 !== a.tag && 15 !== a.tag && 11 !== a.tag) throw Error("Unknown Fiber. Needs to be a function component to inspect hooks.");
+  B();
   var c = a.type,
       d = a.memoizedProps;
 
@@ -9543,17 +10339,17 @@ exports.inspectHooksOfFiber = function (a, b) {
     d = g({}, d);
     var e = c.defaultProps;
 
-    for (n in e) void 0 === d[n] && (d[n] = e[n]);
+    for (p in e) void 0 === d[p] && (d[p] = e[p]);
   }
 
-  C = a.memoizedState;
-  var n = new Map();
+  D = a.memoizedState;
+  var p = new Map();
 
   try {
     for (e = a; e;) {
       if (10 === e.tag) {
         var q = e.type._context;
-        n.has(q) || (n.set(q, q._currentValue), q._currentValue = e.memoizedProps.value);
+        p.has(q) || (p.set(q, q._currentValue), q._currentValue = e.memoizedProps.value);
       }
 
       e = e.return;
@@ -9565,30 +10361,30 @@ exports.inspectHooksOfFiber = function (a, b) {
       var t = a.ref;
       a = b;
       var f = a.current;
-      a.current = B;
+      a.current = C;
 
       try {
-        var h = Error();
+        var k = Error();
         u(c, t);
       } finally {
-        var m = x;
-        x = [];
+        var m = y;
+        y = [];
         a.current = f;
       }
 
-      var r = k.parse(h);
-      return I(r, m);
+      var r = h.parse(k);
+      return J(r, m);
     }
 
-    return K(c, d, b);
+    return L(c, d, b);
   } finally {
-    C = null, L(n);
+    D = null, M(p);
   }
 };
 
 /***/ }),
 
-/***/ 66:
+/***/ 68:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -9597,7 +10393,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   /* istanbul ignore next */
 
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(67)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(69)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -9777,7 +10573,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 67:
+/***/ 69:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -9825,20 +10621,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
 
   StackFrame.prototype = {
-    getArgs: function getArgs() {
+    getArgs: function () {
       return this.args;
     },
-    setArgs: function setArgs(v) {
+    setArgs: function (v) {
       if (Object.prototype.toString.call(v) !== '[object Array]') {
         throw new TypeError('Args must be an Array');
       }
 
       this.args = v;
     },
-    getEvalOrigin: function getEvalOrigin() {
+    getEvalOrigin: function () {
       return this.evalOrigin;
     },
-    setEvalOrigin: function setEvalOrigin(v) {
+    setEvalOrigin: function (v) {
       if (v instanceof StackFrame) {
         this.evalOrigin = v;
       } else if (v instanceof Object) {
@@ -9847,7 +10643,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         throw new TypeError('Eval Origin must be an Object or StackFrame');
       }
     },
-    toString: function toString() {
+    toString: function () {
       var fileName = this.getFileName() || '';
       var lineNumber = this.getLineNumber() || '';
       var columnNumber = this.getColumnNumber() || '';
@@ -9931,31 +10727,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 68:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-function nullthrows(x, message) {
-  if (x != null) {
-    return x;
-  }
-
-  var error = new Error(message !== undefined ? message : 'Got unexpected ' + x);
-  error.framesToPop = 1; // Skip nullthrows's own stack frame.
-
-  throw error;
-}
-
-module.exports = nullthrows;
-module.exports.default = nullthrows;
-Object.defineProperty(module.exports, '__esModule', {
-  value: true
-});
-
-/***/ }),
-
 /***/ 7:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -10011,6 +10782,31 @@ function sessionStorageSetItem(key, value) {
 
 /***/ }),
 
+/***/ 70:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function nullthrows(x, message) {
+  if (x != null) {
+    return x;
+  }
+
+  var error = new Error(message !== undefined ? message : 'Got unexpected ' + x);
+  error.framesToPop = 1; // Skip nullthrows's own stack frame.
+
+  throw error;
+}
+
+module.exports = nullthrows;
+module.exports.default = nullthrows;
+Object.defineProperty(module.exports, '__esModule', {
+  value: true
+});
+
+/***/ }),
+
 /***/ 8:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -10020,12 +10816,6 @@ function sessionStorageSetItem(key, value) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return fillInPath; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return hydrate; });
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -10197,16 +10987,12 @@ function dehydrate(data, cleaned, unserializable, path, isPathAllowed, level = 0
           preview_short: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, false),
           preview_long: Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* formatDataForPreview */ "b"])(data, true),
           name: !data.constructor || data.constructor.name === 'Object' ? '' : data.constructor.name
-        };
+        }; // TRICKY
+        // Don't use [...spread] syntax for this purpose.
+        // This project uses @babel/plugin-transform-spread in "loose" mode which only works with Array values.
+        // Other types (e.g. typed arrays, Sets) will not spread correctly.
 
-        if (typeof data[Symbol.iterator]) {
-          // TRICKY
-          // Don't use [...spread] syntax for this purpose.
-          // This project uses @babel/plugin-transform-spread in "loose" mode which only works with Array values.
-          // Other types (e.g. typed arrays, Sets) will not spread correctly.
-          Array.from(data).forEach((item, i) => unserializableValue[i] = dehydrate(item, cleaned, unserializable, path.concat([i]), isPathAllowed, isPathAllowedCheck ? 1 : level + 1));
-        }
-
+        Array.from(data).forEach((item, i) => unserializableValue[i] = dehydrate(item, cleaned, unserializable, path.concat([i]), isPathAllowed, isPathAllowedCheck ? 1 : level + 1));
         unserializable.push(path);
         return unserializableValue;
       }
@@ -10301,7 +11087,7 @@ function fillInPath(object, data, path, value) {
     }
   }
 
-  Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* setInObject */ "p"])(object, path, value);
+  Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* setInObject */ "q"])(object, path, value);
 }
 function hydrate(object, cleaned, unserializable) {
   cleaned.forEach(path => {
@@ -10315,7 +11101,9 @@ function hydrate(object, cleaned, unserializable) {
 
     const value = parent[last];
 
-    if (value.type === 'infinity') {
+    if (!value) {
+      return;
+    } else if (value.type === 'infinity') {
       parent[last] = Infinity;
     } else if (value.type === 'nan') {
       parent[last] = NaN;
@@ -10345,9 +11133,8 @@ function hydrate(object, cleaned, unserializable) {
     }
 
     const node = parent[last];
-
-    const replacement = _objectSpread({}, node);
-
+    const replacement = { ...node
+    };
     upgradeUnserializable(replacement, node);
     parent[last] = replacement;
   });
@@ -10410,4 +11197,3 @@ function upgradeUnserializable(destination, source) {
 /***/ })
 
 /******/ });
-//# sourceMappingURL=injectGlobalHook.js.map

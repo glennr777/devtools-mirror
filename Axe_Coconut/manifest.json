@@ -1,0 +1,46 @@
+{
+   "background": {
+      "persistent": true,
+      "scripts": [ "browser-polyfill.js", "vendor.bundle.js", "background.bundle.js" ]
+   },
+   "browser_action": {
+      "browser_style": true,
+      "default_icon": {
+         "128": "assets/images/coconut128.png",
+         "16": "assets/images/coconut16.png",
+         "48": "assets/images/coconut48.png"
+      },
+      "default_popup": "popup.html",
+      "default_title": "Axe Accessibility"
+   },
+   "content_scripts": [ {
+      "all_frames": true,
+      "js": [ "browser-polyfill.js", "vendor.bundle.js", "content.bundle.js" ],
+      "match_about_blank": true,
+      "matches": [ "\u003Call_urls>" ],
+      "run_at": "document_start"
+   } ],
+   "content_security_policy": "script-src 'self' ; object-src 'self'",
+   "description": "Accessibility Checker for Developers in Chrome",
+   "devtools_page": "devtools.html",
+   "differential_fingerprint": "1.899a842367da8ae0d846705a6883c71cf58f2432915690b56a96010e3fa1b16a",
+   "externally_connectable": {
+      "matches": [ "https://axe.deque.com/*" ]
+   },
+   "icons": {
+      "128": "assets/images/coconut128.png",
+      "16": "assets/images/coconut16.png",
+      "48": "assets/images/coconut48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkAEhrGDKROi5RoB9gchabXfd+f7haELBjEc9au1JA+9++Tn6zlgBSvOMNdeEx8TZm8hAp0uyGi2II5mPYs9g9kfsB5fGgyewyDiNAa+24uvw5MJsqSmW9f5SCVjsLRwndvGGwJfF8n4fS/UGUNSR4YU6xMDMQN8hAgtyHyFhI1UOeDbOc9F0n7ZQ/RSB56TNvHrzA2oINHq/QzsnCmka/eUPD5a3uQHDBac9zN5cKkEjSEhV9+xmevIW+hvUBfVmtw8sKcdPRa7o6Ak/nAI66yE96o+ndXLM7rurXPtlYlk+j6x4XjFdiniwE+aI8nDownOW0CUwEU0Wdjk7FNpYlwIDAQAB",
+   "manifest_version": 2,
+   "name": "axe-coconut - Web Accessibility Testing",
+   "permissions": [ "tabs", "debugger", "activeTab", "webNavigation", "storage" ],
+   "storage": {
+      "managed_schema": "schema.json"
+   },
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "4.8.6.11818",
+   "version_name": "4.8.6.11818 build 7ad6fe9b86",
+   "web_accessible_resources": [ "*.woff2", "highlighter.js" ]
+}

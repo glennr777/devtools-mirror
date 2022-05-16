@@ -32,11 +32,11 @@
    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'; style-src * 'unsafe-inline'; img-src 'self' data:;",
    "description": "Redux DevTools for debugging application's state changes.",
    "devtools_page": "devtools.html",
-   "differential_fingerprint": "1.7713d2996a27148a24386576c354104a491e3b0ea49b77892d6f6837939f25fb",
+   "differential_fingerprint": "1.48bef63cf98c816054cf3f20bf90f186dc78f630aeeea8e8117277c08ebbe663",
    "externally_connectable": {
       "ids": [ "*" ]
    },
-   "homepage_url": "https://github.com/zalmoxisus/redux-devtools-extension",
+   "homepage_url": "https://github.com/reduxjs/redux-devtools",
    "icons": {
       "128": "img/logo/128x128.png",
       "16": "img/logo/16x16.png",
@@ -57,6 +57,6 @@
    "permissions": [ "notifications", "contextMenus", "storage", "file:///*", "http://*/*", "https://*/*" ],
    "short_name": "Redux DevTools",
    "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "2.17.2",
-   "web_accessible_resources": [ "page.bundle.js", "inject.bundle.js", "redux-devtools-extension.bundle.js" ]
+   "version": "3.0.11",
+   "web_accessible_resources": [ "page.bundle.js" ]
 }

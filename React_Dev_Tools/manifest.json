@@ -18,9 +18,9 @@
       "run_at": "document_start"
    } ],
    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-   "description": "Adds React debugging tools to the Chrome Developer Tools.\n\nCreated from revision 0ae5290b54 on 5/25/2021.",
+   "description": "Adds React debugging tools to the Chrome Developer Tools.\n\nCreated from revision ca7a38ae4 on 5/12/2022.",
    "devtools_page": "main.html",
-   "differential_fingerprint": "1.d38557d2bd9085bf4484c65945e451da04e21ad9beb4e8fe226937f18398ce3c",
+   "differential_fingerprint": "1.a8b91a5fd4b5c98962c4f59381764bcf52c469d9c602a726229ab0e673bb751a",
    "icons": {
       "128": "icons/128-production.png",
       "16": "icons/16-production.png",
@@ -33,7 +33,7 @@
    "name": "React Developer Tools",
    "permissions": [ "file:///*", "http://*/*", "https://*/*" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "4.13.5",
-   "version_name": "4.13.5 (5/25/2021)",
+   "version": "4.24.6",
+   "version_name": "4.24.6 (5/12/2022)",
    "web_accessible_resources": [ "main.html", "panel.html", "build/react_devtools_backend.js", "build/renderer.js" ]
 }

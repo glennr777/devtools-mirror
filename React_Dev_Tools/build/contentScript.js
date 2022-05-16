@@ -77,16 +77,16 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/build/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 95);
+/******/ 	return __webpack_require__(__webpack_require__.s = 116);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 95:
+/***/ 116:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110,10 +110,10 @@ function handleMessageFromDevtools(message) {
   }, '*');
 }
 
-function handleMessageFromPage(evt) {
-  if (evt.source === window && evt.data && evt.data.source === 'react-devtools-bridge') {
+function handleMessageFromPage(event) {
+  if (event.source === window && event.data && event.data.source === 'react-devtools-bridge') {
     backendInitialized = true;
-    port.postMessage(evt.data.payload);
+    port.postMessage(event.data.payload);
   }
 }
 

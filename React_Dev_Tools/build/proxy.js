@@ -81,12 +81,12 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 116);
+/******/ 	return __webpack_require__(__webpack_require__.s = 206);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 116:
+/***/ 206:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -96,7 +96,7 @@
 let backendDisconnected = false;
 let backendInitialized = false;
 
-function sayHelloToBackend() {
+function sayHelloToBackendManager() {
   window.postMessage({
     source: 'react-devtools-content-script',
     hello: true
@@ -111,9 +111,19 @@ function handleMessageFromDevtools(message) {
 }
 
 function handleMessageFromPage(event) {
-  if (event.source === window && event.data && event.data.source === 'react-devtools-bridge') {
-    backendInitialized = true;
-    port.postMessage(event.data.payload);
+  if (event.source === window && event.data) {
+    // This is a message from a bridge (initialized by a devtools backend)
+    if (event.data.source === 'react-devtools-bridge') {
+      backendInitialized = true;
+      port.postMessage(event.data.payload);
+    } // This is a message from the backend manager
+
+
+    if (event.data.source === 'react-devtools-backend-manager') {
+      chrome.runtime.sendMessage({
+        payload: event.data.payload
+      });
+    }
   }
 }
 
@@ -136,16 +146,16 @@ const port = chrome.runtime.connect({
 port.onMessage.addListener(handleMessageFromDevtools);
 port.onDisconnect.addListener(handleDisconnect);
 window.addEventListener('message', handleMessageFromPage);
-sayHelloToBackend(); // The backend waits to install the global hook until notified by the content script.
-// In the event of a page reload, the content script might be loaded before the backend is injected.
-// Because of this we need to poll the backend until it has been initialized.
+sayHelloToBackendManager(); // The backend waits to install the global hook until notified by the content script.
+// In the event of a page reload, the content script might be loaded before the backend manager is injected.
+// Because of this we need to poll the backend manager until it has been initialized.
 
 if (!backendInitialized) {
   const intervalID = setInterval(() => {
     if (backendInitialized || backendDisconnected) {
       clearInterval(intervalID);
     } else {
-      sayHelloToBackend();
+      sayHelloToBackendManager();
     }
   }, 500);
 }

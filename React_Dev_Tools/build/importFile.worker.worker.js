@@ -3335,47 +3335,10 @@ __webpack_require__.d(__webpack_exports__, "importFile", function() { return /* 
 // EXTERNAL MODULE: ../react-devtools-timeline/node_modules/regenerator-runtime/runtime.js
 var runtime = __webpack_require__(5);
 
-// EXTERNAL MODULE: /Users/mengdi/workspace/git/react/node_modules/@elg/speedscope/dist/library/library.js
+// EXTERNAL MODULE: /Users/hoxy/repos/react/node_modules/@elg/speedscope/dist/library/library.js
 var library = __webpack_require__(1);
 
-// CONCATENATED MODULE: ../react-devtools-shared/src/constants.js
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-const CHROME_WEBSTORE_EXTENSION_ID = 'fmkadmapgofadopljbjfkapdkoienihi';
-const INTERNAL_EXTENSION_ID = 'dnjnjgbfilfphmojnmhliehogmojhclc';
-const LOCAL_EXTENSION_ID = 'ikiahnapldjmdmpkmfhjdjilojjhgcbf'; // Flip this flag to true to enable verbose console debug logging.
-
-const __DEBUG__ = false; // Flip this flag to true to enable performance.mark() and performance.measure() timings.
-
-const __PERFORMANCE_PROFILE__ = false;
-const TREE_OPERATION_ADD = 1;
-const TREE_OPERATION_REMOVE = 2;
-const TREE_OPERATION_REORDER_CHILDREN = 3;
-const TREE_OPERATION_UPDATE_TREE_BASE_DURATION = 4;
-const TREE_OPERATION_UPDATE_ERRORS_OR_WARNINGS = 5;
-const TREE_OPERATION_REMOVE_ROOT = 6;
-const TREE_OPERATION_SET_SUBTREE_MODE = 7;
-const PROFILING_FLAG_BASIC_SUPPORT = 0b01;
-const PROFILING_FLAG_TIMELINE_SUPPORT = 0b10;
-const LOCAL_STORAGE_DEFAULT_TAB_KEY = 'React::DevTools::defaultTab';
-const LOCAL_STORAGE_FILTER_PREFERENCES_KEY = 'React::DevTools::componentFilters';
-const SESSION_STORAGE_LAST_SELECTION_KEY = 'React::DevTools::lastSelection';
-const LOCAL_STORAGE_OPEN_IN_EDITOR_URL = 'React::DevTools::openInEditorUrl';
-const LOCAL_STORAGE_PARSE_HOOK_NAMES_KEY = 'React::DevTools::parseHookNames';
-const SESSION_STORAGE_RECORD_CHANGE_DESCRIPTIONS_KEY = 'React::DevTools::recordChangeDescriptions';
-const SESSION_STORAGE_RELOAD_AND_PROFILE_KEY = 'React::DevTools::reloadAndProfile';
-const LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS = 'React::DevTools::breakOnConsoleErrors';
-const LOCAL_STORAGE_SHOULD_PATCH_CONSOLE_KEY = 'React::DevTools::appendComponentStack';
-const LOCAL_STORAGE_SHOW_INLINE_WARNINGS_AND_ERRORS_KEY = 'React::DevTools::showInlineWarningsAndErrors';
-const LOCAL_STORAGE_TRACE_UPDATES_ENABLED_KEY = 'React::DevTools::traceUpdatesEnabled';
-const LOCAL_STORAGE_HIDE_CONSOLE_LOGS_IN_STRICT_MODE = 'React::DevTools::hideConsoleLogsInStrictMode';
-const PROFILER_EXPORT_VERSION = 5;
+// CONCATENATED MODULE: ../react-devtools-shared/src/devtools/constants.js
 const CHANGE_LOG_URL = 'https://github.com/facebook/react/blob/main/packages/react-devtools/CHANGELOG.md';
 const UNSUPPORTED_VERSION_URL = 'https://reactjs.org/blog/2019/08/15/new-react-devtools.html#how-do-i-get-the-old-version-back';
 const REACT_DEVTOOLS_WORKPLACE_URL = 'https://fburl.com/react-devtools-workplace-group';
@@ -3695,7 +3658,7 @@ const COMPACT_LINE_HEIGHT = parseInt(THEME_STYLES.compact['--line-height-data'],
 
 // CONCATENATED MODULE: ../react-devtools-timeline/src/constants.js
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -3709,7 +3672,7 @@ const SCHEDULING_PROFILER_VERSION = 1;
 const SNAPSHOT_MAX_HEIGHT = 60;
 // CONCATENATED MODULE: ../react-devtools-timeline/src/import-worker/InvalidProfileError.js
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -3770,7 +3733,7 @@ function memoizeOne(resultFn, isEqual) {
 /* harmony default export */ var memoize_one_esm = (memoizeOne);
 // CONCATENATED MODULE: ../react-devtools-timeline/src/utils/getBatchRange.js
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -3808,13 +3771,13 @@ function unmemoizedGetBatchRange(batchUID, data, minStartTime = 0) {
 }
 
 const getBatchRange = memoize_one_esm(unmemoizedGetBatchRange);
-// EXTERNAL MODULE: /Users/mengdi/workspace/git/react/node_modules/error-stack-parser/error-stack-parser.js
+// EXTERNAL MODULE: /Users/hoxy/repos/react/node_modules/error-stack-parser/error-stack-parser.js
 var error_stack_parser = __webpack_require__(3);
 var error_stack_parser_default = /*#__PURE__*/__webpack_require__.n(error_stack_parser);
 
 // CONCATENATED MODULE: ../react-devtools-timeline/src/import-worker/preprocessData.js
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -3951,7 +3914,7 @@ function markWorkCompleted(type, stopTime, currentProfilerData, stack) {
 
   if (!measure) {
     console.error('Could not find matching measure for type "%s".', type);
-  } // $FlowFixMe This property should not be writable outside of this function.
+  } // $FlowFixMe[cannot-write] This property should not be writable outside of this function.
 
 
   measure.duration = stopTime - startTime;
@@ -4078,7 +4041,7 @@ function processScreenshot(event, timestamp, profilerData, state) {
   // This will be used later to scale for display within the thumbnail strip.
 
   fetch(snapshot.imageSource).then(response => response.blob()).then(blob => {
-    // $FlowFixMe createImageBitmap
+    // $FlowFixMe[cannot-resolve-name] createImageBitmap
     createImageBitmap(blob).then(bitmap => {
       snapshot.height = bitmap.height;
       snapshot.width = bitmap.width;
@@ -4168,22 +4131,22 @@ state) {
 
     case 'blink.user_timing':
       if (name.startsWith('--react-version-')) {
-        const [reactVersion] = name.substr(16).split('-');
+        const [reactVersion] = name.slice(16).split('-');
         currentProfilerData.reactVersion = reactVersion;
       } else if (name.startsWith('--profiler-version-')) {
-        const [versionString] = name.substr(19).split('-');
+        const [versionString] = name.slice(19).split('-');
         profilerVersion = parseInt(versionString, 10);
 
         if (profilerVersion !== SCHEDULING_PROFILER_VERSION) {
           throw new InvalidProfileError(`This version of profiling data (${versionString}) is not supported by the current profiler.`);
         }
       } else if (name.startsWith('--react-lane-labels-')) {
-        const [laneLabelTuplesString] = name.substr(20).split('-');
+        const [laneLabelTuplesString] = name.slice(20).split('-');
         updateLaneToLabelMap(currentProfilerData, laneLabelTuplesString);
       } else if (name.startsWith('--component-')) {
         processReactComponentMeasure(name, startTime, currentProfilerData, state);
       } else if (name.startsWith('--schedule-render-')) {
-        const [laneBitmaskString] = name.substr(18).split('-');
+        const [laneBitmaskString] = name.slice(18).split('-');
         currentProfilerData.schedulingEvents.push({
           type: 'schedule-render',
           lanes: getLanesFromTransportDecimalBitmask(laneBitmaskString),
@@ -4191,7 +4154,7 @@ state) {
           warning: null
         });
       } else if (name.startsWith('--schedule-forced-update-')) {
-        const [laneBitmaskString, componentName] = name.substr(25).split('-');
+        const [laneBitmaskString, componentName] = name.slice(25).split('-');
         const forceUpdateEvent = {
           type: 'schedule-force-update',
           lanes: getLanesFromTransportDecimalBitmask(laneBitmaskString),
@@ -4209,7 +4172,7 @@ state) {
 
         currentProfilerData.schedulingEvents.push(forceUpdateEvent);
       } else if (name.startsWith('--schedule-state-update-')) {
-        const [laneBitmaskString, componentName] = name.substr(24).split('-');
+        const [laneBitmaskString, componentName] = name.slice(24).split('-');
         const stateUpdateEvent = {
           type: 'schedule-state-update',
           lanes: getLanesFromTransportDecimalBitmask(laneBitmaskString),
@@ -4227,7 +4190,7 @@ state) {
 
         currentProfilerData.schedulingEvents.push(stateUpdateEvent);
       } else if (name.startsWith('--error-')) {
-        const [componentName, phase, message] = name.substr(8).split('-');
+        const [componentName, phase, message] = name.slice(8).split('-');
         currentProfilerData.thrownErrors.push({
           componentName,
           message,
@@ -4236,7 +4199,7 @@ state) {
           type: 'thrown-error'
         });
       } else if (name.startsWith('--suspense-suspend-')) {
-        const [id, componentName, phase, laneBitmaskString, promiseName] = name.substr(19).split('-');
+        const [id, componentName, phase, laneBitmaskString, promiseName] = name.slice(19).split('-');
         const lanes = getLanesFromTransportDecimalBitmask(laneBitmaskString);
         const availableDepths = new Array(state.unresolvedSuspenseEvents.size + 1).fill(true);
         state.unresolvedSuspenseEvents.forEach(({
@@ -4281,7 +4244,7 @@ state) {
         currentProfilerData.suspenseEvents.push(suspenseEvent);
         state.unresolvedSuspenseEvents.set(id, suspenseEvent);
       } else if (name.startsWith('--suspense-resolved-')) {
-        const [id] = name.substr(20).split('-');
+        const [id] = name.slice(20).split('-');
         const suspenseEvent = state.unresolvedSuspenseEvents.get(id);
 
         if (suspenseEvent != null) {
@@ -4290,7 +4253,7 @@ state) {
           suspenseEvent.resolution = 'resolved';
         }
       } else if (name.startsWith('--suspense-rejected-')) {
-        const [id] = name.substr(20).split('-');
+        const [id] = name.slice(20).split('-');
         const suspenseEvent = state.unresolvedSuspenseEvents.get(id);
 
         if (suspenseEvent != null) {
@@ -4311,7 +4274,7 @@ state) {
           state.potentialLongNestedUpdate = null;
         }
 
-        const [laneBitmaskString] = name.substr(15).split('-');
+        const [laneBitmaskString] = name.slice(15).split('-');
         throwIfIncomplete('render', state.measureStack);
 
         if (getLastType(state.measureStack) !== 'render-idle') {
@@ -4336,23 +4299,23 @@ state) {
         markWorkCompleted('render', startTime, currentProfilerData, state.measureStack);
       } else if (name.startsWith('--commit-start-')) {
         state.nextRenderShouldGenerateNewBatchID = true;
-        const [laneBitmaskString] = name.substr(15).split('-');
+        const [laneBitmaskString] = name.slice(15).split('-');
         markWorkStarted('commit', startTime, getLanesFromTransportDecimalBitmask(laneBitmaskString), currentProfilerData, state);
       } else if (name.startsWith('--commit-stop')) {
         markWorkCompleted('commit', startTime, currentProfilerData, state.measureStack);
         markWorkCompleted('render-idle', startTime, currentProfilerData, state.measureStack);
       } else if (name.startsWith('--layout-effects-start-')) {
-        const [laneBitmaskString] = name.substr(23).split('-');
+        const [laneBitmaskString] = name.slice(23).split('-');
         markWorkStarted('layout-effects', startTime, getLanesFromTransportDecimalBitmask(laneBitmaskString), currentProfilerData, state);
       } else if (name.startsWith('--layout-effects-stop')) {
         markWorkCompleted('layout-effects', startTime, currentProfilerData, state.measureStack);
       } else if (name.startsWith('--passive-effects-start-')) {
-        const [laneBitmaskString] = name.substr(24).split('-');
+        const [laneBitmaskString] = name.slice(24).split('-');
         markWorkStarted('passive-effects', startTime, getLanesFromTransportDecimalBitmask(laneBitmaskString), currentProfilerData, state);
       } else if (name.startsWith('--passive-effects-stop')) {
         markWorkCompleted('passive-effects', startTime, currentProfilerData, state.measureStack);
       } else if (name.startsWith('--react-internal-module-start-')) {
-        const stackFrameStart = name.substr(30);
+        const stackFrameStart = name.slice(30);
 
         if (!state.internalModuleStackStringSet.has(stackFrameStart)) {
           state.internalModuleStackStringSet.add(stackFrameStart);
@@ -4360,7 +4323,7 @@ state) {
           state.internalModuleCurrentStackFrame = parsedStackFrameStart;
         }
       } else if (name.startsWith('--react-internal-module-stop-')) {
-        const stackFrameStop = name.substr(29);
+        const stackFrameStop = name.slice(29);
 
         if (!state.internalModuleStackStringSet.has(stackFrameStop)) {
           state.internalModuleStackStringSet.add(stackFrameStop);
@@ -4413,7 +4376,7 @@ function assertCurrentComponentMeasureType(state, type) {
 
 function processReactComponentMeasure(name, startTime, currentProfilerData, state) {
   if (name.startsWith('--component-render-start-')) {
-    const [componentName] = name.substr(25).split('-');
+    const [componentName] = name.slice(25).split('-');
     assertNoOverlappingComponentMeasure(state);
     state.currentReactComponentMeasure = {
       componentName,
@@ -4432,7 +4395,7 @@ function processReactComponentMeasure(name, startTime, currentProfilerData, stat
       currentProfilerData.componentMeasures.push(componentMeasure);
     }
   } else if (name.startsWith('--component-layout-effect-mount-start-')) {
-    const [componentName] = name.substr(38).split('-');
+    const [componentName] = name.slice(38).split('-');
     assertNoOverlappingComponentMeasure(state);
     state.currentReactComponentMeasure = {
       componentName,
@@ -4451,7 +4414,7 @@ function processReactComponentMeasure(name, startTime, currentProfilerData, stat
       currentProfilerData.componentMeasures.push(componentMeasure);
     }
   } else if (name.startsWith('--component-layout-effect-unmount-start-')) {
-    const [componentName] = name.substr(40).split('-');
+    const [componentName] = name.slice(40).split('-');
     assertNoOverlappingComponentMeasure(state);
     state.currentReactComponentMeasure = {
       componentName,
@@ -4470,7 +4433,7 @@ function processReactComponentMeasure(name, startTime, currentProfilerData, stat
       currentProfilerData.componentMeasures.push(componentMeasure);
     }
   } else if (name.startsWith('--component-passive-effect-mount-start-')) {
-    const [componentName] = name.substr(39).split('-');
+    const [componentName] = name.slice(39).split('-');
     assertNoOverlappingComponentMeasure(state);
     state.currentReactComponentMeasure = {
       componentName,
@@ -4489,7 +4452,7 @@ function processReactComponentMeasure(name, startTime, currentProfilerData, stat
       currentProfilerData.componentMeasures.push(componentMeasure);
     }
   } else if (name.startsWith('--component-passive-effect-unmount-start-')) {
-    const [componentName] = name.substr(41).split('-');
+    const [componentName] = name.slice(41).split('-');
     assertNoOverlappingComponentMeasure(state);
     state.currentReactComponentMeasure = {
       componentName,
@@ -4525,8 +4488,11 @@ function preprocessFlamechart(rawData) {
   const profile = parsedData.profiles[0]; // TODO: Choose the main CPU thread only
 
   const speedscopeFlamechart = new library["Flamechart"]({
+    // $FlowFixMe[method-unbinding]
     getTotalWeight: profile.getTotalWeight.bind(profile),
+    // $FlowFixMe[method-unbinding]
     forEachCall: profile.forEachCall.bind(profile),
+    // $FlowFixMe[method-unbinding]
     formatValue: profile.formatValue.bind(profile),
     getColorBucketForFrame: () => 0
   });
@@ -4693,13 +4659,13 @@ async function preprocessData(timeline) {
 
   return profilerData;
 }
-// EXTERNAL MODULE: /Users/mengdi/workspace/git/react/node_modules/nullthrows/nullthrows.js
+// EXTERNAL MODULE: /Users/hoxy/repos/react/node_modules/nullthrows/nullthrows.js
 var nullthrows = __webpack_require__(4);
 var nullthrows_default = /*#__PURE__*/__webpack_require__.n(nullthrows);
 
 // CONCATENATED MODULE: ../react-devtools-timeline/src/import-worker/readInputData.js
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -4732,7 +4698,7 @@ const readInputData = file => {
 };
 // CONCATENATED MODULE: ../react-devtools-timeline/src/import-worker/importFile.js
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -4771,9 +4737,9 @@ async function importFile(file) {
     }
   }
 }
-// CONCATENATED MODULE: /Users/mengdi/workspace/git/react/node_modules/workerize-loader/dist/rpc-worker-loader.js!/Users/mengdi/workspace/git/react/node_modules/babel-loader/lib??ref--2-1!/Users/mengdi/workspace/git/react/node_modules/babel-loader/lib??ref--3!../react-devtools-timeline/src/import-worker/importFile.worker.js
+// CONCATENATED MODULE: /Users/hoxy/repos/react/node_modules/workerize-loader/dist/rpc-worker-loader.js!/Users/hoxy/repos/react/node_modules/babel-loader/lib??ref--2-1!/Users/hoxy/repos/react/node_modules/babel-loader/lib??ref--3!../react-devtools-timeline/src/import-worker/importFile.worker.js
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.

@@ -19,9 +19,15 @@
    "content_security_policy": {
       "extension_pages": "script-src 'self'; object-src 'self'"
    },
+<<<<<<< HEAD
    "description": "Adds React debugging tools to the Chrome Developer Tools.\n\nCreated from revision 44c3d3d665 on 2/7/2025.",
    "devtools_page": "main.html",
    "differential_fingerprint": "1.daff95e97bc8d34425b1bc54c23784516d12e2fc5d59dfbb8b04426039dccf95",
+=======
+   "description": "Adds React debugging tools to the Chrome Developer Tools.\n\nCreated from revision 2468a8735 on 5/19/2023.",
+   "devtools_page": "main.html",
+   "differential_fingerprint": "1.dc6ed21659665d61bc5f2ee9c2252e1ef6f57259b50443c920127bb8b318c849",
+>>>>>>> 664d11905d5f6e4124d22ac3027a695b887affd0
    "host_permissions": [ "\u003Call_urls>" ],
    "icons": {
       "128": "icons/128-production.png",
@@ -33,11 +39,18 @@
    "manifest_version": 3,
    "minimum_chrome_version": "102",
    "name": "React Developer Tools",
+<<<<<<< HEAD
    "optional_permissions": [ "clipboardWrite" ],
    "permissions": [ "scripting", "storage", "tabs" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
    "version": "6.1.1",
    "version_name": "6.1.1 (2/7/2025)",
+=======
+   "permissions": [ "storage", "scripting" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "4.27.8",
+   "version_name": "4.27.8 (5/19/2023)",
+>>>>>>> 664d11905d5f6e4124d22ac3027a695b887affd0
    "web_accessible_resources": [ {
       "extension_ids": [  ],
       "matches": [ "\u003Call_urls>" ],

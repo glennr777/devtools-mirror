@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "properties": {
+    "AxeURL": {
+      "title": "The axe server url to point the extension at",
+      "description": "Set to full url of your axe DevTools server",
+      "type": "string"
+    },
+    "UsageServiceURL": {
+      "title": "Usage Service URL endpoint",
+      "description": "The url of the Usage Service to have data collected and sent to.",
+      "type": "string"
+    },
+    "UsageServiceOrganization": {
+      "title": "Usage Service Organization",
+      "description": "The organization name to send to the Usage Service.",
+      "type": "string"
+    },
+    "DataGather": {
+      "title": "Send usage data to the provided usage server",
+      "description": "If set to true, usage data will be collected and sent to our usage server",
+      "type": "boolean"
+    }
+  }
+}
